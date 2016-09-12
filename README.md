@@ -10,7 +10,7 @@ In the past few decades an increasing number of pico- and nano- satellites were 
 This Software was created to implement different scheduling approaches for an academical ground station network and to evaluate their performance for different scenarios.  
 
 ## Wiki
-Wiki and documentaion is comming soon.
+Wiki and documentaion are comming soon.
 
 
 **License:** [CC-BY-NC](https://github.com/1manprojects/marrss/blob/master/License.txt)
