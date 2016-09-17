@@ -92,6 +92,7 @@ namespace MARRSS.Scheduler
                 if (schedulerContacts.getAt(i).getDuration() < minDuration)
                 {
                     schedulerContacts.deleteAt(i);
+                    i--;
                 }
             }
         }

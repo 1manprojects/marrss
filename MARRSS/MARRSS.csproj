@@ -173,7 +173,6 @@
     <Compile Include="Scheduler\GeneticScheduler.cs" />
     <Compile Include="Scheduler\EftGreedyScheduler.cs" />
     <Compile Include="SchedulerData\Request.cs" />
-    <Compile Include="Scheduler\NeuralScheduler.cs" />
     <Compile Include="Scheduler\ObjectFunktion.cs" />
     <Compile Include="Scheduler\Request2Contact.cs" />
     <Compile Include="SchedulerData\TrackingData.cs" />

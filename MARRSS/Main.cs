@@ -298,7 +298,8 @@ namespace MARRSS
                 //Set Scheduling Problem
                 Scheduler.SchedulingProblem problem = new Scheduler.SchedulingProblem();
                 problem.setContactWindows(contactsVector);
-                problem.removeUnwantedContacts(Convert.ToInt32(minDurationTextBox.Text));
+                //if (resetScenario)
+                    problem.removeUnwantedContacts(Convert.ToInt32(minDurationTextBox.Text));
                 /*
                  * Generate the selected Scenarios
                  * These are defined in the SchedulingProblem Class
