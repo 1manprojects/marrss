@@ -10,7 +10,7 @@ In the past few decades an increasing number of pico- and nano- satellites were 
 This Software was created to implement different scheduling approaches for an academical ground station network and to evaluate their performance for different scenarios.  
 
 ## Download
-[Version 1.2.6099](https://github.com/1manprojects/marrss/raw/master/MARRSS.zip)
+Download the latest release [here](https://github.com/1manprojects/marrss/releases)
 
 ## Wiki
 Wiki and documentaion are comming soon.
