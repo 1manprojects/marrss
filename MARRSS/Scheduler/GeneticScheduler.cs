@@ -680,7 +680,7 @@ namespace MARRSS.Scheduler
            \return string 
             returns the Name of the Schedule and used Settings as String
         */
-        public string ToString()
+        override public string ToString()
         {
             string name = "Genetic Scheduler" + "\n" + "PopulationSize: "
                 + popSize + "\n" + "Starting Chance: " + genCrea + "\n" + "Mutation Chance: " + mutation + "\n";

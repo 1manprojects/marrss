@@ -544,6 +544,10 @@ namespace MARRSS.DataBase
             return res;
         }
 
+        //! check if database is connected
+        /*! 
+           \return bool true if database connection is oben
+        */
         public bool connected()
         {
             return isConnected;

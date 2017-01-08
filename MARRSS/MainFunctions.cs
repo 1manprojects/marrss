@@ -9,12 +9,8 @@
 * Licensed under
 * Creative Commons Attribution NonCommercial (CC-BY-NC)
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace MARRSS
 {
@@ -145,7 +141,25 @@ namespace MARRSS
             return accuracy;
         }
 
-
+        //! Check if output folders exists
+        /*! 
+           creates the output folders is they do not exist
+        */
+        public static void checkAndCreateLogFolders()
+        {
+            if (!Directory.Exists(Properties.Settings.Default.global_Save_Path))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.global_Save_Path);
+            }
+            if (!Directory.Exists(Properties.Settings.Default.global_LogSavePath))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.global_LogSavePath);
+            }
+            if (!Directory.Exists(Properties.Settings.Default.global_ResultSavePath))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
+            }
+        }
 
     }
 }

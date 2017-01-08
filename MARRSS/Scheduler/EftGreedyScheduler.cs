@@ -9,15 +9,11 @@
 * Licensed under
 * Creative Commons Attribution NonCommercial (CC-BY-NC)
 */
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using MARRSS.Interface2;
 using MARRSS.Definition;
-using MARRSS.Global;
 
 namespace MARRSS.Scheduler
 {
@@ -34,34 +30,12 @@ namespace MARRSS.Scheduler
         private ContactWindowsVector set; //!< ContactWindowsVector to start with
         private Main f = null;
 
-        //logging
-        private int generateLog = 0;
-        private int generatePlotData = 0;
-        private string plotPath = "";
-        private System.IO.StreamWriter plotWr;
-
         //!GreedyScheduler constructor.
         /*!
             constructs a basic greedy scheduler
         */
         public EftGreedyScheduler()
         {
-            /*
-             * Commented out for EFT-Greedy since there is no fitness value involed
-             * during runtime only priority and earliest finisch time
-             * 
-            generateLog = Properties.Settings.Default.SaveLogs;
-            generatePlotData = Properties.Settings.Default.PlotData;
-            plotPath = Properties.Settings.Default.PlotPath;
-            if (generatePlotData > 0)
-            {
-                //create File to write in to
-                string plotname = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString()
-                    + DateTime.Now.Day.ToString() + "-" + DateTime.Now.Hour.ToString()
-                    + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
-                    plotname = plotname + "-EFTGreedy";
-                plotWr = new System.IO.StreamWriter(plotPath + "\\" + plotname, true);
-            }*/
             schedule = new ContactWindowsVector();
         }
 
@@ -235,22 +209,12 @@ namespace MARRSS.Scheduler
             }
         }
 
-        //! Write Log Data to File (Not Implemented for EFT-Greedy
-        /*!
-            writes the current fitness value of the solution to a file
-        */
-        private void WriteLog(int number, double fitness)
-        {
-            plotWr.WriteLine(number + " " + fitness);
-            plotWr.Flush();
-        }
-
         //! ToString method
         /*!
            \return string 
             returns the Name of the Schedule and used Settings as String
         */
-        public string ToString()
+        override public string ToString()
         {
             return "EFT-Greedy Scheduler";
         }

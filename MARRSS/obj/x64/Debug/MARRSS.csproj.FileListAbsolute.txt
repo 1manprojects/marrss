@@ -59,3 +59,4 @@ E:\Programieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.exe.manifest
 E:\Programieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.application
 E:\Programieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.exe
 E:\Programieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.pdb
+E:\Programieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.csprojResolveAssemblyReference.cache

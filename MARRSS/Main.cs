@@ -84,238 +84,79 @@ namespace MARRSS
             scheduler will compute a solution.
             New schedulers can be added inside this function below.
         */
-        private void startScheduleButton_Click(object sender, EventArgs e)
+        private void startSchedule()
         {
-            checkAndCreateLogFolders();
-            if (Properties.Settings.Default.log_ShowLog)
-            {
-                logPanel.Visible = true;
-            }
-            else
-            {
-                logPanel.Visible = false;
-            }
-            //Set defaults
-                contactNumberLabel.Text = "--";
-                generationLabel.Text = "--";
-                collisionLabel.Text = "--";
-                stationFairLabel.Text = "--";
-                fairSatLabel.Text = "--";
-                calcTimeLabel.Text = "--";
-                priorityLabel.Text = "--";
-                label47.Text = "--";
-                fitnessValueLabel.Text = "--";
 
-                //create save name String for all files that are saved automatacly
-                DateTime time = DateTime.Now;
-                string format = "dd-MM-yyyy_HHmmss";
-                string SaveName = time.ToString(format);
-
-                logRichTextBox.Clear();
-                startScheduleButton.Enabled = false;
-
+                string SaveName = getSaveFileName();
+                prepareStart();
                 updateLog(SaveName, "Starting");
-                string schedulerName = "undefined";            
+                string schedulerName = "undefined";
+                //Set Start and Stop Time
+                One_Sgp4.EpochTime startTime = getStartTime();
+                One_Sgp4.EpochTime stopTime = getStopTime();
 
-             //Set Start and Stop Time
-            int start_year = startDatePicker.Value.Year;
-                int start_month = startDatePicker.Value.Month;
-                int start_day = startDatePicker.Value.Day;
-                int start_hh = startTimePicker.Value.Hour;
-                int start_mm = startTimePicker.Value.Minute;
-                int start_ss = startTimePicker.Value.Second;
-                One_Sgp4.EpochTime startTime = new One_Sgp4.EpochTime(start_hh,
-                    start_mm, (double)start_ss, start_year, start_month, start_day);
+                updateLog(SaveName, "StartTime: " + startTime.ToString());
+                updateLog(SaveName, "StartTime: " + stopTime.ToString());
 
-                int stop_year = stopDatePicker.Value.Year;
-                int stop_month = stopDatePicker.Value.Month;
-                int stop_day = stopDatePicker.Value.Day;
-                int stop_hh = stopTimePicker.Value.Hour;
-                int stop_mm = stopTimePicker.Value.Minute;
-                int stop_ss = stopTimePicker.Value.Second;
-                One_Sgp4.EpochTime stopTime = new One_Sgp4.EpochTime(stop_hh,
-                    stop_mm, (double)stop_ss, stop_year, stop_month, stop_day);
-
-            updateLog(SaveName, "StartTime: " + startTime.ToString());
-            updateLog(SaveName, "StartTime: " + stopTime.ToString());
-
-            // create empty Lists and data containers for Data
+                // create empty Lists and data containers for Data
                 satTleData = new List<One_Sgp4.Tle>();
                 stationData = new List<Ground.Station>();
 
-            //check if contacts vector has not been already created or loaded
-            //from save file
+                //check if contacts vector has not been already created or loaded
+                //from save file
                 bool resetScenario = true;
                 if (contactsVector == null)
                 {
                     contactsVector = new Definition.ContactWindowsVector();
                     contactsVector.setStartTime(startTime);
                     contactsVector.setStopTime(stopTime);
+
                     //get selected Satellites to calculate Orbits
-                    for (int i = 0; i < checkedSatellites.Items.Count; i++)
-                    {
-                        if (checkedSatellites.GetItemChecked(i))
-                        {
-                            One_Sgp4.Tle sattle = _MainDataBase.getTleDataFromDB(checkedSatellites.Items[i].ToString());
-                            satTleData.Add(sattle);
-                            updateLog(SaveName, "Adding Satellite: " + sattle.getName());
-                    }
-                    }
-                    //get selected GroundSTations for Calculations
-                    for (int i = 0; i < checkedStations.Items.Count; i++)
-                    {
-                        if (checkedStations.GetItemChecked(i))
-                        {
-                            Ground.Station station = _MainDataBase.getStationFromDB(checkedStations.Items[i].ToString());
-                            stationData.Add(station);
-                            updateLog(SaveName, "Adding Station: " + station.getName());
-                    }
-                    }
+                    satTleData = getSatelliteData(SaveName);
+                    stationData = getStationData(SaveName);
 
-                //starting with the orbit calculations
+                    //starting with the orbit calculations
                     updateLog(SaveName, "Staring Orbit Calculations");
-
-                    Application.DoEvents();
-                    Performance.TimeMeasurement tm1 = new Performance.TimeMeasurement();
-                    tm1.activate();
-                    /*
-                     * Orbits ar Calculated here using Task[] to compute in 
-                     * multiple threads without woring about the number of
-                     * available CPU's.
-                    */
-                    One_Sgp4.Sgp4[] tasks = new One_Sgp4.Sgp4[satTleData.Count()];
-                    Task[] threads = new Task[satTleData.Count()];
-                    for (int i = 0; i < satTleData.Count(); i++)
-                    {
-                        tasks[i] = new One_Sgp4.Sgp4(satTleData[i], Properties.Settings.Default.orbit_Wgs);
-                        tasks[i].setStart(startTime, stopTime, accuracy / 60.0);
-                        threads[i] = new Task(tasks[i].starThread);
-                    }
-                    for (int i = 0; i < threads.Count(); i++)
-                    {
-                        //start each Thread
-                        threads[i].Start();
-                    }
-                    try
-                    {
-                        //wait till all threads are finished
-                        Task.WaitAll(threads);
-                    }
-                    catch (AggregateException ae)
-                    {
-                    //Logg any exceptions thrown
-                    updateLog(SaveName, "Orbit Predictions Exception: " + ae.InnerExceptions[0].Message);
-                }
-
-                /*
-                 * Calculate the contact windows for each ground station
-                 * from the selected ground stations and calculated orbits
-                 * from bevor. This is also done in multiple threads using
-                 * the Task[] function.
-                 */
-                    updateLog(SaveName, "Starting Contact Window Calculation");
-                    for (int i = 0; i < satTleData.Count(); i++)
-                    {
-                        Ground.InView[] inViews = new Ground.InView[stationData.Count()];
-                        Task[] inThreads = new Task[stationData.Count()];
-                        for (int k = 0; k < stationData.Count(); k++)
-                        {
-                            inViews[k] = new Ground.InView(stationData[k], startTime, tasks[i].getRestults(), satTleData[i].getName(), accuracy);
-                            inThreads[k] = new Task(inViews[k].calcContactWindows);
-                        }
-                        for (int k = 0; k < stationData.Count(); k++)
-                        {
-                            //start every thread
-                            inThreads[k].Start();
-                        }
-                        try
-                        {
-                            //whait for all threads to finish
-                            Task.WaitAll(inThreads);
-                        }
-                        catch (AggregateException ae)
-                        {
-                            logRichTextBox.Text = logRichTextBox.Text + ae.InnerException.Message + "\n";
-                        }
-                        for (int k = 0; k < stationData.Count(); k++)
-                        {
-                            contactsVector.add(inViews[k].getResults());
-                        }
-                    }
-                    string perfResCalc = tm1.getValueAndDeactivate();
-                    updateLog(SaveName, "Contact Windows Calculated");
+                    //Calculate Orbits and Contact Windows
+                    CalculateContacts(startTime, stopTime, SaveName);
                 }
                 else
                 {
+                    // resuse old ContactWindows
                     startTime = contactsVector.getStartTime();
                     stopTime = contactsVector.getStopTime();
                     resetScenario = false;
                 }
+                AutoSave(SaveName);
 
-                /*
-                 * Check if the auto save functions should be enabled
-                 * this saves the calculated contact windows and the image
-                 * generated to schow a visible representation of the 
-                 * finisched schedule
-                 */
-                if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
-                {
-                    string savePath = Properties.Settings.Default.global_Save_Path;
-                    Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
-                    contImages.Save(savePath + "\\" + SaveName + "-UnScheduled.bmp");
-                    updateLog(SaveName, "Saved Contact window image to File " + savePath + "\\" + SaveName + " - UnScheduled.bmp");
-                }
-                if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveContacts)
-                {
-                    string savePath = Properties.Settings.Default.global_Save_Path;
-                    DataBase.SaveLoad.saveToFile(savePath + "\\" + SaveName + ".xml", contactsVector, this);
-                    updateLog(SaveName, "Saved Contacts to XML-File " + savePath + "\\" + SaveName + ".xml");
-                }
                 updateLog(SaveName, "Starting Scheduler");
-            //Set Scheduling Problem
+                //Set Scheduling Problem
                 Scheduler.SchedulingProblem problem = new Scheduler.SchedulingProblem();
                 problem.setContactWindows(contactsVector);
-                //if (resetScenario)
-                    problem.removeUnwantedContacts(Properties.Settings.Default.orbit_Minimum_Contact_Duration_sec);
-                /*
-                 * Generate the selected Scenarios
-                 * These are defined in the SchedulingProblem Class
-                 * Other Scenarios can be selected here if they are added
-                 */
+                problem.removeUnwantedContacts(Properties.Settings.Default.orbit_Minimum_Contact_Duration_sec);
+                /* Generate the selected Scenarios
+                * These are defined in the SchedulingProblem Class
+                * Other Scenarios can be selected here if they are added
+                */
                 if (resetScenario != false)
                 {
-                    if (comboScenarioBox.SelectedIndex == 0)
-                    {
-                        problem.GenerateSzenarioA();
-                    }
-                    if (comboScenarioBox.SelectedIndex == 1)
-                    {
-                        problem.GenerateSzenarioB(Properties.Settings.Default.global_Random_Seed);
-                    }
-                    if (comboScenarioBox.SelectedIndex == 2)
-                    {
-                        problem.GenerateSzenarioC(Properties.Settings.Default.global_Random_Seed);
-                    }
-                    if (comboScenarioBox.SelectedIndex == 3)
-                    {
-                        problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
-                    }
+                    getScenario(problem);
                 }
 
                 /*
-                 * The contact windows that have been calculate are randomized
-                 * to imporve the result of the greedy algorithms. If the
-                 * turning the randomiziation off will lead to the greedy
-                 * algorithms to only schedule contacts for the first few 
-                 * groundstation ignoring others.
-                 */
+                    * The contact windows that have been calculate are randomized
+                    * to imporve the result of the greedy algorithms. If the
+                    * turning the randomiziation off will lead to the greedy
+                    * algorithms to only schedule contacts for the first few 
+                    * groundstation ignoring others.
+                    */
                 problem.getContactWindows().randomize(Properties.Settings.Default.global_Random_Seed);
 
                 /*
-                 * The selected Scheduler starts here to calculate a solution
-                 * to the scheduling problem. New Schedulers can be added here
-                 * 
-                 */
+                    * The selected Scheduler starts here to calculate a solution
+                    * to the scheduling problem. New Schedulers can be added here
+                    * 
+                    */
                 toolStripStatusLabel3.Text = "Status: Running Scheduler";
                 Performance.TimeMeasurement tm = new Performance.TimeMeasurement();
                 //Start Scheduling
@@ -384,76 +225,346 @@ namespace MARRSS
                     contactsVector = greedy.getFinischedSchedule();
                     schedulerName = greedy.ToString();
                 }
-            //-----------------------------------------------------------------
-            /*
-             * After calculation of the schedule the visual representation
-             * of the Schedule is drawn and if selected saved into its
-             * output folder.
-             */
+                //-----------------------------------------------------------------
+                /*
+                    * After calculation of the schedule the visual representation
+                    * of the Schedule is drawn and if selected saved into its
+                    * output folder.
+                    */
                 updateLog(SaveName, "Scheduler DONE");
-            //Draw scheduled data to Main form
-                pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-                pictureBox2.Width = pictureBox2.Image.Width;
-                pictureBox2.Height = pictureBox2.Image.Height;
+                finischSchedule(schedulerName, SaveName);
 
-                //check if auto save of images is enabled
-                //if yes then save files
-                if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
+        }
+
+        
+        private void startScheduleButton_Click(object sender, EventArgs e)
+        {
+            startSchedule();
+        }
+
+
+        //! Prepares Start of Schedule
+        /*! 
+         
+        */
+        private void prepareStart()
+        {
+            MainFunctions.checkAndCreateLogFolders();
+            if (Properties.Settings.Default.log_ShowLog)
+            {
+                logPanel.Visible = true;
+            }
+            else
+            {
+                logPanel.Visible = false;
+            }
+            //Set defaults
+            contactNumberLabel.Text = "--";
+            generationLabel.Text = "--";
+            collisionLabel.Text = "--";
+            stationFairLabel.Text = "--";
+            fairSatLabel.Text = "--";
+            calcTimeLabel.Text = "--";
+            priorityLabel.Text = "--";
+            label47.Text = "--";
+            fitnessValueLabel.Text = "--";
+
+            logRichTextBox.Clear();
+            startScheduleButton.Text = "Running";
+            startScheduleButton.BackColor = Color.LightCoral;
+            startScheduleButton.Enabled = false;
+        }
+        //! gets the File name from current time and date
+        /*! 
+         /return string NameOfFile
+        */
+        private string getSaveFileName()
+        {
+            //create save name String for all files that are saved automatacly
+            DateTime time = DateTime.Now;
+            string format = "dd-MM-yyyy_HHmmss";
+            string SaveName = time.ToString(format);
+            return SaveName;
+        }
+
+        //! gets the selected start time
+        /*! 
+         /return EpochTime startTime
+        */
+        private One_Sgp4.EpochTime getStartTime()
+        {
+            int start_year = startDatePicker.Value.Year;
+            int start_month = startDatePicker.Value.Month;
+            int start_day = startDatePicker.Value.Day;
+            int start_hh = startTimePicker.Value.Hour;
+            int start_mm = startTimePicker.Value.Minute;
+            int start_ss = startTimePicker.Value.Second;
+            One_Sgp4.EpochTime startTime = new One_Sgp4.EpochTime(start_hh,
+                start_mm, (double)start_ss, start_year, start_month, start_day);
+            return startTime;
+        }
+
+        //! gets the selected stop time
+        /*! 
+         /return EpochTime stopTime
+        */
+        private One_Sgp4.EpochTime getStopTime()
+        {
+            int stop_year = stopDatePicker.Value.Year;
+            int stop_month = stopDatePicker.Value.Month;
+            int stop_day = stopDatePicker.Value.Day;
+            int stop_hh = stopTimePicker.Value.Hour;
+            int stop_mm = stopTimePicker.Value.Minute;
+            int stop_ss = stopTimePicker.Value.Second;
+            One_Sgp4.EpochTime stopTime = new One_Sgp4.EpochTime(stop_hh,
+                stop_mm, (double)stop_ss, stop_year, stop_month, stop_day);
+            return stopTime;
+        }
+
+        //! Get the satellites selected for Schedule
+        /*! 
+         /param string Logfile
+        */
+        private List<One_Sgp4.Tle> getSatelliteData(string logfile)
+        {
+            satTleData = new List<One_Sgp4.Tle>();
+            //get selected Satellites to calculate Orbits
+            for (int i = 0; i < checkedSatellites.Items.Count; i++)
+            {
+                if (checkedSatellites.GetItemChecked(i))
                 {
-                    string savePath = Properties.Settings.Default.global_Save_Path;
-                    Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-                    if (radioGreedy.Checked)
-                        contImages.Save(savePath + "\\" + SaveName + "-Scheduled-EFT-Greedy.bmp");
-                    if (radioFairGreedy.Checked)
-                        contImages.Save(savePath + "\\" + SaveName + "-Scheduled-Fair-Greedy.bmp");
-                    if (radioGenetic.Checked)
-                        contImages.Save(savePath + "\\" + SaveName + "-Scheduled-Genetic.bmp");
-                    updateLog(SaveName, "Saved Calculated Schedule to Image (bmp) "+ savePath + "\\" + SaveName);
+                    One_Sgp4.Tle sattle = _MainDataBase.getTleDataFromDB(checkedSatellites.Items[i].ToString());
+                    satTleData.Add(sattle);
+                    updateLog(logfile, "Adding Satellite: " + sattle.getName());
+                }
+            }
+            return satTleData;
+        }
+
+        //! get the stations selected for Schedule
+        /*! 
+         /param string Logfile
+        */
+        private List<Ground.Station> getStationData(string logfile)
+        {
+            stationData = new List<Ground.Station>();
+            //get selected GroundSTations for Calculations
+            for (int i = 0; i < checkedStations.Items.Count; i++)
+            {
+                if (checkedStations.GetItemChecked(i))
+                {
+                    Ground.Station station = _MainDataBase.getStationFromDB(checkedStations.Items[i].ToString());
+                    stationData.Add(station);
+                    updateLog(logfile, "Adding Station: " + station.getName());
+                }
+            }
+            return stationData;
+        }
+
+        //! Calculate Contact windows
+        /*! 
+         /param EpochTime starting time
+         /param Epoch Time stoping time
+         /param string Logfile
+         * cacluated the orbits of selected satellites and then the contact windows
+         * for each station in the given time frame
+        */
+        private void CalculateContacts(One_Sgp4.EpochTime start, One_Sgp4.EpochTime stop, string logfile)
+        {
+            Application.DoEvents();
+            Performance.TimeMeasurement timeMessurmentOribt = new Performance.TimeMeasurement();
+            timeMessurmentOribt.activate();
+            /*
+                * Orbits ar Calculated here using Task[] to compute in 
+                * multiple threads without woring about the number of
+                * available CPU's.
+            */
+            One_Sgp4.Sgp4[] tasks = new One_Sgp4.Sgp4[satTleData.Count()];
+            Task[] threads = new Task[satTleData.Count()];
+            for (int i = 0; i < satTleData.Count(); i++)
+            {
+                tasks[i] = new One_Sgp4.Sgp4(satTleData[i], Properties.Settings.Default.orbit_Wgs);
+                tasks[i].setStart(start, stop, accuracy / 60.0);
+                threads[i] = new Task(tasks[i].starThread);
+            }
+            for (int i = 0; i < threads.Count(); i++)
+            {
+                //start each Thread
+                threads[i].Start();
+            }
+            try
+            {
+                //wait till all threads are finished
+                Task.WaitAll(threads);
+            }
+            catch (AggregateException ae)
+            {
+                //Logg any exceptions thrown
+                updateLog(logfile, "Orbit Predictions Exception: " + ae.InnerExceptions[0].Message);
+            }
+            updateLog(logfile, "Starting Contact Window Calculation");
+            for (int i = 0; i < satTleData.Count(); i++)
+            {
+                Ground.InView[] inViews = new Ground.InView[stationData.Count()];
+                Task[] inThreads = new Task[stationData.Count()];
+                for (int k = 0; k < stationData.Count(); k++)
+                {
+                    inViews[k] = new Ground.InView(stationData[k], start, tasks[i].getRestults(), satTleData[i].getName(), accuracy);
+                    inThreads[k] = new Task(inViews[k].calcContactWindows);
+                }
+                for (int k = 0; k < stationData.Count(); k++)
+                {
+                    //start every thread
+                    inThreads[k].Start();
+                }
+                try
+                {
+                    //whait for all threads to finish
+                    Task.WaitAll(inThreads);
+                }
+                catch (AggregateException ae)
+                {
+                    logRichTextBox.Text = logRichTextBox.Text + ae.InnerException.Message + "\n";
+                }
+                for (int k = 0; k < stationData.Count(); k++)
+                {
+                    contactsVector.add(inViews[k].getResults());
+                }
+            }
+            string perfResCalc = timeMessurmentOribt.getValueAndDeactivate();
+            updateLog(logfile, "Contact Windows Calculated in: " + perfResCalc + "sec.");
+        }
+
+        //! AutoSave Contacts and Schedule
+        /*! 
+         /param string logfile
+         * Saves the contact windows as image and xml file
+        */
+        private void AutoSave(string logfile)
+        {
+            /*
+            * Check if the auto save functions should be enabled
+            * this saves the calculated contact windows and the image
+            * generated to schow a visible representation of the 
+            * finisched schedule
+            */
+            if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
+            {
+                string savePath = Properties.Settings.Default.global_Save_Path;
+                Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
+                contImages.Save(savePath + "\\" + logfile + "-UnScheduled.bmp");
+                updateLog(logfile, "Saved Contact window image to File " + savePath + "\\" + logfile + " - UnScheduled.bmp");
+            }
+            if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveContacts)
+            {
+                string savePath = Properties.Settings.Default.global_Save_Path;
+                DataBase.SaveLoad.saveToFile(savePath + "\\" + logfile + ".xml", contactsVector, this);
+                updateLog(logfile, "Saved Contacts to XML-File " + savePath + "\\" + logfile + ".xml");
+            }
+        }
+
+        //! get Selected Scenario
+        /*! 
+         * Generates the Scenario selected
+        */
+        private void getScenario(Scheduler.SchedulingProblem problem)
+        {
+            /*
+                * Generate the selected Scenarios
+                * These are defined in the SchedulingProblem Class
+                * Other Scenarios can be selected here if they are added
+                */
+            if (comboScenarioBox.SelectedIndex == 0)
+            {
+                problem.GenerateSzenarioA();
+            }
+            if (comboScenarioBox.SelectedIndex == 1)
+            {
+                problem.GenerateSzenarioB(Properties.Settings.Default.global_Random_Seed);
+            }
+            if (comboScenarioBox.SelectedIndex == 2)
+            {
+                problem.GenerateSzenarioC(Properties.Settings.Default.global_Random_Seed);
+            }
+            if (comboScenarioBox.SelectedIndex == 3)
+            {
+                problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
+            }
+        }
+
+        //! finisch and clean up after Schedule Calculation
+        /*! 
+         * Save calculated contactwindows to file if enabled
+         * Calculate fairness values
+         * Display information on Form
+        */
+        private void finischSchedule(string schedulerName, string logfile)
+        {
+            //Draw scheduled data to Main form
+            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
+            pictureBox2.Width = pictureBox2.Image.Width;
+            pictureBox2.Height = pictureBox2.Image.Height;
+
+            //check if auto save of images is enabled
+            //if yes then save files
+            if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
+            {
+                string savePath = Properties.Settings.Default.global_Save_Path;
+                Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
+                if (radioGreedy.Checked)
+                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-EFT-Greedy.bmp");
+                if (radioFairGreedy.Checked)
+                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Fair-Greedy.bmp");
+                if (radioGenetic.Checked)
+                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic.bmp");
+                updateLog(logfile, "Saved Calculated Schedule to Image (bmp) " + savePath + "\\" + logfile);
             }
 
 
-                /*
-                 * The finisched Schedule is analized here by the Performance
-                 * classes to deetermine its fairness values and fitness. The 
-                 * value is represented as a number between 0 and 1. The value 
-                 * of 1 means that every satellite and or station is used the
-                 * same number of times as every other satellite and station.
-                 */
-                int _H = Performance.GeneralMeasurments.getNrOfScheduled(contactsVector);
-                double _H1 = _H / (double)contactsVector.Count();
-                double _H2 = Performance.GeneralMeasurments.getNrOfConflicts(contactsVector);
-                double _H3 = Performance.GeneralMeasurments.getFairnesStations(contactsVector);
-                double _H4 = Performance.GeneralMeasurments.getFairnesSatellites(contactsVector);
+            /*
+                * The finisched Schedule is analized here by the Performance
+                * classes to deetermine its fairness values and fitness. The 
+                * value is represented as a number between 0 and 1. The value 
+                * of 1 means that every satellite and or station is used the
+                * same number of times as every other satellite and station.
+                */
+            int _H = Performance.GeneralMeasurments.getNrOfScheduled(contactsVector);
+            double _H1 = _H / (double)contactsVector.Count();
+            double _H2 = Performance.GeneralMeasurments.getNrOfConflicts(contactsVector);
+            double _H3 = Performance.GeneralMeasurments.getFairnesStations(contactsVector);
+            double _H4 = Performance.GeneralMeasurments.getFairnesSatellites(contactsVector);
 
-                fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
+            fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
 
-                contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
-                collisionLabel.Text = _H2.ToString();
-                stationFairLabel.Text = _H3.ToString();
-                fairSatLabel.Text = _H4.ToString();
-                priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
-                label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
-                
-                startScheduleButton.Enabled = true;
-                if (Properties.Settings.Default.log_AutoSave_Results)
-                {
-                    List<string> results = new List<string>();
-                    results.Add("Fitness Value:" + fitnessValueLabel.Text);
-                    results.Add("Scheduled Contacts: " + contactNumberLabel.Text);
-                    results.Add("Collisions: " + collisionLabel.Text);
-                    results.Add("Fairnes Stations: " + stationFairLabel.Text);
-                    results.Add("Fairnes Satellites: " + fairSatLabel.Text);
-                    results.Add("Calculation Time: " + calcTimeLabel.Text);
-                    results.Add(priorityLabel.Text);
-                    Log.writeResults(SaveName, schedulerName, results);
-                    updateLog(SaveName, "Results have been saved to File");
-                }
-                for (int i = 0; i < 5; i++)
-                {
-                    SystemSounds.Beep.Play();
-                    Thread.Sleep(100*i);
-                }
-            updateLog(SaveName, "Done");
+            contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
+            collisionLabel.Text = _H2.ToString();
+            stationFairLabel.Text = _H3.ToString();
+            fairSatLabel.Text = _H4.ToString();
+            priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
+            label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
+
+            startScheduleButton.Text = "Calculate Schedule";
+            startScheduleButton.BackColor = Color.LightSkyBlue;
+            startScheduleButton.Enabled = true;
+            if (Properties.Settings.Default.log_AutoSave_Results)
+            {
+                List<string> results = new List<string>();
+                results.Add("Fitness Value:" + fitnessValueLabel.Text);
+                results.Add("Scheduled Contacts: " + contactNumberLabel.Text);
+                results.Add("Collisions: " + collisionLabel.Text);
+                results.Add("Fairnes Stations: " + stationFairLabel.Text);
+                results.Add("Fairnes Satellites: " + fairSatLabel.Text);
+                results.Add("Calculation Time: " + calcTimeLabel.Text);
+                results.Add(priorityLabel.Text);
+                Log.writeResults(logfile, schedulerName, results);
+                updateLog(logfile, "Results have been saved to File");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                SystemSounds.Beep.Play();
+                Thread.Sleep(100 * i);
+            }
+            updateLog(logfile, "Done");
         }
 
         //! Redraw schedule Image
@@ -547,10 +658,9 @@ namespace MARRSS
             toolStripStatusLabel3.Text = "Status: Done";
         }
 
-        //! 
+        //! Create new Schedule
         /*! 
-           \param 
-           \return 
+           \clears old contact vectors
         */
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -772,7 +882,7 @@ namespace MARRSS
             pictureBox2.Height = pictureBox2.Image.Height;
         }
 
-
+        //Import TLE into Database
         private void importTLEsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _MainDataBase.closeDB();
@@ -781,7 +891,7 @@ namespace MARRSS
             UpdateAllLists();
         }
 
-
+        //Add Groundstation
         private void addGroundStationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Forms.StationForm addStation = new Forms.StationForm();
@@ -807,6 +917,7 @@ namespace MARRSS
             UpdateAllLists();
         }
 
+        //Delete object from Database
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Ground.Station st = _MainDataBase.getStationFromDB(
@@ -825,10 +936,10 @@ namespace MARRSS
         }
 
 
-        /*
+        /*******************************************************************************************************
          * Form Actions, Interactions and mouse over
          * 
-         */
+         *******************************************************************************************************/
 
         /*
         * Side Panel Interactions
@@ -1019,7 +1130,6 @@ namespace MARRSS
             satForm.ShowDialog();
             UpdateAllLists();
         }
-
         private void updateLog(string file, string data)
         {
             toolStripStatusLabel3.Text = "Status: " + data;
@@ -1028,22 +1138,6 @@ namespace MARRSS
             {
                 Log.writeLog(file, data);
 
-            }
-        }
-
-        private void checkAndCreateLogFolders()
-        {
-            if (!Directory.Exists(Properties.Settings.Default.global_Save_Path))
-            {
-                Directory.CreateDirectory(Properties.Settings.Default.global_Save_Path);
-            }
-            if (!Directory.Exists(Properties.Settings.Default.global_LogSavePath))
-            {
-                Directory.CreateDirectory(Properties.Settings.Default.global_LogSavePath);
-            }
-            if (!Directory.Exists(Properties.Settings.Default.global_ResultSavePath))
-            {
-                Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
             }
         }
 

@@ -1038,7 +1038,7 @@
             // 
             // startScheduleButton
             // 
-            this.startScheduleButton.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.startScheduleButton.BackColor = System.Drawing.Color.LightSkyBlue;
             this.startScheduleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.startScheduleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.startScheduleButton.Location = new System.Drawing.Point(728, 152);

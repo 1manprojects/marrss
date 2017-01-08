@@ -266,7 +266,7 @@ namespace MARRSS.Scheduler
            \return string 
             returns the Name of the Schedule and used Settings as String
         */
-        public string ToString()
+        override public string ToString()
         {
             return "Fair-Greedy Scheduler";
         }
