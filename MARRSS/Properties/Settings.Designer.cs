@@ -12,7 +12,7 @@ namespace MARRSS.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,144 +26,144 @@ namespace MARRSS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8")]
-        public int GeneticMaxPopulation {
+        public int genetic_Population_Size {
             get {
-                return ((int)(this["GeneticMaxPopulation"]));
+                return ((int)(this["genetic_Population_Size"]));
             }
             set {
-                this["GeneticMaxPopulation"] = value;
+                this["genetic_Population_Size"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("65")]
-        public int GeneticCreation {
+        public int genetic_Start_Percentage {
             get {
-                return ((int)(this["GeneticCreation"]));
+                return ((int)(this["genetic_Start_Percentage"]));
             }
             set {
-                this["GeneticCreation"] = value;
+                this["genetic_Start_Percentage"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int GeneticMutation {
+        public int genetic_Mutation_Chance {
             get {
-                return ((int)(this["GeneticMutation"]));
+                return ((int)(this["genetic_Mutation_Chance"]));
             }
             set {
-                this["GeneticMutation"] = value;
+                this["genetic_Mutation_Chance"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Output")]
-        public string LogPath {
+        public string global_Log_Path {
             get {
-                return ((string)(this["LogPath"]));
+                return ((string)(this["global_Log_Path"]));
             }
             set {
-                this["LogPath"] = value;
+                this["global_Log_Path"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Contacts")]
-        public string SavePath {
+        public string global_Save_Path {
             get {
-                return ((string)(this["SavePath"]));
+                return ((string)(this["global_Save_Path"]));
             }
             set {
-                this["SavePath"] = value;
+                this["global_Save_Path"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Output")]
-        public string PlotPath {
+        public string global_Plot_Path {
             get {
-                return ((string)(this["PlotPath"]));
+                return ((string)(this["global_Plot_Path"]));
             }
             set {
-                this["PlotPath"] = value;
+                this["global_Plot_Path"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10000")]
-        public int GenMaxGenerations {
+        public int genetic_Max_Nr_of_Generations {
             get {
-                return ((int)(this["GenMaxGenerations"]));
+                return ((int)(this["genetic_Max_Nr_of_Generations"]));
             }
             set {
-                this["GenMaxGenerations"] = value;
+                this["genetic_Max_Nr_of_Generations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int orbit_Wgs {
+            get {
+                return ((int)(this["orbit_Wgs"]));
+            }
+            set {
+                this["orbit_Wgs"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool global_MaxPerf {
+            get {
+                return ((bool)(this["global_MaxPerf"]));
+            }
+            set {
+                this["global_MaxPerf"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Wgs {
+        public int global_SaveLogs_Path {
             get {
-                return ((int)(this["Wgs"]));
+                return ((int)(this["global_SaveLogs_Path"]));
             }
             set {
-                this["Wgs"] = value;
+                this["global_SaveLogs_Path"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int MaxPerf {
+        public int drawer_Save_Schedule_as_Image {
             get {
-                return ((int)(this["MaxPerf"]));
+                return ((int)(this["drawer_Save_Schedule_as_Image"]));
             }
             set {
-                this["MaxPerf"] = value;
+                this["drawer_Save_Schedule_as_Image"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SaveLogs {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool global_SaveContacts {
             get {
-                return ((int)(this["SaveLogs"]));
+                return ((bool)(this["global_SaveContacts"]));
             }
             set {
-                this["SaveLogs"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SaveImages {
-            get {
-                return ((int)(this["SaveImages"]));
-            }
-            set {
-                this["SaveImages"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SaveContacts {
-            get {
-                return ((int)(this["SaveContacts"]));
-            }
-            set {
-                this["SaveContacts"] = value;
+                this["global_SaveContacts"] = value;
             }
         }
         
@@ -182,12 +182,276 @@ namespace MARRSS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SavedLogin {
+        public bool secure_SavedLogin {
             get {
-                return ((bool)(this["SavedLogin"]));
+                return ((bool)(this["secure_SavedLogin"]));
             }
             set {
-                this["SavedLogin"] = value;
+                this["secure_SavedLogin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int orbit_Calculation_Accuracy_select {
+            get {
+                return ((int)(this["orbit_Calculation_Accuracy_select"]));
+            }
+            set {
+                this["orbit_Calculation_Accuracy_select"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int orbit_Minimum_Contact_Duration_sec {
+            get {
+                return ((int)(this["orbit_Minimum_Contact_Duration_sec"]));
+            }
+            set {
+                this["orbit_Minimum_Contact_Duration_sec"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int orbit_Minimum_Elevation_deg {
+            get {
+                return ((int)(this["orbit_Minimum_Elevation_deg"]));
+            }
+            set {
+                this["orbit_Minimum_Elevation_deg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("58496")]
+        public int global_Random_Seed {
+            get {
+                return ((int)(this["global_Random_Seed"]));
+            }
+            set {
+                this["global_Random_Seed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool global_AutoSave {
+            get {
+                return ((bool)(this["global_AutoSave"]));
+            }
+            set {
+                this["global_AutoSave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool global_SaveSchedule {
+            get {
+                return ((bool)(this["global_SaveSchedule"]));
+            }
+            set {
+                this["global_SaveSchedule"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int genetic_RunVariable {
+            get {
+                return ((int)(this["genetic_RunVariable"]));
+            }
+            set {
+                this["genetic_RunVariable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool global_ShowLog {
+            get {
+                return ((bool)(this["global_ShowLog"]));
+            }
+            set {
+                this["global_ShowLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public double genetic_RunTime {
+            get {
+                return ((double)(this["genetic_RunTime"]));
+            }
+            set {
+                this["genetic_RunTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool genetic_SolveContflicts {
+            get {
+                return ((bool)(this["genetic_SolveContflicts"]));
+            }
+            set {
+                this["genetic_SolveContflicts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool genetic_ConflictSolver {
+            get {
+                return ((bool)(this["genetic_ConflictSolver"]));
+            }
+            set {
+                this["genetic_ConflictSolver"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool log_AutoSave_Results {
+            get {
+                return ((bool)(this["log_AutoSave_Results"]));
+            }
+            set {
+                this["log_AutoSave_Results"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool log_AutoSave_RunLog {
+            get {
+                return ((bool)(this["log_AutoSave_RunLog"]));
+            }
+            set {
+                this["log_AutoSave_RunLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool tle_AutoUpdate {
+            get {
+                return ((bool)(this["tle_AutoUpdate"]));
+            }
+            set {
+                this["tle_AutoUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int tle_UpdateTime {
+            get {
+                return ((int)(this["tle_UpdateTime"]));
+            }
+            set {
+                this["tle_UpdateTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string entropy {
+            get {
+                return ((string)(this["entropy"]));
+            }
+            set {
+                this["entropy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string passwd {
+            get {
+                return ((string)(this["passwd"]));
+            }
+            set {
+                this["passwd"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string email {
+            get {
+                return ((string)(this["email"]));
+            }
+            set {
+                this["email"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Output")]
+        public string global_ResultSavePath {
+            get {
+                return ((string)(this["global_ResultSavePath"]));
+            }
+            set {
+                this["global_ResultSavePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Output")]
+        public string global_LogSavePath {
+            get {
+                return ((string)(this["global_LogSavePath"]));
+            }
+            set {
+                this["global_LogSavePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool gloabal_LogFitness {
+            get {
+                return ((bool)(this["gloabal_LogFitness"]));
+            }
+            set {
+                this["gloabal_LogFitness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool log_ShowLog {
+            get {
+                return ((bool)(this["log_ShowLog"]));
+            }
+            set {
+                this["log_ShowLog"] = value;
             }
         }
     }

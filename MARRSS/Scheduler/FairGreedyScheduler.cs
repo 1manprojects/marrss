@@ -46,9 +46,9 @@ namespace MARRSS.Scheduler
         */
         public FairGreedyScheduler()
         {
-            generateLog = Properties.Settings.Default.SaveLogs;
+            generateLog = Properties.Settings.Default.global_SaveLogs_Path;
             generatePlotData = Properties.Settings.Default.PlotData;
-            plotPath = Properties.Settings.Default.SavePath;
+            plotPath = Properties.Settings.Default.global_Save_Path;
             if (generatePlotData > 0)
             {
                 //create File to write in to
@@ -120,7 +120,7 @@ namespace MARRSS.Scheduler
                         maxFitness = fitness;
                         pos = i;
                     }
-                    if (Properties.Settings.Default.MaxPerf == 0)
+                    if (Properties.Settings.Default.global_MaxPerf == false)
                     {
                         System.Windows.Forms.Application.DoEvents();
                     }
@@ -143,7 +143,7 @@ namespace MARRSS.Scheduler
                                 break;
                             }
                         }
-                        if (Properties.Settings.Default.MaxPerf == 0)
+                        if (Properties.Settings.Default.global_MaxPerf == false)
                         {
                             System.Windows.Forms.Application.DoEvents();
                         }
@@ -200,7 +200,7 @@ namespace MARRSS.Scheduler
                         maxFitness = fitness;
                         pos = i;
                     }
-                    if (Properties.Settings.Default.MaxPerf == 0)
+                    if (Properties.Settings.Default.global_MaxPerf == false)
                     {
                         System.Windows.Forms.Application.DoEvents();
                     }
@@ -229,7 +229,7 @@ namespace MARRSS.Scheduler
                                 break;
                             }
                         }
-                        if (Properties.Settings.Default.MaxPerf == 0)
+                        if (Properties.Settings.Default.global_MaxPerf == false)
                         {
                             System.Windows.Forms.Application.DoEvents();
                         }
@@ -259,6 +259,16 @@ namespace MARRSS.Scheduler
         {
             plotWr.WriteLine(number + " " + fitness);
             plotWr.Flush();
+        }
+
+        //! ToString method
+        /*!
+           \return string 
+            returns the Name of the Schedule and used Settings as String
+        */
+        public string ToString()
+        {
+            return "Fair-Greedy Scheduler";
         }
     }
 }

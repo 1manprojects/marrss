@@ -83,6 +83,16 @@ namespace MARRSS.Scheduler
             return new ContactWindowsVector();
         }
 
+        //! ToString method
+        /*!
+           \return string 
+            returns the Name of the Schedule and used Settings as String
+        */
+        public string ToString()
+        {
+            return "Example Scheduler";
+        }
+
 
     }
 }

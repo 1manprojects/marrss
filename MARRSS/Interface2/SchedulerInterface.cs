@@ -30,5 +30,6 @@ namespace MARRSS.Interface2
     {
         void CalculateSchedule(ScheduleProblemInterface problem);
         ContactWindowsVector getFinischedSchedule();
+        string ToString();
     }
 }

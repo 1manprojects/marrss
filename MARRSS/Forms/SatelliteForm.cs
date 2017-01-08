@@ -34,6 +34,8 @@ namespace MARRSS.Forms
         private string userName = null;
         private string password = null;
 
+        private int errorCode = 0;
+
         private void button3_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -96,12 +98,14 @@ namespace MARRSS.Forms
                         }
                         else
                         {
+                            errorCode = 1;
                             //error parsing information
                         }
                     }
                 }
                 else
                 {
+                    errorCode = 2;
                     //No UserName or Password were given
                 }
             }
@@ -136,19 +140,29 @@ namespace MARRSS.Forms
                         }
                         else
                         {
+                            errorCode = 1;
                             //error parsing information
                         }
                     }
                 }
                 else
                 {
+                    errorCode = 2;
                     //No UserName or Password were given
                 }
             }
             db.closeDB();
             db = null;
-            this.Close();
-            this.Cursor = Cursors.Default;
+            if (errorCode == 0)
+            {
+                this.Close();
+                this.Cursor = Cursors.Default;
+            }
+            else
+            {
+                MessageBox.Show("Unable to Update from Server.\n Login information could be wrong or server is not reachable", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -227,7 +241,13 @@ namespace MARRSS.Forms
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (radioButton4.Checked)
+            {
+                addButton.Text = "Update";
+            }
+            {
+                addButton.Text = "ADD";
+            }
         }
     }
 }

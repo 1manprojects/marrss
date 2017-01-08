@@ -11,20 +11,15 @@
 */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SQLite;
 using System.Threading;
 using System.Media;
+using System.IO;
 
-using System.Diagnostics;
-using MARRSS.Global;
+using MARRSS.Performance;
 
 namespace MARRSS
 {
@@ -55,48 +50,13 @@ namespace MARRSS
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
             InitializeComponent();
-            accuracySelect.SelectedIndex = 0;
+            //accuracySelect.SelectedIndex = 0;
             
             _MainDataBase = new DataBase.DataBase();
             UpdateAllLists();
             radioGenetic.PerformClick();
-            //load Settings
-            genPopsize.Value = Properties.Settings.Default.GeneticMaxPopulation;
-            genMutation.Value = Properties.Settings.Default.GeneticMutation;
-            genMaxGen.Value = Properties.Settings.Default.GenMaxGenerations;
-            genStartChance.Value = Properties.Settings.Default.GeneticCreation;
 
-            comboBox4.SelectedIndex = 0;
             comboScenarioBox.SelectedIndex = 0;
-            
-            if (Properties.Settings.Default.PlotData > 0)
-            {
-                checkPlotData.Checked = true;
-                comboPlottDataSettingsBox.SelectedIndex = Properties.Settings.Default.PlotData - 1;
-            }
-            if (Properties.Settings.Default.SaveContacts == 1)
-            {
-                checkAutoSaveSchedule.Checked = true;
-            }
-            else
-            {
-                checkAutoSaveSchedule.Checked = false;
-            }
-            if (Properties.Settings.Default.SaveImages == 1)
-            {
-                checkAutoSaveImage.Checked = true;
-            }
-            else
-            {
-                checkAutoSaveImage.Checked = false;
-            }
-
-            if (Properties.Settings.Default.MaxPerf == 1)
-            {
-                checkMaxPerf.Checked = true;
-                warningLabel1.Visible = true;
-                warningLabel2.Visible = true;
-            }
 
             //DateTime date = new DateTime(2015,08,20,12,20,30);
             //startTimePicker.Value = date;
@@ -107,6 +67,10 @@ namespace MARRSS
 
             imgSatellite = Properties.Resources.worldsmaller;
             imgStation = Properties.Resources.worldsmaller;
+            if (Properties.Settings.Default.log_ShowLog)
+            {
+                logPanel.Visible = true;
+            }
             drawGroundStations();
             //mapCanvas1.
         }
@@ -122,6 +86,15 @@ namespace MARRSS
         */
         private void startScheduleButton_Click(object sender, EventArgs e)
         {
+            checkAndCreateLogFolders();
+            if (Properties.Settings.Default.log_ShowLog)
+            {
+                logPanel.Visible = true;
+            }
+            else
+            {
+                logPanel.Visible = false;
+            }
             //Set defaults
                 contactNumberLabel.Text = "--";
                 generationLabel.Text = "--";
@@ -133,12 +106,19 @@ namespace MARRSS
                 label47.Text = "--";
                 fitnessValueLabel.Text = "--";
 
+                //create save name String for all files that are saved automatacly
+                DateTime time = DateTime.Now;
+                string format = "dd-MM-yyyy_HHmmss";
+                string SaveName = time.ToString(format);
+
                 logRichTextBox.Clear();
                 startScheduleButton.Enabled = false;
-                toolStripStatusLabel3.Text = "Status: Starting";
+
+                updateLog(SaveName, "Starting");
+                string schedulerName = "undefined";            
 
              //Set Start and Stop Time
-                int start_year = startDatePicker.Value.Year;
+            int start_year = startDatePicker.Value.Year;
                 int start_month = startDatePicker.Value.Month;
                 int start_day = startDatePicker.Value.Day;
                 int start_hh = startTimePicker.Value.Hour;
@@ -156,20 +136,21 @@ namespace MARRSS
                 One_Sgp4.EpochTime stopTime = new One_Sgp4.EpochTime(stop_hh,
                     stop_mm, (double)stop_ss, stop_year, stop_month, stop_day);
 
-                // create empty Lists and data containers for Data
+            updateLog(SaveName, "StartTime: " + startTime.ToString());
+            updateLog(SaveName, "StartTime: " + stopTime.ToString());
+
+            // create empty Lists and data containers for Data
                 satTleData = new List<One_Sgp4.Tle>();
                 stationData = new List<Ground.Station>();
 
-                toolStripStatusLabel3.Text = "Status: Checking Data";
-                //check if contacts vector has not been already created or loaded
-                //from save file
+            //check if contacts vector has not been already created or loaded
+            //from save file
                 bool resetScenario = true;
                 if (contactsVector == null)
                 {
                     contactsVector = new Definition.ContactWindowsVector();
                     contactsVector.setStartTime(startTime);
                     contactsVector.setStopTime(stopTime);
-                    toolStripStatusLabel3.Text = "Status: Reading Data";
                     //get selected Satellites to calculate Orbits
                     for (int i = 0; i < checkedSatellites.Items.Count; i++)
                     {
@@ -177,7 +158,8 @@ namespace MARRSS
                         {
                             One_Sgp4.Tle sattle = _MainDataBase.getTleDataFromDB(checkedSatellites.Items[i].ToString());
                             satTleData.Add(sattle);
-                        }
+                            updateLog(SaveName, "Adding Satellite: " + sattle.getName());
+                    }
                     }
                     //get selected GroundSTations for Calculations
                     for (int i = 0; i < checkedStations.Items.Count; i++)
@@ -186,11 +168,13 @@ namespace MARRSS
                         {
                             Ground.Station station = _MainDataBase.getStationFromDB(checkedStations.Items[i].ToString());
                             stationData.Add(station);
-                        }
+                            updateLog(SaveName, "Adding Station: " + station.getName());
+                    }
                     }
 
-                    //starting with the orbit calculations
-                    toolStripStatusLabel3.Text = "Status: Calculating Contacts";
+                //starting with the orbit calculations
+                    updateLog(SaveName, "Staring Orbit Calculations");
+
                     Application.DoEvents();
                     Performance.TimeMeasurement tm1 = new Performance.TimeMeasurement();
                     tm1.activate();
@@ -203,7 +187,7 @@ namespace MARRSS
                     Task[] threads = new Task[satTleData.Count()];
                     for (int i = 0; i < satTleData.Count(); i++)
                     {
-                        tasks[i] = new One_Sgp4.Sgp4(satTleData[i], Properties.Settings.Default.Wgs);
+                        tasks[i] = new One_Sgp4.Sgp4(satTleData[i], Properties.Settings.Default.orbit_Wgs);
                         tasks[i].setStart(startTime, stopTime, accuracy / 60.0);
                         threads[i] = new Task(tasks[i].starThread);
                     }
@@ -219,16 +203,17 @@ namespace MARRSS
                     }
                     catch (AggregateException ae)
                     {
-                        //Logg any exceptions thrown
-                        logRichTextBox.Text = logRichTextBox.Text + ae.InnerExceptions[0].Message + "\n";
-                    }
+                    //Logg any exceptions thrown
+                    updateLog(SaveName, "Orbit Predictions Exception: " + ae.InnerExceptions[0].Message);
+                }
 
-                    /*
-                     * Calculate the contact windows for each ground station
-                     * from the selected ground stations and calculated orbits
-                     * from bevor. This is also done in multiple threads using
-                     * the Task[] function.
-                     */
+                /*
+                 * Calculate the contact windows for each ground station
+                 * from the selected ground stations and calculated orbits
+                 * from bevor. This is also done in multiple threads using
+                 * the Task[] function.
+                 */
+                    updateLog(SaveName, "Starting Contact Window Calculation");
                     for (int i = 0; i < satTleData.Count(); i++)
                     {
                         Ground.InView[] inViews = new Ground.InView[stationData.Count()];
@@ -258,7 +243,7 @@ namespace MARRSS
                         }
                     }
                     string perfResCalc = tm1.getValueAndDeactivate();
-                    toolStripStatusLabel3.Text = "Status: Contact Windows Calculated";
+                    updateLog(SaveName, "Contact Windows Calculated");
                 }
                 else
                 {
@@ -267,39 +252,31 @@ namespace MARRSS
                     resetScenario = false;
                 }
 
-                //create save name String for all files that are saved automatacly
-                DateTime time = DateTime.Now;
-                string format = "dd-MM-yyyy_HHmmss";
-                string SaveName = time.ToString(format);
-
                 /*
                  * Check if the auto save functions should be enabled
                  * this saves the calculated contact windows and the image
                  * generated to schow a visible representation of the 
                  * finisched schedule
                  */
-                if (checkAutoSaveImage.Checked)
+                if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
                 {
-                    toolStripStatusLabel3.Text = "Status: Auto Saving Image";
-                    string savePath = Properties.Settings.Default.SavePath;
+                    string savePath = Properties.Settings.Default.global_Save_Path;
                     Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
                     contImages.Save(savePath + "\\" + SaveName + "-UnScheduled.bmp");
-                    toolStripStatusLabel3.Text = "Status: Saved Image";
+                    updateLog(SaveName, "Saved Contact window image to File " + savePath + "\\" + SaveName + " - UnScheduled.bmp");
                 }
-                if (checkAutoSaveSchedule.Checked)
+                if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveContacts)
                 {
-                    toolStripStatusLabel3.Text = "Status: Auto Saving Contacts";
-                    string savePath = Properties.Settings.Default.SavePath;
+                    string savePath = Properties.Settings.Default.global_Save_Path;
                     DataBase.SaveLoad.saveToFile(savePath + "\\" + SaveName + ".xml", contactsVector, this);
-                    toolStripStatusLabel3.Text = "Status: Saving Contacts";
+                    updateLog(SaveName, "Saved Contacts to XML-File " + savePath + "\\" + SaveName + ".xml");
                 }
-
-                toolStripStatusLabel3.Text = "Status: Starting Scheduler";
-                //Set Scheduling Problem
+                updateLog(SaveName, "Starting Scheduler");
+            //Set Scheduling Problem
                 Scheduler.SchedulingProblem problem = new Scheduler.SchedulingProblem();
                 problem.setContactWindows(contactsVector);
                 //if (resetScenario)
-                    problem.removeUnwantedContacts(Convert.ToInt32(minDurationTextBox.Text));
+                    problem.removeUnwantedContacts(Properties.Settings.Default.orbit_Minimum_Contact_Duration_sec);
                 /*
                  * Generate the selected Scenarios
                  * These are defined in the SchedulingProblem Class
@@ -313,15 +290,15 @@ namespace MARRSS
                     }
                     if (comboScenarioBox.SelectedIndex == 1)
                     {
-                        problem.GenerateSzenarioB(Int32.Parse(randomSeedTextBox.Text));
+                        problem.GenerateSzenarioB(Properties.Settings.Default.global_Random_Seed);
                     }
                     if (comboScenarioBox.SelectedIndex == 2)
                     {
-                        problem.GenerateSzenarioC(Int32.Parse(randomSeedTextBox.Text));
+                        problem.GenerateSzenarioC(Properties.Settings.Default.global_Random_Seed);
                     }
                     if (comboScenarioBox.SelectedIndex == 3)
                     {
-                        problem.GenerateSzenarioD(Int32.Parse(randomSeedTextBox.Text));
+                        problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
                     }
                 }
 
@@ -332,7 +309,7 @@ namespace MARRSS
                  * algorithms to only schedule contacts for the first few 
                  * groundstation ignoring others.
                  */
-                problem.getContactWindows().randomize(Int32.Parse(randomSeedTextBox.Text));
+                problem.getContactWindows().randomize(Properties.Settings.Default.global_Random_Seed);
 
                 /*
                  * The selected Scheduler starts here to calculate a solution
@@ -356,33 +333,28 @@ namespace MARRSS
                 //-----------GENETIC
                 if (radioGenetic.Checked)
                 {
-                    toolStripStatusLabel3.Text = "Status: Genetor Running";
+                    updateLog(SaveName, "Genetor Running");
                     Scheduler.GeneticScheduler genetic = new Scheduler.GeneticScheduler();
-                    if (genRunTimeCheck.Checked)
+                    if (Properties.Settings.Default.genetic_RunVariable == 1)
                     {
-                        genetic.RunForCertainTime(true, (double)genMaxTime.Value);
+                        genetic.RunForCertainTime(true, Properties.Settings.Default.genetic_RunTime);
                     }
                     genetic.setFormToUpdate(this);
                     //Set settings
-                    genetic.setCreationPercentage((int)genStartChance.Value);
-                    genetic.setMaxNumberOfGeneration((int)genMaxGen.Value);
-                    genetic.setMutationPercentage((int)genMutation.Value);
-                    genetic.setPopulationSize((int)genPopsize.Value);
+                    genetic.setCreationPercentage(Properties.Settings.Default.genetic_Start_Percentage);
+                    genetic.setMaxNumberOfGeneration(Properties.Settings.Default.genetic_Max_Nr_of_Generations);
+                    genetic.setMutationPercentage(Properties.Settings.Default.genetic_Mutation_Chance);
+                    genetic.setPopulationSize(Properties.Settings.Default.genetic_Population_Size);
 
                     //solve conflicts optional
-                    if (checkSolveConflicts.Checked)
-                    {
-                        genetic.setSolveConflictsAfterRun(true);
-                    }
-                    if (checkConflictHandling.Checked)
-                    {
-                        genetic.setConflictHandeling(true);
-                    }
+                    genetic.setSolveConflictsAfterRun(Properties.Settings.Default.genetic_SolveContflicts);
+                    genetic.setConflictHandeling(Properties.Settings.Default.genetic_ConflictSolver);
                     tm.activate();
                     genetic.CalculateSchedule(problem);
                     calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
                     generationLabel.Text = genetic.getNrOfGenerations().ToString();
                     contactsVector = genetic.getFinischedSchedule();
+                    schedulerName = genetic.ToString();
                 }
                 //-----------------------------------------------------------------
                 //-----------------------------------------------------------------
@@ -390,55 +362,54 @@ namespace MARRSS
                 //-----------GREEDY
                 if (radioGreedy.Checked)
                 {
-                    if (comboBox4.SelectedIndex == 0)
-                    {
-                        toolStripStatusLabel3.Text = "Status: Greedy Running";
-                        Scheduler.EftGreedyScheduler greedy = new Scheduler.EftGreedyScheduler();
-                        greedy.setFormToUpdate(this);
-                        tm.activate();
-                        greedy.CalculateSchedule(problem);
-                        calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
-                        generationLabel.Text = " --";
-                        contactsVector = greedy.getFinischedSchedule();
-                    }
-                    if (comboBox4.SelectedIndex == 1)
-                    {
-                        toolStripStatusLabel3.Text = "Status: Fair Greedy Running";
-                        Scheduler.FairGreedyScheduler greedy = new Scheduler.FairGreedyScheduler();
-                        greedy.setFormToUpdate(this);
-                        tm.activate();
-                        greedy.CalculateSchedule(problem);
-                        calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
-                        generationLabel.Text = " --";
-                        contactsVector = greedy.getFinischedSchedule();
-                    }
+                    updateLog(SaveName, "EFT-Greedy Running");
+                    Scheduler.EftGreedyScheduler greedy = new Scheduler.EftGreedyScheduler();
+                    greedy.setFormToUpdate(this);
+                    tm.activate();
+                    greedy.CalculateSchedule(problem);
+                    calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
+                    generationLabel.Text = " --";
+                    contactsVector = greedy.getFinischedSchedule();
+                    schedulerName = greedy.ToString();
                 }
-                //-----------------------------------------------------------------
-                /*
-                 * After calculation of the schedule the visual representation
-                 * of the Schedule is drawn and if selected saved into its
-                 * output folder.
-                 */
-                toolStripStatusLabel3.Text = "Status: Scheduler finisched";
-
-                //Draw scheduled data to Main form
+                if (radioFairGreedy.Checked)
+                {
+                    updateLog(SaveName, "Fair-Greedy Running");
+                    Scheduler.FairGreedyScheduler greedy = new Scheduler.FairGreedyScheduler();
+                    greedy.setFormToUpdate(this);
+                    tm.activate();
+                    greedy.CalculateSchedule(problem);
+                    calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
+                    generationLabel.Text = " --";
+                    contactsVector = greedy.getFinischedSchedule();
+                    schedulerName = greedy.ToString();
+                }
+            //-----------------------------------------------------------------
+            /*
+             * After calculation of the schedule the visual representation
+             * of the Schedule is drawn and if selected saved into its
+             * output folder.
+             */
+                updateLog(SaveName, "Scheduler DONE");
+            //Draw scheduled data to Main form
                 pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
                 pictureBox2.Width = pictureBox2.Image.Width;
                 pictureBox2.Height = pictureBox2.Image.Height;
 
                 //check if auto save of images is enabled
                 //if yes then save files
-                if (checkAutoSaveImage.Checked)
+                if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
                 {
-                    toolStripStatusLabel3.Text = "Status: Auto Saving Image";
-                    string savePath = Properties.Settings.Default.SavePath;
+                    string savePath = Properties.Settings.Default.global_Save_Path;
                     Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
                     if (radioGreedy.Checked)
-                        contImages.Save(savePath + "\\" + SaveName + "-Scheduled-Greedy.bmp");
+                        contImages.Save(savePath + "\\" + SaveName + "-Scheduled-EFT-Greedy.bmp");
+                    if (radioFairGreedy.Checked)
+                        contImages.Save(savePath + "\\" + SaveName + "-Scheduled-Fair-Greedy.bmp");
                     if (radioGenetic.Checked)
                         contImages.Save(savePath + "\\" + SaveName + "-Scheduled-Genetic.bmp");
-                    toolStripStatusLabel3.Text = "Status: Saved Image";
-                }
+                    updateLog(SaveName, "Saved Calculated Schedule to Image (bmp) "+ savePath + "\\" + SaveName);
+            }
 
 
                 /*
@@ -462,28 +433,42 @@ namespace MARRSS
                 fairSatLabel.Text = _H4.ToString();
                 priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
                 label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
-                toolStripStatusLabel3.Text = "Status: Done";
-                startScheduleButton.Enabled = true; ;
+                
+                startScheduleButton.Enabled = true;
+                if (Properties.Settings.Default.log_AutoSave_Results)
+                {
+                    List<string> results = new List<string>();
+                    results.Add("Fitness Value:" + fitnessValueLabel.Text);
+                    results.Add("Scheduled Contacts: " + contactNumberLabel.Text);
+                    results.Add("Collisions: " + collisionLabel.Text);
+                    results.Add("Fairnes Stations: " + stationFairLabel.Text);
+                    results.Add("Fairnes Satellites: " + fairSatLabel.Text);
+                    results.Add("Calculation Time: " + calcTimeLabel.Text);
+                    results.Add(priorityLabel.Text);
+                    Log.writeResults(SaveName, schedulerName, results);
+                    updateLog(SaveName, "Results have been saved to File");
+                }
                 for (int i = 0; i < 5; i++)
                 {
                     SystemSounds.Beep.Play();
                     Thread.Sleep(100*i);
                 }
+            updateLog(SaveName, "Done");
         }
 
-        //Draw all scheduled contacts onto form
+        //! Redraw schedule Image
+        /*! 
+        */
         private void buttonReDraw_Click(object sender, EventArgs e)
         {
             pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
             pictureBox2.Width = pictureBox2.Image.Width;
             pictureBox2.Height = pictureBox2.Image.Height;
         }
-        
-        private void accuracySelect_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            accuracy = MainFunctions.selectAccuracy(accuracySelect.SelectedIndex);
-        }
 
+        //! Update station and satellites lists on Main window
+        /*! 
+        */
         private void UpdateAllLists()
         {
             _MainDataBase.displayAllSatellites(satelliteDataGrid);
@@ -492,48 +477,9 @@ namespace MARRSS
             _MainDataBase.displayAllStations(checkedStations);
         }
 
-        private void genRunTimeCheck_CheckedChanged(object sender, EventArgs e)
-        {
-            if (genRunTimeCheck.Checked)
-            {
-                genMaxGen.Enabled = false;
-                genMaxTime.Enabled = true;
-            }
-            else
-            {
-                genMaxGen.Enabled = true;
-                genMaxTime.Enabled = false;
-            }
-        }
-
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-            MainFunctions.maxPerfSelected(checkMaxPerf.Checked, warningLabel1,
-                warningLabel2);
-        }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkPlotData.Checked)
-            {
-                comboPlottDataSettingsBox.Enabled = true;
-            }
-            else
-            {
-                comboPlottDataSettingsBox.Enabled = false;
-            }
-        }
-
-        private void genPopsize_ValueChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.GeneticMaxPopulation = (int)genPopsize.Value;
-        }
-
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Properties.Settings.Default.Save();
-        }
-
+        //! Load calculated schedule
+        /*! 
+        */
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             toolStripStatusLabel3.Text = "Status: Opening File";
@@ -581,6 +527,10 @@ namespace MARRSS
             }
         }
 
+        //! Save calculated schedule to file
+        /*! 
+           \return void saves a xml file object of the scheduled contacts
+        */
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             toolStripStatusLabel3.Text = "Status: Saving Data";
@@ -597,6 +547,11 @@ namespace MARRSS
             toolStripStatusLabel3.Text = "Status: Done";
         }
 
+        //! 
+        /*! 
+           \param 
+           \return 
+        */
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             startTimePicker.Enabled = true;
@@ -608,46 +563,19 @@ namespace MARRSS
             contactsVector = null;
         }
 
+        //! Show Info Form
+        /*! 
+        */
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MARRSS.Forms.Info info = new Forms.Info();
             info.Show();
-            //MARRSS.Forms.AboutBox1 aboutBox = new Forms.AboutBox1();
-            //aboutBox.ShowDialog();
         }
 
-        private void radioGreedy_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioGenetic.Checked)
-            {
-                tabControl2.SelectedIndex = 0;
-                checkPlotData.Enabled = true;
-                comboPlottDataSettingsBox.Enabled = true;
-                //tabControl2.Enabled = true;
-            }
-            else
-            {
-                tabControl2.SelectedIndex = 1;
-                checkPlotData.Enabled = false;
-                comboPlottDataSettingsBox.Enabled = false;
-                //tabControl2.Enabled = false;
-            }
-        }
-
-        private void outputToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            DialogResult userSelect = folderBrowser.ShowDialog();
-            if (userSelect == DialogResult.OK)
-            {
-                Properties.Settings.Default.LogPath = folderBrowser.SelectedPath;
-                Properties.Settings.Default.SavePath = folderBrowser.SelectedPath;
-                Properties.Settings.Default.Save();
-            }
-        }
-
-
-        //Save displayed image to file
+        //! Save calculated schedule image
+        /*! 
+           \return saves a bmp file of the current schedule
+        */
         private void buttonSaveImage_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -662,25 +590,9 @@ namespace MARRSS
             }
         }
 
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.PlotData = comboPlottDataSettingsBox.SelectedIndex + 1;
-            Properties.Settings.Default.Save();
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.SaveContacts = 1;
-            Properties.Settings.Default.Save();
-        }
-
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.SaveImages = 1;
-            Properties.Settings.Default.Save();
-        }
-
-        //Delete selected satellite entry from Databse
+        //! Delete satellite object from DB
+        /*! 
+        */
         private void button4_Click_2(object sender, EventArgs e)
         {
             _MainDataBase.deleteTle(satelliteNameLabel.Text);
@@ -689,7 +601,9 @@ namespace MARRSS
             UpdateAllLists();
         }
 
-        //Delete selected ground station entry from Database
+        //! Delete ground station object from DB
+        /*! 
+        */
         private void button6_Click_1(object sender, EventArgs e)
         {
             _MainDataBase.deleteStation(label20.Text);
@@ -697,6 +611,11 @@ namespace MARRSS
             UpdateAllLists();
         }
 
+        //! Update Labels 
+        /*! 
+           \param 
+           \return 
+        */
         private void staDataGridView_SelectionChanged_1(object sender, EventArgs e)
         {
             try
@@ -723,6 +642,10 @@ namespace MARRSS
             }
         }
 
+        //! Satellite grid on Selection Changed
+        /*!
+            Displays information about the currently selected satellite
+        */
         private void satelliteDataGrid_SelectionChanged(object sender, EventArgs e)
         {
             if (!_MainDataBase.connected())
@@ -767,7 +690,10 @@ namespace MARRSS
             }
         }
 
-        //Create new Schedule
+        //! Create New Schedule
+        /*!
+            Clears contacts vector and resets form
+        */
         private void label1_Click(object sender, EventArgs e)
         {
             startTimePicker.Enabled = true;
@@ -779,7 +705,10 @@ namespace MARRSS
             contactsVector = null;
         }
 
-        //Load existing Schedule
+        //! Load Schedule from file
+        /*!
+            Load saved schedule from file
+        */
         private void label3_Click(object sender, EventArgs e)
         {
             toolStripStatusLabel3.Text = "Status: Opening File";
@@ -843,178 +772,6 @@ namespace MARRSS
             pictureBox2.Height = pictureBox2.Image.Height;
         }
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            richTextBox2.Clear();
-
-            logRichTextBox.Clear();
-            startScheduleButton.Enabled = false;
-            toolStripStatusLabel3.Text = "Status: Starting";
-            //Set Start and Stop Time
-
-            int start_year = startDatePicker.Value.Year;
-            int start_month = startDatePicker.Value.Month;
-            int start_day = startDatePicker.Value.Day;
-            int start_hh = startTimePicker.Value.Hour;
-            int start_mm = startTimePicker.Value.Minute;
-            int start_ss = startTimePicker.Value.Second;
-            One_Sgp4.EpochTime startTime = new One_Sgp4.EpochTime(start_hh,
-                start_mm, (double)start_ss, start_year, start_month, start_day);
-
-            int stop_year = stopDatePicker.Value.Year;
-            int stop_month = stopDatePicker.Value.Month;
-            int stop_day = stopDatePicker.Value.Day;
-            int stop_hh = stopTimePicker.Value.Hour;
-            int stop_mm = stopTimePicker.Value.Minute;
-            int stop_ss = stopTimePicker.Value.Second;
-            One_Sgp4.EpochTime stopTime = new One_Sgp4.EpochTime(stop_hh,
-                stop_mm, (double)stop_ss, stop_year, stop_month, stop_day);
-
-            // create empty Lists and data containers for Data
-            satTleData = new List<One_Sgp4.Tle>();
-            stationData = new List<Ground.Station>();
-
-            toolStripStatusLabel3.Text = "Status: Checking Data";
-            //check if contacts vector has not been already created or loaded
-            //from save file
-            contactsVector = new Definition.ContactWindowsVector();
-            contactsVector.setStartTime(startTime);
-            contactsVector.setStopTime(stopTime);
-
-            toolStripStatusLabel3.Text = "Status: Reading Data";
-            //get selected Satellites to calculate Orbits
-            for (int i = 0; i < checkedSatellites.Items.Count; i++)
-            {
-                if (checkedSatellites.GetItemChecked(i))
-                {
-                    One_Sgp4.Tle sattle = _MainDataBase.getTleDataFromDB(checkedSatellites.Items[i].ToString());
-                    satTleData.Add(sattle);
-                }
-            }
-            //get selected GroundSTations for Calculations
-            for (int i = 0; i < checkedStations.Items.Count; i++)
-            {
-                if (checkedStations.GetItemChecked(i))
-                {
-                    Ground.Station station = _MainDataBase.getStationFromDB(checkedStations.Items[i].ToString());
-                    stationData.Add(station);
-                }
-            }
-
-            //calculate Orbits
-            toolStripStatusLabel3.Text = "Status: Calculating Contacts";
-            Application.DoEvents();
-            Performance.TimeMeasurement tm1 = new Performance.TimeMeasurement();
-            tm1.activate();
-
-            //-------------------------------------------------------------
-            //Calculate orbits using Tasks
-            //Each Satellite is calculated in another Thread
-            //thus speading up calculations immensly
-            One_Sgp4.Sgp4[] tasks = new One_Sgp4.Sgp4[satTleData.Count()];
-            Task[] threads = new Task[satTleData.Count()];
-            for (int i = 0; i < satTleData.Count(); i++)
-            {
-                tasks[i] = new One_Sgp4.Sgp4(satTleData[i], Properties.Settings.Default.Wgs);
-                tasks[i].setStart(startTime, stopTime, accuracy / 60.0);
-                threads[i] = new Task(tasks[i].starThread);
-            }
-            for (int i = 0; i < threads.Count(); i++)
-            {
-                threads[i].Start();
-            }
-
-            try
-            {
-                Task.WaitAll(threads);
-            }
-            catch (AggregateException ae)
-            {
-                //throw ae.Flatten();
-                logRichTextBox.Text = logRichTextBox.Text + ae.InnerExceptions[0].Message + "\n";
-            }
-
-
-            //-------------------------------------------------------------
-            //Calculate contacts in another Thread
-            //Each set of contacts for a Satellite is calculated in another Thread
-            //thus speading up calculations immensly
-            for (int i = 0; i < satTleData.Count(); i++)
-            {
-                Ground.InView[] inViews = new Ground.InView[stationData.Count()];
-                Task[] inThreads = new Task[stationData.Count()];
-                for (int k = 0; k < stationData.Count(); k++)
-                {
-                    inViews[k] = new Ground.InView(stationData[k], startTime, tasks[i].getRestults(), satTleData[i].getName(), accuracy);
-                    inThreads[k] = new Task(inViews[k].calcContactWindows);
-                }
-                for (int k = 0; k < stationData.Count(); k++)
-                {
-                    inThreads[k].Start();
-                }
-                Task.WaitAll(inThreads);
-                for (int k = 0; k < stationData.Count(); k++)
-                {
-                    contactsVector.add(inViews[k].getResults());
-                }
-            }
-            string perfResCalc = tm1.getValueAndDeactivate();
-            toolStripStatusLabel3.Text = "Status: Contact Windows Calculated";
-            toolStripStatusLabel3.Text = "Status: Starting Scheduler";
-            //Set Scheduling Problem
-            Scheduler.SchedulingProblem problem = new Scheduler.SchedulingProblem();
-            problem.setContactWindows(contactsVector);
-            problem.removeUnwantedContacts(Convert.ToInt32(minDurationTextBox.Text));
-            //check if loading from SaveFile
-            //if Yes then one does not have to set Szenarios
-            problem.getContactWindows().randomize(Int32.Parse(randomSeedTextBox.Text));
-
-            for (int i = 0; i < contactsVector.Count(); i++)
-            {
-                toolStripStatusLabel3.Text = "Status: Fair Greedy Running";
-                Scheduler.FairGreedyScheduler greedy = new Scheduler.FairGreedyScheduler();
-                greedy.setFormToUpdate(this);
-                //tm.activate();
-                greedy.BruteForceSchedule(problem, i);
-                //label37.Text = tm.getValueAndDeactivate() + " s";
-                generationLabel.Text = " --";
-                contactsVector = greedy.getFinischedSchedule();
-                Application.DoEvents();
-
-                toolStripStatusLabel3.Text = "Status: Scheduler finisched";
-
-                //Draw scheduled data to Main form
-                pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-                pictureBox2.Width = pictureBox2.Image.Width;
-                pictureBox2.Height = pictureBox2.Image.Height;
-
-                //Get Information of finisched Schedule
-                //fairnes is a value from 0 to 1 
-                //1 meaning every satellite or station is contacted / used equally
-                int _H = Performance.GeneralMeasurments.getNrOfScheduled(contactsVector);
-                double _H1 = _H / (double)contactsVector.Count();
-                double _H2 = Performance.GeneralMeasurments.getNrOfConflicts(contactsVector);
-                double _H3 = Performance.GeneralMeasurments.getFairnesStations(contactsVector);
-                double _H4 = Performance.GeneralMeasurments.getFairnesSatellites(contactsVector);
-
-                fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
-                contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
-                collisionLabel.Text = _H2.ToString();
-                stationFairLabel.Text = _H3.ToString();
-                fairSatLabel.Text = _H4.ToString();
-                priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
-                label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
-                toolStripStatusLabel3.Text = "Status: Done";
-
-                string res = i+": " + DateTime.Now.ToString() + " Contacts: " + contactNumberLabel.Text + "; " + fitnessLabel.Text + ": " + fitnessValueLabel.Text + "\n";
-                richTextBox2.AppendText(res);
-                for (int k = 0; k < contactsVector.Count(); k++)
-                {
-                    contactsVector.getAt(k).setExclusion(false);
-                    contactsVector.getAt(k).unShedule();
-                }
-            }
-        }
 
         private void importTLEsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1024,21 +781,6 @@ namespace MARRSS
             UpdateAllLists();
         }
 
-        private void wGSToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            wgs72MenuItem.Checked = true;
-            wgs84MenuItem.Checked = false;
-            Properties.Settings.Default.Wgs = 1;
-            Properties.Settings.Default.Save();
-        }
-
-        private void wGS84ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            wgs72MenuItem.Checked = false;
-            wgs84MenuItem.Checked = true;
-            Properties.Settings.Default.Wgs = 0;
-            Properties.Settings.Default.Save();
-        }
 
         private void addGroundStationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1081,6 +823,7 @@ namespace MARRSS
             satForm.ShowDialog();
             UpdateAllLists();
         }
+
 
         /*
          * Form Actions, Interactions and mouse over
@@ -1236,17 +979,82 @@ namespace MARRSS
 
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO
-            //ADD link to GitHUB Wiki
+            System.Diagnostics.Process.Start("https://github.com/1manprojects/marrss");
         }
 
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            //TODO
-            //AD link to GitHub Help
+            System.Diagnostics.Process.Start("https://github.com/1manprojects/marrss");
         }
 
+        /*
+         * Open Settings Page
+         */
+        private void settingsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MARRSS.Forms.SettingsForm settings = new Forms.SettingsForm();
+            settings.Show();
+        }
 
+        private void addSatelliteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            _MainDataBase.closeDB();
+            Forms.SatelliteForm satForm = new Forms.SatelliteForm();
+            satForm.ShowDialog();
+            UpdateAllLists();
+        }
 
+        private void addGroundStationToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Forms.StationForm addStation = new Forms.StationForm();
+            addStation.ShowDialog();
+            UpdateAllLists();
+        }
+
+        private void updateTLEsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _MainDataBase.closeDB();
+            Forms.SatelliteForm satForm = new Forms.SatelliteForm();
+            satForm.setSelection(3);
+            satForm.ShowDialog();
+            UpdateAllLists();
+        }
+
+        private void updateLog(string file, string data)
+        {
+            toolStripStatusLabel3.Text = "Status: " + data;
+            logRichTextBox.Text += "\n" + data;
+            if (Properties.Settings.Default.log_AutoSave_RunLog)
+            {
+                Log.writeLog(file, data);
+
+            }
+        }
+
+        private void checkAndCreateLogFolders()
+        {
+            if (!Directory.Exists(Properties.Settings.Default.global_Save_Path))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.global_Save_Path);
+            }
+            if (!Directory.Exists(Properties.Settings.Default.global_LogSavePath))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.global_LogSavePath);
+            }
+            if (!Directory.Exists(Properties.Settings.Default.global_ResultSavePath))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
+            }
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            DateTime now = DateTime.Now;
+            startDatePicker.Value = now.Date;
+            startTimePicker.Value = now.ToUniversalTime();
+            now = now.AddDays(1.0);
+            stopDatePicker.Value = now.Date;
+            stopTimePicker.Value = now.ToUniversalTime();
+        }
     }
 }

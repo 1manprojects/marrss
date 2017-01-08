@@ -145,29 +145,6 @@ namespace MARRSS
             return accuracy;
         }
 
-        //! Make Warning text visible after selection of Max Perf. Settings
-        /*! 
-           \param bool checkBox.checked status
-           \param Label warningLabel1
-           \param Label warningLabel2
-        */
-        public static void maxPerfSelected(bool status, Label label1, Label label2)
-        {
-            if (status)
-            {
-                label1.Visible = true;
-                label2.Visible = true;
-                Properties.Settings.Default.MaxPerf = 1;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                label1.Visible = false;
-                label2.Visible = false;
-                Properties.Settings.Default.MaxPerf = 0;
-                Properties.Settings.Default.Save();
-            }
-        }
 
 
     }

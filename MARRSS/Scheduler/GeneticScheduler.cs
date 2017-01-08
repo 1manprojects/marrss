@@ -12,9 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
 using MARRSS.Interface2;
 using MARRSS.Definition;
@@ -87,9 +84,9 @@ namespace MARRSS.Scheduler
         */
         public GeneticScheduler()
         {
-            generateLog = Properties.Settings.Default.SaveLogs;
+            generateLog = Properties.Settings.Default.global_SaveLogs_Path;
             generatePlotData = Properties.Settings.Default.PlotData;
-            plotPath = Properties.Settings.Default.SavePath;
+            plotPath = Properties.Settings.Default.global_Save_Path;
             if (generatePlotData > 0)
             {
                 //create File to write in to
@@ -189,7 +186,7 @@ namespace MARRSS.Scheduler
                     fitness[i] = checkFitness(population[i]);
                 }
 
-                if (Properties.Settings.Default.MaxPerf == 0)
+                if (Properties.Settings.Default.global_MaxPerf == false)
                 {
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -215,7 +212,7 @@ namespace MARRSS.Scheduler
                     WriteLog();
                 }
 
-                if (Properties.Settings.Default.MaxPerf == 0)
+                if (Properties.Settings.Default.global_MaxPerf == false)
                 {
                     System.Windows.Forms.Application.DoEvents();
                 }
@@ -249,7 +246,7 @@ namespace MARRSS.Scheduler
 
         //! Checks if the algorithm has found a solution
         /*!
-            \return bool true if found a solution
+            \return bool true if a solution is found
         */
         public bool isComplete()
         {
@@ -676,6 +673,26 @@ namespace MARRSS.Scheduler
         public void setSolveConflictsAfterRun(bool solveConflicts)
         {
             solveConflict = solveConflicts;
+        }
+
+        //! ToString method
+        /*!
+           \return string 
+            returns the Name of the Schedule and used Settings as String
+        */
+        public string ToString()
+        {
+            string name = "Genetic Scheduler" + "\n" + "PopulationSize: "
+                + popSize + "\n" + "Starting Chance: " + genCrea + "\n" + "Mutation Chance: " + mutation + "\n";
+            if (runUnitlTime)
+            {
+                name += "\n" + "Max Runtime (H): " + hours;
+            }
+            else
+            {
+                name += "\n" + "Max Generations: " + nrOfGenerationsForCompletion;
+            }
+            return name;
         }
     }
 }

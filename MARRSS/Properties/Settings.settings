@@ -2,46 +2,112 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MARRSS.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="GeneticMaxPopulation" Type="System.Int32" Scope="User">
+    <Setting Name="genetic_Population_Size" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8</Value>
     </Setting>
-    <Setting Name="GeneticCreation" Type="System.Int32" Scope="User">
+    <Setting Name="genetic_Start_Percentage" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">65</Value>
     </Setting>
-    <Setting Name="GeneticMutation" Type="System.Int32" Scope="User">
+    <Setting Name="genetic_Mutation_Chance" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="LogPath" Type="System.String" Scope="User">
+    <Setting Name="global_Log_Path" Type="System.String" Scope="User">
       <Value Profile="(Default)">Output</Value>
     </Setting>
-    <Setting Name="SavePath" Type="System.String" Scope="User">
+    <Setting Name="global_Save_Path" Type="System.String" Scope="User">
       <Value Profile="(Default)">Contacts</Value>
     </Setting>
-    <Setting Name="PlotPath" Type="System.String" Scope="User">
+    <Setting Name="global_Plot_Path" Type="System.String" Scope="User">
       <Value Profile="(Default)">Output</Value>
     </Setting>
-    <Setting Name="GenMaxGenerations" Type="System.Int32" Scope="User">
+    <Setting Name="genetic_Max_Nr_of_Generations" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10000</Value>
     </Setting>
-    <Setting Name="Wgs" Type="System.Int32" Scope="User">
+    <Setting Name="orbit_Wgs" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="global_MaxPerf" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="global_SaveLogs_Path" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="MaxPerf" Type="System.Int32" Scope="User">
+    <Setting Name="drawer_Save_Schedule_as_Image" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="SaveLogs" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="SaveImages" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="SaveContacts" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="global_SaveContacts" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PlotData" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="SavedLogin" Type="System.Boolean" Scope="User">
+    <Setting Name="secure_SavedLogin" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="orbit_Calculation_Accuracy_select" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="orbit_Minimum_Contact_Duration_sec" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="orbit_Minimum_Elevation_deg" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="global_Random_Seed" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">58496</Value>
+    </Setting>
+    <Setting Name="global_AutoSave" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="global_SaveSchedule" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="genetic_RunVariable" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="global_ShowLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="genetic_RunTime" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="genetic_SolveContflicts" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="genetic_ConflictSolver" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="log_AutoSave_Results" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="log_AutoSave_RunLog" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="tle_AutoUpdate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="tle_UpdateTime" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="entropy" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="passwd" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="email" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="global_ResultSavePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Output</Value>
+    </Setting>
+    <Setting Name="global_LogSavePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Output</Value>
+    </Setting>
+    <Setting Name="gloabal_LogFitness" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="log_ShowLog" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

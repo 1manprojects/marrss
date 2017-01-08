@@ -135,7 +135,7 @@ namespace MARRSS.Scheduler
                         }
                     }
                     //update Progress Bar on Main Form
-                    if (Properties.Settings.Default.MaxPerf == 0)
+                    if (Properties.Settings.Default.global_MaxPerf == false)
                     {
                         System.Windows.Forms.Application.DoEvents();
                     }
@@ -243,6 +243,16 @@ namespace MARRSS.Scheduler
         {
             plotWr.WriteLine(number + " " + fitness);
             plotWr.Flush();
+        }
+
+        //! ToString method
+        /*!
+           \return string 
+            returns the Name of the Schedule and used Settings as String
+        */
+        public string ToString()
+        {
+            return "EFT-Greedy Scheduler";
         }
     }
 }

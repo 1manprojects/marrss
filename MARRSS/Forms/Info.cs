@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**
+* ----------------------------------------------------------------
+* Nikolai Jonathan Reed 
+*
+* 
+* Copyright (c) 2016, Nikolai Reed, 1manprojects.de
+* All rights reserved.
+*
+* Licensed under
+* Creative Commons Attribution NonCommercial (CC-BY-NC)
+*/
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
@@ -21,9 +32,9 @@ namespace MARRSS.Forms
         private void Info_Load(object sender, EventArgs e)
         {
             label4.Text = String.Format("Version {0}.{1}.{2}",
-                Assembly.GetExecutingAssembly().GetName().Version.Major,
-                Assembly.GetExecutingAssembly().GetName().Version.Minor,
-                Assembly.GetExecutingAssembly().GetName().Version.Build);
+                1,
+                2,
+                70);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

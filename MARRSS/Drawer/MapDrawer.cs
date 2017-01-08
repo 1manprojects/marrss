@@ -69,7 +69,7 @@ namespace MARRSS.Drawer
             Image imgSatellite = Properties.Resources.worldsmaller;
             try
             {
-                One_Sgp4.Sgp4 task = new One_Sgp4.Sgp4(tleData, Properties.Settings.Default.Wgs);
+                One_Sgp4.Sgp4 task = new One_Sgp4.Sgp4(tleData, Properties.Settings.Default.orbit_Wgs);
                 One_Sgp4.EpochTime starttime = new One_Sgp4.EpochTime(DateTime.UtcNow);
                 One_Sgp4.EpochTime stoptime = new One_Sgp4.EpochTime(DateTime.UtcNow.AddHours(4));
                 task.setStart(starttime, stoptime, 30.0 / 60.0);

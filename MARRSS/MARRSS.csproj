@@ -22,8 +22,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>https://1manprojects.de</SupportUrl>
+    <ProductName>MARRSS</ProductName>
+    <PublisherName>1 Man Projects</PublisherName>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.2.7.1</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -103,6 +106,7 @@
       <HintPath>C:\Program Files\System.Data.SQLite\2005\bin\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -137,6 +141,12 @@
     <Compile Include="Forms\SatelliteForm.Designer.cs">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\StationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +174,7 @@
     </Compile>
     <Compile Include="MainFunctions.cs" />
     <Compile Include="Performance\GeneralMeasurments.cs" />
+    <Compile Include="Performance\Log.cs" />
     <Compile Include="Performance\TimeMeasurement.cs" />
     <Compile Include="Satellite\Satellite.cs" />
     <Compile Include="Ground\Station.cs" />
@@ -188,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SatelliteForm.resx">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\StationForm.resx">
       <DependentUpon>StationForm.cs</DependentUpon>
@@ -229,6 +243,7 @@
     <Content Include="Resources\Images\ISS.png" />
     <None Include="Resources\Images\Logo-CellPhone.jpg" />
     <None Include="Resources\Images\Logo.jpg" />
+    <None Include="Resources\Images\smallBanner.png" />
     <Content Include="Resources\Images\uwe3.png" />
     <None Include="Resources\Logo.png" />
     <None Include="Resources\worldsmaller.jpg" />
