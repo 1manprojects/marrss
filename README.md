@@ -12,6 +12,9 @@ This Software was created to implement different scheduling approaches for an ac
 ## Download
 Download the latest release [here](https://github.com/1manprojects/marrss/releases)
 
+## Installation and Requirements
+To Install just unpack the zip file and run the marrss.exe A 64-Bit Windows operating system is needed to run the software.
+
 ## Wiki
 Wiki and documentaion are comming soon.
 
