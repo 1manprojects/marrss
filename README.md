@@ -15,6 +15,8 @@ Download the latest release [here](https://github.com/1manprojects/marrss/releas
 ## Installation and Requirements
 To Install just unpack the zip file and run the marrss.exe A 64-Bit Windows operating system is needed to run the software.
 
+If you just want to update to the newest version and keep youre local database just replace the exe and dll files and do not replace the SatData.mab file.
+
 ## Wiki
 Wiki and documentaion are comming soon.
 
