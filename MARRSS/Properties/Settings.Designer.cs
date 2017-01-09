@@ -374,12 +374,12 @@ namespace MARRSS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string entropy {
+        public string ent {
             get {
-                return ((string)(this["entropy"]));
+                return ((string)(this["ent"]));
             }
             set {
-                this["entropy"] = value;
+                this["ent"] = value;
             }
         }
         
@@ -452,6 +452,18 @@ namespace MARRSS.Properties {
             }
             set {
                 this["log_ShowLog"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ent2 {
+            get {
+                return ((string)(this["ent2"]));
+            }
+            set {
+                this["ent2"] = value;
             }
         }
     }

@@ -121,7 +121,6 @@
             this.checkBox1.TabIndex = 7;
             this.checkBox1.Text = "Save Login";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Visible = false;
             // 
             // Login
             // 

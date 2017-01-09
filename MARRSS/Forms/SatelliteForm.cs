@@ -153,15 +153,22 @@ namespace MARRSS.Forms
             }
             db.closeDB();
             db = null;
-            if (errorCode == 0)
+            switch (errorCode)
             {
-                this.Close();
-                this.Cursor = Cursors.Default;
-            }
-            else
-            {
-                MessageBox.Show("Unable to Update from Server.\n Login information could be wrong or server is not reachable", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case 1:
+                    MessageBox.Show("Unable to Update from Server.\n Login information could be wrong or server is not reachable", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case 2:
+                    //MessageBox.Show("No Login information given", "Error",
+                    //    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    this.Cursor = Cursors.Default;
+                    break;
+                default:
+                    this.Close();
+                    this.Cursor = Cursors.Default;
+                    break;
             }
         }
 

@@ -13,12 +13,15 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.IO;
+
 
 namespace MARRSS.Forms
 {
     public partial class Login : Form
     {
         private SatelliteForm parent;
+       
 
         public Login(SatelliteForm Parent)
         {
@@ -39,27 +42,21 @@ namespace MARRSS.Forms
             if (checkBox1.Checked)
             {
                 Properties.Settings.Default.secure_SavedLogin = true;
-
-                byte[] plaintext = Encoding.ASCII.GetBytes(textBox2.Text);
-
-                byte[] entropy = new byte[20];
-                using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
-                {
-                    rng.GetBytes(entropy);
-                    Properties.Settings.Default.entropy = Encoding.ASCII.GetString(entropy);
-                }
-                byte[] ciphertext = ProtectedData.Protect(plaintext, entropy,
-                    DataProtectionScope.LocalMachine);
-
                 Properties.Settings.Default.email = textBox1.Text;
-                string test = Encoding.ASCII.GetString(ciphertext);
-                Properties.Settings.Default.passwd = Encoding.ASCII.GetString(ciphertext);
-                Properties.Settings.Default.Save();
+                using (AesManaged aesEncrypt = new AesManaged())
+                {
+                    byte[] encryptedPwd = EncryptStringToByte(textBox2.Text, aesEncrypt.Key, aesEncrypt.IV);
+                    string enc = Convert.ToBase64String(encryptedPwd);
+                    Properties.Settings.Default.passwd = enc;
+                    Properties.Settings.Default.ent = Convert.ToBase64String(aesEncrypt.IV);
+                    Properties.Settings.Default.ent2 = Convert.ToBase64String(aesEncrypt.Key);
+                }
+
             }
             else
             {
                 Properties.Settings.Default.secure_SavedLogin = false;
-                Properties.Settings.Default.entropy = "0";
+                Properties.Settings.Default.ent = "0";
                 Properties.Settings.Default.email = "";
                 Properties.Settings.Default.Save();
             }
@@ -72,24 +69,77 @@ namespace MARRSS.Forms
             checkBox1.Checked = Properties.Settings.Default.secure_SavedLogin;
             if (checkBox1.Checked)
             {
-                try
-                {
-                    string test = Properties.Settings.Default.passwd;
-                    byte[] entropy = Encoding.ASCII.GetBytes(Properties.Settings.Default.entropy);
-                    byte[] ciphertext = Encoding.ASCII.GetBytes(Properties.Settings.Default.passwd);
-                    byte[] plaintext = ProtectedData.Unprotect(ciphertext, entropy,
-                        DataProtectionScope.LocalMachine);
-                    textBox2.Text = Encoding.ASCII.GetString(plaintext);
-                }
-                catch (CryptographicException)
-                {
-                    MessageBox.Show("Error 1820 decoding login credentials", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
                 
                 textBox1.Text = Properties.Settings.Default.email;
+
+                byte[] enc = Convert.FromBase64String(Properties.Settings.Default.passwd);
+                byte[] key = Convert.FromBase64String(Properties.Settings.Default.ent2);
+                byte[] ent = Convert.FromBase64String(Properties.Settings.Default.ent);
+                string plain = DecryptStringFromBytes(enc, key, ent);
+                textBox2.Text = plain;
+
             }
+        }
+
+        private static byte[] EncryptStringToByte(string plain, byte[] key, byte[] ent)
+        {
+            if (plain == null || plain.Length <= 0)
+                throw new ArgumentNullException("Plain Text");
+            if (key == null || key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (ent == null || ent.Length <= 0)
+                throw new ArgumentNullException("ent");
+            byte[] encrypted;
+            using (AesManaged aes = new AesManaged())
+            {
+                aes.Key = key;
+                aes.IV = ent;
+                ICryptoTransform aesEncrypt = aes.CreateEncryptor(aes.Key, aes.IV);
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, aesEncrypt,CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(plain);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+            return encrypted;
+        }
+
+        private static string DecryptStringFromBytes(byte[] cipher, byte[] key, byte[] ent)
+        {
+            // Check arguments.
+            if (cipher == null || cipher.Length <= 0)
+                throw new ArgumentNullException("cipherText");
+            if (key == null || key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (ent == null || ent.Length <= 0)
+                throw new ArgumentNullException("IV");
+
+            string plain = null;
+            using (AesManaged aesAlg = new AesManaged())
+            {
+                aesAlg.Key = key;
+                aesAlg.IV = ent;
+                ICryptoTransform aesDecryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msDecrypt = new MemoryStream(cipher))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, aesDecryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+                            plain = srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+
+            }
+            return plain;
         }
 
     }
