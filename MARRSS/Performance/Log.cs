@@ -39,7 +39,7 @@ namespace MARRSS.Performance
             Properties.Settings settings = Properties.Settings.Default;
             string file = settings.global_ResultSavePath + "\\" + name + "-results.txt";
 
-            using (System.IO.StreamWriter logwriter = new System.IO.StreamWriter(file, false))
+            using (System.IO.StreamWriter logwriter = new System.IO.StreamWriter(file, true))
             {
                 logwriter.WriteLine("Results From Run " + schedulerName);
                 foreach (string line in results)

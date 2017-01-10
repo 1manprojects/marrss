@@ -109,38 +109,6 @@ namespace MARRSS
             label.Text = "Status: " + text;
         }
 
-        //! returns the selected accuracy
-        /*! 
-           \param int selectedIndex of selectTextBox
-           \return double accuracy of calculation
-        */
-        public static double selectAccuracy(int index)
-        {
-            double accuracy = 0.5;
-            switch (index)
-            {
-                case 0:
-                    accuracy = 0.5;
-                    break;
-                case 1:
-                    accuracy = 1.0;
-                    break;
-                case 2:
-                    accuracy = 5.0;
-                    break;
-                case 3:
-                    accuracy = 10.0;
-                    break;
-                case 4:
-                    accuracy = 30.0;
-                    break;
-                case 5:
-                    accuracy = 60.0;
-                    break;
-            }
-            return accuracy;
-        }
-
         //! Check if output folders exists
         /*! 
            creates the output folders is they do not exist

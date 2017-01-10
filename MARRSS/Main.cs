@@ -36,7 +36,8 @@ namespace MARRSS
         private Definition.ContactWindowsVector contactsVector;
 
         private DataBase.DataBase _MainDataBase; //!< Database connection
-        double accuracy = 0.5;
+
+        private bool cancelCalculation = false;
 
         Image imgSatellite = null;
         Image imgStation = null;
@@ -84,7 +85,7 @@ namespace MARRSS
             scheduler will compute a solution.
             New schedulers can be added inside this function below.
         */
-        private void startSchedule()
+        private void startSchedule(bool useBruteForce = false)
         {
 
                 string SaveName = getSaveFileName();
@@ -197,17 +198,20 @@ namespace MARRSS
                     contactsVector = genetic.getFinischedSchedule();
                     schedulerName = genetic.ToString();
                 }
-                //-----------------------------------------------------------------
-                //-----------------------------------------------------------------
-                //-----------------------------------------------------------------
-                //-----------GREEDY
+            //-----------------------------------------------------------------
+            //-----------------------------------------------------------------
+            //-----------------------------------------------------------------
+            //-----------GREEDY
+            if (!useBruteForce)
+            {
                 if (radioGreedy.Checked)
                 {
                     updateLog(SaveName, "EFT-Greedy Running");
                     Scheduler.EftGreedyScheduler greedy = new Scheduler.EftGreedyScheduler();
                     greedy.setFormToUpdate(this);
                     tm.activate();
-                    greedy.CalculateSchedule(problem);
+                    if (!useBruteForce)
+                        greedy.CalculateSchedule(problem);
                     calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
                     generationLabel.Text = " --";
                     contactsVector = greedy.getFinischedSchedule();
@@ -233,13 +237,50 @@ namespace MARRSS
                     */
                 updateLog(SaveName, "Scheduler DONE");
                 finischSchedule(schedulerName, SaveName);
+            }
+            //Use Brute Force Method 
+            //Currently only Fair Greedy
+            else
+            {
+                TimeMeasurement bruteTime = new TimeMeasurement();
+                bruteTime.activate();
+                for (int iteration = 0; iteration < contactsVector.Count(); iteration++)
+                { 
+                    if (radioFairGreedy.Checked)
+                    {
+                        updateLog(SaveName, "Fair-Greedy Running #: " + iteration);
+                        Scheduler.FairGreedyScheduler greedy = new Scheduler.FairGreedyScheduler();
+                        greedy.setFormToUpdate(this);
+                        tm.activate();
+                        greedy.BruteForceSchedule(problem, iteration);
+                        calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
+                        generationLabel.Text = " --";
+                        contactsVector = greedy.getFinischedSchedule();
+                        schedulerName = greedy.ToString();
+                    }
+                    finischSchedule(schedulerName, SaveName, iteration);
+                }
+                calcTimeLabel.Text = bruteTime.getValueAndDeactivate();
+            }
 
         }
 
         
         private void startScheduleButton_Click(object sender, EventArgs e)
         {
-            startSchedule();
+            bool useBruteForce = ( Properties.Settings.Default.fair_BruteForce &&
+                                    radioFairGreedy.Checked);
+            startSchedule(useBruteForce);
+
+            //notifcation if done
+            for (int i = 0; i < 5; i++)
+            {
+                SystemSounds.Beep.Play();
+                Thread.Sleep(100 * i);
+            }
+            startScheduleButton.Text = "Calculate Schedule";
+            startScheduleButton.BackColor = Color.LightSkyBlue;
+            startScheduleButton.Enabled = true;
         }
 
 
@@ -371,6 +412,7 @@ namespace MARRSS
         */
         private void CalculateContacts(One_Sgp4.EpochTime start, One_Sgp4.EpochTime stop, string logfile)
         {
+            double accuracy = Properties.Settings.Default.orbit_Calculation_Accuracy;
             Application.DoEvents();
             Performance.TimeMeasurement timeMessurmentOribt = new Performance.TimeMeasurement();
             timeMessurmentOribt.activate();
@@ -498,7 +540,7 @@ namespace MARRSS
          * Calculate fairness values
          * Display information on Form
         */
-        private void finischSchedule(string schedulerName, string logfile)
+        private void finischSchedule(string schedulerName, string logfile, int number = 0, bool bruteForce = false)
         {
             //Draw scheduled data to Main form
             pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
@@ -512,14 +554,13 @@ namespace MARRSS
                 string savePath = Properties.Settings.Default.global_Save_Path;
                 Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
                 if (radioGreedy.Checked)
-                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-EFT-Greedy.bmp");
+                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-EFT-Greedy-"+ number +".bmp");
                 if (radioFairGreedy.Checked)
-                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Fair-Greedy.bmp");
+                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Fair-Greedy-" + number + ".bmp");
                 if (radioGenetic.Checked)
-                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic.bmp");
+                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic-" + number + ".bmp");
                 updateLog(logfile, "Saved Calculated Schedule to Image (bmp) " + savePath + "\\" + logfile);
             }
-
 
             /*
                 * The finisched Schedule is analized here by the Performance
@@ -534,35 +575,45 @@ namespace MARRSS
             double _H3 = Performance.GeneralMeasurments.getFairnesStations(contactsVector);
             double _H4 = Performance.GeneralMeasurments.getFairnesSatellites(contactsVector);
 
-            fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
+            if (bruteForce)
+            {
+                double lastFitness = Convert.ToDouble(fitnessValueLabel);
+                if (lastFitness <= (1.0 / 3.0) * (_H1 + _H3 + _H4) )
+                {
+                    fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
 
-            contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
-            collisionLabel.Text = _H2.ToString();
-            stationFairLabel.Text = _H3.ToString();
-            fairSatLabel.Text = _H4.ToString();
-            priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
-            label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
+                    contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
+                    collisionLabel.Text = _H2.ToString();
+                    stationFairLabel.Text = _H3.ToString();
+                    fairSatLabel.Text = _H4.ToString();
+                    priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
+                    label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
+                }
+            }
+            else
+            {
+                fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
 
-            startScheduleButton.Text = "Calculate Schedule";
-            startScheduleButton.BackColor = Color.LightSkyBlue;
-            startScheduleButton.Enabled = true;
+                contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
+                collisionLabel.Text = _H2.ToString();
+                stationFairLabel.Text = _H3.ToString();
+                fairSatLabel.Text = _H4.ToString();
+                priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
+                label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
+            }
             if (Properties.Settings.Default.log_AutoSave_Results)
             {
                 List<string> results = new List<string>();
-                results.Add("Fitness Value:" + fitnessValueLabel.Text);
-                results.Add("Scheduled Contacts: " + contactNumberLabel.Text);
-                results.Add("Collisions: " + collisionLabel.Text);
-                results.Add("Fairnes Stations: " + stationFairLabel.Text);
-                results.Add("Fairnes Satellites: " + fairSatLabel.Text);
+                results.Add("RunNumber: " + number);
+                results.Add("Fitness Value:" + ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString());
+                results.Add("Scheduled Contacts: " + _H + " / " + contactsVector.Count().ToString());
+                results.Add("Collisions: " + _H2.ToString());
+                results.Add("Fairnes Stations: " + _H3.ToString());
+                results.Add("Fairnes Satellites: " + _H4.ToString());
                 results.Add("Calculation Time: " + calcTimeLabel.Text);
-                results.Add(priorityLabel.Text);
+                results.Add("Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector));
                 Log.writeResults(logfile, schedulerName, results);
                 updateLog(logfile, "Results have been saved to File");
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                SystemSounds.Beep.Play();
-                Thread.Sleep(100 * i);
             }
             updateLog(logfile, "Done");
         }
@@ -1104,7 +1155,7 @@ namespace MARRSS
         private void settingsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MARRSS.Forms.SettingsForm settings = new Forms.SettingsForm();
-            settings.Show();
+            settings.Show(this);
         }
 
         private void addSatelliteToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1134,6 +1185,7 @@ namespace MARRSS
         {
             toolStripStatusLabel3.Text = "Status: " + data;
             logRichTextBox.Text += "\n" + data;
+            logRichTextBox.ScrollToCaret();
             if (Properties.Settings.Default.log_AutoSave_RunLog)
             {
                 Log.writeLog(file, data);

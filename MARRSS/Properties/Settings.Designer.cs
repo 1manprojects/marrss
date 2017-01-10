@@ -466,5 +466,29 @@ namespace MARRSS.Properties {
                 this["ent2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public double orbit_Calculation_Accuracy {
+            get {
+                return ((double)(this["orbit_Calculation_Accuracy"]));
+            }
+            set {
+                this["orbit_Calculation_Accuracy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool fair_BruteForce {
+            get {
+                return ((bool)(this["fair_BruteForce"]));
+            }
+            set {
+                this["fair_BruteForce"] = value;
+            }
+        }
     }
 }

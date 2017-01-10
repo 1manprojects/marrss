@@ -206,12 +206,6 @@ namespace MARRSS.Scheduler
                     }
                 }
 
-                //write current found fitness of solution to file if looging is enabled
-                if (generatePlotData > 0)
-                {
-                    WriteLog(count, maxFitness);
-                }
-
                 bool found = false;
                 if (pos >= 0)
                 {
@@ -249,16 +243,6 @@ namespace MARRSS.Scheduler
             set.add(set1);
             set.add(set2);
             schedule = set;
-        }
-
-        //! Write Log Data to File
-        /*!
-            writes the current fitness value of the solution to a file
-        */
-        private void WriteLog(int number, double fitness)
-        {
-            plotWr.WriteLine(number + " " + fitness);
-            plotWr.Flush();
         }
 
         //! ToString method

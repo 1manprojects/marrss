@@ -10,13 +10,6 @@
 * Creative Commons Attribution NonCommercial (CC-BY-NC)
 */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MARRSS.Forms
@@ -111,6 +104,7 @@ namespace MARRSS.Forms
             settings.genetic_SolveContflicts = checkSolveConflicts.Checked;
 
             settings.orbit_Calculation_Accuracy_select = accuracySelect.SelectedIndex;
+            settings.orbit_Calculation_Accuracy = selectAccuracy(accuracySelect.SelectedIndex);
             settings.orbit_Minimum_Contact_Duration_sec = Convert.ToInt32(minDurationTextBox.Text);
             settings.orbit_Minimum_Elevation_deg = Convert.ToInt32(minElevationTextBox.Text);
             if ( wgs84RadioButton.Checked)
@@ -130,6 +124,8 @@ namespace MARRSS.Forms
             settings.gloabal_LogFitness = logFitnessCheckBox.Checked;
             settings.log_ShowLog = showLogCheckBox.Checked;
 
+            settings.fair_BruteForce = fairBruteForceCheckbox.Checked;
+
             settings.Save();
             this.Close();
         }
@@ -137,11 +133,6 @@ namespace MARRSS.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void genMaxGen_ValueChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
@@ -175,6 +166,7 @@ namespace MARRSS.Forms
             checkSolveConflicts.Checked = settings.genetic_SolveContflicts;
 
             accuracySelect.SelectedIndex = settings.orbit_Calculation_Accuracy_select;
+            settings.orbit_Calculation_Accuracy = selectAccuracy(accuracySelect.SelectedIndex);
             minDurationTextBox.Text = settings.orbit_Minimum_Contact_Duration_sec.ToString();
             minElevationTextBox.Text = settings.orbit_Minimum_Elevation_deg.ToString();
             if (settings.orbit_Wgs == 1)
@@ -211,10 +203,7 @@ namespace MARRSS.Forms
             showLogCheckBox.Checked = settings.log_ShowLog;
             logFitnessCheckBox.Checked = settings.gloabal_LogFitness;
 
-        }
-
-        private void SettingsForm_Shown(object sender, EventArgs e)
-        {
+            fairBruteForceCheckbox.Checked = settings.fair_BruteForce;
 
         }
 
@@ -240,9 +229,36 @@ namespace MARRSS.Forms
             }
         }
 
-        private void saveLogFileCheckBox_CheckedChanged(object sender, EventArgs e)
+        //! returns the selected accuracy
+        /*! 
+           \param int selectedIndex of selectTextBox
+           \return double accuracy of calculation
+        */
+        public static double selectAccuracy(int index)
         {
-
+            double accuracy = 0.5;
+            switch (index)
+            {
+                case 0:
+                    accuracy = 0.5;
+                    break;
+                case 1:
+                    accuracy = 1.0;
+                    break;
+                case 2:
+                    accuracy = 5.0;
+                    break;
+                case 3:
+                    accuracy = 10.0;
+                    break;
+                case 4:
+                    accuracy = 30.0;
+                    break;
+                case 5:
+                    accuracy = 60.0;
+                    break;
+            }
+            return accuracy;
         }
 
         private void AutoSaveCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -283,9 +299,5 @@ namespace MARRSS.Forms
             }
         }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
