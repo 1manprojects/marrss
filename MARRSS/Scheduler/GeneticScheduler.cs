@@ -63,6 +63,8 @@ namespace MARRSS.Scheduler
         private List<string> satelliteList; //!< list<string> satellite names
         private List<string> stationList; //!< list<string> station names
 
+        private ObjectiveFunction objective;
+
         //Logging
         private int generateLog = 0;
         private int generatePlotData = 0;
@@ -105,6 +107,15 @@ namespace MARRSS.Scheduler
             }
         }
 
+        //! get The Objective Funktion to solve the scheduling problem
+        /*!
+            \param SchedulingProblemInterface problem set to solve
+        */
+        public void getObjectiveFunction(ScheduleProblemInterface problem)
+        {
+            objective = problem.getObjectiveFunction();
+        }
+
         //! set the main Form wich should be updated
         /*!
             \Main form
@@ -130,6 +141,7 @@ namespace MARRSS.Scheduler
         */
         public void CalculateSchedule(ScheduleProblemInterface problem)
         {
+            objective = problem.getObjectiveFunction();
             set = problem.getContactWindows();
             //Sort by time
             set.sort(Structs.sortByField.TIME);
@@ -314,17 +326,13 @@ namespace MARRSS.Scheduler
             \param ContactWindowsVector contactwindows to check against
             \param int[] current population to check fitness
             \return double fittness of the current populus
-            The Fitness is defined by
-            the nr of contacts scheduled
-            the nr of conflicts
-            the equal use of all ground stations
-            the equal use of all satellites
+            The Fitness is defined by the objective Function
             from 1.0 to 0 with 1.0 being optimal
         */
         private double checkFitness(int[] pop)
         {
-            double _Health = ObjectFunktion.ObjectiveFunction(set, pop);
-            return _Health;
+            objective.calculateValues(set, pop);
+            return objective.getObjectiveResults();
         }
 
         //! Survival of the Fittest by elminating populus with poor fitness

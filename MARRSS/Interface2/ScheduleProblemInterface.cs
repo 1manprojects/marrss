@@ -32,8 +32,9 @@ namespace MARRSS.Interface2
     {
         void setContactWindows(ContactWindowsVector contacts);
         void setRequests(List<RequestInterface> requestsList);
-
+        void setObjectiveFunction(ObjectiveFunction objectiveFunction);
         void setRequestToContact();
         ContactWindowsVector getContactWindows();
+        ObjectiveFunction getObjectiveFunction();
     }
 }

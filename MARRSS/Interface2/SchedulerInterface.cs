@@ -29,6 +29,8 @@ namespace MARRSS.Interface2
     interface SchedulerInterface
     {
         void CalculateSchedule(ScheduleProblemInterface problem);
+
+        void getObjectiveFunction(ScheduleProblemInterface problem);
         ContactWindowsVector getFinischedSchedule();
         string ToString();
     }

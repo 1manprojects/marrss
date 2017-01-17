@@ -163,10 +163,9 @@ namespace MARRSS.Scheduler
         \return double
         returns the duration in seconds of Contact
         */
-        public int getDuration()
+        public double getDuration()
         {
-            int test = Convert.ToInt32(duration);
-            return test;
+            return duration;
         }
 
 

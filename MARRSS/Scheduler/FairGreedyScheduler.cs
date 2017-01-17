@@ -34,6 +34,8 @@ namespace MARRSS.Scheduler
         private ContactWindowsVector set; //!< ContactWindowsVector to start with
         private Main f = null;
 
+        private ObjectiveFunction objective = null;
+
         //logging
         private int generateLog = 0;
         private int generatePlotData = 0;
@@ -59,6 +61,11 @@ namespace MARRSS.Scheduler
                 plotWr = new System.IO.StreamWriter(plotPath + "\\" + plotname, true);
             }
             schedule = new ContactWindowsVector();
+        }
+
+        public void getObjectiveFunction(ScheduleProblemInterface problem)
+        {
+            objective = problem.getObjectiveFunction();
         }
 
         //! returns the finisched Schedule
@@ -99,6 +106,7 @@ namespace MARRSS.Scheduler
         */
         public void CalculateSchedule(ScheduleProblemInterface problem)
         {
+            objective = problem.getObjectiveFunction();
             set = problem.getContactWindows();
             int nrOfAllContacts = set.Count();
 
@@ -114,7 +122,8 @@ namespace MARRSS.Scheduler
                 double maxFitness = 0.0;
                 for (int i = 0; i < set.Count(); i++)
                 {
-                    double fitness = ObjectFunktion.ObjectiveFunction(set1, set.getAt(i), nrOfAllContacts);
+                    objective.calculateValues(set1, nrOfAllContacts, set.getAt(i));
+                    double fitness = objective.getObjectiveResults();
                     if (fitness > maxFitness)
                     {
                         maxFitness = fitness;
@@ -194,7 +203,8 @@ namespace MARRSS.Scheduler
                 double maxFitness = 0.0;
                 for (int i = 0; i < set.Count(); i++)
                 {
-                    double fitness = ObjectFunktion.ObjectiveFunction(set1, set.getAt(i), nrOfAllContacts);
+                    objective.calculateValues(set1, nrOfAllContacts, set.getAt(i));
+                    double fitness = objective.getObjectiveResults();
                     if (fitness > maxFitness)
                     {
                         maxFitness = fitness;

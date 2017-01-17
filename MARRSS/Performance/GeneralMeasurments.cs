@@ -30,92 +30,6 @@ namespace MARRSS.Performance
     class GeneralMeasurments
     {
 
-        //! Calculate Fairness of used ground stations of schedule
-        /*!
-            \param ContactWindowVector schedule to calculate fairness
-            \return double fairness of used stations value of 1.0 means every
-            station is used as often as every other one
-        */
-        public static double getFairnesStations(ContactWindowsVector contacts)
-        {
-            double fairness = 0.0;
-            List<string> stationList = contacts.getStationNames();
-
-            int[] nrOfContactsPerSa = new int[contacts.getNumberOfStation()];
-            for (int i = 0; i < contacts.Count(); i++)
-            {
-                if (contacts.getAt(i).getSheduledInfo())
-                {
-                    int satpo = stationList.IndexOf(contacts.getAt(i).getStationName());
-                    if (satpo > -1)
-                    {
-                        nrOfContactsPerSa[satpo]++;
-                    }
-                }
-            }
-            double a = 0.0;
-            double b = 0.0;
-            for (int i = 0; i < contacts.getNumberOfStation(); i++)
-            {
-                a = a + nrOfContactsPerSa[i];
-                b = b + Math.Pow(nrOfContactsPerSa[i], 2);
-            }
-            fairness = Math.Pow(a, 2) / (contacts.getNumberOfStation() * b);
-            return fairness;
-        }
-
-        //! Calculate Fairness of scheduled satellites
-        /*!
-            \param ContactWindowVector schedule to calculate fairness
-            \return double fairness of used satellites value of 1.0 means every
-            satellite is used as often as every other one
-        */
-        public static double getFairnesSatellites(ContactWindowsVector contacts)
-        {
-            double fairness = 0.0;
-            List<string> satelliteList = contacts.getSatelliteNames();
-
-            int[] nrOfContactsPerSa = new int[contacts.getNumberOfSatellites()];
-            for (int i = 0; i < contacts.Count(); i++)
-            {
-                if (contacts.getAt(i).getSheduledInfo())
-                {
-                    int satpo = satelliteList.IndexOf(contacts.getAt(i).getSatName());
-                    if (satpo > -1)
-                    {
-                        nrOfContactsPerSa[satpo]++;
-                    }
-                }
-            }
-            double a = 0.0;
-            double b = 0.0;
-            for (int i = 0; i < contacts.getNumberOfSatellites(); i++)
-            {
-                a = a + nrOfContactsPerSa[i];
-                b = b + Math.Pow(nrOfContactsPerSa[i], 2);
-            }
-            fairness = Math.Pow(a, 2) / (contacts.getNumberOfSatellites() * b);
-            return fairness;
-        }
-
-        //! returns the number of scheduled contacts
-        /*!
-            \param ContactWindowVector schedule to calculate fairness
-            \return int number of scheduled contacts
-        */
-        public static int getNrOfScheduled(ContactWindowsVector contacts)
-        {
-            int nrOfScheduled = 0;
-            for (int i = 0; i < contacts.Count(); i++ )
-            {
-                if (contacts.getAt(i).getSheduledInfo())
-                {
-                    nrOfScheduled++;
-                }
-            }
-                return nrOfScheduled;
-        }
-
         //! Calculate number of Conflicts in the schedule
         /*!
             \param ContactWindowVector schedule to calculate fairness
@@ -148,6 +62,19 @@ namespace MARRSS.Performance
                 }
             hashConflict.Clear();
             return nrOfConflicts;
+        }
+
+        public static double getDurationOfScheduledContacts(ContactWindowsVector contacts)
+        {
+            double duration = 0.0;
+            for (int i = 0; i < contacts.Count(); i++)
+            {
+                if (contacts.getAt(i).getSheduledInfo())
+                {
+                    duration += contacts.getAt(i).getDuration();
+                }
+            }
+            return duration;
         }
 
         //Test Function

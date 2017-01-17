@@ -37,7 +37,7 @@ namespace MARRSS.Interface1
         One_Sgp4.EpochTime getStartTime();
         One_Sgp4.EpochTime getStopTime();
         bool getSheduledInfo();
-        int getDuration();
+        double getDuration();
         int getHash();
         Guid getRequestID();
         string getStationName();

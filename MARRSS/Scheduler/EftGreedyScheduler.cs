@@ -39,6 +39,16 @@ namespace MARRSS.Scheduler
             schedule = new ContactWindowsVector();
         }
 
+        //! get The Objective Funktion to solve the scheduling problem
+        /*!
+            \param SchedulingProblemInterface problem set to solve
+            Not implementet since EFTGReedy does not use Objective Funktion
+        */
+        public void getObjectiveFunction(ScheduleProblemInterface problem)
+        {
+            //Do Nothing
+        }
+
         //! returns the finisched Schedule
         /*!
             \return ContactWindowsVector solution

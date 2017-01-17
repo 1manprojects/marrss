@@ -37,6 +37,8 @@ namespace MARRSS
 
         private DataBase.DataBase _MainDataBase; //!< Database connection
 
+        private Scheduler.ObjectiveFunction objectivefunct;
+
         private bool cancelCalculation = false;
 
         Image imgSatellite = null;
@@ -87,7 +89,6 @@ namespace MARRSS
         */
         private void startSchedule(bool useBruteForce = false)
         {
-
                 string SaveName = getSaveFileName();
                 prepareStart();
                 updateLog(SaveName, "Starting");
@@ -135,6 +136,7 @@ namespace MARRSS
                 Scheduler.SchedulingProblem problem = new Scheduler.SchedulingProblem();
                 problem.setContactWindows(contactsVector);
                 problem.removeUnwantedContacts(Properties.Settings.Default.orbit_Minimum_Contact_Duration_sec);
+                problem.setObjectiveFunction(objectivefunct);
                 /* Generate the selected Scenarios
                 * These are defined in the SchedulingProblem Class
                 * Other Scenarios can be selected here if they are added
@@ -265,11 +267,20 @@ namespace MARRSS
 
         }
 
+
+        private void ObjectiveFunctionBuilder()
+        {
+            objectivefunct = new Scheduler.ObjectiveFunction(
+                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSATELITE,
+                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSTATION,
+                    Scheduler.ObjectiveFunction.ObjectiveEnum.SCHEDULEDCONTACTS);
+        }
         
         private void startScheduleButton_Click(object sender, EventArgs e)
         {
             bool useBruteForce = ( Properties.Settings.Default.fair_BruteForce &&
                                     radioFairGreedy.Checked);
+            ObjectiveFunctionBuilder();
             startSchedule(useBruteForce);
 
             //notifcation if done
@@ -309,6 +320,7 @@ namespace MARRSS
             priorityLabel.Text = "--";
             label47.Text = "--";
             fitnessValueLabel.Text = "--";
+            durationLabel.Text = "--";
 
             logRichTextBox.Clear();
             startScheduleButton.Text = "Running";
@@ -569,35 +581,41 @@ namespace MARRSS
                 * of 1 means that every satellite and or station is used the
                 * same number of times as every other satellite and station.
                 */
-            int _H = Performance.GeneralMeasurments.getNrOfScheduled(contactsVector);
-            double _H1 = _H / (double)contactsVector.Count();
+            objectivefunct.calculateValues(contactsVector);
+
+
+            int _H = contactsVector.getNrOfScheduled();
+            double _H1 = objectivefunct.getScheduledContactsValue();
             double _H2 = Performance.GeneralMeasurments.getNrOfConflicts(contactsVector);
-            double _H3 = Performance.GeneralMeasurments.getFairnesStations(contactsVector);
-            double _H4 = Performance.GeneralMeasurments.getFairnesSatellites(contactsVector);
+            double _H3 = objectivefunct.getStationFairnessValue();
+            double _H4 = objectivefunct.getSatelliteFairnessValue();
+            double _H5 = GeneralMeasurments.getDurationOfScheduledContacts(contactsVector);
 
             if (bruteForce)
             {
                 double lastFitness = Convert.ToDouble(fitnessValueLabel);
-                if (lastFitness <= (1.0 / 3.0) * (_H1 + _H3 + _H4) )
+                if (lastFitness <= objectivefunct.getObjectiveResults() )
                 {
-                    fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
+                    fitnessValueLabel.Text = Convert.ToString(objectivefunct.getObjectiveResults());
 
                     contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
                     collisionLabel.Text = _H2.ToString();
                     stationFairLabel.Text = _H3.ToString();
                     fairSatLabel.Text = _H4.ToString();
+                    durationLabel.Text = Convert.ToInt32(_H5).ToString() +" s." ;
                     priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
                     label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
                 }
             }
             else
             {
-                fitnessValueLabel.Text = ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString();
+                fitnessValueLabel.Text = Convert.ToString(objectivefunct.getObjectiveResults());
 
                 contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
                 collisionLabel.Text = _H2.ToString();
                 stationFairLabel.Text = _H3.ToString();
                 fairSatLabel.Text = _H4.ToString();
+                durationLabel.Text = Convert.ToInt32(_H5).ToString() + " s.";
                 priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
                 label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
             }
@@ -605,11 +623,12 @@ namespace MARRSS
             {
                 List<string> results = new List<string>();
                 results.Add("RunNumber: " + number);
-                results.Add("Fitness Value:" + ((1.0 / 3.0) * (_H1 + _H3 + _H4)).ToString());
+                results.Add("Fitness Value:" + objectivefunct.getObjectiveResults().ToString());
                 results.Add("Scheduled Contacts: " + _H + " / " + contactsVector.Count().ToString());
                 results.Add("Collisions: " + _H2.ToString());
                 results.Add("Fairnes Stations: " + _H3.ToString());
                 results.Add("Fairnes Satellites: " + _H4.ToString());
+                results.Add("Duration: " + _H5.ToString() +" sec.");
                 results.Add("Calculation Time: " + calcTimeLabel.Text);
                 results.Add("Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector));
                 Log.writeResults(logfile, schedulerName, results);

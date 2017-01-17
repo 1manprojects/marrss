@@ -92,7 +92,7 @@ namespace MARRSS.Drawer
                         y = satPosY * 20 + staPosY * satNameList.Count() * 20 + y_offset;
                         double satx = 8640 * (contacts.getAt(i).getStartTime().getEpoch() - contacts.getStartTime().getEpoch());
                         x = Convert.ToInt32(satx) + x_offset;
-                        satBoxhWidth = contacts.getAt(i).getDuration() / 10;
+                        satBoxhWidth = Convert.ToInt32( contacts.getAt(i).getDuration() / 10.0 );
 
                         //brush = new SolidBrush(Color.FromArgb(contacts.getAt(i).getHash()));
                         if (drawAll && !contacts.getAt(i).getSheduledInfo())

@@ -12,14 +12,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 using MARRSS.Scheduler;
-using MARRSS.Definition;
-using MARRSS.Interface1;
 using MARRSS.Global;
 
 namespace MARRSS.Definition
@@ -419,6 +414,21 @@ namespace MARRSS.Definition
                 }
                 hSort /= 3;
             }
+        }
+
+        //! get Number of Scheduled contacts in Set
+        /*! 
+            \return int numver of contacts that have their scheduled flag set to true
+        */
+        public int getNumberOfScheduledContacts()
+        {
+            int scheduled = 0;
+            for (int i = 0; i < contactsList.Count; i++)
+            {
+                if (contactsList[i].getSheduledInfo())
+                    scheduled++;
+            }
+            return scheduled;
         }
 
         //! Randomize ContactWindowsVector
