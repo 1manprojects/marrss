@@ -87,6 +87,15 @@ namespace MARRSS.Scheduler
             return new ContactWindowsVector();
         }
 
+        //! cancel function
+        /*!
+            set internal value to halt/stop current calculation
+        */
+        public void cancelCalculation()
+        {
+
+        }
+
         //! ToString method
         /*!
            \return string 

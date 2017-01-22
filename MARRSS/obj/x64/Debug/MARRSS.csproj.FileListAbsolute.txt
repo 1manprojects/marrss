@@ -79,3 +79,4 @@ C:\Users\Reed-Laptop\git\marrss\MARRSS\bin\x64\Debug\MARRSS.exe
 C:\Users\Reed-Laptop\git\marrss\MARRSS\bin\x64\Debug\MARRSS.pdb
 C:\Users\Reed-Laptop\git\marrss\MARRSS\obj\x64\Debug\MARRSS.exe.manifest
 C:\Users\Reed-Laptop\git\marrss\MARRSS\obj\x64\Debug\MARRSS.application
+E:\Programieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.Forms.ObjectiveBuilderForm.resources

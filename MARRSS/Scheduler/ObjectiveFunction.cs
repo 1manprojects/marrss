@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using MARRSS.Definition;
-using MARRSS.Scheduler;
 
 namespace MARRSS.Scheduler
 {
@@ -31,8 +30,7 @@ namespace MARRSS.Scheduler
 
         public enum ObjectiveEnum:int
         {
-            PRIORITY = 0,
-            //FAIRNES = 1,
+            PRIORITY = 1,
             FAIRNESSATELITE = 2,
             FAIRNESSTATION = 3,
             DURATION = 4,
@@ -203,6 +201,7 @@ namespace MARRSS.Scheduler
                 switch (Convert.ToInt32(obj))
                 {
                     case 0:
+                        //not implemented
                         break;
                     case 1:
                         //not implemented

@@ -29,6 +29,7 @@ namespace MARRSS.Scheduler
         private ContactWindowsVector schedule; //!< ContactWindowsVector to add scheduled items
         private ContactWindowsVector set; //!< ContactWindowsVector to start with
         private Main f = null;
+        private bool cancel = false;
 
         //!GreedyScheduler constructor.
         /*!
@@ -64,6 +65,8 @@ namespace MARRSS.Scheduler
         */
         public bool isComplete()
         {
+            if (cancel)
+                return true;
             if (set.isEmpty())
                 return true;
             else
@@ -217,6 +220,15 @@ namespace MARRSS.Scheduler
                     }
                 }
             }
+        }
+
+        //! cancel function
+        /*!
+            set internal value to halt/stop current calculation
+        */
+        public void cancelCalculation()
+        {
+            cancel = true;
         }
 
         //! ToString method

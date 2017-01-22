@@ -11,6 +11,7 @@
 */
 using System.Windows.Forms;
 using System.IO;
+using System;
 
 namespace MARRSS
 {
@@ -128,6 +129,29 @@ namespace MARRSS
                 Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
             }
         }
+
+        //! gets the File name from current time and date
+        /*! 
+         /return string NameOfFile
+        */
+        public static string getSaveFileName()
+        {
+            //create save name String for all files that are saved automatacly
+            DateTime time = DateTime.Now;
+            string format = "dd-MM-yyyy_HHmmss";
+            string SaveName = time.ToString(format);
+            return SaveName;
+        }
+
+        //! returns the Objective function
+        public static Scheduler.ObjectiveFunction ObjectiveFunctionBuilder()
+        {
+            return new Scheduler.ObjectiveFunction(
+                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSATELITE,
+                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSTATION,
+                    Scheduler.ObjectiveFunction.ObjectiveEnum.SCHEDULEDCONTACTS);
+        }
+
 
     }
 }

@@ -65,6 +65,8 @@ namespace MARRSS.Scheduler
 
         private ObjectiveFunction objective;
 
+        private bool cancel = false;
+
         //Logging
         private int generateLog = 0;
         private int generatePlotData = 0;
@@ -262,6 +264,8 @@ namespace MARRSS.Scheduler
         */
         public bool isComplete()
         {
+            if (cancel)
+                return true;
             if (!runUnitlTime)
             {
                 bool result = false;
@@ -681,6 +685,15 @@ namespace MARRSS.Scheduler
         public void setSolveConflictsAfterRun(bool solveConflicts)
         {
             solveConflict = solveConflicts;
+        }
+
+        //! cancel function
+        /*!
+            set internal value to halt/stop current calculation
+        */
+        public void cancelCalculation()
+        {
+            cancel = true;
         }
 
         //! ToString method

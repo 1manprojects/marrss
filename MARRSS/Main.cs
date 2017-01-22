@@ -17,7 +17,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Media;
-using System.IO;
 
 using MARRSS.Performance;
 
@@ -40,6 +39,7 @@ namespace MARRSS
         private Scheduler.ObjectiveFunction objectivefunct;
 
         private bool cancelCalculation = false;
+        private Interface2.SchedulerInterface scheduler = null;
 
         Image imgSatellite = null;
         Image imgStation = null;
@@ -89,7 +89,7 @@ namespace MARRSS
         */
         private void startSchedule(bool useBruteForce = false)
         {
-                string SaveName = getSaveFileName();
+                string SaveName = MainFunctions.getSaveFileName();
                 prepareStart();
                 updateLog(SaveName, "Starting");
                 string schedulerName = "undefined";
@@ -162,7 +162,8 @@ namespace MARRSS
                     */
                 toolStripStatusLabel3.Text = "Status: Running Scheduler";
                 Performance.TimeMeasurement tm = new Performance.TimeMeasurement();
-                //Start Scheduling
+                startScheduleButton.Enabled = true;
+                //Sett Settings for Each Scheduler Here
 
                 //-----------------------------------------------------------------
                 //---------------------------Add New SCHEDULER HERE-----------------
@@ -174,11 +175,12 @@ namespace MARRSS
                 //-----------------------------------------------------------------
                 //-----------------------------------------------------------------
                 //-----------------------------------------------------------------
-                //-----------GENETIC
+                //-----------GENETIC Settings
                 if (radioGenetic.Checked)
-                {
+                    {
                     updateLog(SaveName, "Genetor Running");
                     Scheduler.GeneticScheduler genetic = new Scheduler.GeneticScheduler();
+                    scheduler = genetic;
                     if (Properties.Settings.Default.genetic_RunVariable == 1)
                     {
                         genetic.RunForCertainTime(true, Properties.Settings.Default.genetic_RunTime);
@@ -193,44 +195,37 @@ namespace MARRSS
                     //solve conflicts optional
                     genetic.setSolveConflictsAfterRun(Properties.Settings.Default.genetic_SolveContflicts);
                     genetic.setConflictHandeling(Properties.Settings.Default.genetic_ConflictSolver);
-                    tm.activate();
-                    genetic.CalculateSchedule(problem);
-                    calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
-                    generationLabel.Text = genetic.getNrOfGenerations().ToString();
-                    contactsVector = genetic.getFinischedSchedule();
-                    schedulerName = genetic.ToString();
                 }
             //-----------------------------------------------------------------
             //-----------------------------------------------------------------
             //-----------------------------------------------------------------
-            //-----------GREEDY
+            //-----------GREEDY Settings
             if (!useBruteForce)
             {
                 if (radioGreedy.Checked)
                 {
                     updateLog(SaveName, "EFT-Greedy Running");
-                    Scheduler.EftGreedyScheduler greedy = new Scheduler.EftGreedyScheduler();
-                    greedy.setFormToUpdate(this);
-                    tm.activate();
-                    if (!useBruteForce)
-                        greedy.CalculateSchedule(problem);
-                    calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
-                    generationLabel.Text = " --";
-                    contactsVector = greedy.getFinischedSchedule();
-                    schedulerName = greedy.ToString();
-                }
+                    Scheduler.EftGreedyScheduler eftGreedy = new Scheduler.EftGreedyScheduler();
+                    scheduler = eftGreedy;
+                    eftGreedy.setFormToUpdate(this);
+                                    }
                 if (radioFairGreedy.Checked)
                 {
-                    updateLog(SaveName, "Fair-Greedy Running");
-                    Scheduler.FairGreedyScheduler greedy = new Scheduler.FairGreedyScheduler();
+                    updateLog(SaveName, "Greedy Running");
+                    Scheduler.GreedyScheduler greedy = new Scheduler.GreedyScheduler();
+                    scheduler = greedy;
                     greedy.setFormToUpdate(this);
-                    tm.activate();
-                    greedy.CalculateSchedule(problem);
-                    calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
-                    generationLabel.Text = " --";
-                    contactsVector = greedy.getFinischedSchedule();
-                    schedulerName = greedy.ToString();
                 }
+                //------------------------------------------------------------
+                //Calculate Schedule Here
+                tm.activate();
+                if (!useBruteForce)
+                    scheduler.CalculateSchedule(problem);
+                calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
+                
+                //generationLabel.Text = " --";
+                contactsVector = scheduler.getFinischedSchedule();
+                schedulerName = scheduler.ToString();
                 //-----------------------------------------------------------------
                 /*
                     * After calculation of the schedule the visual representation
@@ -251,7 +246,8 @@ namespace MARRSS
                     if (radioFairGreedy.Checked)
                     {
                         updateLog(SaveName, "Fair-Greedy Running #: " + iteration);
-                        Scheduler.FairGreedyScheduler greedy = new Scheduler.FairGreedyScheduler();
+                        Scheduler.GreedyScheduler greedy = new Scheduler.GreedyScheduler();
+                        scheduler = greedy;
                         greedy.setFormToUpdate(this);
                         tm.activate();
                         greedy.BruteForceSchedule(problem, iteration);
@@ -266,28 +262,28 @@ namespace MARRSS
             }
 
         }
-
-
-        private void ObjectiveFunctionBuilder()
-        {
-            objectivefunct = new Scheduler.ObjectiveFunction(
-                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSATELITE,
-                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSTATION,
-                    Scheduler.ObjectiveFunction.ObjectiveEnum.SCHEDULEDCONTACTS);
-        }
         
         private void startScheduleButton_Click(object sender, EventArgs e)
         {
-            bool useBruteForce = ( Properties.Settings.Default.fair_BruteForce &&
-                                    radioFairGreedy.Checked);
-            ObjectiveFunctionBuilder();
-            startSchedule(useBruteForce);
-
-            //notifcation if done
-            for (int i = 0; i < 5; i++)
+            if (startScheduleButton.Text == "Calculate Schedule")
             {
-                SystemSounds.Beep.Play();
-                Thread.Sleep(100 * i);
+
+                bool useBruteForce = (Properties.Settings.Default.fair_BruteForce &&
+                                        radioFairGreedy.Checked);
+                objectivefunct = MainFunctions.ObjectiveFunctionBuilder();
+                startSchedule(useBruteForce);
+
+                //notifcation if done
+                for (int i = 0; i < 5; i++)
+                {
+                    SystemSounds.Beep.Play();
+                    Thread.Sleep(100 * i);
+                }
+            }
+            else
+            {
+                if (scheduler != null)
+                    scheduler.cancelCalculation();
             }
             startScheduleButton.Text = "Calculate Schedule";
             startScheduleButton.BackColor = Color.LightSkyBlue;
@@ -323,21 +319,9 @@ namespace MARRSS
             durationLabel.Text = "--";
 
             logRichTextBox.Clear();
-            startScheduleButton.Text = "Running";
+            startScheduleButton.Text = "Cancel";
             startScheduleButton.BackColor = Color.LightCoral;
             startScheduleButton.Enabled = false;
-        }
-        //! gets the File name from current time and date
-        /*! 
-         /return string NameOfFile
-        */
-        private string getSaveFileName()
-        {
-            //create save name String for all files that are saved automatacly
-            DateTime time = DateTime.Now;
-            string format = "dd-MM-yyyy_HHmmss";
-            string SaveName = time.ToString(format);
-            return SaveName;
         }
 
         //! gets the selected start time
@@ -1200,7 +1184,8 @@ namespace MARRSS
             satForm.ShowDialog();
             UpdateAllLists();
         }
-        private void updateLog(string file, string data)
+
+        private void updateLog(string file, string data, RichTextBox logTextBox = null)
         {
             toolStripStatusLabel3.Text = "Status: " + data;
             logRichTextBox.Text += "\n" + data;
@@ -1220,6 +1205,12 @@ namespace MARRSS
             now = now.AddDays(1.0);
             stopDatePicker.Value = now.Date;
             stopTimePicker.Value = now.ToUniversalTime();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Forms.ObjectiveBuilderForm objForm = new Forms.ObjectiveBuilderForm();
+            objForm.ShowDialog();
         }
     }
 }

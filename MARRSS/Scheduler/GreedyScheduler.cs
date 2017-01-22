@@ -28,11 +28,13 @@ namespace MARRSS.Scheduler
     * This is done by selecting the job that is finisched earliest for each
     * groundstation until all contacts have been scheduled.
     */
-    class FairGreedyScheduler : SchedulerInterface, SchedulerSolutionInterface
+    class GreedyScheduler : SchedulerInterface, SchedulerSolutionInterface
     {
         private ContactWindowsVector schedule; //!< ContactWindowsVector to add scheduled items
         private ContactWindowsVector set; //!< ContactWindowsVector to start with
         private Main f = null;
+
+        private bool cancel = false;
 
         private ObjectiveFunction objective = null;
 
@@ -46,7 +48,7 @@ namespace MARRSS.Scheduler
         /*!
             constructs a basic greedy scheduler
         */
-        public FairGreedyScheduler()
+        public GreedyScheduler()
         {
             generateLog = Properties.Settings.Default.global_SaveLogs_Path;
             generatePlotData = Properties.Settings.Default.PlotData;
@@ -83,6 +85,8 @@ namespace MARRSS.Scheduler
         */
         public bool isComplete()
         {
+            if (cancel)
+                return true;
             if (set.isEmpty())
                 return true;
             else
@@ -253,6 +257,11 @@ namespace MARRSS.Scheduler
             set.add(set1);
             set.add(set2);
             schedule = set;
+        }
+
+        public void cancelCalculation()
+        {
+            cancel = true;
         }
 
         //! ToString method
