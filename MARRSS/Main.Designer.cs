@@ -38,6 +38,12 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripSeparator();
+            this.addGroundStationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addSatelliteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
@@ -70,6 +76,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.logPanel = new System.Windows.Forms.Panel();
             this.label41 = new System.Windows.Forms.Label();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -79,7 +86,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.fitnessLabel = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
+            this.uweLabel = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.priorityLabel = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
@@ -94,9 +101,9 @@
             this.stationFairLabel = new System.Windows.Forms.Label();
             this.fairSatLabel = new System.Windows.Forms.Label();
             this.schedulerGroupBox = new System.Windows.Forms.GroupBox();
-            this.radioFairGreedy = new System.Windows.Forms.RadioButton();
-            this.radioGenetic = new System.Windows.Forms.RadioButton();
             this.radioGreedy = new System.Windows.Forms.RadioButton();
+            this.radioGenetic = new System.Windows.Forms.RadioButton();
+            this.radioEFTGreedy = new System.Windows.Forms.RadioButton();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.comboScenarioBox = new System.Windows.Forms.ComboBox();
             this.checkedSatellites = new System.Windows.Forms.CheckedListBox();
@@ -179,12 +186,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addGroundStationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.addSatelliteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripSeparator();
-            this.newDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -248,40 +249,81 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(100, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(103, 22);
             this.toolStripMenuItem3.Text = "Save";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // databaseToolStripMenuItem
+            // 
+            this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newDatabaseToolStripMenuItem,
+            this.openDatabaseToolStripMenuItem,
+            this.toolStripMenuItem12,
+            this.addGroundStationToolStripMenuItem1,
+            this.addSatelliteToolStripMenuItem1});
+            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.databaseToolStripMenuItem.Text = "Database";
+            // 
+            // newDatabaseToolStripMenuItem
+            // 
+            this.newDatabaseToolStripMenuItem.Name = "newDatabaseToolStripMenuItem";
+            this.newDatabaseToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.newDatabaseToolStripMenuItem.Text = "New Database";
+            // 
+            // openDatabaseToolStripMenuItem
+            // 
+            this.openDatabaseToolStripMenuItem.Name = "openDatabaseToolStripMenuItem";
+            this.openDatabaseToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.openDatabaseToolStripMenuItem.Text = "Open Database";
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(176, 6);
+            // 
+            // addGroundStationToolStripMenuItem1
+            // 
+            this.addGroundStationToolStripMenuItem1.Name = "addGroundStationToolStripMenuItem1";
+            this.addGroundStationToolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
+            this.addGroundStationToolStripMenuItem1.Text = "Add Ground Station";
+            // 
+            // addSatelliteToolStripMenuItem1
+            // 
+            this.addSatelliteToolStripMenuItem1.Name = "addSatelliteToolStripMenuItem1";
+            this.addSatelliteToolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
+            this.addSatelliteToolStripMenuItem1.Text = "Add Satellite";
             // 
             // optionsToolStripMenuItem
             // 
@@ -297,21 +339,21 @@
             // settingsToolStripMenuItem1
             // 
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(119, 6);
             // 
             // tLEDataToolStripMenuItem
             // 
             this.tLEDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateTLEsToolStripMenuItem});
             this.tLEDataToolStripMenuItem.Name = "tLEDataToolStripMenuItem";
-            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.tLEDataToolStripMenuItem.Text = "TLE-Data";
             // 
             // updateTLEsToolStripMenuItem
@@ -324,7 +366,7 @@
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(119, 6);
             // 
             // helpToolStripMenuItem
             // 
@@ -593,6 +635,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.logPanel);
             this.tabPage2.Controls.Add(this.panel8);
             this.tabPage2.Controls.Add(this.schedulerGroupBox);
@@ -616,6 +659,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Schedule";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(480, 35);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(178, 76);
+            this.groupBox1.TabIndex = 49;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Objective";
             // 
             // logPanel
             // 
@@ -651,7 +703,7 @@
             this.panel8.Controls.Add(this.label1);
             this.panel8.Controls.Add(this.fitnessLabel);
             this.panel8.Controls.Add(this.label31);
-            this.panel8.Controls.Add(this.label47);
+            this.panel8.Controls.Add(this.uweLabel);
             this.panel8.Controls.Add(this.label32);
             this.panel8.Controls.Add(this.priorityLabel);
             this.panel8.Controls.Add(this.label33);
@@ -717,14 +769,14 @@
             this.label31.TabIndex = 23;
             this.label31.Text = "Nr. of Scheduled Contacts:";
             // 
-            // label47
+            // uweLabel
             // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(298, 68);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(13, 13);
-            this.label47.TabIndex = 46;
-            this.label47.Text = "--";
+            this.uweLabel.AutoSize = true;
+            this.uweLabel.Location = new System.Drawing.Point(298, 68);
+            this.uweLabel.Name = "uweLabel";
+            this.uweLabel.Size = new System.Drawing.Size(13, 13);
+            this.uweLabel.TabIndex = 46;
+            this.uweLabel.Text = "--";
             // 
             // label32
             // 
@@ -856,31 +908,31 @@
             // 
             // schedulerGroupBox
             // 
-            this.schedulerGroupBox.Controls.Add(this.radioFairGreedy);
-            this.schedulerGroupBox.Controls.Add(this.radioGenetic);
             this.schedulerGroupBox.Controls.Add(this.radioGreedy);
+            this.schedulerGroupBox.Controls.Add(this.radioGenetic);
+            this.schedulerGroupBox.Controls.Add(this.radioEFTGreedy);
             this.schedulerGroupBox.Location = new System.Drawing.Point(285, 35);
             this.schedulerGroupBox.Name = "schedulerGroupBox";
-            this.schedulerGroupBox.Size = new System.Drawing.Size(286, 76);
+            this.schedulerGroupBox.Size = new System.Drawing.Size(178, 76);
             this.schedulerGroupBox.TabIndex = 2;
             this.schedulerGroupBox.TabStop = false;
             this.schedulerGroupBox.Text = "Scheduler";
             // 
-            // radioFairGreedy
+            // radioGreedy
             // 
-            this.radioFairGreedy.AutoSize = true;
-            this.radioFairGreedy.Location = new System.Drawing.Point(171, 20);
-            this.radioFairGreedy.Name = "radioFairGreedy";
-            this.radioFairGreedy.Size = new System.Drawing.Size(59, 17);
-            this.radioFairGreedy.TabIndex = 2;
-            this.radioFairGreedy.Text = "Greedy";
-            this.radioFairGreedy.UseVisualStyleBackColor = true;
+            this.radioGreedy.AutoSize = true;
+            this.radioGreedy.Location = new System.Drawing.Point(111, 22);
+            this.radioGreedy.Name = "radioGreedy";
+            this.radioGreedy.Size = new System.Drawing.Size(59, 17);
+            this.radioGreedy.TabIndex = 2;
+            this.radioGreedy.Text = "Greedy";
+            this.radioGreedy.UseVisualStyleBackColor = true;
             // 
             // radioGenetic
             // 
             this.radioGenetic.AutoSize = true;
             this.radioGenetic.Checked = true;
-            this.radioGenetic.Location = new System.Drawing.Point(70, 46);
+            this.radioGenetic.Location = new System.Drawing.Point(10, 48);
             this.radioGenetic.Name = "radioGenetic";
             this.radioGenetic.Size = new System.Drawing.Size(62, 17);
             this.radioGenetic.TabIndex = 1;
@@ -888,20 +940,20 @@
             this.radioGenetic.Text = "Genetic";
             this.radioGenetic.UseVisualStyleBackColor = true;
             // 
-            // radioGreedy
+            // radioEFTGreedy
             // 
-            this.radioGreedy.AutoSize = true;
-            this.radioGreedy.Location = new System.Drawing.Point(70, 19);
-            this.radioGreedy.Name = "radioGreedy";
-            this.radioGreedy.Size = new System.Drawing.Size(82, 17);
-            this.radioGreedy.TabIndex = 0;
-            this.radioGreedy.Text = "EFT-Greedy";
-            this.radioGreedy.UseVisualStyleBackColor = true;
+            this.radioEFTGreedy.AutoSize = true;
+            this.radioEFTGreedy.Location = new System.Drawing.Point(10, 21);
+            this.radioEFTGreedy.Name = "radioEFTGreedy";
+            this.radioEFTGreedy.Size = new System.Drawing.Size(82, 17);
+            this.radioEFTGreedy.TabIndex = 0;
+            this.radioEFTGreedy.Text = "EFT-Greedy";
+            this.radioEFTGreedy.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.comboScenarioBox);
-            this.groupBox6.Location = new System.Drawing.Point(647, 35);
+            this.groupBox6.Location = new System.Drawing.Point(674, 35);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(286, 75);
             this.groupBox6.TabIndex = 44;
@@ -1650,47 +1702,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // databaseToolStripMenuItem
-            // 
-            this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newDatabaseToolStripMenuItem,
-            this.openDatabaseToolStripMenuItem,
-            this.toolStripMenuItem12,
-            this.addGroundStationToolStripMenuItem1,
-            this.addSatelliteToolStripMenuItem1});
-            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.databaseToolStripMenuItem.Text = "Database";
-            // 
-            // addGroundStationToolStripMenuItem1
-            // 
-            this.addGroundStationToolStripMenuItem1.Name = "addGroundStationToolStripMenuItem1";
-            this.addGroundStationToolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
-            this.addGroundStationToolStripMenuItem1.Text = "Add Ground Station";
-            // 
-            // addSatelliteToolStripMenuItem1
-            // 
-            this.addSatelliteToolStripMenuItem1.Name = "addSatelliteToolStripMenuItem1";
-            this.addSatelliteToolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
-            this.addSatelliteToolStripMenuItem1.Text = "Add Satellite";
-            // 
-            // toolStripMenuItem12
-            // 
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(176, 6);
-            // 
-            // newDatabaseToolStripMenuItem
-            // 
-            this.newDatabaseToolStripMenuItem.Name = "newDatabaseToolStripMenuItem";
-            this.newDatabaseToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.newDatabaseToolStripMenuItem.Text = "New Database";
-            // 
-            // openDatabaseToolStripMenuItem
-            // 
-            this.openDatabaseToolStripMenuItem.Name = "openDatabaseToolStripMenuItem";
-            this.openDatabaseToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.openDatabaseToolStripMenuItem.Text = "Open Database";
-            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
@@ -1838,7 +1849,7 @@
         private System.Windows.Forms.ToolStripMenuItem uncheckAllToolStripMenuItem1;
         private System.Windows.Forms.GroupBox schedulerGroupBox;
         private System.Windows.Forms.RadioButton radioGenetic;
-        private System.Windows.Forms.RadioButton radioGreedy;
+        private System.Windows.Forms.RadioButton radioEFTGreedy;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
@@ -1871,7 +1882,7 @@
         private System.Windows.Forms.ComboBox comboScenarioBox;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Label priorityLabel;
-        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label uweLabel;
         private System.Windows.Forms.Label SatLabel5;
         private System.Windows.Forms.Label SatLabel4;
         private System.Windows.Forms.Label SatLabel3;
@@ -1887,7 +1898,7 @@
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.DataGridViewTextBoxColumn Station;
-        private System.Windows.Forms.RadioButton radioFairGreedy;
+        private System.Windows.Forms.RadioButton radioGreedy;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label label50;
@@ -1916,5 +1927,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem addGroundStationToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addSatelliteToolStripMenuItem1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

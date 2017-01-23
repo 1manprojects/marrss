@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using MARRSS.Definition;
+using MARRSS.Scheduler;
 
 namespace MARRSS.Interface2
 {
@@ -29,7 +30,8 @@ namespace MARRSS.Interface2
     interface SchedulerInterface
     {
         void CalculateSchedule(ScheduleProblemInterface problem);
-        void getObjectiveFunction(ScheduleProblemInterface problem);
+        void setObjectiveFunktion(ObjectiveFunction objective);
+        ObjectiveFunction getObjectiveFunction();
         ContactWindowsVector getFinischedSchedule();
         string ToString();
         void cancelCalculation();

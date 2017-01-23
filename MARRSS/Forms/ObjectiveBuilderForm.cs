@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿/**
+* ----------------------------------------------------------------
+* Nikolai Jonathan Reed 
+*
+* 
+* Copyright (c) 2017, Nikolai Reed, 1manprojects.de
+* All rights reserved.
+*
+* Licensed under
+* Creative Commons Attribution NonCommercial (CC-BY-NC)
+*/
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MARRSS.Forms

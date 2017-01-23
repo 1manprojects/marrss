@@ -138,7 +138,6 @@
             this.label3.Size = new System.Drawing.Size(121, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "© 2016 Nikolai Reed\r\n";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -148,7 +147,6 @@
             this.label2.Size = new System.Drawing.Size(374, 42);
             this.label2.TabIndex = 1;
             this.label2.Text = "Multi Algorithm Resource Range Scheduling Software";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // button1
             // 

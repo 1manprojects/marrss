@@ -111,11 +111,19 @@ namespace MARRSS.Scheduler
 
         //! get The Objective Funktion to solve the scheduling problem
         /*!
-            \param SchedulingProblemInterface problem set to solve
+            \param ObjectiveFunction problem set to solve
         */
-        public void getObjectiveFunction(ScheduleProblemInterface problem)
+        public void setObjectiveFunktion(ObjectiveFunction objectiveFunction)
         {
-            objective = problem.getObjectiveFunction();
+            objective = objectiveFunction;
+        }
+        //! returns The Objective Funktion to solve the scheduling problem
+        /*!
+            \rreturn ObjectiveFunction problem set to solve
+        */
+        public ObjectiveFunction getObjectiveFunction()
+        {
+            return objective;
         }
 
         //! set the main Form wich should be updated

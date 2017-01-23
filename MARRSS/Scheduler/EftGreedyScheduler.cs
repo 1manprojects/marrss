@@ -30,6 +30,7 @@ namespace MARRSS.Scheduler
         private ContactWindowsVector set; //!< ContactWindowsVector to start with
         private Main f = null;
         private bool cancel = false;
+        ObjectiveFunction objective = null;
 
         //!GreedyScheduler constructor.
         /*!
@@ -42,12 +43,20 @@ namespace MARRSS.Scheduler
 
         //! get The Objective Funktion to solve the scheduling problem
         /*!
-            \param SchedulingProblemInterface problem set to solve
-            Not implementet since EFTGReedy does not use Objective Funktion
+            \param ObjectiveFunction problem set to solve
+            Not Implemented in This Scheduler
         */
-        public void getObjectiveFunction(ScheduleProblemInterface problem)
+        public void setObjectiveFunktion(ObjectiveFunction objectiveFunction)
         {
-            //Do Nothing
+            objective = objectiveFunction;
+        }
+        //! returns The Objective Funktion to solve the scheduling problem
+        /*!
+            \rreturns NULL
+        */
+        public ObjectiveFunction getObjectiveFunction()
+        {
+            return objective;
         }
 
         //! returns the finisched Schedule

@@ -134,7 +134,7 @@ namespace MARRSS
         /*! 
          /return string NameOfFile
         */
-        public static string getSaveFileName()
+        public static string getLogFileName()
         {
             //create save name String for all files that are saved automatacly
             DateTime time = DateTime.Now;

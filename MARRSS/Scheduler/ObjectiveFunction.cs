@@ -3,7 +3,7 @@
 * Nikolai Jonathan Reed 
 *
 * 
-* Copyright (c) 2015, Nikolai Reed, 1manprojects.de
+* Copyright (c) 2017, Nikolai Reed, 1manprojects.de
 * All rights reserved.
 *
 * Licensed under
@@ -54,6 +54,19 @@ namespace MARRSS.Scheduler
             val_Duration = 0;
         }
 
+        public ObjectiveFunction()
+        {
+            objectives = new ObjectiveEnum[]
+                {ObjectiveEnum.PRIORITY,
+                ObjectiveEnum.SCHEDULEDCONTACTS, ObjectiveEnum.DURATION,
+                ObjectiveEnum.FAIRNESSATELITE, ObjectiveEnum.FAIRNESSTATION };
+            val_Priority = 0;
+            val_FairSatellites = 0;
+            val_FairStations = 0;
+            val_Scheduled = 0;
+            val_Duration = 0;
+        }
+
         public void setObjectives(params ObjectiveEnum[] objectivesToSchedule)
         {
             objectives = objectivesToSchedule;
@@ -64,6 +77,12 @@ namespace MARRSS.Scheduler
             val_Duration = 0;
         }
 
+        //! calculate the fitness value of the given contactvectors if a contact is added
+        /*!
+           \param ContactWindowsVector contact windows to check
+           \param int max number of Contacts of the Scheduling problem
+           \param ContactWindow to add
+        */
         // Call to calculate Objective Values for Fitness
         public void calculateValues(ContactWindowsVector contactWindows, int numberOfAllContacts,
             ContactWindow contactToAdd)
@@ -73,11 +92,20 @@ namespace MARRSS.Scheduler
             contactWindows.deleteAt(contactWindows.Count() - 1);
         }
 
+        //! calculate the fitness value of the given contact windows
+        /*!
+           \param ContactWindowsVector
+        */
         public void calculateValues(ContactWindowsVector contactWindows)
         {
             calculate(contactWindows);
         }
 
+        //! calculate the fitness value of the contact windows with population of the genetic scheduler
+        /*!
+           \param ContactWindowsVector contact windows to check
+           \param int[] population representation of the Genetic scheduler default NULL
+        */
         public void calculateValues(ContactWindowsVector contactWindows, int[] population)
         {
             calculate(contactWindows, contactWindows.Count(), population);
@@ -200,11 +228,9 @@ namespace MARRSS.Scheduler
             {
                 switch (Convert.ToInt32(obj))
                 {
-                    case 0:
-                        //not implemented
-                        break;
                     case 1:
-                        //not implemented
+                        //not implemented currently
+                        //fitness += val_Priority;
                         break;
                     case 2:
                         fitness += val_FairSatellites;
@@ -220,6 +246,7 @@ namespace MARRSS.Scheduler
                         break;
                     default:
                         //Do Nothing
+                        //
                         break;
                 }
             }
@@ -243,26 +270,44 @@ namespace MARRSS.Scheduler
             return res;
         }
 
+        //! get Duration Value value
+        /*!
+           \return double scheduled duration divided by all contact windows duration
+        */
         public double getDurationValue()
         {
             return val_Duration;
         }
-
+        //! get Satellite Fairness value
+        /*!
+-            \return double fairness of used satellites value of 1.0 means every
+-            satellite is used as often as every other one
+        */
         public double getSatelliteFairnessValue()
         {
             return val_FairSatellites;
         }
-
+        //! get Station Fairness value
+        /*!
+           \return double fairness of used station value of 1.0 means every
+-            station is used as often as every other one
+        */
         public double getStationFairnessValue()
         {
             return val_FairStations;
         }
-
+        //! get Scheduled Contacts value
+        /*!
+           \return double number of scheduled contacts divided by all contacts
+        */
         public double getScheduledContactsValue()
         {
             return val_Scheduled;
         }
-
+        //! get Priority Value NOT IMPLEMENTED CURRENTLY
+        /*!
+           \return double value to indicate the used priority of scheduled contacts
+        */
         public double getPriorityValue()
         {
             return val_Priority;

@@ -10,14 +10,9 @@
 * Creative Commons Attribution NonCommercial (CC-BY-NC)
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using MARRSS.Interface2;
 using MARRSS.Definition;
-using MARRSS.Global;
 
 namespace MARRSS.Scheduler
 {
@@ -64,10 +59,21 @@ namespace MARRSS.Scheduler
             }
             schedule = new ContactWindowsVector();
         }
-
-        public void getObjectiveFunction(ScheduleProblemInterface problem)
+        //! get The Objective Funktion to solve the scheduling problem
+        /*!
+            \param ObjectiveFunction problem set to solve
+        */
+        public void setObjectiveFunktion(ObjectiveFunction objectiveFunction)
         {
-            objective = problem.getObjectiveFunction();
+            objective = objectiveFunction;
+        }
+        //! returns The Objective Funktion to solve the scheduling problem
+        /*!
+            \rreturn ObjectiveFunction problem set to solve
+        */
+        public ObjectiveFunction getObjectiveFunction()
+        {
+            return objective;
         }
 
         //! returns the finisched Schedule
@@ -189,6 +195,7 @@ namespace MARRSS.Scheduler
         */
         public void BruteForceSchedule(ScheduleProblemInterface problem, int step)
         {
+            objective = problem.getObjectiveFunction();
             set = problem.getContactWindows();
             int nrOfAllContacts = set.Count();
 

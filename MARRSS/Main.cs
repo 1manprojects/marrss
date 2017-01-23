@@ -3,7 +3,7 @@
 * Nikolai Jonathan Reed 
 *
 * 
-* Copyright (c) 2015, Nikolai Reed, 1manprojects.de
+* Copyright (c) 2017, Nikolai Reed, 1manprojects.de
 * All rights reserved.
 *
 * Licensed under
@@ -30,52 +30,48 @@ namespace MARRSS
     */
     public partial class Main : Form
     {
-        private List<One_Sgp4.Tle> satTleData;
-        private List<Ground.Station> stationData;
-        private Definition.ContactWindowsVector contactsVector;
+        private List<One_Sgp4.Tle> satTleData; //!< List of TLE objects
+        private List<Ground.Station> stationData; //!< List of Ground Stations
+        private Definition.ContactWindowsVector contactsVector; //!< Contact Windows Vector stores all contacts
 
         private DataBase.DataBase _MainDataBase; //!< Database connection
 
-        private Scheduler.ObjectiveFunction objectivefunct;
+        private Scheduler.ObjectiveFunction objectivefunct; //!< Objective function to schedule against
 
-        private bool cancelCalculation = false;
-        private Interface2.SchedulerInterface scheduler = null;
+        private Interface2.SchedulerInterface scheduler = null; //!< Scheduler Interface current used scheduler
 
-        Image imgSatellite = null;
-        Image imgStation = null;
+        Image imgSatellite = null; //!< Images used to display satellite on ground path
+        Image imgStation = null; //!< Image used to display stations on Earth
 
         //! Main Startup Function
         /*!
             Startup function reading from settings loading Database and if it
-            does not exist it will create a new DataBase
+            does not exist it will create a new DataBase file
         */
         public Main()
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
             InitializeComponent();
-            //accuracySelect.SelectedIndex = 0;
-            
+            //Create new Database or connect to existing one
             _MainDataBase = new DataBase.DataBase();
             UpdateAllLists();
             radioGenetic.PerformClick();
 
             comboScenarioBox.SelectedIndex = 0;
-
-            //DateTime date = new DateTime(2015,08,20,12,20,30);
-            //startTimePicker.Value = date;
-            //stopTimePicker.Value = date;
+            //set up current time
             DateTime time = DateTime.UtcNow;
             string format = "dd-MM-yyyy HH:mm";
             toolStripStatusLabel4.Text = time.ToString(format) + " UTC";
-
+            //Load images from Resources
             imgSatellite = Properties.Resources.worldsmaller;
             imgStation = Properties.Resources.worldsmaller;
+            //show Log Panel if set to true in settings
             if (Properties.Settings.Default.log_ShowLog)
             {
                 logPanel.Visible = true;
             }
+            //Draws ground stations on World Image
             drawGroundStations();
-            //mapCanvas1.
         }
 
         //! Calculate Schedule
@@ -89,190 +85,110 @@ namespace MARRSS
         */
         private void startSchedule(bool useBruteForce = false)
         {
-                string SaveName = MainFunctions.getSaveFileName();
-                prepareStart();
-                updateLog(SaveName, "Starting");
-                string schedulerName = "undefined";
-                //Set Start and Stop Time
-                One_Sgp4.EpochTime startTime = getStartTime();
-                One_Sgp4.EpochTime stopTime = getStopTime();
+            string logFile = MainFunctions.getLogFileName();
+            prepareStart();
+            updateLog(logFile, "Starting");
+            //Set Start and Stop Time
+            One_Sgp4.EpochTime startTime = getStartTime();
+            One_Sgp4.EpochTime stopTime = getStopTime();
+            updateLog(logFile, "StartTime: " + startTime.ToString());
+            updateLog(logFile, "StartTime: " + stopTime.ToString());
 
-                updateLog(SaveName, "StartTime: " + startTime.ToString());
-                updateLog(SaveName, "StartTime: " + stopTime.ToString());
-
-                // create empty Lists and data containers for Data
-                satTleData = new List<One_Sgp4.Tle>();
-                stationData = new List<Ground.Station>();
-
-                //check if contacts vector has not been already created or loaded
-                //from save file
-                bool resetScenario = true;
-                if (contactsVector == null)
-                {
-                    contactsVector = new Definition.ContactWindowsVector();
-                    contactsVector.setStartTime(startTime);
-                    contactsVector.setStopTime(stopTime);
-
-                    //get selected Satellites to calculate Orbits
-                    satTleData = getSatelliteData(SaveName);
-                    stationData = getStationData(SaveName);
-
-                    //starting with the orbit calculations
-                    updateLog(SaveName, "Staring Orbit Calculations");
-                    //Calculate Orbits and Contact Windows
-                    CalculateContacts(startTime, stopTime, SaveName);
-                }
-                else
-                {
-                    // resuse old ContactWindows
-                    startTime = contactsVector.getStartTime();
-                    stopTime = contactsVector.getStopTime();
-                    resetScenario = false;
-                }
-                AutoSave(SaveName);
-
-                updateLog(SaveName, "Starting Scheduler");
-                //Set Scheduling Problem
-                Scheduler.SchedulingProblem problem = new Scheduler.SchedulingProblem();
-                problem.setContactWindows(contactsVector);
-                problem.removeUnwantedContacts(Properties.Settings.Default.orbit_Minimum_Contact_Duration_sec);
-                problem.setObjectiveFunction(objectivefunct);
-                /* Generate the selected Scenarios
-                * These are defined in the SchedulingProblem Class
-                * Other Scenarios can be selected here if they are added
-                */
-                if (resetScenario != false)
-                {
-                    getScenario(problem);
-                }
-
-                /*
-                    * The contact windows that have been calculate are randomized
-                    * to imporve the result of the greedy algorithms. If the
-                    * turning the randomiziation off will lead to the greedy
-                    * algorithms to only schedule contacts for the first few 
-                    * groundstation ignoring others.
-                    */
-                problem.getContactWindows().randomize(Properties.Settings.Default.global_Random_Seed);
-
-                /*
-                    * The selected Scheduler starts here to calculate a solution
-                    * to the scheduling problem. New Schedulers can be added here
-                    * 
-                    */
-                toolStripStatusLabel3.Text = "Status: Running Scheduler";
-                Performance.TimeMeasurement tm = new Performance.TimeMeasurement();
-                startScheduleButton.Enabled = true;
-                //Sett Settings for Each Scheduler Here
-
-                //-----------------------------------------------------------------
-                //---------------------------Add New SCHEDULER HERE-----------------
-                //-----------------------------------------------------------------
-
-
-
-
-                //-----------------------------------------------------------------
-                //-----------------------------------------------------------------
-                //-----------------------------------------------------------------
-                //-----------GENETIC Settings
-                if (radioGenetic.Checked)
-                    {
-                    updateLog(SaveName, "Genetor Running");
-                    Scheduler.GeneticScheduler genetic = new Scheduler.GeneticScheduler();
-                    scheduler = genetic;
-                    if (Properties.Settings.Default.genetic_RunVariable == 1)
-                    {
-                        genetic.RunForCertainTime(true, Properties.Settings.Default.genetic_RunTime);
-                    }
-                    genetic.setFormToUpdate(this);
-                    //Set settings
-                    genetic.setCreationPercentage(Properties.Settings.Default.genetic_Start_Percentage);
-                    genetic.setMaxNumberOfGeneration(Properties.Settings.Default.genetic_Max_Nr_of_Generations);
-                    genetic.setMutationPercentage(Properties.Settings.Default.genetic_Mutation_Chance);
-                    genetic.setPopulationSize(Properties.Settings.Default.genetic_Population_Size);
-
-                    //solve conflicts optional
-                    genetic.setSolveConflictsAfterRun(Properties.Settings.Default.genetic_SolveContflicts);
-                    genetic.setConflictHandeling(Properties.Settings.Default.genetic_ConflictSolver);
-                }
-            //-----------------------------------------------------------------
-            //-----------------------------------------------------------------
-            //-----------------------------------------------------------------
-            //-----------GREEDY Settings
-            if (!useBruteForce)
+            // create empty Lists and data containers for Data
+            satTleData = new List<One_Sgp4.Tle>();
+            stationData = new List<Ground.Station>();
+            //check if contacts vector has not been already created or loaded
+            //from save file
+            bool resetScenario = true;
+            if (contactsVector == null)
             {
-                if (radioGreedy.Checked)
-                {
-                    updateLog(SaveName, "EFT-Greedy Running");
-                    Scheduler.EftGreedyScheduler eftGreedy = new Scheduler.EftGreedyScheduler();
-                    scheduler = eftGreedy;
-                    eftGreedy.setFormToUpdate(this);
-                                    }
-                if (radioFairGreedy.Checked)
-                {
-                    updateLog(SaveName, "Greedy Running");
-                    Scheduler.GreedyScheduler greedy = new Scheduler.GreedyScheduler();
-                    scheduler = greedy;
-                    greedy.setFormToUpdate(this);
-                }
-                //------------------------------------------------------------
-                //Calculate Schedule Here
-                tm.activate();
-                if (!useBruteForce)
-                    scheduler.CalculateSchedule(problem);
-                calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
-                
-                //generationLabel.Text = " --";
-                contactsVector = scheduler.getFinischedSchedule();
-                schedulerName = scheduler.ToString();
-                //-----------------------------------------------------------------
-                /*
-                    * After calculation of the schedule the visual representation
-                    * of the Schedule is drawn and if selected saved into its
-                    * output folder.
-                    */
-                updateLog(SaveName, "Scheduler DONE");
-                finischSchedule(schedulerName, SaveName);
+                contactsVector = new Definition.ContactWindowsVector();
+                contactsVector.setStartTime(startTime);
+                contactsVector.setStopTime(stopTime);
+                //get selected Satellites to calculate Orbits
+                satTleData = getSatelliteData(logFile);
+                stationData = getStationData(logFile);
+                //starting with the orbit calculations
+                updateLog(logFile, "Staring Orbit Calculations");
+                //Calculate Orbits and Contact Windows
+                CalculateContacts(startTime, stopTime, logFile);
             }
-            //Use Brute Force Method 
-            //Currently only Fair Greedy
             else
             {
-                TimeMeasurement bruteTime = new TimeMeasurement();
-                bruteTime.activate();
-                for (int iteration = 0; iteration < contactsVector.Count(); iteration++)
-                { 
-                    if (radioFairGreedy.Checked)
-                    {
-                        updateLog(SaveName, "Fair-Greedy Running #: " + iteration);
-                        Scheduler.GreedyScheduler greedy = new Scheduler.GreedyScheduler();
-                        scheduler = greedy;
-                        greedy.setFormToUpdate(this);
-                        tm.activate();
-                        greedy.BruteForceSchedule(problem, iteration);
-                        calcTimeLabel.Text = tm.getValueAndDeactivate() + " s";
-                        generationLabel.Text = " --";
-                        contactsVector = greedy.getFinischedSchedule();
-                        schedulerName = greedy.ToString();
-                    }
-                    finischSchedule(schedulerName, SaveName, iteration);
-                }
-                calcTimeLabel.Text = bruteTime.getValueAndDeactivate();
+                // resuse old ContactWindows
+                startTime = contactsVector.getStartTime();
+                stopTime = contactsVector.getStopTime();
+                resetScenario = false;
             }
-
+                
+            AutoSave(logFile);
+            updateLog(logFile, "Setting Up Scheduler");
+            //Set Scheduling Problem
+            Scheduler.SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
+            /* Generate the selected Scenarios
+            * These are defined in the SchedulingProblem Class
+            * Other Scenarios can be selected here if they are added
+            */
+            if (resetScenario != false)
+            {
+                getScenario(problem);
+            }
+            //enable time measurment Class
+            TimeMeasurement tm = new Performance.TimeMeasurement();
+            startScheduleButton.Enabled = true;
+            scheduler = null;
+            //create new scheduler object and set settings
+            if (radioGenetic.Checked)
+            {
+                scheduler = RunScheduler.setScheduler(new Scheduler.GeneticScheduler(), this);
+            }
+            if (radioEFTGreedy.Checked)
+            {
+                scheduler = RunScheduler.setScheduler(new Scheduler.EftGreedyScheduler(), this);
+            }
+            if (radioGreedy.Checked)
+            {
+                scheduler = RunScheduler.setScheduler(new Scheduler.GreedyScheduler(), this);
+            }
+            //-----------------------------------------------------------------
+            //---------------------------Add New SCHEDULER HERE-----------------
+            //-----------------------------------------------------------------
+            /*
+            if (radioNEW.Checked
+            {
+                scheduler = RunScheduler.setScheduler(new Scheduler.ExampleScheduler(), this);
+            }
+            */
+            //-----------------------------------------------------------------
+            //-----------------------------------------------------------------
+            //-----------------------------------------------------------------
+            updateLog(logFile, "starting " + scheduler.ToString());
+            //start Time Meassurment
+            tm.activate();
+            if (!useBruteForce)
+            {
+                RunScheduler.startScheduler(scheduler, problem);
+            }
+            else
+            {
+                RunScheduler.startBruteForce(scheduler, problem, this);
+            }
+            //get Time Measurment
+            updateCalculationTime(tm.getValueAndDeactivate());
+            //display resulst on main Page
+            RunScheduler.displayResults(this, scheduler);
+            //finisch clean up and write to logs if necesarry
+            finischSchedule(scheduler.ToString(),logFile);
         }
         
         private void startScheduleButton_Click(object sender, EventArgs e)
         {
             if (startScheduleButton.Text == "Calculate Schedule")
             {
-
                 bool useBruteForce = (Properties.Settings.Default.fair_BruteForce &&
-                                        radioFairGreedy.Checked);
+                                        radioGreedy.Checked);
                 objectivefunct = MainFunctions.ObjectiveFunctionBuilder();
                 startSchedule(useBruteForce);
-
                 //notifcation if done
                 for (int i = 0; i < 5; i++)
                 {
@@ -280,6 +196,7 @@ namespace MARRSS
                     Thread.Sleep(100 * i);
                 }
             }
+            //if Cancel button is pressed Cancel each scheduler if running
             else
             {
                 if (scheduler != null)
@@ -293,7 +210,7 @@ namespace MARRSS
 
         //! Prepares Start of Schedule
         /*! 
-         
+            Clear labels on Main Form and show logs if set
         */
         private void prepareStart()
         {
@@ -314,7 +231,7 @@ namespace MARRSS
             fairSatLabel.Text = "--";
             calcTimeLabel.Text = "--";
             priorityLabel.Text = "--";
-            label47.Text = "--";
+            uweLabel.Text = "--";
             fitnessValueLabel.Text = "--";
             durationLabel.Text = "--";
 
@@ -549,72 +466,27 @@ namespace MARRSS
             {
                 string savePath = Properties.Settings.Default.global_Save_Path;
                 Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-                if (radioGreedy.Checked)
+                if (radioEFTGreedy.Checked)
                     contImages.Save(savePath + "\\" + logfile + "-Scheduled-EFT-Greedy-"+ number +".bmp");
-                if (radioFairGreedy.Checked)
+                if (radioGreedy.Checked)
                     contImages.Save(savePath + "\\" + logfile + "-Scheduled-Fair-Greedy-" + number + ".bmp");
                 if (radioGenetic.Checked)
                     contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic-" + number + ".bmp");
                 updateLog(logfile, "Saved Calculated Schedule to Image (bmp) " + savePath + "\\" + logfile);
             }
 
-            /*
-                * The finisched Schedule is analized here by the Performance
-                * classes to deetermine its fairness values and fitness. The 
-                * value is represented as a number between 0 and 1. The value 
-                * of 1 means that every satellite and or station is used the
-                * same number of times as every other satellite and station.
-                */
-            objectivefunct.calculateValues(contactsVector);
-
-
-            int _H = contactsVector.getNrOfScheduled();
-            double _H1 = objectivefunct.getScheduledContactsValue();
-            double _H2 = Performance.GeneralMeasurments.getNrOfConflicts(contactsVector);
-            double _H3 = objectivefunct.getStationFairnessValue();
-            double _H4 = objectivefunct.getSatelliteFairnessValue();
-            double _H5 = GeneralMeasurments.getDurationOfScheduledContacts(contactsVector);
-
-            if (bruteForce)
-            {
-                double lastFitness = Convert.ToDouble(fitnessValueLabel);
-                if (lastFitness <= objectivefunct.getObjectiveResults() )
-                {
-                    fitnessValueLabel.Text = Convert.ToString(objectivefunct.getObjectiveResults());
-
-                    contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
-                    collisionLabel.Text = _H2.ToString();
-                    stationFairLabel.Text = _H3.ToString();
-                    fairSatLabel.Text = _H4.ToString();
-                    durationLabel.Text = Convert.ToInt32(_H5).ToString() +" s." ;
-                    priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
-                    label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
-                }
-            }
-            else
-            {
-                fitnessValueLabel.Text = Convert.ToString(objectivefunct.getObjectiveResults());
-
-                contactNumberLabel.Text = _H.ToString() + " / " + contactsVector.Count().ToString();
-                collisionLabel.Text = _H2.ToString();
-                stationFairLabel.Text = _H3.ToString();
-                fairSatLabel.Text = _H4.ToString();
-                durationLabel.Text = Convert.ToInt32(_H5).ToString() + " s.";
-                priorityLabel.Text = "Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector);
-                label47.Text = Performance.GeneralMeasurments.getNrOfUweContacts(contactsVector);
-            }
             if (Properties.Settings.Default.log_AutoSave_Results)
             {
                 List<string> results = new List<string>();
                 results.Add("RunNumber: " + number);
                 results.Add("Fitness Value:" + objectivefunct.getObjectiveResults().ToString());
-                results.Add("Scheduled Contacts: " + _H + " / " + contactsVector.Count().ToString());
-                results.Add("Collisions: " + _H2.ToString());
-                results.Add("Fairnes Stations: " + _H3.ToString());
-                results.Add("Fairnes Satellites: " + _H4.ToString());
-                results.Add("Duration: " + _H5.ToString() +" sec.");
+                results.Add("Scheduled Contacts: " + fitnessLabel.Text + " / " + contactsVector.Count().ToString());
+                results.Add("Collisions: " + collisionLabel.Text);
+                results.Add("Fairnes Stations: " + stationFairLabel.Text);
+                results.Add("Fairnes Satellites: " + fairSatLabel.Text);
+                results.Add("Duration: " + durationLabel.Text + " sec.");
                 results.Add("Calculation Time: " + calcTimeLabel.Text);
-                results.Add("Scheduled per priority: " + Performance.GeneralMeasurments.getNrOfPrioritysScheduled(contactsVector));
+                results.Add("Scheduled per priority: " + uweLabel.Text );
                 Log.writeResults(logfile, schedulerName, results);
                 updateLog(logfile, "Results have been saved to File");
             }
@@ -1211,6 +1083,61 @@ namespace MARRSS
         {
             Forms.ObjectiveBuilderForm objForm = new Forms.ObjectiveBuilderForm();
             objForm.ShowDialog();
+        }
+
+        public void setFitnessValue(double val)
+        {
+            fitnessValueLabel.Text = Convert.ToString(val);
+        }
+
+        public void setContactsNumber(double val)
+        {
+            contactNumberLabel.Text = val.ToString() + " / " + contactsVector.Count().ToString();
+        }
+
+        public void setCollisons(int val)
+        {
+            collisionLabel.Text = val.ToString();
+        }
+
+        public void setFairnessStation(double val)
+        {
+            stationFairLabel.Text = val.ToString();
+        }
+
+        public void setFairnessSatellite(double val)
+        {
+            fairSatLabel.Text = val.ToString();
+        }
+
+        public void setDuration(double val)
+        {
+            durationLabel.Text = Convert.ToInt32(val).ToString() + " s.";
+        }
+
+        public void setPriority(string val)
+        {
+            priorityLabel.Text = "Scheduled per priority: " + val;
+        }
+
+        public void setNumberOfUweContact(string val)
+        {
+            uweLabel.Text = val;
+        }
+
+        public void setNumberOfGeneration(int val)
+        {
+            generationLabel.Text = Convert.ToString(val);
+        }
+
+        public void updateToolStrip(string text)
+        {
+            toolStripStatusLabel3.Text = text;
+        }
+
+        public void updateCalculationTime(string val)
+        {
+            calcTimeLabel.Text = val + " sec.";
         }
     }
 }
