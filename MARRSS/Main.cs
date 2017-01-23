@@ -19,6 +19,7 @@ using System.Threading;
 using System.Media;
 
 using MARRSS.Performance;
+using MARRSS.Scheduler;
 
 namespace MARRSS
 {
@@ -36,7 +37,7 @@ namespace MARRSS
 
         private DataBase.DataBase _MainDataBase; //!< Database connection
 
-        private Scheduler.ObjectiveFunction objectivefunct; //!< Objective function to schedule against
+        private ObjectiveFunction objectivefunct; //!< Objective function to schedule against
 
         private Interface2.SchedulerInterface scheduler = null; //!< Scheduler Interface current used scheduler
 
@@ -124,7 +125,12 @@ namespace MARRSS
             AutoSave(logFile);
             updateLog(logFile, "Setting Up Scheduler");
             //Set Scheduling Problem
-            Scheduler.SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
+            //set Objective Function
+            objectivefunct = new ObjectiveFunction(ObjectiveFunction.ObjectiveEnum.DURATION,
+                ObjectiveFunction.ObjectiveEnum.FAIRNESSATELITE, ObjectiveFunction.ObjectiveEnum.FAIRNESSTATION,
+                ObjectiveFunction.ObjectiveEnum.SCHEDULEDCONTACTS);
+
+            SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
             /* Generate the selected Scenarios
             * These are defined in the SchedulingProblem Class
             * Other Scenarios can be selected here if they are added
@@ -140,15 +146,15 @@ namespace MARRSS
             //create new scheduler object and set settings
             if (radioGenetic.Checked)
             {
-                scheduler = RunScheduler.setScheduler(new Scheduler.GeneticScheduler(), this);
+                scheduler = RunScheduler.setScheduler(new GeneticScheduler(), this);
             }
             if (radioEFTGreedy.Checked)
             {
-                scheduler = RunScheduler.setScheduler(new Scheduler.EftGreedyScheduler(), this);
+                scheduler = RunScheduler.setScheduler(new EftGreedyScheduler(), this);
             }
             if (radioGreedy.Checked)
             {
-                scheduler = RunScheduler.setScheduler(new Scheduler.GreedyScheduler(), this);
+                scheduler = RunScheduler.setScheduler(new GreedyScheduler(), this);
             }
             //-----------------------------------------------------------------
             //---------------------------Add New SCHEDULER HERE-----------------
@@ -422,7 +428,7 @@ namespace MARRSS
         /*! 
          * Generates the Scenario selected
         */
-        private void getScenario(Scheduler.SchedulingProblem problem)
+        private void getScenario(SchedulingProblem problem)
         {
             /*
                 * Generate the selected Scenarios

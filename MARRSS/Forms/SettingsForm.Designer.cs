@@ -28,24 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Logging");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Global", new System.Windows.Forms.TreeNode[] {
-            treeNode17});
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Orbit");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("TLE-Data");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Genetic");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("EFT(Earliest Finsish Time)");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Fair Greedy");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Scheduler", new System.Windows.Forms.TreeNode[] {
-            treeNode21,
-            treeNode22,
-            treeNode23});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Logging");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("DataBase");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Global", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Orbit");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("TLE-Data");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Genetic");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("EFT(Earliest Finsish Time)");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Greedy");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Scheduler", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7,
+            treeNode8});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.settingsTreeView = new System.Windows.Forms.TreeView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.settingsLocationText = new System.Windows.Forms.Label();
+            this.dbPanel = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.databaseTextBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.EFTPanel = new System.Windows.Forms.Panel();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.FairPanel = new System.Windows.Forms.Panel();
+            this.fairBruteForceCheckbox = new System.Windows.Forms.CheckBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.GeneticPanel = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.maxDurationRadioButton = new System.Windows.Forms.RadioButton();
+            this.runMaxGenerationsRadioButton = new System.Windows.Forms.RadioButton();
+            this.genMaxTime = new System.Windows.Forms.NumericUpDown();
+            this.genMaxGen = new System.Windows.Forms.NumericUpDown();
+            this.checkConflictHandling = new System.Windows.Forms.CheckBox();
+            this.checkSolveConflicts = new System.Windows.Forms.CheckBox();
+            this.genMutation = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.genStartChance = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.genPopsize = new System.Windows.Forms.NumericUpDown();
             this.OrbitPanel = new System.Windows.Forms.Panel();
             this.minElevationTextBox = new System.Windows.Forms.TextBox();
             this.minElevationLabel = new System.Windows.Forms.Label();
@@ -86,44 +118,14 @@
             this.AutoScheduleCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoContactsCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoSaveCheckBox = new System.Windows.Forms.CheckBox();
-            this.EFTPanel = new System.Windows.Forms.Panel();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.FairPanel = new System.Windows.Forms.Panel();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
-            this.GeneticPanel = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.maxDurationRadioButton = new System.Windows.Forms.RadioButton();
-            this.runMaxGenerationsRadioButton = new System.Windows.Forms.RadioButton();
-            this.genMaxTime = new System.Windows.Forms.NumericUpDown();
-            this.genMaxGen = new System.Windows.Forms.NumericUpDown();
-            this.checkConflictHandling = new System.Windows.Forms.CheckBox();
-            this.checkSolveConflicts = new System.Windows.Forms.CheckBox();
-            this.genMutation = new System.Windows.Forms.NumericUpDown();
-            this.label25 = new System.Windows.Forms.Label();
-            this.genStartChance = new System.Windows.Forms.NumericUpDown();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.genPopsize = new System.Windows.Forms.NumericUpDown();
             this.applySettingButton = new System.Windows.Forms.Button();
             this.cancelSettingsButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.fairBruteForceCheckbox = new System.Windows.Forms.CheckBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.OrbitPanel.SuspendLayout();
-            this.wgsGroupBox.SuspendLayout();
-            this.Tlepanel.SuspendLayout();
-            this.tlegroupBox.SuspendLayout();
-            this.LoggingPanel.SuspendLayout();
-            this.GlobalPanel.SuspendLayout();
+            this.dbPanel.SuspendLayout();
             this.EFTPanel.SuspendLayout();
             this.FairPanel.SuspendLayout();
             this.GeneticPanel.SuspendLayout();
@@ -133,6 +135,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.genMutation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genStartChance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genPopsize)).BeginInit();
+            this.OrbitPanel.SuspendLayout();
+            this.wgsGroupBox.SuspendLayout();
+            this.Tlepanel.SuspendLayout();
+            this.tlegroupBox.SuspendLayout();
+            this.LoggingPanel.SuspendLayout();
+            this.GlobalPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -149,27 +157,29 @@
             this.settingsTreeView.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsTreeView.Location = new System.Drawing.Point(0, 0);
             this.settingsTreeView.Name = "settingsTreeView";
-            treeNode17.Name = "Logging";
-            treeNode17.Text = "Logging";
-            treeNode18.Name = "gloabal_set";
-            treeNode18.Text = "Global";
-            treeNode19.Name = "orbit_set";
-            treeNode19.Text = "Orbit";
-            treeNode20.Name = "tle_set";
-            treeNode20.Text = "TLE-Data";
-            treeNode21.Name = "genetig_set";
-            treeNode21.Text = "Genetic";
-            treeNode22.Name = "eft_set";
-            treeNode22.Text = "EFT(Earliest Finsish Time)";
-            treeNode23.Name = "fair_set";
-            treeNode23.Text = "Fair Greedy";
-            treeNode24.Name = "scheduler_set";
-            treeNode24.Text = "Scheduler";
+            treeNode1.Name = "Logging";
+            treeNode1.Text = "Logging";
+            treeNode2.Name = "dataBase";
+            treeNode2.Text = "DataBase";
+            treeNode3.Name = "gloabal_set";
+            treeNode3.Text = "Global";
+            treeNode4.Name = "orbit_set";
+            treeNode4.Text = "Orbit";
+            treeNode5.Name = "tle_set";
+            treeNode5.Text = "TLE-Data";
+            treeNode6.Name = "genetig_set";
+            treeNode6.Text = "Genetic";
+            treeNode7.Name = "eft_set";
+            treeNode7.Text = "EFT(Earliest Finsish Time)";
+            treeNode8.Name = "fair_set";
+            treeNode8.Text = "Greedy";
+            treeNode9.Name = "scheduler_set";
+            treeNode9.Text = "Scheduler";
             this.settingsTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode18,
-            treeNode19,
-            treeNode20,
-            treeNode24});
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode9});
             this.settingsTreeView.Size = new System.Drawing.Size(217, 409);
             this.settingsTreeView.TabIndex = 0;
             this.settingsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.settingsTreeView_AfterSelect);
@@ -177,6 +187,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.dbPanel);
             this.panel2.Controls.Add(this.EFTPanel);
             this.panel2.Controls.Add(this.FairPanel);
             this.panel2.Controls.Add(this.GeneticPanel);
@@ -212,6 +223,378 @@
             this.settingsLocationText.TabIndex = 0;
             this.settingsLocationText.Text = "Global - Settings";
             this.settingsLocationText.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // dbPanel
+            // 
+            this.dbPanel.Controls.Add(this.button3);
+            this.dbPanel.Controls.Add(this.databaseTextBox);
+            this.dbPanel.Controls.Add(this.label14);
+            this.dbPanel.Location = new System.Drawing.Point(6, 69);
+            this.dbPanel.Name = "dbPanel";
+            this.dbPanel.Size = new System.Drawing.Size(560, 377);
+            this.dbPanel.TabIndex = 31;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(512, 34);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(27, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "..";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // databaseTextBox
+            // 
+            this.databaseTextBox.Location = new System.Drawing.Point(32, 38);
+            this.databaseTextBox.Name = "databaseTextBox";
+            this.databaseTextBox.Size = new System.Drawing.Size(461, 20);
+            this.databaseTextBox.TabIndex = 11;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 17);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(79, 13);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "DataBase Path";
+            // 
+            // EFTPanel
+            // 
+            this.EFTPanel.Controls.Add(this.label48);
+            this.EFTPanel.Controls.Add(this.label52);
+            this.EFTPanel.Location = new System.Drawing.Point(6, 72);
+            this.EFTPanel.Name = "EFTPanel";
+            this.EFTPanel.Size = new System.Drawing.Size(560, 377);
+            this.EFTPanel.TabIndex = 30;
+            // 
+            // label48
+            // 
+            this.label48.Location = new System.Drawing.Point(20, 36);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(244, 71);
+            this.label48.TabIndex = 11;
+            this.label48.Text = "This Greedy scheduler selects the next best solution based on the contact with th" +
+    "e\r\n  - earliest finish time\r\n  - and / or priority";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(8, 17);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(140, 13);
+            this.label52.TabIndex = 10;
+            this.label52.Text = "Earliest Finish Time - Greedy";
+            // 
+            // FairPanel
+            // 
+            this.FairPanel.Controls.Add(this.fairBruteForceCheckbox);
+            this.FairPanel.Controls.Add(this.label57);
+            this.FairPanel.Controls.Add(this.label46);
+            this.FairPanel.Location = new System.Drawing.Point(6, 72);
+            this.FairPanel.Name = "FairPanel";
+            this.FairPanel.Size = new System.Drawing.Size(560, 377);
+            this.FairPanel.TabIndex = 0;
+            // 
+            // fairBruteForceCheckbox
+            // 
+            this.fairBruteForceCheckbox.AutoSize = true;
+            this.fairBruteForceCheckbox.Location = new System.Drawing.Point(11, 194);
+            this.fairBruteForceCheckbox.Name = "fairBruteForceCheckbox";
+            this.fairBruteForceCheckbox.Size = new System.Drawing.Size(241, 17);
+            this.fairBruteForceCheckbox.TabIndex = 11;
+            this.fairBruteForceCheckbox.Text = "use Brute Force to calculate optimal schedule";
+            this.fairBruteForceCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label57
+            // 
+            this.label57.Location = new System.Drawing.Point(8, 30);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(462, 157);
+            this.label57.TabIndex = 10;
+            this.label57.Text = resources.GetString("label57.Text");
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(8, 7);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(41, 13);
+            this.label46.TabIndex = 9;
+            this.label46.Text = "Greedy";
+            // 
+            // GeneticPanel
+            // 
+            this.GeneticPanel.Controls.Add(this.label10);
+            this.GeneticPanel.Controls.Add(this.label9);
+            this.GeneticPanel.Controls.Add(this.label8);
+            this.GeneticPanel.Controls.Add(this.groupBox1);
+            this.GeneticPanel.Controls.Add(this.checkConflictHandling);
+            this.GeneticPanel.Controls.Add(this.checkSolveConflicts);
+            this.GeneticPanel.Controls.Add(this.genMutation);
+            this.GeneticPanel.Controls.Add(this.label25);
+            this.GeneticPanel.Controls.Add(this.genStartChance);
+            this.GeneticPanel.Controls.Add(this.label24);
+            this.GeneticPanel.Controls.Add(this.label6);
+            this.GeneticPanel.Controls.Add(this.genPopsize);
+            this.GeneticPanel.Location = new System.Drawing.Point(6, 72);
+            this.GeneticPanel.Name = "GeneticPanel";
+            this.GeneticPanel.Size = new System.Drawing.Size(560, 377);
+            this.GeneticPanel.TabIndex = 17;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(310, 64);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(154, 13);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "Mutation chance for each child";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(310, 38);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(243, 13);
+            this.label9.TabIndex = 31;
+            this.label9.Text = "Percentage used to randomice starting poplulation";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(310, 11);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(155, 13);
+            this.label8.TabIndex = 30;
+            this.label8.Text = "Number of used population size";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.maxDurationRadioButton);
+            this.groupBox1.Controls.Add(this.runMaxGenerationsRadioButton);
+            this.groupBox1.Controls.Add(this.genMaxTime);
+            this.groupBox1.Controls.Add(this.genMaxGen);
+            this.groupBox1.Location = new System.Drawing.Point(11, 105);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(542, 113);
+            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Run Genetic Scheduler";
+            // 
+            // label12
+            // 
+            this.label12.AutoEllipsis = true;
+            this.label12.Location = new System.Drawing.Point(293, 67);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(243, 30);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "Genetic scheduler will run for defined time frame and return the best solution fo" +
+    "und";
+            // 
+            // label11
+            // 
+            this.label11.AutoEllipsis = true;
+            this.label11.Location = new System.Drawing.Point(293, 25);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(243, 30);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "Genetic scheduler will run until no better solution is found for next N number of" +
+    " generations";
+            // 
+            // maxDurationRadioButton
+            // 
+            this.maxDurationRadioButton.AutoSize = true;
+            this.maxDurationRadioButton.Location = new System.Drawing.Point(11, 68);
+            this.maxDurationRadioButton.Name = "maxDurationRadioButton";
+            this.maxDurationRadioButton.Size = new System.Drawing.Size(162, 17);
+            this.maxDurationRadioButton.TabIndex = 1;
+            this.maxDurationRadioButton.TabStop = true;
+            this.maxDurationRadioButton.Text = "for a certain duration in hours";
+            this.maxDurationRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // runMaxGenerationsRadioButton
+            // 
+            this.runMaxGenerationsRadioButton.AutoSize = true;
+            this.runMaxGenerationsRadioButton.Location = new System.Drawing.Point(11, 32);
+            this.runMaxGenerationsRadioButton.Name = "runMaxGenerationsRadioButton";
+            this.runMaxGenerationsRadioButton.Size = new System.Drawing.Size(204, 17);
+            this.runMaxGenerationsRadioButton.TabIndex = 0;
+            this.runMaxGenerationsRadioButton.TabStop = true;
+            this.runMaxGenerationsRadioButton.Text = "until number of generations is reached";
+            this.runMaxGenerationsRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // genMaxTime
+            // 
+            this.genMaxTime.DecimalPlaces = 2;
+            this.genMaxTime.Enabled = false;
+            this.genMaxTime.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.genMaxTime.Location = new System.Drawing.Point(220, 68);
+            this.genMaxTime.Maximum = new decimal(new int[] {
+            72,
+            0,
+            0,
+            0});
+            this.genMaxTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.genMaxTime.Name = "genMaxTime";
+            this.genMaxTime.Size = new System.Drawing.Size(67, 20);
+            this.genMaxTime.TabIndex = 26;
+            this.genMaxTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.genMaxTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // genMaxGen
+            // 
+            this.genMaxGen.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.genMaxGen.Location = new System.Drawing.Point(220, 32);
+            this.genMaxGen.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.genMaxGen.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.genMaxGen.Name = "genMaxGen";
+            this.genMaxGen.Size = new System.Drawing.Size(67, 20);
+            this.genMaxGen.TabIndex = 19;
+            this.genMaxGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.genMaxGen.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            // 
+            // checkConflictHandling
+            // 
+            this.checkConflictHandling.AutoSize = true;
+            this.checkConflictHandling.Location = new System.Drawing.Point(3, 244);
+            this.checkConflictHandling.Name = "checkConflictHandling";
+            this.checkConflictHandling.Size = new System.Drawing.Size(243, 17);
+            this.checkConflictHandling.TabIndex = 28;
+            this.checkConflictHandling.Text = "Handle Conflicst by Priority instead of Random";
+            this.checkConflictHandling.UseVisualStyleBackColor = true;
+            // 
+            // checkSolveConflicts
+            // 
+            this.checkSolveConflicts.AutoSize = true;
+            this.checkSolveConflicts.Location = new System.Drawing.Point(3, 276);
+            this.checkSolveConflicts.Name = "checkSolveConflicts";
+            this.checkSolveConflicts.Size = new System.Drawing.Size(301, 17);
+            this.checkSolveConflicts.TabIndex = 27;
+            this.checkSolveConflicts.Text = "Check for conflicts in completed schedule and solve them.";
+            this.checkSolveConflicts.UseVisualStyleBackColor = true;
+            // 
+            // genMutation
+            // 
+            this.genMutation.Location = new System.Drawing.Point(231, 59);
+            this.genMutation.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.genMutation.Name = "genMutation";
+            this.genMutation.Size = new System.Drawing.Size(67, 20);
+            this.genMutation.TabIndex = 23;
+            this.genMutation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.genMutation.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(8, 35);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(108, 13);
+            this.label25.TabIndex = 22;
+            this.label25.Text = "Starting Chance in %:";
+            // 
+            // genStartChance
+            // 
+            this.genStartChance.Location = new System.Drawing.Point(231, 33);
+            this.genStartChance.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.genStartChance.Name = "genStartChance";
+            this.genStartChance.Size = new System.Drawing.Size(67, 20);
+            this.genStartChance.TabIndex = 21;
+            this.genStartChance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.genStartChance.Value = new decimal(new int[] {
+            65,
+            0,
+            0,
+            0});
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(8, 61);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(122, 13);
+            this.label24.TabIndex = 20;
+            this.label24.Text = "Chance of Mutaion in %:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(8, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Population Size:";
+            // 
+            // genPopsize
+            // 
+            this.genPopsize.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.genPopsize.Location = new System.Drawing.Point(231, 7);
+            this.genPopsize.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.genPopsize.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.genPopsize.Name = "genPopsize";
+            this.genPopsize.Size = new System.Drawing.Size(67, 20);
+            this.genPopsize.TabIndex = 16;
+            this.genPopsize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.genPopsize.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
             // 
             // OrbitPanel
             // 
@@ -632,332 +1015,6 @@
             this.AutoSaveCheckBox.UseVisualStyleBackColor = true;
             this.AutoSaveCheckBox.CheckedChanged += new System.EventHandler(this.AutoSaveCheckBox_CheckedChanged);
             // 
-            // EFTPanel
-            // 
-            this.EFTPanel.Controls.Add(this.label48);
-            this.EFTPanel.Controls.Add(this.label52);
-            this.EFTPanel.Location = new System.Drawing.Point(6, 72);
-            this.EFTPanel.Name = "EFTPanel";
-            this.EFTPanel.Size = new System.Drawing.Size(560, 377);
-            this.EFTPanel.TabIndex = 30;
-            // 
-            // label48
-            // 
-            this.label48.Location = new System.Drawing.Point(20, 36);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(244, 71);
-            this.label48.TabIndex = 11;
-            this.label48.Text = "This Greedy scheduler selects the next best solution based on the contact with th" +
-    "e\r\n  - earliest finish time\r\n  - and / or priority";
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(8, 17);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(140, 13);
-            this.label52.TabIndex = 10;
-            this.label52.Text = "Earliest Finish Time - Greedy";
-            // 
-            // FairPanel
-            // 
-            this.FairPanel.Controls.Add(this.fairBruteForceCheckbox);
-            this.FairPanel.Controls.Add(this.label57);
-            this.FairPanel.Controls.Add(this.label46);
-            this.FairPanel.Location = new System.Drawing.Point(6, 72);
-            this.FairPanel.Name = "FairPanel";
-            this.FairPanel.Size = new System.Drawing.Size(560, 377);
-            this.FairPanel.TabIndex = 0;
-            // 
-            // label57
-            // 
-            this.label57.Location = new System.Drawing.Point(8, 30);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(462, 157);
-            this.label57.TabIndex = 10;
-            this.label57.Text = resources.GetString("label57.Text");
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(8, 7);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(67, 13);
-            this.label46.TabIndex = 9;
-            this.label46.Text = "Fair - Greedy";
-            // 
-            // GeneticPanel
-            // 
-            this.GeneticPanel.Controls.Add(this.label10);
-            this.GeneticPanel.Controls.Add(this.label9);
-            this.GeneticPanel.Controls.Add(this.label8);
-            this.GeneticPanel.Controls.Add(this.groupBox1);
-            this.GeneticPanel.Controls.Add(this.checkConflictHandling);
-            this.GeneticPanel.Controls.Add(this.checkSolveConflicts);
-            this.GeneticPanel.Controls.Add(this.genMutation);
-            this.GeneticPanel.Controls.Add(this.label25);
-            this.GeneticPanel.Controls.Add(this.genStartChance);
-            this.GeneticPanel.Controls.Add(this.label24);
-            this.GeneticPanel.Controls.Add(this.label6);
-            this.GeneticPanel.Controls.Add(this.genPopsize);
-            this.GeneticPanel.Location = new System.Drawing.Point(6, 72);
-            this.GeneticPanel.Name = "GeneticPanel";
-            this.GeneticPanel.Size = new System.Drawing.Size(560, 377);
-            this.GeneticPanel.TabIndex = 17;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(310, 64);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(154, 13);
-            this.label10.TabIndex = 32;
-            this.label10.Text = "Mutation chance for each child";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(310, 38);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(243, 13);
-            this.label9.TabIndex = 31;
-            this.label9.Text = "Percentage used to randomice starting poplulation";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(310, 11);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(155, 13);
-            this.label8.TabIndex = 30;
-            this.label8.Text = "Number of used population size";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.maxDurationRadioButton);
-            this.groupBox1.Controls.Add(this.runMaxGenerationsRadioButton);
-            this.groupBox1.Controls.Add(this.genMaxTime);
-            this.groupBox1.Controls.Add(this.genMaxGen);
-            this.groupBox1.Location = new System.Drawing.Point(11, 105);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(542, 113);
-            this.groupBox1.TabIndex = 29;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Run Genetic Scheduler";
-            // 
-            // label12
-            // 
-            this.label12.AutoEllipsis = true;
-            this.label12.Location = new System.Drawing.Point(293, 67);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(243, 30);
-            this.label12.TabIndex = 28;
-            this.label12.Text = "Genetic scheduler will run for defined time frame and return the best solution fo" +
-    "und";
-            // 
-            // label11
-            // 
-            this.label11.AutoEllipsis = true;
-            this.label11.Location = new System.Drawing.Point(293, 25);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(243, 30);
-            this.label11.TabIndex = 27;
-            this.label11.Text = "Genetic scheduler will run until no better solution is found for next N number of" +
-    " generations";
-            // 
-            // maxDurationRadioButton
-            // 
-            this.maxDurationRadioButton.AutoSize = true;
-            this.maxDurationRadioButton.Location = new System.Drawing.Point(11, 68);
-            this.maxDurationRadioButton.Name = "maxDurationRadioButton";
-            this.maxDurationRadioButton.Size = new System.Drawing.Size(162, 17);
-            this.maxDurationRadioButton.TabIndex = 1;
-            this.maxDurationRadioButton.TabStop = true;
-            this.maxDurationRadioButton.Text = "for a certain duration in hours";
-            this.maxDurationRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // runMaxGenerationsRadioButton
-            // 
-            this.runMaxGenerationsRadioButton.AutoSize = true;
-            this.runMaxGenerationsRadioButton.Location = new System.Drawing.Point(11, 32);
-            this.runMaxGenerationsRadioButton.Name = "runMaxGenerationsRadioButton";
-            this.runMaxGenerationsRadioButton.Size = new System.Drawing.Size(204, 17);
-            this.runMaxGenerationsRadioButton.TabIndex = 0;
-            this.runMaxGenerationsRadioButton.TabStop = true;
-            this.runMaxGenerationsRadioButton.Text = "until number of generations is reached";
-            this.runMaxGenerationsRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // genMaxTime
-            // 
-            this.genMaxTime.DecimalPlaces = 2;
-            this.genMaxTime.Enabled = false;
-            this.genMaxTime.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.genMaxTime.Location = new System.Drawing.Point(220, 68);
-            this.genMaxTime.Maximum = new decimal(new int[] {
-            72,
-            0,
-            0,
-            0});
-            this.genMaxTime.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.genMaxTime.Name = "genMaxTime";
-            this.genMaxTime.Size = new System.Drawing.Size(67, 20);
-            this.genMaxTime.TabIndex = 26;
-            this.genMaxTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.genMaxTime.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // genMaxGen
-            // 
-            this.genMaxGen.Increment = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.genMaxGen.Location = new System.Drawing.Point(220, 32);
-            this.genMaxGen.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.genMaxGen.Minimum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.genMaxGen.Name = "genMaxGen";
-            this.genMaxGen.Size = new System.Drawing.Size(67, 20);
-            this.genMaxGen.TabIndex = 19;
-            this.genMaxGen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.genMaxGen.Value = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            // 
-            // checkConflictHandling
-            // 
-            this.checkConflictHandling.AutoSize = true;
-            this.checkConflictHandling.Location = new System.Drawing.Point(3, 244);
-            this.checkConflictHandling.Name = "checkConflictHandling";
-            this.checkConflictHandling.Size = new System.Drawing.Size(243, 17);
-            this.checkConflictHandling.TabIndex = 28;
-            this.checkConflictHandling.Text = "Handle Conflicst by Priority instead of Random";
-            this.checkConflictHandling.UseVisualStyleBackColor = true;
-            // 
-            // checkSolveConflicts
-            // 
-            this.checkSolveConflicts.AutoSize = true;
-            this.checkSolveConflicts.Location = new System.Drawing.Point(3, 276);
-            this.checkSolveConflicts.Name = "checkSolveConflicts";
-            this.checkSolveConflicts.Size = new System.Drawing.Size(301, 17);
-            this.checkSolveConflicts.TabIndex = 27;
-            this.checkSolveConflicts.Text = "Check for conflicts in completed schedule and solve them.";
-            this.checkSolveConflicts.UseVisualStyleBackColor = true;
-            // 
-            // genMutation
-            // 
-            this.genMutation.Location = new System.Drawing.Point(231, 59);
-            this.genMutation.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.genMutation.Name = "genMutation";
-            this.genMutation.Size = new System.Drawing.Size(67, 20);
-            this.genMutation.TabIndex = 23;
-            this.genMutation.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.genMutation.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(8, 35);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(108, 13);
-            this.label25.TabIndex = 22;
-            this.label25.Text = "Starting Chance in %:";
-            // 
-            // genStartChance
-            // 
-            this.genStartChance.Location = new System.Drawing.Point(231, 33);
-            this.genStartChance.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.genStartChance.Name = "genStartChance";
-            this.genStartChance.Size = new System.Drawing.Size(67, 20);
-            this.genStartChance.TabIndex = 21;
-            this.genStartChance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.genStartChance.Value = new decimal(new int[] {
-            65,
-            0,
-            0,
-            0});
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(8, 61);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(122, 13);
-            this.label24.TabIndex = 20;
-            this.label24.Text = "Chance of Mutaion in %:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 13);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Population Size:";
-            // 
-            // genPopsize
-            // 
-            this.genPopsize.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.genPopsize.Location = new System.Drawing.Point(231, 7);
-            this.genPopsize.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.genPopsize.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.genPopsize.Name = "genPopsize";
-            this.genPopsize.Size = new System.Drawing.Size(67, 20);
-            this.genPopsize.TabIndex = 16;
-            this.genPopsize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.genPopsize.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            // 
             // applySettingButton
             // 
             this.applySettingButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -980,15 +1037,10 @@
             this.cancelSettingsButton.UseVisualStyleBackColor = true;
             this.cancelSettingsButton.Click += new System.EventHandler(this.button2_Click);
             // 
-            // fairBruteForceCheckbox
+            // openFileDialog1
             // 
-            this.fairBruteForceCheckbox.AutoSize = true;
-            this.fairBruteForceCheckbox.Location = new System.Drawing.Point(11, 194);
-            this.fairBruteForceCheckbox.Name = "fairBruteForceCheckbox";
-            this.fairBruteForceCheckbox.Size = new System.Drawing.Size(241, 17);
-            this.fairBruteForceCheckbox.TabIndex = 11;
-            this.fairBruteForceCheckbox.Text = "use Brute Force to calculate optimal schedule";
-            this.fairBruteForceCheckbox.UseVisualStyleBackColor = true;
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Database|*.mab";
             // 
             // SettingsForm
             // 
@@ -1009,18 +1061,8 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.OrbitPanel.ResumeLayout(false);
-            this.OrbitPanel.PerformLayout();
-            this.wgsGroupBox.ResumeLayout(false);
-            this.wgsGroupBox.PerformLayout();
-            this.Tlepanel.ResumeLayout(false);
-            this.Tlepanel.PerformLayout();
-            this.tlegroupBox.ResumeLayout(false);
-            this.tlegroupBox.PerformLayout();
-            this.LoggingPanel.ResumeLayout(false);
-            this.LoggingPanel.PerformLayout();
-            this.GlobalPanel.ResumeLayout(false);
-            this.GlobalPanel.PerformLayout();
+            this.dbPanel.ResumeLayout(false);
+            this.dbPanel.PerformLayout();
             this.EFTPanel.ResumeLayout(false);
             this.EFTPanel.PerformLayout();
             this.FairPanel.ResumeLayout(false);
@@ -1034,6 +1076,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.genMutation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.genStartChance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.genPopsize)).EndInit();
+            this.OrbitPanel.ResumeLayout(false);
+            this.OrbitPanel.PerformLayout();
+            this.wgsGroupBox.ResumeLayout(false);
+            this.wgsGroupBox.PerformLayout();
+            this.Tlepanel.ResumeLayout(false);
+            this.Tlepanel.PerformLayout();
+            this.tlegroupBox.ResumeLayout(false);
+            this.tlegroupBox.PerformLayout();
+            this.LoggingPanel.ResumeLayout(false);
+            this.LoggingPanel.PerformLayout();
+            this.GlobalPanel.ResumeLayout(false);
+            this.GlobalPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1114,5 +1168,10 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox logFitnessCheckBox;
         private System.Windows.Forms.CheckBox fairBruteForceCheckbox;
+        private System.Windows.Forms.Panel dbPanel;
+        private System.Windows.Forms.TextBox databaseTextBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

@@ -50,7 +50,7 @@ namespace MARRSS.Forms
                         EFTPanel.BringToFront();
                         break;
                     }
-                case "Fair Greedy":
+                case "Greedy":
                     {
                         FairPanel.BringToFront();
                         break;
@@ -63,6 +63,11 @@ namespace MARRSS.Forms
                 case "TLE-Data":
                     {
                         Tlepanel.BringToFront();
+                        break;
+                    }
+                case "DataBase":
+                    {
+                        dbPanel.BringToFront();
                         break;
                     }
                 default:
@@ -125,6 +130,8 @@ namespace MARRSS.Forms
             settings.log_ShowLog = showLogCheckBox.Checked;
 
             settings.fair_BruteForce = fairBruteForceCheckbox.Checked;
+
+            settings.db_path = databaseTextBox.Text;
 
             settings.Save();
             this.Close();
@@ -204,6 +211,8 @@ namespace MARRSS.Forms
             logFitnessCheckBox.Checked = settings.gloabal_LogFitness;
 
             fairBruteForceCheckbox.Checked = settings.fair_BruteForce;
+
+            databaseTextBox.Text = settings.db_path;
 
         }
 
@@ -299,5 +308,12 @@ namespace MARRSS.Forms
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                databaseTextBox.Text = openFileDialog1.FileName;
+            }
+        }
     }
 }

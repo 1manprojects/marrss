@@ -119,5 +119,8 @@
     <Setting Name="fair_BruteForce" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="db_path" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SatData.mab</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

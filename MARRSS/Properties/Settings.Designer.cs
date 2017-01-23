@@ -490,5 +490,17 @@ namespace MARRSS.Properties {
                 this["fair_BruteForce"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SatData.mab")]
+        public string db_path {
+            get {
+                return ((string)(this["db_path"]));
+            }
+            set {
+                this["db_path"] = value;
+            }
+        }
     }
 }
