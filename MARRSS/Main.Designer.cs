@@ -186,6 +186,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.objectiveComboBox = new System.Windows.Forms.ComboBox();
+            this.objectiveBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -195,6 +197,7 @@
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.logPanel.SuspendLayout();
             this.panel8.SuspendLayout();
             this.schedulerGroupBox.SuspendLayout();
@@ -249,38 +252,38 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(100, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(103, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem3.Text = "Save";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -331,7 +334,8 @@
             this.settingsToolStripMenuItem1,
             this.toolStripMenuItem8,
             this.tLEDataToolStripMenuItem,
-            this.toolStripMenuItem9});
+            this.toolStripMenuItem9,
+            this.objectiveBuilderToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -339,21 +343,21 @@
             // settingsToolStripMenuItem1
             // 
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(119, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(161, 6);
             // 
             // tLEDataToolStripMenuItem
             // 
             this.tLEDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateTLEsToolStripMenuItem});
             this.tLEDataToolStripMenuItem.Name = "tLEDataToolStripMenuItem";
-            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.tLEDataToolStripMenuItem.Text = "TLE-Data";
             // 
             // updateTLEsToolStripMenuItem
@@ -366,7 +370,7 @@
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(119, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(161, 6);
             // 
             // helpToolStripMenuItem
             // 
@@ -662,6 +666,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.objectiveComboBox);
             this.groupBox1.Location = new System.Drawing.Point(480, 35);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 76);
@@ -1702,6 +1707,21 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // objectiveComboBox
+            // 
+            this.objectiveComboBox.FormattingEnabled = true;
+            this.objectiveComboBox.Location = new System.Drawing.Point(21, 32);
+            this.objectiveComboBox.Name = "objectiveComboBox";
+            this.objectiveComboBox.Size = new System.Drawing.Size(148, 21);
+            this.objectiveComboBox.TabIndex = 0;
+            // 
+            // objectiveBuilderToolStripMenuItem
+            // 
+            this.objectiveBuilderToolStripMenuItem.Name = "objectiveBuilderToolStripMenuItem";
+            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.objectiveBuilderToolStripMenuItem.Text = "Objective Builder";
+            this.objectiveBuilderToolStripMenuItem.Click += new System.EventHandler(this.objectiveBuilderToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
@@ -1735,6 +1755,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.logPanel.ResumeLayout(false);
             this.logPanel.PerformLayout();
             this.panel8.ResumeLayout(false);
@@ -1928,5 +1949,7 @@
         private System.Windows.Forms.ToolStripMenuItem addGroundStationToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addSatelliteToolStripMenuItem1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox objectiveComboBox;
+        private System.Windows.Forms.ToolStripMenuItem objectiveBuilderToolStripMenuItem;
     }
 }

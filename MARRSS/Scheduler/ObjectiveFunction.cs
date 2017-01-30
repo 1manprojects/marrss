@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MARRSS.Global;
 
 using MARRSS.Definition;
 
@@ -27,24 +28,14 @@ namespace MARRSS.Scheduler
     */
     class ObjectiveFunction
     {
-
-        public enum ObjectiveEnum:int
-        {
-            PRIORITY = 1,
-            FAIRNESSATELITE = 2,
-            FAIRNESSTATION = 3,
-            DURATION = 4,
-            SCHEDULEDCONTACTS = 5
-        };
-
-        private ObjectiveEnum[] objectives;
+        private Structs.ObjectiveEnum[] objectives;
         private double val_Priority;
         private double val_FairStations;
         private double val_FairSatellites;
         private double val_Scheduled;
         private double val_Duration;
 
-        public ObjectiveFunction(params ObjectiveEnum[] objectivesToSchedule)
+        public ObjectiveFunction(params Structs.ObjectiveEnum[] objectivesToSchedule)
         {
             objectives = objectivesToSchedule;
             val_Priority = 0;
@@ -56,10 +47,10 @@ namespace MARRSS.Scheduler
 
         public ObjectiveFunction()
         {
-            objectives = new ObjectiveEnum[]
-                {ObjectiveEnum.PRIORITY,
-                ObjectiveEnum.SCHEDULEDCONTACTS, ObjectiveEnum.DURATION,
-                ObjectiveEnum.FAIRNESSATELITE, ObjectiveEnum.FAIRNESSTATION };
+            objectives = new Structs.ObjectiveEnum[]
+                {Structs.ObjectiveEnum.PRIORITY,
+                Structs.ObjectiveEnum.SCHEDULEDCONTACTS, Structs.ObjectiveEnum.DURATION,
+                Structs.ObjectiveEnum.FAIRNESSATELITE, Structs.ObjectiveEnum.FAIRNESSTATION };
             val_Priority = 0;
             val_FairSatellites = 0;
             val_FairStations = 0;
@@ -67,7 +58,7 @@ namespace MARRSS.Scheduler
             val_Duration = 0;
         }
 
-        public void setObjectives(params ObjectiveEnum[] objectivesToSchedule)
+        public void setObjectives(params Structs.ObjectiveEnum[] objectivesToSchedule)
         {
             objectives = objectivesToSchedule;
             val_Priority = 0;
@@ -80,16 +71,17 @@ namespace MARRSS.Scheduler
         //! calculate the fitness value of the given contactvectors if a contact is added
         /*!
            \param ContactWindowsVector contact windows to check
+           \param CotnactWindowsVector contacts of the complete problem
            \param int max number of Contacts of the Scheduling problem
            \param ContactWindow to add
         */
         // Call to calculate Objective Values for Fitness
-        public void calculateValues(ContactWindowsVector contactWindows, int numberOfAllContacts,
+        public void calculateValues(ContactWindowsVector currentSolution, ContactWindowsVector completeContacts, int numberOfAllContacts,
             ContactWindow contactToAdd)
         {
-            contactWindows.add(contactToAdd);
-            calculate(contactWindows, numberOfAllContacts);
-            contactWindows.deleteAt(contactWindows.Count() - 1);
+            currentSolution.add(contactToAdd);
+            calculate(currentSolution, calcualteMaxPrioValue(completeContacts), numberOfAllContacts, null, completeContacts);
+            currentSolution.deleteAt(currentSolution.Count() - 1);
         }
 
         //! calculate the fitness value of the given contact windows
@@ -98,7 +90,7 @@ namespace MARRSS.Scheduler
         */
         public void calculateValues(ContactWindowsVector contactWindows)
         {
-            calculate(contactWindows);
+            calculate(contactWindows, calcualteMaxPrioValue(contactWindows));
         }
 
         //! calculate the fitness value of the contact windows with population of the genetic scheduler
@@ -108,7 +100,7 @@ namespace MARRSS.Scheduler
         */
         public void calculateValues(ContactWindowsVector contactWindows, int[] population)
         {
-            calculate(contactWindows, contactWindows.Count(), population);
+            calculate(contactWindows, calcualteMaxPrioValue(contactWindows, population), contactWindows.Count(), population);
         }
 
         //! calculate the fitness value of ALL defined objetive values
@@ -117,7 +109,7 @@ namespace MARRSS.Scheduler
            \param int max number of Contacts of the Scheduling problem
            \param int[] population representation of the Genetic scheduler default NULL
         */
-        private void calculate(ContactWindowsVector contactWindows, int nrOfAllContacts = 0, int[] population = null)
+        private void calculate(ContactWindowsVector contactWindows, int priorityValue, int nrOfAllContacts = 0, int[] population = null, ContactWindowsVector allcontactWindows = null)
         {
             //list of stations and Satellites
             List<string> stationList = contactWindows.getStationNames();
@@ -138,6 +130,9 @@ namespace MARRSS.Scheduler
             double scheduledDuration = 0.0;
             //Complete Time of ALL contacts
             double allDuaration = 0.0;
+            //Priority counts
+            int priorityMax = priorityValue;
+            int prio = calcualteMaxPrioValue(contactWindows);
 
             for (int i = 0; i < contactWindows.Count(); i++)
             {
@@ -173,7 +168,8 @@ namespace MARRSS.Scheduler
                         nrOfScheduledContacts++;
                     }
                 }
-                allDuaration += contactWindows.getAt(i).getDuration();
+                if (allcontactWindows == null)
+                    allDuaration += contactWindows.getAt(i).getDuration();
 
                 if (stapo > -1)
                 {
@@ -212,6 +208,33 @@ namespace MARRSS.Scheduler
 
             val_Duration = scheduledDuration / allDuaration;
 
+            val_Priority = (double)prio / (double)priorityMax;
+
+        }
+
+        private int calcualteMaxPrioValue(ContactWindowsVector contacts, int[] population = null)
+        {
+            int[] priorityCounts = new int[5] { 0, 0, 0, 0, 0, };
+            int res = 0;
+            for (int i = 0; i < contacts.Count(); i++)
+            {
+                int p = 0;
+                if (population!= null)
+                {
+                    if (population[i] == 1)
+                        p = (int)contacts.getAt(i).getPriority();
+                }
+                else
+                { 
+                    p = (int)contacts.getAt(i).getPriority();
+                }
+                priorityCounts[p]++;
+            }
+            for (int i = 0; i < priorityCounts.Count(); i++)
+            {
+                res += priorityCounts[i] * (5 - i);
+            }
+            return res;
         }
 
         //! get Objective results
@@ -224,13 +247,12 @@ namespace MARRSS.Scheduler
         {
             double fitness = 0.0;
 
-            foreach (ObjectiveEnum obj in objectives)
+            foreach (Structs.ObjectiveEnum obj in objectives)
             {
                 switch (Convert.ToInt32(obj))
                 {
                     case 1:
-                        //not implemented currently
-                        //fitness += val_Priority;
+                        fitness += val_Priority;
                         break;
                     case 2:
                         fitness += val_FairSatellites;
@@ -263,7 +285,7 @@ namespace MARRSS.Scheduler
         public override string ToString()
         {
             string res = "Objectives Scheduled To:";
-            foreach (ObjectiveEnum obj in objectives)
+            foreach (Structs.ObjectiveEnum obj in objectives)
             {
                 res = res + " - " + obj.ToString();
             }

@@ -20,6 +20,7 @@ using System.Media;
 
 using MARRSS.Performance;
 using MARRSS.Scheduler;
+using System.Collections.Specialized;
 
 namespace MARRSS
 {
@@ -44,6 +45,8 @@ namespace MARRSS
         Image imgSatellite = null; //!< Images used to display satellite on ground path
         Image imgStation = null; //!< Image used to display stations on Earth
 
+        private int tle_timeCounter;
+
         //! Main Startup Function
         /*!
             Startup function reading from settings loading Database and if it
@@ -66,13 +69,24 @@ namespace MARRSS
             //Load images from Resources
             imgSatellite = Properties.Resources.worldsmaller;
             imgStation = Properties.Resources.worldsmaller;
-            //show Log Panel if set to true in settings
+            //show Log Panel if set to true in settings            
             if (Properties.Settings.Default.log_ShowLog)
             {
                 logPanel.Visible = true;
             }
             //Draws ground stations on World Image
             drawGroundStations();
+            tle_timeCounter = 0;
+            if (Properties.Settings.Default.tle_AutoUpdate && Properties.Settings.Default.tle_UpdateTime == 0)
+            {
+                Forms.SatelliteForm.UpdateTLeFromWeb();
+            }
+            List<string> objectiveFunctionnames = Forms.ObjectiveBuilderForm.getSavedObjectiveNames();
+            //savedObjectives = Properties.Objective.Default.object_List;
+            for (int i = 0; i < objectiveFunctionnames.Count; i++)
+                objectiveComboBox.Items.Add(objectiveFunctionnames[i]);
+            if (objectiveComboBox.Items.Count > 0)
+                objectiveComboBox.SelectedIndex = 0;
         }
 
         //! Calculate Schedule
@@ -126,9 +140,11 @@ namespace MARRSS
             updateLog(logFile, "Setting Up Scheduler");
             //Set Scheduling Problem
             //set Objective Function
-            objectivefunct = new ObjectiveFunction(ObjectiveFunction.ObjectiveEnum.DURATION,
-                ObjectiveFunction.ObjectiveEnum.FAIRNESSATELITE, ObjectiveFunction.ObjectiveEnum.FAIRNESSTATION,
-                ObjectiveFunction.ObjectiveEnum.SCHEDULEDCONTACTS);
+            setObjectiveFunction();
+            string test = objectivefunct.ToString();
+            //objectivefunct = new ObjectiveFunction(Global.Structs.ObjectiveEnum.DURATION,
+            //    Global.Structs.ObjectiveEnum.FAIRNESSATELITE, Global.Structs.ObjectiveEnum.FAIRNESSTATION,
+            //    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
 
             SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
             /* Generate the selected Scenarios
@@ -193,7 +209,7 @@ namespace MARRSS
             {
                 bool useBruteForce = (Properties.Settings.Default.fair_BruteForce &&
                                         radioGreedy.Checked);
-                objectivefunct = MainFunctions.ObjectiveFunctionBuilder();
+                objectivefunct = MainFunctions.ObjectiveFunctionBuilder(objectiveComboBox.SelectedItem.ToString());
                 startSchedule(useBruteForce);
                 //notifcation if done
                 for (int i = 0; i < 5; i++)
@@ -213,6 +229,11 @@ namespace MARRSS
             startScheduleButton.Enabled = true;
         }
 
+        private void setObjectiveFunction()
+        {
+            string name = objectiveComboBox.Items[objectiveComboBox.SelectedIndex].ToString();
+            objectivefunct = new ObjectiveFunction( Forms.ObjectiveBuilderForm.getObjectiveEnumsByName(name));
+        }
 
         //! Prepares Start of Schedule
         /*! 
@@ -804,6 +825,15 @@ namespace MARRSS
             DateTime time = DateTime.UtcNow;
             string format = "dd-MM-yyyy HH:mm";
             toolStripStatusLabel4.Text = time.ToString(format) + " UTC";
+            if (Properties.Settings.Default.tle_AutoUpdate)
+            {
+                tle_timeCounter++;
+                if (tle_timeCounter >= 60*60 && Properties.Settings.Default.secure_SavedLogin)
+                {
+                    tle_timeCounter = 0;
+                    Forms.SatelliteForm.UpdateTLeFromWeb();
+                }
+            }
         }
 
         //draw ALL contact windows onto form
@@ -1144,6 +1174,12 @@ namespace MARRSS
         public void updateCalculationTime(string val)
         {
             calcTimeLabel.Text = val + " sec.";
+        }
+
+        private void objectiveBuilderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MARRSS.Forms.ObjectiveBuilderForm obectiveBuilder = new Forms.ObjectiveBuilderForm();
+            obectiveBuilder.Show(this);
         }
     }
 }

@@ -133,6 +133,16 @@ namespace MARRSS.Forms
 
             settings.db_path = databaseTextBox.Text;
 
+            settings.tle_AutoUpdate = tleAutoUpdateCheckBox.Checked;
+            if (tleStartUpRadioButton.Checked)
+            {
+                settings.tle_UpdateTime = 0;
+            }
+            else
+            {
+                settings.tle_UpdateTime = 1;
+            }
+
             settings.Save();
             this.Close();
         }
@@ -203,6 +213,11 @@ namespace MARRSS.Forms
             {
                 tleStartUpRadioButton.Checked = true;
                 tlehourlyradioButton.Checked = false;
+            }
+            else
+            {
+                tleStartUpRadioButton.Checked = false;
+                tlehourlyradioButton.Checked = true;
             }
 
             saveLogPathTextBox.Text = settings.global_LogSavePath;
@@ -312,8 +327,17 @@ namespace MARRSS.Forms
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                
                 databaseTextBox.Text = openFileDialog1.FileName;
             }
+        }
+
+        private void tleAutoUpdateCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tleAutoUpdateCheckBox.Checked == true)
+                tlegroupBox.Enabled = true;
+            else
+                tlegroupBox.Enabled = false;
         }
     }
 }

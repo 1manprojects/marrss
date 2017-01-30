@@ -35,6 +35,8 @@ namespace MARRSS.Definition
         private One_Sgp4.EpochTime starttime; //!< Starting time and date for Schedule
         private One_Sgp4.EpochTime stoptime; //!< Stop time and date for Schedule
 
+        private double contactTime; //!< time of all contact windows in seconds
+
         //Serialization function.
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
@@ -55,6 +57,7 @@ namespace MARRSS.Definition
             contactsList = new List<ContactWindow>();
             stationNameList = new List<string>();
             satelliteNameList = new List<string>();
+            contactTime = 0.0;
         }
 
         //! ContactWindowsVector constructor.
@@ -69,6 +72,7 @@ namespace MARRSS.Definition
             stationNameList = new List<string>(contacts.getStationNames());
             starttime = new One_Sgp4.EpochTime(contacts.getStartTime());
             stoptime = new One_Sgp4.EpochTime(contacts.getStopTime());
+            calcualteTimesOfAllContacst();
         }
 
         //! Update Names
@@ -162,6 +166,7 @@ namespace MARRSS.Definition
             contactsList.Clear();
             stationNameList.Clear();
             satelliteNameList.Clear();
+            contactTime = 0.0;
         }
 
         //! set the start time 
@@ -207,6 +212,7 @@ namespace MARRSS.Definition
         public void add(ContactWindow contact, bool updateInfo = true)
         {
             contactsList.Add(contact);
+            contactTime += contact.getDuration();
             if (updateInfo)
                 updateNamesList();
         }
@@ -220,6 +226,7 @@ namespace MARRSS.Definition
             if (contacts.Count > 0)
                 contactsList.AddRange(contacts);
             updateNamesList();
+            calcualteTimesOfAllContacst();
         }
 
         //! add ContactWindows
@@ -234,6 +241,7 @@ namespace MARRSS.Definition
                     contactsList.Add(contacts.getAt(i));
                 }
             updateNamesList();
+            calcualteTimesOfAllContacst();
         }
 
         //! Get All ContactWindows
@@ -273,8 +281,10 @@ namespace MARRSS.Definition
         {
             if (pos >= 0)
             {
+                contactTime -= contactsList[pos].getDuration();
                 contactsList.RemoveAt(pos);
                 updateNamesList();
+                
                 return true;
             }
             else
@@ -317,6 +327,7 @@ namespace MARRSS.Definition
         public void deleteRange(int start, int count)
         {
             contactsList.RemoveRange(start, count);
+            calcualteTimesOfAllContacst();
         }
 
         //! Get number of Scheduled Contacts
@@ -429,6 +440,20 @@ namespace MARRSS.Definition
                     scheduled++;
             }
             return scheduled;
+        }
+
+        private void calcualteTimesOfAllContacst()
+        {
+            contactTime = 0.0;
+            for (int i = 0; i < contactsList.Count; i++)
+            {
+                contactTime += contactsList[i].getDuration();
+            }
+        }
+
+        public double getCompleteContactTime()
+        {
+            return contactTime;
         }
 
         //! Randomize ContactWindowsVector

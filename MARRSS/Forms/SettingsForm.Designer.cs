@@ -28,26 +28,55 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Logging");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("DataBase");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Global", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Orbit");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("TLE-Data");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Genetic");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("EFT(Earliest Finsish Time)");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Greedy");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Scheduler", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7,
-            treeNode8});
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Logging");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("DataBase");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Global", new System.Windows.Forms.TreeNode[] {
+            treeNode19,
+            treeNode20});
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Orbit");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("TLE-Data");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Genetic");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("EFT(Earliest Finsish Time)");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Greedy");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Scheduler", new System.Windows.Forms.TreeNode[] {
+            treeNode24,
+            treeNode25,
+            treeNode26});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.settingsTreeView = new System.Windows.Forms.TreeView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.settingsLocationText = new System.Windows.Forms.Label();
+            this.Tlepanel = new System.Windows.Forms.Panel();
+            this.deleteCredentialsButton = new System.Windows.Forms.Button();
+            this.tlegroupBox = new System.Windows.Forms.GroupBox();
+            this.tlehourlyradioButton = new System.Windows.Forms.RadioButton();
+            this.tleStartUpRadioButton = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tleAutoUpdateCheckBox = new System.Windows.Forms.CheckBox();
+            this.LoggingPanel = new System.Windows.Forms.Panel();
+            this.showLogCheckBox = new System.Windows.Forms.CheckBox();
+            this.logFitnessCheckBox = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.saveLogPathTextBox = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.saveResultsPathTextBox = new System.Windows.Forms.TextBox();
+            this.saveLogFileCheckBox = new System.Windows.Forms.CheckBox();
+            this.autoSaveResultsCheckBox = new System.Windows.Forms.CheckBox();
+            this.GlobalPanel = new System.Windows.Forms.Panel();
+            this.warningLabel2 = new System.Windows.Forms.Label();
+            this.warningLabel1 = new System.Windows.Forms.Label();
+            this.MaxPerformanceCheckBox = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.RandSeedTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.savePathButton = new System.Windows.Forms.Button();
+            this.SavePathTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AutoScheduleCheckBox = new System.Windows.Forms.CheckBox();
+            this.AutoContactsCheckBox = new System.Windows.Forms.CheckBox();
+            this.AutoSaveCheckBox = new System.Windows.Forms.CheckBox();
             this.dbPanel = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.databaseTextBox = new System.Windows.Forms.TextBox();
@@ -89,42 +118,19 @@
             this.wgs72RadioButton = new System.Windows.Forms.RadioButton();
             this.accuracySelect = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.Tlepanel = new System.Windows.Forms.Panel();
-            this.deleteCredentialsButton = new System.Windows.Forms.Button();
-            this.tlegroupBox = new System.Windows.Forms.GroupBox();
-            this.tlehourlyradioButton = new System.Windows.Forms.RadioButton();
-            this.tleStartUpRadioButton = new System.Windows.Forms.RadioButton();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tleAutoUpdateCheckBox = new System.Windows.Forms.CheckBox();
-            this.LoggingPanel = new System.Windows.Forms.Panel();
-            this.showLogCheckBox = new System.Windows.Forms.CheckBox();
-            this.logFitnessCheckBox = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.saveLogPathTextBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.saveResultsPathTextBox = new System.Windows.Forms.TextBox();
-            this.saveLogFileCheckBox = new System.Windows.Forms.CheckBox();
-            this.autoSaveResultsCheckBox = new System.Windows.Forms.CheckBox();
-            this.GlobalPanel = new System.Windows.Forms.Panel();
-            this.warningLabel2 = new System.Windows.Forms.Label();
-            this.warningLabel1 = new System.Windows.Forms.Label();
-            this.MaxPerformanceCheckBox = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.RandSeedTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.savePathButton = new System.Windows.Forms.Button();
-            this.SavePathTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.AutoScheduleCheckBox = new System.Windows.Forms.CheckBox();
-            this.AutoContactsCheckBox = new System.Windows.Forms.CheckBox();
-            this.AutoSaveCheckBox = new System.Windows.Forms.CheckBox();
             this.applySettingButton = new System.Windows.Forms.Button();
             this.cancelSettingsButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.label13 = new System.Windows.Forms.Label();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.Tlepanel.SuspendLayout();
+            this.tlegroupBox.SuspendLayout();
+            this.LoggingPanel.SuspendLayout();
+            this.GlobalPanel.SuspendLayout();
             this.dbPanel.SuspendLayout();
             this.EFTPanel.SuspendLayout();
             this.FairPanel.SuspendLayout();
@@ -137,10 +143,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.genPopsize)).BeginInit();
             this.OrbitPanel.SuspendLayout();
             this.wgsGroupBox.SuspendLayout();
-            this.Tlepanel.SuspendLayout();
-            this.tlegroupBox.SuspendLayout();
-            this.LoggingPanel.SuspendLayout();
-            this.GlobalPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -157,29 +160,29 @@
             this.settingsTreeView.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsTreeView.Location = new System.Drawing.Point(0, 0);
             this.settingsTreeView.Name = "settingsTreeView";
-            treeNode1.Name = "Logging";
-            treeNode1.Text = "Logging";
-            treeNode2.Name = "dataBase";
-            treeNode2.Text = "DataBase";
-            treeNode3.Name = "gloabal_set";
-            treeNode3.Text = "Global";
-            treeNode4.Name = "orbit_set";
-            treeNode4.Text = "Orbit";
-            treeNode5.Name = "tle_set";
-            treeNode5.Text = "TLE-Data";
-            treeNode6.Name = "genetig_set";
-            treeNode6.Text = "Genetic";
-            treeNode7.Name = "eft_set";
-            treeNode7.Text = "EFT(Earliest Finsish Time)";
-            treeNode8.Name = "fair_set";
-            treeNode8.Text = "Greedy";
-            treeNode9.Name = "scheduler_set";
-            treeNode9.Text = "Scheduler";
+            treeNode19.Name = "Logging";
+            treeNode19.Text = "Logging";
+            treeNode20.Name = "dataBase";
+            treeNode20.Text = "DataBase";
+            treeNode21.Name = "gloabal_set";
+            treeNode21.Text = "Global";
+            treeNode22.Name = "orbit_set";
+            treeNode22.Text = "Orbit";
+            treeNode23.Name = "tle_set";
+            treeNode23.Text = "TLE-Data";
+            treeNode24.Name = "genetig_set";
+            treeNode24.Text = "Genetic";
+            treeNode25.Name = "eft_set";
+            treeNode25.Text = "EFT(Earliest Finsish Time)";
+            treeNode26.Name = "fair_set";
+            treeNode26.Text = "Greedy";
+            treeNode27.Name = "scheduler_set";
+            treeNode27.Text = "Scheduler";
             this.settingsTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode9});
+            treeNode21,
+            treeNode22,
+            treeNode23,
+            treeNode27});
             this.settingsTreeView.Size = new System.Drawing.Size(217, 409);
             this.settingsTreeView.TabIndex = 0;
             this.settingsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.settingsTreeView_AfterSelect);
@@ -224,8 +227,309 @@
             this.settingsLocationText.Text = "Global - Settings";
             this.settingsLocationText.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // Tlepanel
+            // 
+            this.Tlepanel.Controls.Add(this.deleteCredentialsButton);
+            this.Tlepanel.Controls.Add(this.tlegroupBox);
+            this.Tlepanel.Controls.Add(this.label7);
+            this.Tlepanel.Controls.Add(this.tleAutoUpdateCheckBox);
+            this.Tlepanel.Location = new System.Drawing.Point(6, 69);
+            this.Tlepanel.Name = "Tlepanel";
+            this.Tlepanel.Size = new System.Drawing.Size(557, 377);
+            this.Tlepanel.TabIndex = 4;
+            // 
+            // deleteCredentialsButton
+            // 
+            this.deleteCredentialsButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteCredentialsButton.Location = new System.Drawing.Point(11, 149);
+            this.deleteCredentialsButton.Name = "deleteCredentialsButton";
+            this.deleteCredentialsButton.Size = new System.Drawing.Size(215, 23);
+            this.deleteCredentialsButton.TabIndex = 6;
+            this.deleteCredentialsButton.Text = "Delete stored Credentials";
+            this.deleteCredentialsButton.UseVisualStyleBackColor = true;
+            this.deleteCredentialsButton.Click += new System.EventHandler(this.deleteCredentialsButton_Click);
+            // 
+            // tlegroupBox
+            // 
+            this.tlegroupBox.Controls.Add(this.tlehourlyradioButton);
+            this.tlegroupBox.Controls.Add(this.tleStartUpRadioButton);
+            this.tlegroupBox.Location = new System.Drawing.Point(26, 41);
+            this.tlegroupBox.Name = "tlegroupBox";
+            this.tlegroupBox.Size = new System.Drawing.Size(200, 93);
+            this.tlegroupBox.TabIndex = 5;
+            this.tlegroupBox.TabStop = false;
+            this.tlegroupBox.Text = "update at";
+            // 
+            // tlehourlyradioButton
+            // 
+            this.tlehourlyradioButton.AutoSize = true;
+            this.tlehourlyradioButton.Location = new System.Drawing.Point(29, 53);
+            this.tlehourlyradioButton.Name = "tlehourlyradioButton";
+            this.tlehourlyradioButton.Size = new System.Drawing.Size(75, 17);
+            this.tlehourlyradioButton.TabIndex = 1;
+            this.tlehourlyradioButton.TabStop = true;
+            this.tlehourlyradioButton.Text = "every hour";
+            this.tlehourlyradioButton.UseVisualStyleBackColor = true;
+            // 
+            // tleStartUpRadioButton
+            // 
+            this.tleStartUpRadioButton.AutoSize = true;
+            this.tleStartUpRadioButton.Location = new System.Drawing.Point(29, 24);
+            this.tleStartUpRadioButton.Name = "tleStartUpRadioButton";
+            this.tleStartUpRadioButton.Size = new System.Drawing.Size(64, 17);
+            this.tleStartUpRadioButton.TabIndex = 0;
+            this.tleStartUpRadioButton.TabStop = true;
+            this.tleStartUpRadioButton.Text = "Start Up";
+            this.tleStartUpRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(238, 14);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(288, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Download latest TLE data  automaticaly at specific intervals";
+            // 
+            // tleAutoUpdateCheckBox
+            // 
+            this.tleAutoUpdateCheckBox.AutoSize = true;
+            this.tleAutoUpdateCheckBox.Location = new System.Drawing.Point(11, 11);
+            this.tleAutoUpdateCheckBox.Name = "tleAutoUpdateCheckBox";
+            this.tleAutoUpdateCheckBox.Size = new System.Drawing.Size(135, 17);
+            this.tleAutoUpdateCheckBox.TabIndex = 0;
+            this.tleAutoUpdateCheckBox.Text = "Auto Update TLE-Data";
+            this.tleAutoUpdateCheckBox.UseVisualStyleBackColor = true;
+            this.tleAutoUpdateCheckBox.CheckedChanged += new System.EventHandler(this.tleAutoUpdateCheckBox_CheckedChanged);
+            // 
+            // LoggingPanel
+            // 
+            this.LoggingPanel.Controls.Add(this.showLogCheckBox);
+            this.LoggingPanel.Controls.Add(this.logFitnessCheckBox);
+            this.LoggingPanel.Controls.Add(this.button2);
+            this.LoggingPanel.Controls.Add(this.saveLogPathTextBox);
+            this.LoggingPanel.Controls.Add(this.button1);
+            this.LoggingPanel.Controls.Add(this.saveResultsPathTextBox);
+            this.LoggingPanel.Controls.Add(this.saveLogFileCheckBox);
+            this.LoggingPanel.Controls.Add(this.autoSaveResultsCheckBox);
+            this.LoggingPanel.Location = new System.Drawing.Point(6, 69);
+            this.LoggingPanel.Name = "LoggingPanel";
+            this.LoggingPanel.Size = new System.Drawing.Size(557, 377);
+            this.LoggingPanel.TabIndex = 4;
+            // 
+            // showLogCheckBox
+            // 
+            this.showLogCheckBox.AutoSize = true;
+            this.showLogCheckBox.Location = new System.Drawing.Point(3, 169);
+            this.showLogCheckBox.Name = "showLogCheckBox";
+            this.showLogCheckBox.Size = new System.Drawing.Size(124, 17);
+            this.showLogCheckBox.TabIndex = 13;
+            this.showLogCheckBox.Text = "Show Log during run";
+            this.showLogCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // logFitnessCheckBox
+            // 
+            this.logFitnessCheckBox.AutoSize = true;
+            this.logFitnessCheckBox.Location = new System.Drawing.Point(6, 64);
+            this.logFitnessCheckBox.Name = "logFitnessCheckBox";
+            this.logFitnessCheckBox.Size = new System.Drawing.Size(207, 17);
+            this.logFitnessCheckBox.TabIndex = 6;
+            this.logFitnessCheckBox.Text = "Log the fitness values during run to file";
+            this.logFitnessCheckBox.UseVisualStyleBackColor = true;
+            this.logFitnessCheckBox.Visible = false;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(499, 140);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(27, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "..";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // saveLogPathTextBox
+            // 
+            this.saveLogPathTextBox.Location = new System.Drawing.Point(25, 140);
+            this.saveLogPathTextBox.Name = "saveLogPathTextBox";
+            this.saveLogPathTextBox.Size = new System.Drawing.Size(459, 20);
+            this.saveLogPathTextBox.TabIndex = 4;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(499, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(27, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "..";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // saveResultsPathTextBox
+            // 
+            this.saveResultsPathTextBox.Location = new System.Drawing.Point(23, 35);
+            this.saveResultsPathTextBox.Name = "saveResultsPathTextBox";
+            this.saveResultsPathTextBox.Size = new System.Drawing.Size(459, 20);
+            this.saveResultsPathTextBox.TabIndex = 2;
+            // 
+            // saveLogFileCheckBox
+            // 
+            this.saveLogFileCheckBox.AutoSize = true;
+            this.saveLogFileCheckBox.Location = new System.Drawing.Point(6, 120);
+            this.saveLogFileCheckBox.Name = "saveLogFileCheckBox";
+            this.saveLogFileCheckBox.Size = new System.Drawing.Size(119, 17);
+            this.saveLogFileCheckBox.TabIndex = 1;
+            this.saveLogFileCheckBox.Text = "Auto save log to file";
+            this.saveLogFileCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // autoSaveResultsCheckBox
+            // 
+            this.autoSaveResultsCheckBox.AutoSize = true;
+            this.autoSaveResultsCheckBox.Location = new System.Drawing.Point(6, 13);
+            this.autoSaveResultsCheckBox.Name = "autoSaveResultsCheckBox";
+            this.autoSaveResultsCheckBox.Size = new System.Drawing.Size(135, 17);
+            this.autoSaveResultsCheckBox.TabIndex = 0;
+            this.autoSaveResultsCheckBox.Text = "Auto save results to file";
+            this.autoSaveResultsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // GlobalPanel
+            // 
+            this.GlobalPanel.Controls.Add(this.warningLabel2);
+            this.GlobalPanel.Controls.Add(this.warningLabel1);
+            this.GlobalPanel.Controls.Add(this.MaxPerformanceCheckBox);
+            this.GlobalPanel.Controls.Add(this.label3);
+            this.GlobalPanel.Controls.Add(this.RandSeedTextBox);
+            this.GlobalPanel.Controls.Add(this.label2);
+            this.GlobalPanel.Controls.Add(this.savePathButton);
+            this.GlobalPanel.Controls.Add(this.SavePathTextBox);
+            this.GlobalPanel.Controls.Add(this.label1);
+            this.GlobalPanel.Controls.Add(this.AutoScheduleCheckBox);
+            this.GlobalPanel.Controls.Add(this.AutoContactsCheckBox);
+            this.GlobalPanel.Controls.Add(this.AutoSaveCheckBox);
+            this.GlobalPanel.Location = new System.Drawing.Point(6, 72);
+            this.GlobalPanel.Name = "GlobalPanel";
+            this.GlobalPanel.Size = new System.Drawing.Size(560, 377);
+            this.GlobalPanel.TabIndex = 2;
+            // 
+            // warningLabel2
+            // 
+            this.warningLabel2.AutoEllipsis = true;
+            this.warningLabel2.ForeColor = System.Drawing.Color.DarkRed;
+            this.warningLabel2.Location = new System.Drawing.Point(3, 330);
+            this.warningLabel2.Name = "warningLabel2";
+            this.warningLabel2.Size = new System.Drawing.Size(532, 40);
+            this.warningLabel2.TabIndex = 12;
+            this.warningLabel2.Text = "If this is active the Software will not react and appear to be not responding. Th" +
+    "e calculations will keep runing in the background. Be aware this might take some" +
+    " time.";
+            // 
+            // warningLabel1
+            // 
+            this.warningLabel1.AutoSize = true;
+            this.warningLabel1.ForeColor = System.Drawing.Color.DarkRed;
+            this.warningLabel1.Location = new System.Drawing.Point(143, 311);
+            this.warningLabel1.Name = "warningLabel1";
+            this.warningLabel1.Size = new System.Drawing.Size(56, 13);
+            this.warningLabel1.TabIndex = 11;
+            this.warningLabel1.Text = "Warning!!!";
+            // 
+            // MaxPerformanceCheckBox
+            // 
+            this.MaxPerformanceCheckBox.AutoSize = true;
+            this.MaxPerformanceCheckBox.Location = new System.Drawing.Point(6, 310);
+            this.MaxPerformanceCheckBox.Name = "MaxPerformanceCheckBox";
+            this.MaxPerformanceCheckBox.Size = new System.Drawing.Size(109, 17);
+            this.MaxPerformanceCheckBox.TabIndex = 10;
+            this.MaxPerformanceCheckBox.Text = "Max Performance";
+            this.MaxPerformanceCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(205, 143);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(334, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Random Seed used to randomice contact windows and for Scenarios\r\n";
+            // 
+            // RandSeedTextBox
+            // 
+            this.RandSeedTextBox.Location = new System.Drawing.Point(96, 140);
+            this.RandSeedTextBox.Name = "RandSeedTextBox";
+            this.RandSeedTextBox.Size = new System.Drawing.Size(103, 20);
+            this.RandSeedTextBox.TabIndex = 8;
+            this.RandSeedTextBox.Text = "58496";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 143);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Random Seed:";
+            // 
+            // savePathButton
+            // 
+            this.savePathButton.Location = new System.Drawing.Point(514, 102);
+            this.savePathButton.Name = "savePathButton";
+            this.savePathButton.Size = new System.Drawing.Size(21, 21);
+            this.savePathButton.TabIndex = 6;
+            this.savePathButton.Text = "..";
+            this.savePathButton.UseVisualStyleBackColor = true;
+            this.savePathButton.Click += new System.EventHandler(this.savePathButton_Click);
+            // 
+            // SavePathTextBox
+            // 
+            this.SavePathTextBox.Location = new System.Drawing.Point(96, 102);
+            this.SavePathTextBox.Name = "SavePathTextBox";
+            this.SavePathTextBox.Size = new System.Drawing.Size(412, 20);
+            this.SavePathTextBox.TabIndex = 5;
+            this.SavePathTextBox.Text = "C:\\Path\\ToSave\\";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 105);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Save Path:";
+            // 
+            // AutoScheduleCheckBox
+            // 
+            this.AutoScheduleCheckBox.AutoSize = true;
+            this.AutoScheduleCheckBox.Location = new System.Drawing.Point(3, 68);
+            this.AutoScheduleCheckBox.Name = "AutoScheduleCheckBox";
+            this.AutoScheduleCheckBox.Size = new System.Drawing.Size(172, 17);
+            this.AutoScheduleCheckBox.TabIndex = 3;
+            this.AutoScheduleCheckBox.Text = "Auto save calculated schedule";
+            this.AutoScheduleCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // AutoContactsCheckBox
+            // 
+            this.AutoContactsCheckBox.AutoSize = true;
+            this.AutoContactsCheckBox.Location = new System.Drawing.Point(3, 45);
+            this.AutoContactsCheckBox.Name = "AutoContactsCheckBox";
+            this.AutoContactsCheckBox.Size = new System.Drawing.Size(210, 17);
+            this.AutoContactsCheckBox.TabIndex = 2;
+            this.AutoContactsCheckBox.Text = "Auto save calculated Contact windows";
+            this.AutoContactsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // AutoSaveCheckBox
+            // 
+            this.AutoSaveCheckBox.AutoSize = true;
+            this.AutoSaveCheckBox.Location = new System.Drawing.Point(3, 22);
+            this.AutoSaveCheckBox.Name = "AutoSaveCheckBox";
+            this.AutoSaveCheckBox.Size = new System.Drawing.Size(74, 17);
+            this.AutoSaveCheckBox.TabIndex = 1;
+            this.AutoSaveCheckBox.Text = "Auto save";
+            this.AutoSaveCheckBox.UseVisualStyleBackColor = true;
+            this.AutoSaveCheckBox.CheckedChanged += new System.EventHandler(this.AutoSaveCheckBox_CheckedChanged);
+            // 
             // dbPanel
             // 
+            this.dbPanel.Controls.Add(this.label13);
             this.dbPanel.Controls.Add(this.button3);
             this.dbPanel.Controls.Add(this.databaseTextBox);
             this.dbPanel.Controls.Add(this.label14);
@@ -715,306 +1019,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Orbit Calculation Accuracy: ";
             // 
-            // Tlepanel
-            // 
-            this.Tlepanel.Controls.Add(this.deleteCredentialsButton);
-            this.Tlepanel.Controls.Add(this.tlegroupBox);
-            this.Tlepanel.Controls.Add(this.label7);
-            this.Tlepanel.Controls.Add(this.tleAutoUpdateCheckBox);
-            this.Tlepanel.Location = new System.Drawing.Point(6, 69);
-            this.Tlepanel.Name = "Tlepanel";
-            this.Tlepanel.Size = new System.Drawing.Size(557, 377);
-            this.Tlepanel.TabIndex = 4;
-            // 
-            // deleteCredentialsButton
-            // 
-            this.deleteCredentialsButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteCredentialsButton.Location = new System.Drawing.Point(11, 149);
-            this.deleteCredentialsButton.Name = "deleteCredentialsButton";
-            this.deleteCredentialsButton.Size = new System.Drawing.Size(215, 23);
-            this.deleteCredentialsButton.TabIndex = 6;
-            this.deleteCredentialsButton.Text = "Delete stored Credentials";
-            this.deleteCredentialsButton.UseVisualStyleBackColor = true;
-            this.deleteCredentialsButton.Click += new System.EventHandler(this.deleteCredentialsButton_Click);
-            // 
-            // tlegroupBox
-            // 
-            this.tlegroupBox.Controls.Add(this.tlehourlyradioButton);
-            this.tlegroupBox.Controls.Add(this.tleStartUpRadioButton);
-            this.tlegroupBox.Location = new System.Drawing.Point(26, 41);
-            this.tlegroupBox.Name = "tlegroupBox";
-            this.tlegroupBox.Size = new System.Drawing.Size(200, 93);
-            this.tlegroupBox.TabIndex = 5;
-            this.tlegroupBox.TabStop = false;
-            this.tlegroupBox.Text = "update at";
-            // 
-            // tlehourlyradioButton
-            // 
-            this.tlehourlyradioButton.AutoSize = true;
-            this.tlehourlyradioButton.Location = new System.Drawing.Point(29, 53);
-            this.tlehourlyradioButton.Name = "tlehourlyradioButton";
-            this.tlehourlyradioButton.Size = new System.Drawing.Size(75, 17);
-            this.tlehourlyradioButton.TabIndex = 1;
-            this.tlehourlyradioButton.TabStop = true;
-            this.tlehourlyradioButton.Text = "every hour";
-            this.tlehourlyradioButton.UseVisualStyleBackColor = true;
-            // 
-            // tleStartUpRadioButton
-            // 
-            this.tleStartUpRadioButton.AutoSize = true;
-            this.tleStartUpRadioButton.Location = new System.Drawing.Point(29, 24);
-            this.tleStartUpRadioButton.Name = "tleStartUpRadioButton";
-            this.tleStartUpRadioButton.Size = new System.Drawing.Size(64, 17);
-            this.tleStartUpRadioButton.TabIndex = 0;
-            this.tleStartUpRadioButton.TabStop = true;
-            this.tleStartUpRadioButton.Text = "Start Up";
-            this.tleStartUpRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(238, 14);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(288, 13);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Download latest TLE data  automaticaly at specific intervals";
-            // 
-            // tleAutoUpdateCheckBox
-            // 
-            this.tleAutoUpdateCheckBox.AutoSize = true;
-            this.tleAutoUpdateCheckBox.Enabled = false;
-            this.tleAutoUpdateCheckBox.Location = new System.Drawing.Point(11, 11);
-            this.tleAutoUpdateCheckBox.Name = "tleAutoUpdateCheckBox";
-            this.tleAutoUpdateCheckBox.Size = new System.Drawing.Size(135, 17);
-            this.tleAutoUpdateCheckBox.TabIndex = 0;
-            this.tleAutoUpdateCheckBox.Text = "Auto Update TLE-Data";
-            this.tleAutoUpdateCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // LoggingPanel
-            // 
-            this.LoggingPanel.Controls.Add(this.showLogCheckBox);
-            this.LoggingPanel.Controls.Add(this.logFitnessCheckBox);
-            this.LoggingPanel.Controls.Add(this.button2);
-            this.LoggingPanel.Controls.Add(this.saveLogPathTextBox);
-            this.LoggingPanel.Controls.Add(this.button1);
-            this.LoggingPanel.Controls.Add(this.saveResultsPathTextBox);
-            this.LoggingPanel.Controls.Add(this.saveLogFileCheckBox);
-            this.LoggingPanel.Controls.Add(this.autoSaveResultsCheckBox);
-            this.LoggingPanel.Location = new System.Drawing.Point(6, 69);
-            this.LoggingPanel.Name = "LoggingPanel";
-            this.LoggingPanel.Size = new System.Drawing.Size(557, 377);
-            this.LoggingPanel.TabIndex = 4;
-            // 
-            // showLogCheckBox
-            // 
-            this.showLogCheckBox.AutoSize = true;
-            this.showLogCheckBox.Location = new System.Drawing.Point(3, 169);
-            this.showLogCheckBox.Name = "showLogCheckBox";
-            this.showLogCheckBox.Size = new System.Drawing.Size(124, 17);
-            this.showLogCheckBox.TabIndex = 13;
-            this.showLogCheckBox.Text = "Show Log during run";
-            this.showLogCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // logFitnessCheckBox
-            // 
-            this.logFitnessCheckBox.AutoSize = true;
-            this.logFitnessCheckBox.Location = new System.Drawing.Point(6, 64);
-            this.logFitnessCheckBox.Name = "logFitnessCheckBox";
-            this.logFitnessCheckBox.Size = new System.Drawing.Size(207, 17);
-            this.logFitnessCheckBox.TabIndex = 6;
-            this.logFitnessCheckBox.Text = "Log the fitness values during run to file";
-            this.logFitnessCheckBox.UseVisualStyleBackColor = true;
-            this.logFitnessCheckBox.Visible = false;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(499, 140);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(27, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "..";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // saveLogPathTextBox
-            // 
-            this.saveLogPathTextBox.Location = new System.Drawing.Point(25, 140);
-            this.saveLogPathTextBox.Name = "saveLogPathTextBox";
-            this.saveLogPathTextBox.Size = new System.Drawing.Size(459, 20);
-            this.saveLogPathTextBox.TabIndex = 4;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(499, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(27, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "..";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // saveResultsPathTextBox
-            // 
-            this.saveResultsPathTextBox.Location = new System.Drawing.Point(23, 35);
-            this.saveResultsPathTextBox.Name = "saveResultsPathTextBox";
-            this.saveResultsPathTextBox.Size = new System.Drawing.Size(459, 20);
-            this.saveResultsPathTextBox.TabIndex = 2;
-            // 
-            // saveLogFileCheckBox
-            // 
-            this.saveLogFileCheckBox.AutoSize = true;
-            this.saveLogFileCheckBox.Location = new System.Drawing.Point(6, 120);
-            this.saveLogFileCheckBox.Name = "saveLogFileCheckBox";
-            this.saveLogFileCheckBox.Size = new System.Drawing.Size(119, 17);
-            this.saveLogFileCheckBox.TabIndex = 1;
-            this.saveLogFileCheckBox.Text = "Auto save log to file";
-            this.saveLogFileCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // autoSaveResultsCheckBox
-            // 
-            this.autoSaveResultsCheckBox.AutoSize = true;
-            this.autoSaveResultsCheckBox.Location = new System.Drawing.Point(6, 13);
-            this.autoSaveResultsCheckBox.Name = "autoSaveResultsCheckBox";
-            this.autoSaveResultsCheckBox.Size = new System.Drawing.Size(135, 17);
-            this.autoSaveResultsCheckBox.TabIndex = 0;
-            this.autoSaveResultsCheckBox.Text = "Auto save results to file";
-            this.autoSaveResultsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // GlobalPanel
-            // 
-            this.GlobalPanel.Controls.Add(this.warningLabel2);
-            this.GlobalPanel.Controls.Add(this.warningLabel1);
-            this.GlobalPanel.Controls.Add(this.MaxPerformanceCheckBox);
-            this.GlobalPanel.Controls.Add(this.label3);
-            this.GlobalPanel.Controls.Add(this.RandSeedTextBox);
-            this.GlobalPanel.Controls.Add(this.label2);
-            this.GlobalPanel.Controls.Add(this.savePathButton);
-            this.GlobalPanel.Controls.Add(this.SavePathTextBox);
-            this.GlobalPanel.Controls.Add(this.label1);
-            this.GlobalPanel.Controls.Add(this.AutoScheduleCheckBox);
-            this.GlobalPanel.Controls.Add(this.AutoContactsCheckBox);
-            this.GlobalPanel.Controls.Add(this.AutoSaveCheckBox);
-            this.GlobalPanel.Location = new System.Drawing.Point(6, 72);
-            this.GlobalPanel.Name = "GlobalPanel";
-            this.GlobalPanel.Size = new System.Drawing.Size(560, 377);
-            this.GlobalPanel.TabIndex = 2;
-            // 
-            // warningLabel2
-            // 
-            this.warningLabel2.AutoEllipsis = true;
-            this.warningLabel2.ForeColor = System.Drawing.Color.DarkRed;
-            this.warningLabel2.Location = new System.Drawing.Point(3, 330);
-            this.warningLabel2.Name = "warningLabel2";
-            this.warningLabel2.Size = new System.Drawing.Size(532, 40);
-            this.warningLabel2.TabIndex = 12;
-            this.warningLabel2.Text = "If this is active the Software will not react and appear to be not responding. Th" +
-    "e calculations will keep runing in the background. Be aware this might take some" +
-    " time.";
-            // 
-            // warningLabel1
-            // 
-            this.warningLabel1.AutoSize = true;
-            this.warningLabel1.ForeColor = System.Drawing.Color.DarkRed;
-            this.warningLabel1.Location = new System.Drawing.Point(143, 311);
-            this.warningLabel1.Name = "warningLabel1";
-            this.warningLabel1.Size = new System.Drawing.Size(56, 13);
-            this.warningLabel1.TabIndex = 11;
-            this.warningLabel1.Text = "Warning!!!";
-            // 
-            // MaxPerformanceCheckBox
-            // 
-            this.MaxPerformanceCheckBox.AutoSize = true;
-            this.MaxPerformanceCheckBox.Location = new System.Drawing.Point(6, 310);
-            this.MaxPerformanceCheckBox.Name = "MaxPerformanceCheckBox";
-            this.MaxPerformanceCheckBox.Size = new System.Drawing.Size(109, 17);
-            this.MaxPerformanceCheckBox.TabIndex = 10;
-            this.MaxPerformanceCheckBox.Text = "Max Performance";
-            this.MaxPerformanceCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(205, 143);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(334, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Random Seed used to randomice contact windows and for Scenarios\r\n";
-            // 
-            // RandSeedTextBox
-            // 
-            this.RandSeedTextBox.Location = new System.Drawing.Point(96, 140);
-            this.RandSeedTextBox.Name = "RandSeedTextBox";
-            this.RandSeedTextBox.Size = new System.Drawing.Size(103, 20);
-            this.RandSeedTextBox.TabIndex = 8;
-            this.RandSeedTextBox.Text = "58496";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 143);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Random Seed:";
-            // 
-            // savePathButton
-            // 
-            this.savePathButton.Location = new System.Drawing.Point(514, 102);
-            this.savePathButton.Name = "savePathButton";
-            this.savePathButton.Size = new System.Drawing.Size(21, 21);
-            this.savePathButton.TabIndex = 6;
-            this.savePathButton.Text = "..";
-            this.savePathButton.UseVisualStyleBackColor = true;
-            this.savePathButton.Click += new System.EventHandler(this.savePathButton_Click);
-            // 
-            // SavePathTextBox
-            // 
-            this.SavePathTextBox.Location = new System.Drawing.Point(96, 102);
-            this.SavePathTextBox.Name = "SavePathTextBox";
-            this.SavePathTextBox.Size = new System.Drawing.Size(412, 20);
-            this.SavePathTextBox.TabIndex = 5;
-            this.SavePathTextBox.Text = "C:\\Path\\ToSave\\";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 105);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Save Path:";
-            // 
-            // AutoScheduleCheckBox
-            // 
-            this.AutoScheduleCheckBox.AutoSize = true;
-            this.AutoScheduleCheckBox.Location = new System.Drawing.Point(3, 68);
-            this.AutoScheduleCheckBox.Name = "AutoScheduleCheckBox";
-            this.AutoScheduleCheckBox.Size = new System.Drawing.Size(172, 17);
-            this.AutoScheduleCheckBox.TabIndex = 3;
-            this.AutoScheduleCheckBox.Text = "Auto save calculated schedule";
-            this.AutoScheduleCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // AutoContactsCheckBox
-            // 
-            this.AutoContactsCheckBox.AutoSize = true;
-            this.AutoContactsCheckBox.Location = new System.Drawing.Point(3, 45);
-            this.AutoContactsCheckBox.Name = "AutoContactsCheckBox";
-            this.AutoContactsCheckBox.Size = new System.Drawing.Size(210, 17);
-            this.AutoContactsCheckBox.TabIndex = 2;
-            this.AutoContactsCheckBox.Text = "Auto save calculated Contact windows";
-            this.AutoContactsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // AutoSaveCheckBox
-            // 
-            this.AutoSaveCheckBox.AutoSize = true;
-            this.AutoSaveCheckBox.Location = new System.Drawing.Point(3, 22);
-            this.AutoSaveCheckBox.Name = "AutoSaveCheckBox";
-            this.AutoSaveCheckBox.Size = new System.Drawing.Size(74, 17);
-            this.AutoSaveCheckBox.TabIndex = 1;
-            this.AutoSaveCheckBox.Text = "Auto save";
-            this.AutoSaveCheckBox.UseVisualStyleBackColor = true;
-            this.AutoSaveCheckBox.CheckedChanged += new System.EventHandler(this.AutoSaveCheckBox_CheckedChanged);
-            // 
             // applySettingButton
             // 
             this.applySettingButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1039,8 +1043,24 @@
             // 
             // openFileDialog1
             // 
+            this.openFileDialog1.CheckFileExists = false;
+            this.openFileDialog1.DefaultExt = "mab";
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Database|*.mab";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(32, 77);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(306, 13);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "A restart of the application is required for changes to take effekt\r\n";
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
             // 
             // SettingsForm
             // 
@@ -1061,6 +1081,14 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.Tlepanel.ResumeLayout(false);
+            this.Tlepanel.PerformLayout();
+            this.tlegroupBox.ResumeLayout(false);
+            this.tlegroupBox.PerformLayout();
+            this.LoggingPanel.ResumeLayout(false);
+            this.LoggingPanel.PerformLayout();
+            this.GlobalPanel.ResumeLayout(false);
+            this.GlobalPanel.PerformLayout();
             this.dbPanel.ResumeLayout(false);
             this.dbPanel.PerformLayout();
             this.EFTPanel.ResumeLayout(false);
@@ -1080,14 +1108,7 @@
             this.OrbitPanel.PerformLayout();
             this.wgsGroupBox.ResumeLayout(false);
             this.wgsGroupBox.PerformLayout();
-            this.Tlepanel.ResumeLayout(false);
-            this.Tlepanel.PerformLayout();
-            this.tlegroupBox.ResumeLayout(false);
-            this.tlegroupBox.PerformLayout();
-            this.LoggingPanel.ResumeLayout(false);
-            this.LoggingPanel.PerformLayout();
-            this.GlobalPanel.ResumeLayout(false);
-            this.GlobalPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1173,5 +1194,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Label label13;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }

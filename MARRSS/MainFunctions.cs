@@ -12,6 +12,7 @@
 using System.Windows.Forms;
 using System.IO;
 using System;
+using System.Collections.Specialized;
 
 namespace MARRSS
 {
@@ -144,12 +145,20 @@ namespace MARRSS
         }
 
         //! returns the Objective function
-        public static Scheduler.ObjectiveFunction ObjectiveFunctionBuilder()
+        public static Scheduler.ObjectiveFunction ObjectiveFunctionBuilder(string name)
         {
+            int[] wheight = new int[5] { 0, 0, 0, 0, 0, };
+            //StringCollection objective = (StringCollection)Properties.Objective.Default[name];
+            //for (int w = 0; w < objective.Count; w++)
+            //{
+            //    wheight[w] = Convert.ToInt32(objective[w]);
+            //}
+            //return new Scheduler.ObjectiveFunction(
+            //    Forms.ObjectiveBuilderForm.getObjectiveEnums(wheight));
             return new Scheduler.ObjectiveFunction(
-                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSATELITE,
-                    Scheduler.ObjectiveFunction.ObjectiveEnum.FAIRNESSTATION,
-                    Scheduler.ObjectiveFunction.ObjectiveEnum.SCHEDULEDCONTACTS);
+                    Global.Structs.ObjectiveEnum.FAIRNESSATELITE,
+                    Global.Structs.ObjectiveEnum.FAIRNESSTATION,
+                    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
         }
 
 

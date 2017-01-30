@@ -34,7 +34,7 @@
             this.removeObjectiveButton = new System.Windows.Forms.Button();
             this.selectedObjectiveListBox = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.ObjectivesPresetSelection = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -94,23 +94,21 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // SaveButton
             // 
-            this.button2.Location = new System.Drawing.Point(357, 264);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
+            this.SaveButton.Location = new System.Drawing.Point(357, 264);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.TabIndex = 5;
+            this.SaveButton.Text = "Save";
+            this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // ObjectivesPresetSelection
             // 
             this.ObjectivesPresetSelection.FormattingEnabled = true;
-            this.ObjectivesPresetSelection.Items.AddRange(new object[] {
-            "New Preset",
-            "Priority only",
-            "Fairness only"});
             this.ObjectivesPresetSelection.Location = new System.Drawing.Point(357, 36);
             this.ObjectivesPresetSelection.Name = "ObjectivesPresetSelection";
             this.ObjectivesPresetSelection.Size = new System.Drawing.Size(186, 21);
@@ -123,7 +121,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 299);
             this.Controls.Add(this.ObjectivesPresetSelection);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.selectedObjectiveListBox);
             this.Controls.Add(this.removeObjectiveButton);
@@ -132,6 +130,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ObjectiveBuilderForm";
             this.Text = "Objective Function";
+            this.Load += new System.EventHandler(this.ObjectiveBuilderForm_Load);
             this.ResumeLayout(false);
 
         }
@@ -143,7 +142,7 @@
         private System.Windows.Forms.Button removeObjectiveButton;
         private System.Windows.Forms.ListBox selectedObjectiveListBox;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.ComboBox ObjectivesPresetSelection;
     }
 }

@@ -256,5 +256,46 @@ namespace MARRSS.Forms
                 addButton.Text = "ADD";
             }
         }
+
+        public static void UpdateTLeFromWeb()
+        {
+            string userName = Properties.Settings.Default.email;
+            string password = Login.getPassword();
+            DataBase.DataBase db = new DataBase.DataBase();
+            List<string> tleList = db.getAllNoradID();
+            string[] searchIDs = new string[tleList.Count];
+
+            for (int i = 0; i < tleList.Count; i++)
+            {
+                searchIDs[i] = tleList[i];
+            }
+
+
+            //Forms.Login loginForm = new Forms.Login(this);
+            //loginForm.ShowDialog();
+            if (userName != null && password != null)
+            {
+                string res = One_Sgp4.SpaceTrack.GetSpaceTrack(searchIDs, userName, password);
+                if (res.Count() > 0)
+                {
+                    string[] tleLines = res.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+
+                    if (tleLines.Count() >= 3)
+                    {
+                        for (int i = 0; i < tleLines.Count() - 1; i += 3)
+                        {
+                            One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
+                            satTleData = One_Sgp4.ParserTLE.parseTle(tleLines[i + 1], tleLines[i + 2], tleLines[i]);
+                            db.writeTleData(satTleData);
+                        }
+                    }
+                    else
+                    {
+                        //error
+                        //error parsing information
+                    }
+                }
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace MARRSS.Global
     * and store the velocity / position vectors of the satellites.
     * 
     */
-    class Structs
+    public class Structs
     {
         /** Class point3D
         *  @brief 3D double vector
@@ -69,5 +69,17 @@ namespace MARRSS.Global
             FIRSTFINISCHED = 0x4 //!< int 4 sort by the first to be finisched
         };
 
-        }
+        /** enum ObjeciveEnum
+        *  @brief enum class that represents what objectives to Schedule
+        */
+        public enum ObjectiveEnum : int
+        {
+            PRIORITY = 1,
+            FAIRNESSATELITE = 2,
+            FAIRNESSTATION = 3,
+            DURATION = 4,
+            SCHEDULEDCONTACTS = 5
+        };
+
+    }
 }

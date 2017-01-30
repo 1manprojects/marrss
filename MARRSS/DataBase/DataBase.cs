@@ -48,6 +48,7 @@ namespace MARRSS.DataBase
         */
         public DataBase()
         {
+            _dbName = Properties.Settings.Default.db_path;
             //m_dbConnection
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             isConnected = false;

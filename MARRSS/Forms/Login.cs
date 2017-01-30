@@ -71,12 +71,7 @@ namespace MARRSS.Forms
             {
                 
                 textBox1.Text = Properties.Settings.Default.email;
-
-                byte[] enc = Convert.FromBase64String(Properties.Settings.Default.passwd);
-                byte[] key = Convert.FromBase64String(Properties.Settings.Default.ent2);
-                byte[] ent = Convert.FromBase64String(Properties.Settings.Default.ent);
-                string plain = DecryptStringFromBytes(enc, key, ent);
-                textBox2.Text = plain;
+                textBox2.Text = getPassword();
 
             }
         }
@@ -139,6 +134,15 @@ namespace MARRSS.Forms
                 }
 
             }
+            return plain;
+        }
+
+        public static string getPassword()
+        {
+            byte[] enc = Convert.FromBase64String(Properties.Settings.Default.passwd);
+            byte[] key = Convert.FromBase64String(Properties.Settings.Default.ent2);
+            byte[] ent = Convert.FromBase64String(Properties.Settings.Default.ent);
+            string plain = DecryptStringFromBytes(enc, key, ent);
             return plain;
         }
 

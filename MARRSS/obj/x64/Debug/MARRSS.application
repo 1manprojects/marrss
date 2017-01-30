@@ -7,14 +7,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="MARRSS.exe.manifest" size="7318">
+    <dependentAssembly dependencyType="install" codebase="MARRSS.exe.manifest" size="7319">
       <assemblyIdentity name="MARRSS.exe" version="1.3.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>n4l2MS2MW2HrmAj2KrXLaMB6zQpeEsGLfuSmbb0yl60=</dsig:DigestValue>
+        <dsig:DigestValue>omBfoAcaI8vNu9gFOJ1B62jqlc6nKiUVq+T6n8NbOkM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
