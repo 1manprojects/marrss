@@ -19,12 +19,24 @@ namespace MARRSS
 {
     class RunScheduler
     {
+        //! Start Scheduler
+        /*! 
+            /param SchedulerInterface scheduler to run
+            /param SchedulingProblems problem to solve
+        */
         public static void startScheduler(SchedulerInterface scheduler, SchedulingProblem problem)
         {
             scheduler.setObjectiveFunktion(problem.getObjectiveFunction());
             scheduler.CalculateSchedule(problem);
         }
 
+        //! Start Pseudo BruteForce method
+        /*! 
+            /param SChedulerInterface scheduler to run
+            /param SchedulingProblem to solve
+            /param Main mainform to update Information
+            Currently can only be called with the greedy scheduler
+        */
         public static void startBruteForce(SchedulerInterface scheduler, SchedulingProblem problem, Main mainform)
         {
             if (scheduler.GetType() == typeof(GreedyScheduler))
@@ -51,6 +63,12 @@ namespace MARRSS
             //else do nothing
         }
 
+        //! set Scheduler 
+        /*! 
+            /param SChedulerInterface scheduler to set up
+            /param Main mainform to update = null
+            reads the settings set and sets up the scheduler bases on its type
+        */
         public static SchedulerInterface setScheduler(SchedulerInterface scheduler, Main UpdateForm = null)
         {
             if (scheduler.GetType() == typeof(GeneticScheduler))
@@ -91,11 +109,22 @@ namespace MARRSS
             return scheduler;
         }
 
+        //! get Scheduling Results
+        /*! 
+            /param SchedulerInterface scheduler
+            /return ContactWindowsVector finisched schedule
+        */
         public static ContactWindowsVector getResults(SchedulerInterface scheduler)
         {
             return scheduler.getFinischedSchedule();
         }
 
+        //! get max Number of Generations
+        /*! 
+            /param schedulerInterface scheduler to read nr. Of Generations
+            /return int number of generations or zero if scheduler unsuported
+            only for genetic scheduler will
+        */
         public static int getNumberOfGeneration(SchedulerInterface scheduler)
         {
             if (scheduler.GetType() == typeof(GeneticScheduler))
@@ -106,6 +135,11 @@ namespace MARRSS
             return 0;
         }
 
+        //! set the Scheduling Problem
+        /*! 
+            /param ContactWindowsVector contacts to schedule
+            /param ObjectiveFunction obective to solve problems
+        */
         public static SchedulingProblem setSchedulingProblem(ContactWindowsVector contacts, ObjectiveFunction objective)
         {
             SchedulingProblem problem = new SchedulingProblem();
@@ -123,6 +157,12 @@ namespace MARRSS
             return problem;
         }
 
+        //! get and Display the results on Main Page
+        /*! 
+            /param Main main form to update
+            /param SchedulerInterface scheduler to get results
+            /param int count = -1 the current run number
+        */
         public static void displayResults(Main main, SchedulerInterface scheduler, int count = -1)
         {
             if (scheduler != null)

@@ -127,6 +127,8 @@ namespace MARRSS
                 updateLog(logFile, "Staring Orbit Calculations");
                 //Calculate Orbits and Contact Windows
                 CalculateContacts(startTime, stopTime, logFile);
+
+
             }
             else
             {
@@ -209,7 +211,8 @@ namespace MARRSS
             {
                 bool useBruteForce = (Properties.Settings.Default.fair_BruteForce &&
                                         radioGreedy.Checked);
-                objectivefunct = MainFunctions.ObjectiveFunctionBuilder(objectiveComboBox.SelectedItem.ToString());
+                objectivefunct = null;
+                setObjectiveFunction();
                 startSchedule(useBruteForce);
                 //notifcation if done
                 for (int i = 0; i < 5; i++)
@@ -352,67 +355,11 @@ namespace MARRSS
         */
         private void CalculateContacts(One_Sgp4.EpochTime start, One_Sgp4.EpochTime stop, string logfile)
         {
-            double accuracy = Properties.Settings.Default.orbit_Calculation_Accuracy;
-            Application.DoEvents();
-            Performance.TimeMeasurement timeMessurmentOribt = new Performance.TimeMeasurement();
+            TimeMeasurement timeMessurmentOribt = new Performance.TimeMeasurement();
             timeMessurmentOribt.activate();
-            /*
-                * Orbits ar Calculated here using Task[] to compute in 
-                * multiple threads without woring about the number of
-                * available CPU's.
-            */
-            One_Sgp4.Sgp4[] tasks = new One_Sgp4.Sgp4[satTleData.Count()];
-            Task[] threads = new Task[satTleData.Count()];
-            for (int i = 0; i < satTleData.Count(); i++)
-            {
-                tasks[i] = new One_Sgp4.Sgp4(satTleData[i], Properties.Settings.Default.orbit_Wgs);
-                tasks[i].setStart(start, stop, accuracy / 60.0);
-                threads[i] = new Task(tasks[i].starThread);
-            }
-            for (int i = 0; i < threads.Count(); i++)
-            {
-                //start each Thread
-                threads[i].Start();
-            }
-            try
-            {
-                //wait till all threads are finished
-                Task.WaitAll(threads);
-            }
-            catch (AggregateException ae)
-            {
-                //Logg any exceptions thrown
-                updateLog(logfile, "Orbit Predictions Exception: " + ae.InnerExceptions[0].Message);
-            }
-            updateLog(logfile, "Starting Contact Window Calculation");
-            for (int i = 0; i < satTleData.Count(); i++)
-            {
-                Ground.InView[] inViews = new Ground.InView[stationData.Count()];
-                Task[] inThreads = new Task[stationData.Count()];
-                for (int k = 0; k < stationData.Count(); k++)
-                {
-                    inViews[k] = new Ground.InView(stationData[k], start, tasks[i].getRestults(), satTleData[i].getName(), accuracy);
-                    inThreads[k] = new Task(inViews[k].calcContactWindows);
-                }
-                for (int k = 0; k < stationData.Count(); k++)
-                {
-                    //start every thread
-                    inThreads[k].Start();
-                }
-                try
-                {
-                    //whait for all threads to finish
-                    Task.WaitAll(inThreads);
-                }
-                catch (AggregateException ae)
-                {
-                    logRichTextBox.Text = logRichTextBox.Text + ae.InnerException.Message + "\n";
-                }
-                for (int k = 0; k < stationData.Count(); k++)
-                {
-                    contactsVector.add(inViews[k].getResults());
-                }
-            }
+
+            contactsVector = MainFunctions2.calculateContactWindows(satTleData, stationData, start, stop, logfile, this);
+            
             string perfResCalc = timeMessurmentOribt.getValueAndDeactivate();
             updateLog(logfile, "Contact Windows Calculated in: " + perfResCalc + "sec.");
         }
@@ -520,15 +467,6 @@ namespace MARRSS
             updateLog(logfile, "Done");
         }
 
-        //! Redraw schedule Image
-        /*! 
-        */
-        private void buttonReDraw_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-            pictureBox2.Width = pictureBox2.Image.Width;
-            pictureBox2.Height = pictureBox2.Image.Height;
-        }
 
         //! Update station and satellites lists on Main window
         /*! 
@@ -541,81 +479,11 @@ namespace MARRSS
             _MainDataBase.displayAllStations(checkedStations);
         }
 
-        //! Load calculated schedule
-        /*! 
-        */
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStripStatusLabel3.Text = "Status: Opening File";
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Saved Contacts Files (.xml)|*.xml|All Files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 1;
-
-            DialogResult userSelect = openFileDialog1.ShowDialog();
-            if (userSelect == DialogResult.OK)
-            {
-                string filePath = openFileDialog1.FileName;
-                toolStripStatusLabel3.Text = "Status: Loading SaveFile";
-                contactsVector = DataBase.SaveLoad.loadFile(filePath, this);
-                UpdateAllLists();
-
-                toolStripStatusLabel3.Text = "Status: Updating Data";
-                //Update selected satellites and Groundstations list
-                foreach (string name in contactsVector.getSatelliteNames())
-                {
-                    int res = checkedSatellites.Items.IndexOf(name);
-                    if ( res >= 0)
-                    {
-                        checkedSatellites.SetItemChecked(res, true);
-                    }
-                }
-                foreach (string name in contactsVector.getStationNames())
-                {
-                    int res = checkedStations.Items.IndexOf(name);
-                    if (res >= 0)
-                    {
-                        checkedStations.SetItemChecked(res, true);
-                    }
-                }
-                startTimePicker.Value = contactsVector.getStartTime().toDateTime();
-                stopTimePicker.Value = contactsVector.getStopTime().toDateTime();
-                startDatePicker.Value = startTimePicker.Value;
-                stopDatePicker.Value = stopTimePicker.Value;
-                startTimePicker.Enabled = false;
-                startDatePicker.Enabled = false;
-                stopTimePicker.Enabled = false;
-                stopDatePicker.Enabled = false;
-                checkedSatellites.Enabled = false;
-                checkedStations.Enabled = false;
-                toolStripStatusLabel3.Text = "Status: Done";
-            }
-        }
-
-        //! Save calculated schedule to file
-        /*! 
-           \return void saves a xml file object of the scheduled contacts
-        */
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            toolStripStatusLabel3.Text = "Status: Saving Data";
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Open Contacts Files (.xml)|*.xml|All Files (*.*)|*.*";
-            saveFileDialog1.FilterIndex = 1;
-
-            DialogResult userSelect = saveFileDialog1.ShowDialog();
-            if (userSelect == DialogResult.OK)
-            {
-                string filePath = saveFileDialog1.FileName;
-                DataBase.SaveLoad.saveToFile(filePath, contactsVector, this);
-            }
-            toolStripStatusLabel3.Text = "Status: Done";
-        }
-
         //! Create new Schedule
         /*! 
            \clears old contact vectors
         */
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void clearScheduling()
         {
             startTimePicker.Enabled = true;
             startDatePicker.Enabled = true;
@@ -626,53 +494,7 @@ namespace MARRSS
             contactsVector = null;
         }
 
-        //! Show Info Form
-        /*! 
-        */
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MARRSS.Forms.Info info = new Forms.Info();
-            info.Show();
-        }
 
-        //! Save calculated schedule image
-        /*! 
-           \return saves a bmp file of the current schedule
-        */
-        private void buttonSaveImage_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Save Image Files (.bmp)|*.bmp|All Files (*.*)|*.*";
-            saveFileDialog1.FilterIndex = 1;
-
-            DialogResult userSelect = saveFileDialog1.ShowDialog();
-            if (userSelect == DialogResult.OK)
-            {
-                string filePath = saveFileDialog1.FileName;
-                pictureBox2.Image.Save(filePath);
-            }
-        }
-
-        //! Delete satellite object from DB
-        /*! 
-        */
-        private void button4_Click_2(object sender, EventArgs e)
-        {
-            _MainDataBase.deleteTle(satelliteNameLabel.Text);
-            _MainDataBase.deleteSatellite(satelliteNameLabel.Text);
-            _MainDataBase.displayAllSatellites(satelliteDataGrid);
-            UpdateAllLists();
-        }
-
-        //! Delete ground station object from DB
-        /*! 
-        */
-        private void button6_Click_1(object sender, EventArgs e)
-        {
-            _MainDataBase.deleteStation(label20.Text);
-            _MainDataBase.displayAllStations(staDataGridView);
-            UpdateAllLists();
-        }
 
         //! Update Labels 
         /*! 
@@ -753,26 +575,11 @@ namespace MARRSS
             }
         }
 
-        //! Create New Schedule
+        //! Load Saved Schedule from File
         /*!
-            Clears contacts vector and resets form
+            opens File Dialog and will load a saved schedule from xml file
         */
-        private void label1_Click(object sender, EventArgs e)
-        {
-            startTimePicker.Enabled = true;
-            startDatePicker.Enabled = true;
-            stopTimePicker.Enabled = true;
-            stopDatePicker.Enabled = true;
-            checkedSatellites.Enabled = true;
-            checkedStations.Enabled = true;
-            contactsVector = null;
-        }
-
-        //! Load Schedule from file
-        /*!
-            Load saved schedule from file
-        */
-        private void label3_Click(object sender, EventArgs e)
+        private void loadSavedSchedule()
         {
             toolStripStatusLabel3.Text = "Status: Opening File";
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -819,7 +626,12 @@ namespace MARRSS
             }
         }
 
-        //Update the UTC Time on the form
+
+        //! Timer Tick
+        /*!
+            every second Timer will tick and update the Time on the Form
+            and if set update TLE data automaticaly
+        */
         private void timer1_Tick(object sender, EventArgs e)
         {
             DateTime time = DateTime.UtcNow;
@@ -836,67 +648,40 @@ namespace MARRSS
             }
         }
 
-        //draw ALL contact windows onto form
-        private void button7_Click(object sender, EventArgs e)
-        {
-            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
-            pictureBox2.Width = pictureBox2.Image.Width;
-            pictureBox2.Height = pictureBox2.Image.Height;
-        }
-
-        //Import TLE into Database
-        private void importTLEsToolStripMenuItem_Click(object sender, EventArgs e)
+        //! import TLE data into Datbase
+        /*!
+         /param int selection = 0 default selection to be set bevor form opens
+         will add a satellite object or update existing ones in database
+        */
+        private void importTleData(int selection = 0)
         {
             _MainDataBase.closeDB();
             Forms.SatelliteForm satForm = new Forms.SatelliteForm();
+            if (selection > 0)
+                satForm.setSelection(3);
             satForm.ShowDialog();
             UpdateAllLists();
         }
 
-        //Add Groundstation
-        private void addGroundStationToolStripMenuItem_Click(object sender, EventArgs e)
+        //! Add a Ground Stations to the Databse
+        /*!
+            
+        */
+        private void addGroundStationToDB()
         {
             Forms.StationForm addStation = new Forms.StationForm();
             addStation.ShowDialog();
             UpdateAllLists();
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        //! Update Log file  
+        /*!
+            calls the updateLog function in MainFunctison
+        */
+        private void updateLog(string file, string data)
         {
-            //DialogResult result1 = MessageBox.Show("Exit Programm?",
-            //    "Attention",
-            //    MessageBoxButtons.YesNo);
-            //if (result1 == DialogResult.Yes)
-                this.Close();
+            MainFunctions.updateLog(file, data, this);
         }
-
-        private void toolStripMenuItem10_Click(object sender, EventArgs e)
-        {
-            string satname = satelliteDataGrid.SelectedRows[0].Cells[0].Value.ToString();
-            One_Sgp4.Tle tle = _MainDataBase.getTleDataFromDB(satelliteNameLabel.Text);
-            _MainDataBase.deleteSatellite(satname);
-            _MainDataBase.deleteTle(tle.getNoradID());
-            UpdateAllLists();
-        }
-
-        //Delete object from Database
-        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Ground.Station st = _MainDataBase.getStationFromDB(
-                    staDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-            _MainDataBase.deleteStation(st.getName());
-            UpdateAllLists();
-        }
-
-        private void label59_Click(object sender, EventArgs e)
-        {
-            _MainDataBase.closeDB();
-            Forms.SatelliteForm satForm = new Forms.SatelliteForm();
-            satForm.setSelection(3);
-            satForm.ShowDialog();
-            UpdateAllLists();
-        }
-
 
         /*******************************************************************************************************
          * Form Actions, Interactions and mouse over
@@ -970,10 +755,49 @@ namespace MARRSS
             updateTleButton.ForeColor = Color.Black;
         }
 
-        /*
-        * Menu Items Actions
-        * 
+        /*******************************************************************************************************
+         * User Interactions
+         * 
+         *******************************************************************************************************/
+
+        //! Redraw schedule Image
+        /*! 
         */
+        private void buttonReDraw_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
+            pictureBox2.Width = pictureBox2.Image.Width;
+            pictureBox2.Height = pictureBox2.Image.Height;
+        }
+
+        //! Load calculated schedule
+        /*! 
+        */
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadSavedSchedule();
+        }
+
+        //! Save calculated schedule to file
+        /*! 
+           \return void saves a xml file object of the scheduled contacts
+        */
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            toolStripStatusLabel3.Text = "Status: Saving Data";
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Open Contacts Files (.xml)|*.xml|All Files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+
+            DialogResult userSelect = saveFileDialog1.ShowDialog();
+            if (userSelect == DialogResult.OK)
+            {
+                string filePath = saveFileDialog1.FileName;
+                DataBase.SaveLoad.saveToFile(filePath, contactsVector, this);
+            }
+            toolStripStatusLabel3.Text = "Status: Done";
+        }
+
         private void checkAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < checkedSatellites.Items.Count; i++)
@@ -1003,108 +827,93 @@ namespace MARRSS
             }
         }
 
-        /*
-         * Add Ground stations and satellites
-         * */
-        //Add Satellite to DataBase
+        //! Add a Sattellite to the Databse
+        /*!
+            
+        */
         private void label2_Click(object sender, EventArgs e)
         {
-            Forms.SatelliteForm satForm = new Forms.SatelliteForm();
-            satForm.ShowDialog();
-            UpdateAllLists();
+            importTleData();
         }
 
-        //Add a ground station to Database
+        //! Add a Ground Stations to the Databse
+        /*!
+            
+        */
         private void label5_Click(object sender, EventArgs e)
         {
-            Forms.StationForm addStation = new Forms.StationForm();
-            addStation.ShowDialog();
-            UpdateAllLists();
-        }
-        /*
-         * Gloabel Progress Bar function to update Progress Bar of main Form
-         */
-        public void incrementProgressBar()
-        {
-            MainFunctions.incrementProgressBar(progressBar1);
-        }
-        public void resetProgressBar()
-        {
-            MainFunctions.resetProgressBar(progressBar1);
-        }
-        public void updateProgressBar(int val)
-        {
-            MainFunctions.updateProgressBar(progressBar1, val);
-        }
-        public void setProgressBar(int val)
-        {
-            MainFunctions.setProgressBar(progressBar1, val);
+            addGroundStationToDB();
         }
 
-        /*
-         * Draw Ground Stations and Satlites
-         */
+        //! Draws the Ground stations onto World Image
+        /*!
+            
+        */
         private void drawGroundStations()
         {
             imgStation = Drawer.MapDrawer.drawStation(staDataGridView.Rows, _MainDataBase);
             pictureBox3.Image = imgStation;
         }
 
+        //! oppens Link
+        /*!
+            
+        */
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/1manprojects/marrss");
         }
 
+        //! opens Link
+        /*!
+            
+        */
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/1manprojects/marrss");
         }
 
-        /*
-         * Open Settings Page
-         */
+        //! Opens the Gloabal Settings Form
+        /*!
+            
+        */
         private void settingsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MARRSS.Forms.SettingsForm settings = new Forms.SettingsForm();
             settings.Show(this);
         }
 
+        //! Add a SAtellite to the Databse
+        /*!
+            
+        */
         private void addSatelliteToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            _MainDataBase.closeDB();
-            Forms.SatelliteForm satForm = new Forms.SatelliteForm();
-            satForm.ShowDialog();
-            UpdateAllLists();
+            importTleData();
         }
 
+        //! Add a Ground Stations to the Databse
+        /*!
+            
+        */
         private void addGroundStationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Forms.StationForm addStation = new Forms.StationForm();
-            addStation.ShowDialog();
-            UpdateAllLists();
+            addGroundStationToDB();
         }
 
+        //! Update TLE data
+        /*!
+            
+        */
         private void updateTLEsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _MainDataBase.closeDB();
-            Forms.SatelliteForm satForm = new Forms.SatelliteForm();
-            satForm.setSelection(3);
-            satForm.ShowDialog();
-            UpdateAllLists();
+            importTleData(3);
         }
 
-        private void updateLog(string file, string data, RichTextBox logTextBox = null)
-        {
-            toolStripStatusLabel3.Text = "Status: " + data;
-            logRichTextBox.Text += "\n" + data;
-            logRichTextBox.ScrollToCaret();
-            if (Properties.Settings.Default.log_AutoSave_RunLog)
-            {
-                Log.writeLog(file, data);
-
-            }
-        }
-
+        //! Main Form on Load Event
+        /*!
+            
+        */
         private void Main_Load(object sender, EventArgs e)
         {
             DateTime now = DateTime.Now;
@@ -1115,71 +924,331 @@ namespace MARRSS
             stopTimePicker.Value = now.ToUniversalTime();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+
+        //! opens Objective Builder Form
+        /*!
+            
+        */
+        private void objectiveBuilderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Forms.ObjectiveBuilderForm objForm = new Forms.ObjectiveBuilderForm();
-            objForm.ShowDialog();
+            Forms.ObjectiveBuilderForm obectiveBuilder = new Forms.ObjectiveBuilderForm();
+            obectiveBuilder.Show(this);
         }
 
+        //! Add a satellite to the Databse
+        /*!
+            
+        */
+        private void addSatelliteToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            importTleData();
+        }
+
+        //! Add a Ground Stations to the Databse
+        /*!
+            
+        */
+        private void addGroundStationToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            addGroundStationToDB();
+        }
+
+        //! Create new Schedule
+        /*! 
+        \clears old contact vectors
+        */
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clearScheduling();
+        }
+
+        //! Show Info Form
+        /*! 
+        */
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MARRSS.Forms.Info info = new Forms.Info();
+            info.Show();
+        }
+
+        //! Save calculated schedule image
+        /*! 
+        \return saves a bmp file of the current schedule
+        */
+        private void buttonSaveImage_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Save Image Files (.bmp)|*.bmp|All Files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+
+            DialogResult userSelect = saveFileDialog1.ShowDialog();
+            if (userSelect == DialogResult.OK)
+            {
+                string filePath = saveFileDialog1.FileName;
+                pictureBox2.Image.Save(filePath);
+            }
+        }
+
+
+        //! Delete satellite object from DB
+        /*! 
+        */
+        private void button4_Click_2(object sender, EventArgs e)
+        {
+            _MainDataBase.deleteTle(satelliteNameLabel.Text);
+            _MainDataBase.deleteSatellite(satelliteNameLabel.Text);
+            _MainDataBase.displayAllSatellites(satelliteDataGrid);
+            UpdateAllLists();
+        }
+
+        //! Delete ground station object from DB
+        /*! 
+        */
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            _MainDataBase.deleteStation(label20.Text);
+            _MainDataBase.displayAllStations(staDataGridView);
+            UpdateAllLists();
+        }
+
+        //! Create New Schedule
+        /*!
+        Clears contacts vector and resets form
+        */
+        private void label1_Click(object sender, EventArgs e)
+        {
+            clearScheduling();
+        }
+
+        //! Load Schedule from file
+        /*!
+        Load saved schedule from file
+        */
+        private void label3_Click(object sender, EventArgs e)
+        {
+            loadSavedSchedule();
+        }
+
+        //! Add a Satellite to the Databse
+        /*!
+            
+        */
+        private void label59_Click(object sender, EventArgs e)
+        {
+            importTleData(3);
+        }
+
+
+        //! Redraw Button
+        /*!
+            Redraws all contacts into image with unscheduled ones greyed out
+        */
+        private void button7_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
+            pictureBox2.Width = pictureBox2.Image.Width;
+            pictureBox2.Height = pictureBox2.Image.Height;
+        }
+
+        //! Add a Ground Stations to the Databse
+        /*!
+            
+        */
+        private void addGroundStationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //! Delete a object from the Satellite and TLE Database
+        /*!
+            
+        */
+        private void toolStripMenuItem10_Click(object sender, EventArgs e)
+        {
+            string satname = satelliteDataGrid.SelectedRows[0].Cells[0].Value.ToString();
+            One_Sgp4.Tle tle = _MainDataBase.getTleDataFromDB(satelliteNameLabel.Text);
+            _MainDataBase.deleteSatellite(satname);
+            _MainDataBase.deleteTle(tle.getNoradID());
+            UpdateAllLists();
+        }
+
+        //! Delete a object from the GroundStations Database
+        /*!
+            
+        */
+        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ground.Station st = _MainDataBase.getStationFromDB(
+            staDataGridView.SelectedRows[0].Cells[0].Value.ToString());
+            _MainDataBase.deleteStation(st.getName());
+            UpdateAllLists();
+        }
+
+        //! add Satellite into db
+        /*!
+            
+        */
+        private void importTLEsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            importTleData();
+        }
+
+        //! Exit Programm
+        /*!
+            
+        */
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /*******************************************************************************************************
+         * Public Funkction
+         * 
+         *******************************************************************************************************/
+
+        //! increment Progress Bar on Main form
+        /*!
+            
+        */
+        public void incrementProgressBar()
+        {
+            MainFunctions.incrementProgressBar(progressBar1);
+        }
+
+        //! Resets the progress bar on main Form
+        /*!
+            
+        */
+        public void resetProgressBar()
+        {
+            MainFunctions.resetProgressBar(progressBar1);
+        }
+        //! Updates the Progressbar
+        /*!
+            /param int value to set progressbar
+        */
+        public void updateProgressBar(int val)
+        {
+            MainFunctions.updateProgressBar(progressBar1, val);
+        }
+
+        //! set the progress bar
+        /*!
+            /param value to update the progress bar
+        */
+        public void setProgressBar(int val)
+        {
+            MainFunctions.setProgressBar(progressBar1, val);
+        }
+
+        //! set Finess label on Main Form
+        /*!
+            /double value to display
+        */
         public void setFitnessValue(double val)
         {
             fitnessValueLabel.Text = Convert.ToString(val);
         }
 
+        //! set contats number label on Main Form
+        /*!
+            /double value to display
+        */
         public void setContactsNumber(double val)
         {
             contactNumberLabel.Text = val.ToString() + " / " + contactsVector.Count().ToString();
         }
 
+        //! set collisons label on Main Form
+        /*!
+            /double value to display
+        */
         public void setCollisons(int val)
         {
             collisionLabel.Text = val.ToString();
         }
 
+        //! set StationFairness label on Main Form
+        /*!
+            /double value to display
+        */
         public void setFairnessStation(double val)
         {
             stationFairLabel.Text = val.ToString();
         }
 
+        //! set FairnessStations label on Main Form
+        /*!
+            /double value to display
+        */
         public void setFairnessSatellite(double val)
         {
             fairSatLabel.Text = val.ToString();
         }
 
+        //! set duration label on Main Form
+        /*!
+            /double value to display
+        */
         public void setDuration(double val)
         {
             durationLabel.Text = Convert.ToInt32(val).ToString() + " s.";
         }
 
+        //! set Priority label on Main Form
+        /*!
+            /string value to display
+        */
         public void setPriority(string val)
         {
             priorityLabel.Text = "Scheduled per priority: " + val;
         }
 
+        //! set Number of Uwe3 contacts label on Main Form
+        /*!
+            /double value to display
+        */
         public void setNumberOfUweContact(string val)
         {
             uweLabel.Text = val;
         }
 
+        //! set generations label on Main Form
+        /*!
+            /double value to display
+        */
         public void setNumberOfGeneration(int val)
         {
             generationLabel.Text = Convert.ToString(val);
         }
 
+        //! set toolstrip label on Main Form
+        /*!
+            /double value to display
+        */
         public void updateToolStrip(string text)
         {
             toolStripStatusLabel3.Text = text;
         }
 
+        //! set calculation label on Main Form
+        /*!
+            /string time to display
+        */
         public void updateCalculationTime(string val)
         {
             calcTimeLabel.Text = val + " sec.";
         }
 
-        private void objectiveBuilderToolStripMenuItem_Click(object sender, EventArgs e)
+        //! update Logon Main Form
+        /*!
+            /string information to display
+        */
+        public void updateLogTextBox(string data)
         {
-            MARRSS.Forms.ObjectiveBuilderForm obectiveBuilder = new Forms.ObjectiveBuilderForm();
-            obectiveBuilder.Show(this);
+            logRichTextBox.Text += "\n" + data;
+            logRichTextBox.ScrollToCaret();
         }
     }
 }

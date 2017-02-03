@@ -12,7 +12,7 @@
 using System.Windows.Forms;
 using System.IO;
 using System;
-using System.Collections.Specialized;
+using MARRSS.Performance;
 
 namespace MARRSS
 {
@@ -144,23 +144,27 @@ namespace MARRSS
             return SaveName;
         }
 
-        //! returns the Objective function
-        public static Scheduler.ObjectiveFunction ObjectiveFunctionBuilder(string name)
-        {
-            int[] wheight = new int[5] { 0, 0, 0, 0, 0, };
-            //StringCollection objective = (StringCollection)Properties.Objective.Default[name];
-            //for (int w = 0; w < objective.Count; w++)
-            //{
-            //    wheight[w] = Convert.ToInt32(objective[w]);
-            //}
-            //return new Scheduler.ObjectiveFunction(
-            //    Forms.ObjectiveBuilderForm.getObjectiveEnums(wheight));
-            return new Scheduler.ObjectiveFunction(
-                    Global.Structs.ObjectiveEnum.FAIRNESSATELITE,
-                    Global.Structs.ObjectiveEnum.FAIRNESSTATION,
-                    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
-        }
 
+        //! Update Log file and write data 
+        /*! 
+         /param string LogFile wo write into
+         /param string data to write in log
+         /param Main mainForm if Main form is to be updated
+        */
+        public static void updateLog(string file, string data, Main mainform = null)
+        {
+            if (mainform != null)
+            {
+                mainform.updateToolStrip("Status: " + data);
+                //toolStripStatusLabel3.Text = "Status: " + data;
+                mainform.updateLogTextBox(data);
+            }
+            if (Properties.Settings.Default.log_AutoSave_RunLog)
+            {
+                
+                Log.writeLog(file, data);
+            }
+        }
 
     }
 }

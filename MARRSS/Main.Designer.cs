@@ -39,8 +39,6 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripSeparator();
             this.addGroundStationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addSatelliteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +48,7 @@
             this.tLEDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateTLEsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
+            this.objectiveBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -77,6 +76,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.objectiveComboBox = new System.Windows.Forms.ComboBox();
             this.logPanel = new System.Windows.Forms.Panel();
             this.label41 = new System.Windows.Forms.Label();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
@@ -186,8 +186,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.objectiveComboBox = new System.Windows.Forms.ComboBox();
-            this.objectiveBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -290,26 +288,12 @@
             // databaseToolStripMenuItem
             // 
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newDatabaseToolStripMenuItem,
-            this.openDatabaseToolStripMenuItem,
             this.toolStripMenuItem12,
             this.addGroundStationToolStripMenuItem1,
             this.addSatelliteToolStripMenuItem1});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
-            // 
-            // newDatabaseToolStripMenuItem
-            // 
-            this.newDatabaseToolStripMenuItem.Name = "newDatabaseToolStripMenuItem";
-            this.newDatabaseToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.newDatabaseToolStripMenuItem.Text = "New Database";
-            // 
-            // openDatabaseToolStripMenuItem
-            // 
-            this.openDatabaseToolStripMenuItem.Name = "openDatabaseToolStripMenuItem";
-            this.openDatabaseToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.openDatabaseToolStripMenuItem.Text = "Open Database";
             // 
             // toolStripMenuItem12
             // 
@@ -321,12 +305,14 @@
             this.addGroundStationToolStripMenuItem1.Name = "addGroundStationToolStripMenuItem1";
             this.addGroundStationToolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
             this.addGroundStationToolStripMenuItem1.Text = "Add Ground Station";
+            this.addGroundStationToolStripMenuItem1.Click += new System.EventHandler(this.addGroundStationToolStripMenuItem1_Click_1);
             // 
             // addSatelliteToolStripMenuItem1
             // 
             this.addSatelliteToolStripMenuItem1.Name = "addSatelliteToolStripMenuItem1";
             this.addSatelliteToolStripMenuItem1.Size = new System.Drawing.Size(179, 22);
             this.addSatelliteToolStripMenuItem1.Text = "Add Satellite";
+            this.addSatelliteToolStripMenuItem1.Click += new System.EventHandler(this.addSatelliteToolStripMenuItem1_Click_1);
             // 
             // optionsToolStripMenuItem
             // 
@@ -371,6 +357,13 @@
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
             this.toolStripMenuItem9.Size = new System.Drawing.Size(161, 6);
+            // 
+            // objectiveBuilderToolStripMenuItem
+            // 
+            this.objectiveBuilderToolStripMenuItem.Name = "objectiveBuilderToolStripMenuItem";
+            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.objectiveBuilderToolStripMenuItem.Text = "Objective Builder";
+            this.objectiveBuilderToolStripMenuItem.Click += new System.EventHandler(this.objectiveBuilderToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -673,6 +666,14 @@
             this.groupBox1.TabIndex = 49;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Objective";
+            // 
+            // objectiveComboBox
+            // 
+            this.objectiveComboBox.FormattingEnabled = true;
+            this.objectiveComboBox.Location = new System.Drawing.Point(21, 32);
+            this.objectiveComboBox.Name = "objectiveComboBox";
+            this.objectiveComboBox.Size = new System.Drawing.Size(148, 21);
+            this.objectiveComboBox.TabIndex = 0;
             // 
             // logPanel
             // 
@@ -1707,21 +1708,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // objectiveComboBox
-            // 
-            this.objectiveComboBox.FormattingEnabled = true;
-            this.objectiveComboBox.Location = new System.Drawing.Point(21, 32);
-            this.objectiveComboBox.Name = "objectiveComboBox";
-            this.objectiveComboBox.Size = new System.Drawing.Size(148, 21);
-            this.objectiveComboBox.TabIndex = 0;
-            // 
-            // objectiveBuilderToolStripMenuItem
-            // 
-            this.objectiveBuilderToolStripMenuItem.Name = "objectiveBuilderToolStripMenuItem";
-            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.objectiveBuilderToolStripMenuItem.Text = "Objective Builder";
-            this.objectiveBuilderToolStripMenuItem.Click += new System.EventHandler(this.objectiveBuilderToolStripMenuItem_Click);
-            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
@@ -1943,8 +1929,6 @@
         private System.Windows.Forms.Label durationLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newDatabaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem addGroundStationToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addSatelliteToolStripMenuItem1;
