@@ -70,6 +70,11 @@ namespace MARRSS.Forms
                         dbPanel.BringToFront();
                         break;
                     }
+                case "Hill-Climber":
+                    {
+                        hillpanel.BringToFront();
+                        break;
+                    }
                 default:
                     {
                         GlobalPanel.BringToFront();
@@ -103,6 +108,8 @@ namespace MARRSS.Forms
             settings.genetic_Population_Size = Convert.ToInt32( genPopsize.Value );
             settings.genetic_Start_Percentage = Convert.ToInt32(genStartChance.Value);
             settings.genetic_Mutation_Chance = Convert.ToInt32(genMutation.Value);
+            settings.genetic_Run_For_MaxGen = runMaxGenerationsRadioButton.Checked;
+            settings.genetic_Run_For_MaxTime = maxDurationRadioButton.Checked;
             settings.genetic_Max_Nr_of_Generations = Convert.ToInt32(genMaxGen.Value);
             settings.genetic_RunTime = Convert.ToDouble(genMaxTime.Value);
             settings.genetic_ConflictSolver = checkConflictHandling.Checked;
@@ -132,6 +139,10 @@ namespace MARRSS.Forms
             settings.fair_BruteForce = fairBruteForceCheckbox.Checked;
 
             settings.db_path = databaseTextBox.Text;
+
+            settings.hill_maxNumberIterations = Convert.ToInt32(hillmaxIterationsNumberic.Value);
+            settings.hill_adaptiveMaxIterations = hillAdaptiveMaxIterations.Checked;
+            settings.hill_randomStart = hillRandomStartCheckBox.Checked;
 
             settings.tle_AutoUpdate = tleAutoUpdateCheckBox.Checked;
             if (tleStartUpRadioButton.Checked)
@@ -177,6 +188,8 @@ namespace MARRSS.Forms
             genPopsize.Value = settings.genetic_Population_Size;
             genStartChance.Value = settings.genetic_Start_Percentage;
             genMutation.Value = settings.genetic_Mutation_Chance;
+            runMaxGenerationsRadioButton.Checked = settings.genetic_Run_For_MaxGen;
+            maxDurationRadioButton.Checked = settings.genetic_Run_For_MaxTime;
             genMaxGen.Value = settings.genetic_Max_Nr_of_Generations;
             genMaxTime.Value = Convert.ToDecimal(settings.genetic_RunTime);
             checkConflictHandling.Checked = settings.genetic_ConflictSolver;
@@ -226,6 +239,10 @@ namespace MARRSS.Forms
             logFitnessCheckBox.Checked = settings.gloabal_LogFitness;
 
             fairBruteForceCheckbox.Checked = settings.fair_BruteForce;
+
+            hillmaxIterationsNumberic.Value = settings.hill_maxNumberIterations;
+            hillAdaptiveMaxIterations.Checked = settings.hill_adaptiveMaxIterations;
+            hillRandomStartCheckBox.Checked = settings.hill_randomStart;
 
             databaseTextBox.Text = settings.db_path;
 
@@ -338,6 +355,34 @@ namespace MARRSS.Forms
                 tlegroupBox.Enabled = true;
             else
                 tlegroupBox.Enabled = false;
+        }
+
+        private void runMaxGenerationsRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (runMaxGenerationsRadioButton.Checked)
+            {
+                maxDurationRadioButton.Checked = false;
+                genMaxGen.Enabled = true;
+                genMaxTime.Enabled = false;
+            }
+        }
+
+        private void maxDurationRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (maxDurationRadioButton.Checked)
+            {
+                runMaxGenerationsRadioButton.Checked = false;
+                genMaxGen.Enabled = false;
+                genMaxTime.Enabled = true;
+            }
+        }
+
+        private void hillAdaptiveMaxIterations_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hillAdaptiveMaxIterations.Checked)
+                hillmaxIterationsNumberic.Enabled = false;
+            else
+                hillmaxIterationsNumberic.Enabled = true;
         }
     }
 }

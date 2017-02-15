@@ -36,6 +36,8 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
+            this.runsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,6 +103,7 @@
             this.stationFairLabel = new System.Windows.Forms.Label();
             this.fairSatLabel = new System.Windows.Forms.Label();
             this.schedulerGroupBox = new System.Windows.Forms.GroupBox();
+            this.radioHillClimber = new System.Windows.Forms.RadioButton();
             this.radioGreedy = new System.Windows.Forms.RadioButton();
             this.radioGenetic = new System.Windows.Forms.RadioButton();
             this.radioEFTGreedy = new System.Windows.Forms.RadioButton();
@@ -241,6 +244,8 @@
             this.toolStripMenuItem2,
             this.openToolStripMenuItem,
             this.toolStripMenuItem3,
+            this.toolStripMenuItem11,
+            this.runsToolStripMenuItem,
             this.toolStripMenuItem1,
             this.closeToolStripMenuItem});
             this.dataiToolStripMenuItem.Name = "dataiToolStripMenuItem";
@@ -250,38 +255,52 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(160, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(163, 22);
             this.toolStripMenuItem3.Text = "Save";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(160, 6);
+            // 
+            // runsToolStripMenuItem
+            // 
+            this.runsToolStripMenuItem.Enabled = false;
+            this.runsToolStripMenuItem.Name = "runsToolStripMenuItem";
+            this.runsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.runsToolStripMenuItem.Text = "Automated Runs";
+            this.runsToolStripMenuItem.Visible = false;
+            this.runsToolStripMenuItem.Click += new System.EventHandler(this.runsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -914,6 +933,7 @@
             // 
             // schedulerGroupBox
             // 
+            this.schedulerGroupBox.Controls.Add(this.radioHillClimber);
             this.schedulerGroupBox.Controls.Add(this.radioGreedy);
             this.schedulerGroupBox.Controls.Add(this.radioGenetic);
             this.schedulerGroupBox.Controls.Add(this.radioEFTGreedy);
@@ -924,10 +944,20 @@
             this.schedulerGroupBox.TabStop = false;
             this.schedulerGroupBox.Text = "Scheduler";
             // 
+            // radioHillClimber
+            // 
+            this.radioHillClimber.AutoSize = true;
+            this.radioHillClimber.Location = new System.Drawing.Point(90, 47);
+            this.radioHillClimber.Name = "radioHillClimber";
+            this.radioHillClimber.Size = new System.Drawing.Size(76, 17);
+            this.radioHillClimber.TabIndex = 3;
+            this.radioHillClimber.Text = "Hill Climber";
+            this.radioHillClimber.UseVisualStyleBackColor = true;
+            // 
             // radioGreedy
             // 
             this.radioGreedy.AutoSize = true;
-            this.radioGreedy.Location = new System.Drawing.Point(111, 22);
+            this.radioGreedy.Location = new System.Drawing.Point(10, 22);
             this.radioGreedy.Name = "radioGreedy";
             this.radioGreedy.Size = new System.Drawing.Size(59, 17);
             this.radioGreedy.TabIndex = 2;
@@ -949,7 +979,7 @@
             // radioEFTGreedy
             // 
             this.radioEFTGreedy.AutoSize = true;
-            this.radioEFTGreedy.Location = new System.Drawing.Point(10, 21);
+            this.radioEFTGreedy.Location = new System.Drawing.Point(90, 23);
             this.radioEFTGreedy.Name = "radioEFTGreedy";
             this.radioEFTGreedy.Size = new System.Drawing.Size(82, 17);
             this.radioEFTGreedy.TabIndex = 0;
@@ -1074,6 +1104,7 @@
             this.stopTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.stopTimePicker.Location = new System.Drawing.Point(189, 82);
             this.stopTimePicker.Name = "stopTimePicker";
+            this.stopTimePicker.ShowUpDown = true;
             this.stopTimePicker.Size = new System.Drawing.Size(71, 20);
             this.stopTimePicker.TabIndex = 17;
             this.toolTip1.SetToolTip(this.stopTimePicker, "Starting time in UTC");
@@ -1084,6 +1115,7 @@
             this.startTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.startTimePicker.Location = new System.Drawing.Point(189, 53);
             this.startTimePicker.Name = "startTimePicker";
+            this.startTimePicker.ShowUpDown = true;
             this.startTimePicker.Size = new System.Drawing.Size(71, 20);
             this.startTimePicker.TabIndex = 16;
             this.toolTip1.SetToolTip(this.startTimePicker, "Starting time in UTC");
@@ -1935,5 +1967,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox objectiveComboBox;
         private System.Windows.Forms.ToolStripMenuItem objectiveBuilderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripMenuItem runsToolStripMenuItem;
+        private System.Windows.Forms.RadioButton radioHillClimber;
     }
 }

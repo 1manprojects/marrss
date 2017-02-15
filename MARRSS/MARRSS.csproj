@@ -123,6 +123,12 @@
     <Compile Include="DataBase\DataBase.cs" />
     <Compile Include="DataBase\SaveLoad.cs" />
     <Compile Include="Drawer\MapDrawer.cs" />
+    <Compile Include="Forms\AutomatedRunsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AutomatedRunsForm.Designer.cs">
+      <DependentUpon>AutomatedRunsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Info.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +199,7 @@
     <Compile Include="Scheduler\GeneticScheduler.cs" />
     <Compile Include="Scheduler\EftGreedyScheduler.cs" />
     <Compile Include="SchedulerData\Request.cs" />
+    <Compile Include="Scheduler\HillClimberScheduler.cs" />
     <Compile Include="Scheduler\ObjectiveFunction.cs" />
     <Compile Include="Scheduler\Request2Contact.cs" />
     <Compile Include="SchedulerData\TrackingData.cs" />
@@ -200,6 +207,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Global\Structs.cs" />
+    <EmbeddedResource Include="Forms\AutomatedRunsForm.resx">
+      <DependentUpon>AutomatedRunsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Info.resx">
       <DependentUpon>Info.cs</DependentUpon>
     </EmbeddedResource>
@@ -278,6 +288,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

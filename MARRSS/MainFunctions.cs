@@ -73,6 +73,8 @@ namespace MARRSS
         {
             int percent = 100 * value / bar.Maximum;
             //toolStripStatusLabel3.Text = "Status: " + percent.ToString() +"%";
+            if (value >= bar.Maximum)
+                value = bar.Maximum;
             bar.Value = value;
             bar.ProgressBar.Refresh();
         }

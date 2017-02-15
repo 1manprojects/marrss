@@ -174,6 +174,10 @@ namespace MARRSS
             {
                 scheduler = RunScheduler.setScheduler(new GreedyScheduler(), this);
             }
+            if (radioHillClimber.Checked)
+            {
+                scheduler = RunScheduler.setScheduler(new HillClimberScheduler(), this);
+            }
             //-----------------------------------------------------------------
             //---------------------------Add New SCHEDULER HERE-----------------
             //-----------------------------------------------------------------
@@ -1100,6 +1104,18 @@ namespace MARRSS
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        //! Opens the Automated Runs Window Form
+        /*!
+            
+        */
+        private void runsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _MainDataBase.closeDB();
+            Forms.AutomatedRunsForm runsforms = new Forms.AutomatedRunsForm();
+            runsforms.ShowDialog();
+            _MainDataBase.connectDB();
         }
 
         /*******************************************************************************************************

@@ -62,8 +62,8 @@
     <Setting Name="global_SaveSchedule" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="genetic_RunVariable" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+    <Setting Name="genetic_Run_For_MaxGen" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="global_ShowLog" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -121,6 +121,18 @@
     </Setting>
     <Setting Name="db_path" Type="System.String" Scope="User">
       <Value Profile="(Default)">SatData.mab</Value>
+    </Setting>
+    <Setting Name="genetic_Run_For_MaxTime" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="hill_randomStart" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="hill_maxNumberIterations" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10000</Value>
+    </Setting>
+    <Setting Name="hill_adaptiveMaxIterations" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

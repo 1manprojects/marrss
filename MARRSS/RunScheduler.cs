@@ -74,7 +74,7 @@ namespace MARRSS
             if (scheduler.GetType() == typeof(GeneticScheduler))
             {
                 GeneticScheduler genetic = (GeneticScheduler)scheduler;
-                if (Properties.Settings.Default.genetic_RunVariable == 1)
+                if (Properties.Settings.Default.genetic_Run_For_MaxGen == true)
                 {
                     genetic.RunForCertainTime(true, Properties.Settings.Default.genetic_RunTime);
                 }
@@ -86,6 +86,15 @@ namespace MARRSS
                 genetic.setConflictHandeling(Properties.Settings.Default.genetic_ConflictSolver);
                 genetic.setFormToUpdate(UpdateForm);
                 scheduler = genetic;
+            }
+            if (scheduler.GetType() == typeof(HillClimberScheduler))
+            {
+                HillClimberScheduler hillclimber = (HillClimberScheduler)scheduler;
+                hillclimber.setFormToUpdate(UpdateForm);
+                hillclimber.setAdaptiveMaxIterationbs(Properties.Settings.Default.hill_adaptiveMaxIterations);
+                hillclimber.setMaxNumberOfIterations(Properties.Settings.Default.hill_maxNumberIterations);
+                hillclimber.setRandomStart(Properties.Settings.Default.hill_randomStart);
+                scheduler = hillclimber;
             }
             if (scheduler.GetType() == typeof(EftGreedyScheduler))
             {

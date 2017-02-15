@@ -3,7 +3,7 @@
   <asmv1:assemblyIdentity name="MARRSS.exe" version="1.3.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="MARRSS" version="1.2.6243.26405" language="neutral" processorArchitecture="amd64" />
+    <assemblyIdentity name="MARRSS" version="1.2.6255.28461" language="neutral" processorArchitecture="amd64" />
     <commandLine file="MARRSS.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MARRSS.exe" size="1624064">
-      <assemblyIdentity name="MARRSS" version="1.2.6243.26405" language="neutral" processorArchitecture="amd64" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MARRSS.exe" size="1639424">
+      <assemblyIdentity name="MARRSS" version="1.2.6255.28461" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>w+x/IGDpQNIcljS3T++R30B882CbGP9P1Twva9UWN9o=</dsig:DigestValue>
+        <dsig:DigestValue>0Ay8paIolKZh/fd/RE+msoMm0mT5Hi64F2bOu2tERLo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -86,13 +86,13 @@
       <dsig:DigestValue>wQSp2CIgxK5BT7aPz9k+vD7jsyQXAD6oWAdomvXrX3Q=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="MARRSS.exe.config" size="10205">
+  <file name="MARRSS.exe.config" size="10756">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>26fIPSnHrmf2OIQ0xMulVp/nNBAF3YZ0jelG9fUSL/U=</dsig:DigestValue>
+      <dsig:DigestValue>0tWl7zx1qUl/N8lk5rAwqveYmy4TppWvyD7Qku+HhwY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\Images\ISS.png" size="47867">

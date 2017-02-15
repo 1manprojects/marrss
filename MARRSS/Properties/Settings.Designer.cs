@@ -265,13 +265,13 @@ namespace MARRSS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int genetic_RunVariable {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool genetic_Run_For_MaxGen {
             get {
-                return ((int)(this["genetic_RunVariable"]));
+                return ((bool)(this["genetic_Run_For_MaxGen"]));
             }
             set {
-                this["genetic_RunVariable"] = value;
+                this["genetic_Run_For_MaxGen"] = value;
             }
         }
         
@@ -500,6 +500,54 @@ namespace MARRSS.Properties {
             }
             set {
                 this["db_path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool genetic_Run_For_MaxTime {
+            get {
+                return ((bool)(this["genetic_Run_For_MaxTime"]));
+            }
+            set {
+                this["genetic_Run_For_MaxTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hill_randomStart {
+            get {
+                return ((bool)(this["hill_randomStart"]));
+            }
+            set {
+                this["hill_randomStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        public int hill_maxNumberIterations {
+            get {
+                return ((int)(this["hill_maxNumberIterations"]));
+            }
+            set {
+                this["hill_maxNumberIterations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hill_adaptiveMaxIterations {
+            get {
+                return ((bool)(this["hill_adaptiveMaxIterations"]));
+            }
+            set {
+                this["hill_adaptiveMaxIterations"] = value;
             }
         }
     }
