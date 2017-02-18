@@ -123,6 +123,12 @@ namespace MARRSS.Scheduler
             ContactWindowsVector set1 = new ContactWindowsVector();
             ContactWindowsVector set2 = new ContactWindowsVector();
 
+            if (f != null)
+            {
+                f.setProgressBar(set.Count());
+            }
+
+
             //double maxFitness = 0.0;
             int count = 0;
 
@@ -139,10 +145,10 @@ namespace MARRSS.Scheduler
                         maxFitness = fitness;
                         pos = i;
                     }
-                    if (Properties.Settings.Default.global_MaxPerf == false)
-                    {
-                        System.Windows.Forms.Application.DoEvents();
-                    }
+                }
+                if (Properties.Settings.Default.global_MaxPerf == false)
+                {
+                    System.Windows.Forms.Application.DoEvents();
                 }
 
                 bool found = false;
@@ -162,10 +168,10 @@ namespace MARRSS.Scheduler
                                 break;
                             }
                         }
-                        if (Properties.Settings.Default.global_MaxPerf == false)
-                        {
-                            System.Windows.Forms.Application.DoEvents();
-                        }
+                    }
+                    if (Properties.Settings.Default.global_MaxPerf == false)
+                    {
+                        System.Windows.Forms.Application.DoEvents();
                     }
                     if (!found)
                     {
@@ -178,10 +184,20 @@ namespace MARRSS.Scheduler
                 {
                     count++;
                 }
+
+                if (f != null)
+                    f.updateProgressBar(set1.Count() + set2.Count());
+                if (Properties.Settings.Default.global_MaxPerf == false)
+                    System.Windows.Forms.Application.DoEvents();
             }
             set.add(set1);
             set.add(set2);
+            if (f != null)
+                f.updateProgressBar(set1.Count() + set2.Count());
+            if (Properties.Settings.Default.global_MaxPerf == false)
+                System.Windows.Forms.Application.DoEvents();
             schedule = set;
+
         }
 
 

@@ -45,7 +45,7 @@ namespace MARRSS.Forms
                         GeneticPanel.BringToFront();
                         break;
                     }
-                case "EFT(Earliest Finsish Time)":
+                case "EFT(Earliest Finish Time)":
                     {
                         EFTPanel.BringToFront();
                         break;

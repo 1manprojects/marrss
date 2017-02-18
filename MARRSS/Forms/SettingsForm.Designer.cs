@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Logging");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("DataBase");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Global", new System.Windows.Forms.TreeNode[] {
-            treeNode11,
-            treeNode12});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Orbit");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("TLE-Data");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Genetic");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Greedy");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Hill-Climber");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("EFT(Earliest Finsish Time)");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Scheduler", new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Logging");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("DataBase");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Global", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Orbit");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("TLE-Data");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Genetic");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Greedy");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Hill-Climber");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("EFT(Earliest Finish Time)");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Scheduler", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.settingsTreeView = new System.Windows.Forms.TreeView();
@@ -69,6 +69,11 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.genPopsize = new System.Windows.Forms.NumericUpDown();
+            this.hillpanel = new System.Windows.Forms.Panel();
+            this.hillRandomStartCheckBox = new System.Windows.Forms.CheckBox();
+            this.hillAdaptiveMaxIterations = new System.Windows.Forms.CheckBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.hillmaxIterationsNumberic = new System.Windows.Forms.NumericUpDown();
             this.OrbitPanel = new System.Windows.Forms.Panel();
             this.minElevationTextBox = new System.Windows.Forms.TextBox();
             this.minElevationLabel = new System.Windows.Forms.Label();
@@ -126,11 +131,6 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.hillpanel = new System.Windows.Forms.Panel();
-            this.hillmaxIterationsNumberic = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.hillAdaptiveMaxIterations = new System.Windows.Forms.CheckBox();
-            this.hillRandomStartCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -141,6 +141,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.genMutation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genStartChance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genPopsize)).BeginInit();
+            this.hillpanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hillmaxIterationsNumberic)).BeginInit();
             this.OrbitPanel.SuspendLayout();
             this.wgsGroupBox.SuspendLayout();
             this.Tlepanel.SuspendLayout();
@@ -151,8 +153,6 @@
             this.EFTPanel.SuspendLayout();
             this.FairPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
-            this.hillpanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.hillmaxIterationsNumberic)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -169,31 +169,31 @@
             this.settingsTreeView.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsTreeView.Location = new System.Drawing.Point(0, 0);
             this.settingsTreeView.Name = "settingsTreeView";
-            treeNode11.Name = "Logging";
-            treeNode11.Text = "Logging";
-            treeNode12.Name = "dataBase";
-            treeNode12.Text = "DataBase";
-            treeNode13.Name = "gloabal_set";
-            treeNode13.Text = "Global";
-            treeNode14.Name = "orbit_set";
-            treeNode14.Text = "Orbit";
-            treeNode15.Name = "tle_set";
-            treeNode15.Text = "TLE-Data";
-            treeNode16.Name = "genetig_set";
-            treeNode16.Text = "Genetic";
-            treeNode17.Name = "fair_set";
-            treeNode17.Text = "Greedy";
-            treeNode18.Name = "hillClimber";
-            treeNode18.Text = "Hill-Climber";
-            treeNode19.Name = "eft_set";
-            treeNode19.Text = "EFT(Earliest Finsish Time)";
-            treeNode20.Name = "scheduler_set";
-            treeNode20.Text = "Scheduler";
+            treeNode1.Name = "Logging";
+            treeNode1.Text = "Logging";
+            treeNode2.Name = "dataBase";
+            treeNode2.Text = "DataBase";
+            treeNode3.Name = "gloabal_set";
+            treeNode3.Text = "Global";
+            treeNode4.Name = "orbit_set";
+            treeNode4.Text = "Orbit";
+            treeNode5.Name = "tle_set";
+            treeNode5.Text = "TLE-Data";
+            treeNode6.Name = "genetig_set";
+            treeNode6.Text = "Genetic";
+            treeNode7.Name = "fair_set";
+            treeNode7.Text = "Greedy";
+            treeNode8.Name = "hillClimber";
+            treeNode8.Text = "Hill-Climber";
+            treeNode9.Name = "eft_set";
+            treeNode9.Text = "EFT(Earliest Finish Time)";
+            treeNode10.Name = "scheduler_set";
+            treeNode10.Text = "Scheduler";
             this.settingsTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode20});
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode10});
             this.settingsTreeView.Size = new System.Drawing.Size(217, 409);
             this.settingsTreeView.TabIndex = 0;
             this.settingsTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.settingsTreeView_AfterSelect);
@@ -201,6 +201,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.GeneticPanel);
             this.panel2.Controls.Add(this.hillpanel);
             this.panel2.Controls.Add(this.OrbitPanel);
             this.panel2.Controls.Add(this.Tlepanel);
@@ -209,7 +210,6 @@
             this.panel2.Controls.Add(this.dbPanel);
             this.panel2.Controls.Add(this.EFTPanel);
             this.panel2.Controls.Add(this.FairPanel);
-            this.panel2.Controls.Add(this.GeneticPanel);
             this.panel2.Location = new System.Drawing.Point(235, 5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(569, 452);
@@ -509,6 +509,69 @@
             this.genPopsize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.genPopsize.Value = new decimal(new int[] {
             8,
+            0,
+            0,
+            0});
+            // 
+            // hillpanel
+            // 
+            this.hillpanel.Controls.Add(this.hillRandomStartCheckBox);
+            this.hillpanel.Controls.Add(this.hillAdaptiveMaxIterations);
+            this.hillpanel.Controls.Add(this.label15);
+            this.hillpanel.Controls.Add(this.hillmaxIterationsNumberic);
+            this.hillpanel.Location = new System.Drawing.Point(5, 73);
+            this.hillpanel.Name = "hillpanel";
+            this.hillpanel.Size = new System.Drawing.Size(560, 377);
+            this.hillpanel.TabIndex = 32;
+            // 
+            // hillRandomStartCheckBox
+            // 
+            this.hillRandomStartCheckBox.AutoSize = true;
+            this.hillRandomStartCheckBox.Location = new System.Drawing.Point(12, 20);
+            this.hillRandomStartCheckBox.Name = "hillRandomStartCheckBox";
+            this.hillRandomStartCheckBox.Size = new System.Drawing.Size(221, 17);
+            this.hillRandomStartCheckBox.TabIndex = 3;
+            this.hillRandomStartCheckBox.Text = "Start with a Random schedule to optimize";
+            this.hillRandomStartCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // hillAdaptiveMaxIterations
+            // 
+            this.hillAdaptiveMaxIterations.AutoSize = true;
+            this.hillAdaptiveMaxIterations.Location = new System.Drawing.Point(12, 73);
+            this.hillAdaptiveMaxIterations.Name = "hillAdaptiveMaxIterations";
+            this.hillAdaptiveMaxIterations.Size = new System.Drawing.Size(315, 17);
+            this.hillAdaptiveMaxIterations.TabIndex = 2;
+            this.hillAdaptiveMaxIterations.Text = "set max number of iterations dependendly on the problem size";
+            this.hillAdaptiveMaxIterations.UseVisualStyleBackColor = true;
+            this.hillAdaptiveMaxIterations.CheckedChanged += new System.EventHandler(this.hillAdaptiveMaxIterations_CheckedChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(22, 104);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(127, 13);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "max Number of Iterations:";
+            // 
+            // hillmaxIterationsNumberic
+            // 
+            this.hillmaxIterationsNumberic.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.hillmaxIterationsNumberic.Location = new System.Drawing.Point(220, 102);
+            this.hillmaxIterationsNumberic.Maximum = new decimal(new int[] {
+            1410065408,
+            2,
+            0,
+            0});
+            this.hillmaxIterationsNumberic.Name = "hillmaxIterationsNumberic";
+            this.hillmaxIterationsNumberic.Size = new System.Drawing.Size(63, 20);
+            this.hillmaxIterationsNumberic.TabIndex = 0;
+            this.hillmaxIterationsNumberic.Value = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
@@ -1076,69 +1139,6 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // hillpanel
-            // 
-            this.hillpanel.Controls.Add(this.hillRandomStartCheckBox);
-            this.hillpanel.Controls.Add(this.hillAdaptiveMaxIterations);
-            this.hillpanel.Controls.Add(this.label15);
-            this.hillpanel.Controls.Add(this.hillmaxIterationsNumberic);
-            this.hillpanel.Location = new System.Drawing.Point(5, 73);
-            this.hillpanel.Name = "hillpanel";
-            this.hillpanel.Size = new System.Drawing.Size(560, 377);
-            this.hillpanel.TabIndex = 32;
-            // 
-            // hillmaxIterationsNumberic
-            // 
-            this.hillmaxIterationsNumberic.Increment = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.hillmaxIterationsNumberic.Location = new System.Drawing.Point(220, 102);
-            this.hillmaxIterationsNumberic.Maximum = new decimal(new int[] {
-            1410065408,
-            2,
-            0,
-            0});
-            this.hillmaxIterationsNumberic.Name = "hillmaxIterationsNumberic";
-            this.hillmaxIterationsNumberic.Size = new System.Drawing.Size(63, 20);
-            this.hillmaxIterationsNumberic.TabIndex = 0;
-            this.hillmaxIterationsNumberic.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(22, 104);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(127, 13);
-            this.label15.TabIndex = 1;
-            this.label15.Text = "max Number of Iterations:";
-            // 
-            // hillAdaptiveMaxIterations
-            // 
-            this.hillAdaptiveMaxIterations.AutoSize = true;
-            this.hillAdaptiveMaxIterations.Location = new System.Drawing.Point(12, 73);
-            this.hillAdaptiveMaxIterations.Name = "hillAdaptiveMaxIterations";
-            this.hillAdaptiveMaxIterations.Size = new System.Drawing.Size(315, 17);
-            this.hillAdaptiveMaxIterations.TabIndex = 2;
-            this.hillAdaptiveMaxIterations.Text = "set max number of iterations dependendly on the problem size";
-            this.hillAdaptiveMaxIterations.UseVisualStyleBackColor = true;
-            this.hillAdaptiveMaxIterations.CheckedChanged += new System.EventHandler(this.hillAdaptiveMaxIterations_CheckedChanged);
-            // 
-            // hillRandomStartCheckBox
-            // 
-            this.hillRandomStartCheckBox.AutoSize = true;
-            this.hillRandomStartCheckBox.Location = new System.Drawing.Point(12, 20);
-            this.hillRandomStartCheckBox.Name = "hillRandomStartCheckBox";
-            this.hillRandomStartCheckBox.Size = new System.Drawing.Size(221, 17);
-            this.hillRandomStartCheckBox.TabIndex = 3;
-            this.hillRandomStartCheckBox.Text = "Start with a Random schedule to optimize";
-            this.hillRandomStartCheckBox.UseVisualStyleBackColor = true;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1167,6 +1167,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.genMutation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.genStartChance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.genPopsize)).EndInit();
+            this.hillpanel.ResumeLayout(false);
+            this.hillpanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.hillmaxIterationsNumberic)).EndInit();
             this.OrbitPanel.ResumeLayout(false);
             this.OrbitPanel.PerformLayout();
             this.wgsGroupBox.ResumeLayout(false);
@@ -1186,9 +1189,6 @@
             this.FairPanel.ResumeLayout(false);
             this.FairPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
-            this.hillpanel.ResumeLayout(false);
-            this.hillpanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.hillmaxIterationsNumberic)).EndInit();
             this.ResumeLayout(false);
 
         }

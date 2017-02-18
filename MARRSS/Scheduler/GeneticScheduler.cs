@@ -109,6 +109,19 @@ namespace MARRSS.Scheduler
             }
         }
 
+        public GeneticScheduler(int populationSize, int startingChance, int mutationsChance, int maxNumberOfGenerations,
+            bool runForCertainTime = false, double runTime = 0.0, bool solveConflictsByPriority = false , bool solveConflictsAfterRun = false)
+        {
+            popSize = populationSize;
+            genCrea = startingChance;
+            mutation = mutationsChance;
+            nrOfGenerationsForCompletion = maxNumberOfGenerations;
+            runUnitlTime = runForCertainTime;
+            hours = runTime;
+            conflictValue = solveConflictsByPriority;
+            solveConflict = solveConflictsAfterRun;
+    }
+
         //! get The Objective Funktion to solve the scheduling problem
         /*!
             \param ObjectiveFunction problem set to solve

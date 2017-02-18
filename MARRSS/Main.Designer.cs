@@ -112,14 +112,10 @@
             this.checkedSatellites = new System.Windows.Forms.CheckedListBox();
             this.contextSatellites = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.checkAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
-            this.addSatelliteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uncheckAllToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkedStations = new System.Windows.Forms.CheckedListBox();
             this.contextStations = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-            this.addNewStationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uncheckAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopTimePicker = new System.Windows.Forms.DateTimePicker();
             this.startTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -285,11 +281,9 @@
             // 
             // runsToolStripMenuItem
             // 
-            this.runsToolStripMenuItem.Enabled = false;
             this.runsToolStripMenuItem.Name = "runsToolStripMenuItem";
             this.runsToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.runsToolStripMenuItem.Text = "Automated Runs";
-            this.runsToolStripMenuItem.Visible = false;
             this.runsToolStripMenuItem.Click += new System.EventHandler(this.runsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
@@ -1023,34 +1017,21 @@
             // 
             this.contextSatellites.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkAllToolStripMenuItem,
-            this.toolStripMenuItem7,
-            this.addSatelliteToolStripMenuItem,
             this.uncheckAllToolStripMenuItem1});
             this.contextSatellites.Name = "contextSatellites";
-            this.contextSatellites.Size = new System.Drawing.Size(168, 76);
+            this.contextSatellites.Size = new System.Drawing.Size(138, 48);
             // 
             // checkAllToolStripMenuItem
             // 
             this.checkAllToolStripMenuItem.Name = "checkAllToolStripMenuItem";
-            this.checkAllToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.checkAllToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.checkAllToolStripMenuItem.Text = "Select All";
             this.checkAllToolStripMenuItem.Click += new System.EventHandler(this.checkAllToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(164, 6);
-            // 
-            // addSatelliteToolStripMenuItem
-            // 
-            this.addSatelliteToolStripMenuItem.Name = "addSatelliteToolStripMenuItem";
-            this.addSatelliteToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.addSatelliteToolStripMenuItem.Text = "Add New Satellite";
             // 
             // uncheckAllToolStripMenuItem1
             // 
             this.uncheckAllToolStripMenuItem1.Name = "uncheckAllToolStripMenuItem1";
-            this.uncheckAllToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
+            this.uncheckAllToolStripMenuItem1.Size = new System.Drawing.Size(137, 22);
             this.uncheckAllToolStripMenuItem1.Text = "Uncheck All";
             this.uncheckAllToolStripMenuItem1.Click += new System.EventHandler(this.uncheckAllToolStripMenuItem1_Click);
             // 
@@ -1068,34 +1049,21 @@
             // 
             this.contextStations.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectAllToolStripMenuItem,
-            this.toolStripMenuItem6,
-            this.addNewStationToolStripMenuItem,
             this.uncheckAllToolStripMenuItem});
             this.contextStations.Name = "contextStations";
-            this.contextStations.Size = new System.Drawing.Size(162, 76);
+            this.contextStations.Size = new System.Drawing.Size(138, 48);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(158, 6);
-            // 
-            // addNewStationToolStripMenuItem
-            // 
-            this.addNewStationToolStripMenuItem.Name = "addNewStationToolStripMenuItem";
-            this.addNewStationToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.addNewStationToolStripMenuItem.Text = "Add new Station";
             // 
             // uncheckAllToolStripMenuItem
             // 
             this.uncheckAllToolStripMenuItem.Name = "uncheckAllToolStripMenuItem";
-            this.uncheckAllToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.uncheckAllToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.uncheckAllToolStripMenuItem.Text = "Uncheck All";
             this.uncheckAllToolStripMenuItem.Click += new System.EventHandler(this.uncheckAllToolStripMenuItem_Click);
             // 
@@ -1879,12 +1847,8 @@
         private System.Windows.Forms.ContextMenuStrip contextSatellites;
         private System.Windows.Forms.ContextMenuStrip contextStations;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
-        private System.Windows.Forms.ToolStripMenuItem addNewStationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uncheckAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem addSatelliteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uncheckAllToolStripMenuItem1;
         private System.Windows.Forms.GroupBox schedulerGroupBox;
         private System.Windows.Forms.RadioButton radioGenetic;

@@ -74,7 +74,7 @@ namespace MARRSS
             if (scheduler.GetType() == typeof(GeneticScheduler))
             {
                 GeneticScheduler genetic = (GeneticScheduler)scheduler;
-                if (Properties.Settings.Default.genetic_Run_For_MaxGen != true)
+                if (Properties.Settings.Default.genetic_Run_For_MaxTime == true)
                 {
                     genetic.RunForCertainTime(true, Properties.Settings.Default.genetic_RunTime);
                 }

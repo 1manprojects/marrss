@@ -11,8 +11,6 @@
 */
 using MARRSS.Interface2;
 using MARRSS.Definition;
-using MARRSS.Global;
-using System;
 
 namespace MARRSS.Scheduler
 {
@@ -37,6 +35,13 @@ namespace MARRSS.Scheduler
         public HillClimberScheduler()
         {
 
+        }
+
+        public HillClimberScheduler(bool randomizeOnStart, bool useAdaptiveMaxIterations = false, int setMaxIterations = 1000)
+        {
+            randomStart = randomizeOnStart;
+            adaptiveMaxIterations = useAdaptiveMaxIterations;
+            maxNumberOfIteration = setMaxIterations;
         }
 
         //! get The Objective Funktion to solve the scheduling problem
@@ -205,6 +210,11 @@ namespace MARRSS.Scheduler
             }
         }
 
+        //! returns the fitness value of current set
+        /*!
+            /param Contact Windows Vector
+            /return double fitnessValue
+        */
         private double getFitness(ContactWindowsVector contacts)
         {
             objective.calculateValues(contacts);
