@@ -1,0 +1,143 @@
+Results From Run Automated Run Results
+Results From Automated Run
+3/6/2017 9:25:43 PM
+###############
+EFT-Greedy
+#Settings Used
+
+Scenario:
+C: LEOP UWE-3 Critical
+StartTime: 20:25:12 StopTime: 20:25:12
+Stations Used
+Aalborg (Aalborg University)
+Istanbul (Istanbul Technical University)
+Kiruna (Lule\aa University of Technology)
+Lithuania(Vilnius University)
+Samara (Akademika Pavlova)
+Roma (La Sapienza University of Rome)
+Tokyo University
+Sapporo (Hokkaido Institute of Technology)
+Würzburg (Computer Science Institute)
+Satellites Used
+CUBESAT XI 4
+CUBESAT XI 5
+ITUPSAT 1
+AAUSAT3
+UWE-3
+TIGRISAT
+Run: EFT-Greedy
+Fitness Value:0.671241740505996
+Scheduled Contacts: 92 / 395
+Collisions: 0
+Fairnes Stations: 0.923815760750928
+Fairnes Satellites: 0.987861811391223
+Duration: 58708.500027979 sec.
+Calculation Time: 0.08870695
+Scheduled By Priority: 51/135 - 19/66 - 9/68 - 5/60 - 8/66
+Scheduled UWE-3: UWE-3: 17
+###############
+###############
+Greedy
+#Settings Used
+
+Scenario:
+C: LEOP UWE-3 Critical
+StartTime: 20:25:12 StopTime: 20:25:12
+Stations Used
+Aalborg (Aalborg University)
+Istanbul (Istanbul Technical University)
+Kiruna (Lule\aa University of Technology)
+Lithuania(Vilnius University)
+Samara (Akademika Pavlova)
+Roma (La Sapienza University of Rome)
+Tokyo University
+Sapporo (Hokkaido Institute of Technology)
+Würzburg (Computer Science Institute)
+Satellites Used
+CUBESAT XI 4
+CUBESAT XI 5
+ITUPSAT 1
+AAUSAT3
+UWE-3
+TIGRISAT
+Run: Greedy
+Fitness Value:0.677450750405698
+Scheduled Contacts: 104 / 395
+Collisions: 0
+Fairnes Stations: 0.875931324910917
+Fairnes Satellites: 0.999260901699926
+Duration: 69015.0000328909 sec.
+Calculation Time: 8.106629
+Scheduled By Priority: 40/135 - 15/66 - 17/68 - 15/60 - 17/66
+Scheduled UWE-3: UWE-3: 17
+###############
+###############
+Hill-Climber
+#Settings Used
+false;1000;false;
+Scenario:
+C: LEOP UWE-3 Critical
+StartTime: 20:25:12 StopTime: 20:25:12
+Stations Used
+Aalborg (Aalborg University)
+Istanbul (Istanbul Technical University)
+Kiruna (Lule\aa University of Technology)
+Lithuania(Vilnius University)
+Samara (Akademika Pavlova)
+Roma (La Sapienza University of Rome)
+Tokyo University
+Sapporo (Hokkaido Institute of Technology)
+Würzburg (Computer Science Institute)
+Satellites Used
+CUBESAT XI 4
+CUBESAT XI 5
+ITUPSAT 1
+AAUSAT3
+UWE-3
+TIGRISAT
+Run: Hill-Climber
+Fitness Value:0.672352608681773
+Scheduled Contacts: 104 / 395
+Collisions: 0
+Fairnes Stations: 0.846322378716745
+Fairnes Satellites: 0.999260901699926
+Duration: 70157.5000334353 sec.
+Calculation Time: 1.192256
+Scheduled By Priority: 36/135 - 22/66 - 16/68 - 14/60 - 16/66
+Scheduled UWE-3: UWE-3: 17
+###############
+###############
+Hill-Climber
+#Settings Used
+true;1000;true;
+Scenario:
+C: LEOP UWE-3 Critical
+StartTime: 20:25:12 StopTime: 20:25:12
+Stations Used
+Aalborg (Aalborg University)
+Istanbul (Istanbul Technical University)
+Kiruna (Lule\aa University of Technology)
+Lithuania(Vilnius University)
+Samara (Akademika Pavlova)
+Roma (La Sapienza University of Rome)
+Tokyo University
+Sapporo (Hokkaido Institute of Technology)
+Würzburg (Computer Science Institute)
+Satellites Used
+CUBESAT XI 4
+CUBESAT XI 5
+ITUPSAT 1
+AAUSAT3
+UWE-3
+TIGRISAT
+Run: Hill-Climber
+Fitness Value:0.681213583259835
+Scheduled Contacts: 104 / 395
+Collisions: 0
+Fairnes Stations: 0.898189669490118
+Fairnes Satellites: 0.999260901699926
+Duration: 68059.5000324355 sec.
+Calculation Time: 1.806926
+Scheduled By Priority: 35/135 - 20/66 - 18/68 - 15/60 - 16/66
+Scheduled UWE-3: UWE-3: 17
+###############

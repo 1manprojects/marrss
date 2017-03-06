@@ -119,6 +119,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Automated\AutomatedRun.cs" />
     <Compile Include="DataBase\Constants.cs" />
     <Compile Include="DataBase\DataBase.cs" />
     <Compile Include="DataBase\SaveLoad.cs" />
@@ -146,6 +147,12 @@
     </Compile>
     <Compile Include="Forms\ObjectiveBuilderForm.Designer.cs">
       <DependentUpon>ObjectiveBuilderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ResultsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ResultsForm.Designer.cs">
+      <DependentUpon>ResultsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SatelliteForm.cs">
       <SubType>Form</SubType>
@@ -218,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ObjectiveBuilderForm.resx">
       <DependentUpon>ObjectiveBuilderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ResultsForm.resx">
+      <DependentUpon>ResultsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SatelliteForm.resx">
       <DependentUpon>SatelliteForm.cs</DependentUpon>

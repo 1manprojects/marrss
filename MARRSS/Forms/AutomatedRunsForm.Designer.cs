@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutomatedRunsForm));
-            this.button1 = new System.Windows.Forms.Button();
+            this.startButton = new System.Windows.Forms.Button();
             this.schedulerComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.objectiveComboBox = new System.Windows.Forms.ComboBox();
@@ -49,17 +49,19 @@
             this.startTimeLabel = new System.Windows.Forms.Label();
             this.stopDatePicker = new System.Windows.Forms.DateTimePicker();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.runsListBox = new System.Windows.Forms.ListBox();
             this.addRunButton = new System.Windows.Forms.Button();
             this.revoveRunButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -67,15 +69,16 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // startButton
             // 
-            this.button1.Location = new System.Drawing.Point(685, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Start Run";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.startButton.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.startButton.Location = new System.Drawing.Point(696, 7);
+            this.startButton.Name = "startButton";
+            this.startButton.Size = new System.Drawing.Size(75, 23);
+            this.startButton.TabIndex = 0;
+            this.startButton.Text = "Start Run";
+            this.startButton.UseVisualStyleBackColor = false;
+            this.startButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // schedulerComboBox
             // 
@@ -200,6 +203,7 @@
             // 
             // checkedSatellites
             // 
+            this.checkedSatellites.CheckOnClick = true;
             this.checkedSatellites.FormattingEnabled = true;
             this.checkedSatellites.Location = new System.Drawing.Point(160, 155);
             this.checkedSatellites.Name = "checkedSatellites";
@@ -208,6 +212,7 @@
             // 
             // checkedStations
             // 
+            this.checkedStations.CheckOnClick = true;
             this.checkedStations.FormattingEnabled = true;
             this.checkedStations.Location = new System.Drawing.Point(3, 155);
             this.checkedStations.Name = "checkedStations";
@@ -273,17 +278,17 @@
             this.startDatePicker.TabIndex = 18;
             this.startDatePicker.Value = new System.DateTime(2015, 8, 17, 0, 0, 0, 0);
             // 
-            // listBox1
+            // runsListBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(609, 47);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(154, 329);
-            this.listBox1.TabIndex = 12;
+            this.runsListBox.FormattingEnabled = true;
+            this.runsListBox.Location = new System.Drawing.Point(609, 47);
+            this.runsListBox.Name = "runsListBox";
+            this.runsListBox.Size = new System.Drawing.Size(165, 329);
+            this.runsListBox.TabIndex = 12;
             // 
             // addRunButton
             // 
-            this.addRunButton.Location = new System.Drawing.Point(607, 3);
+            this.addRunButton.Location = new System.Drawing.Point(609, 14);
             this.addRunButton.Name = "addRunButton";
             this.addRunButton.Size = new System.Drawing.Size(75, 23);
             this.addRunButton.TabIndex = 13;
@@ -293,7 +298,7 @@
             // 
             // revoveRunButton
             // 
-            this.revoveRunButton.Location = new System.Drawing.Point(688, 4);
+            this.revoveRunButton.Location = new System.Drawing.Point(699, 14);
             this.revoveRunButton.Name = "revoveRunButton";
             this.revoveRunButton.Size = new System.Drawing.Size(75, 23);
             this.revoveRunButton.TabIndex = 14;
@@ -306,19 +311,28 @@
             this.panel3.Controls.Add(this.revoveRunButton);
             this.panel3.Controls.Add(this.panel1);
             this.panel3.Controls.Add(this.addRunButton);
-            this.panel3.Controls.Add(this.listBox1);
+            this.panel3.Controls.Add(this.runsListBox);
             this.panel3.Location = new System.Drawing.Point(9, 27);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(777, 378);
+            this.panel3.Size = new System.Drawing.Size(783, 378);
             this.panel3.TabIndex = 15;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.button1);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.progressBar1);
+            this.panel4.Controls.Add(this.startButton);
             this.panel4.Location = new System.Drawing.Point(12, 411);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(774, 33);
+            this.panel4.Size = new System.Drawing.Size(780, 33);
             this.panel4.TabIndex = 16;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(7, 7);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(588, 23);
+            this.progressBar1.TabIndex = 1;
             // 
             // menuStrip1
             // 
@@ -365,16 +379,29 @@
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.label5.Location = new System.Drawing.Point(601, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "View Results";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // AutomatedRunsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(804, 481);
+            this.ClientSize = new System.Drawing.Size(804, 457);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AutomatedRunsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AutomatedRuns";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AutomatedRunsForm_FormClosing);
             this.panel1.ResumeLayout(false);
@@ -383,6 +410,7 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -392,7 +420,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.ComboBox schedulerComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox objectiveComboBox;
@@ -409,7 +437,7 @@
         private System.Windows.Forms.DateTimePicker startDatePicker;
         private System.Windows.Forms.CheckedListBox checkedSatellites;
         private System.Windows.Forms.CheckedListBox checkedStations;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox runsListBox;
         private System.Windows.Forms.Button addRunButton;
         private System.Windows.Forms.Button revoveRunButton;
         private System.Windows.Forms.Panel panel3;
@@ -423,5 +451,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboScenarioBox;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label5;
     }
 }

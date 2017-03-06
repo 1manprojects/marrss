@@ -117,25 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SettingsRichTextBox.Text" xml:space="preserve">
-    <value>#Genetic Settings
-#Settings
-genetic_Population_Size=8;
-genetic_Start_Percentage=65;
-genetic_Mutation_Chance=1;
-#Run for certain Generations
-genetic_Run_For_MaxGen=true;
-genetic_Max_Nr_of_Generations=10000;
-#Run for certian Time in hours
-genetic_Run_For_MaxTime=false;
-genetic_RunTime=1.0;
-#Handle Conflicts by priority
-genetic_ConflictSolver=false;
-#wenn done solve conflicts
-genetic_SolveConflicts=false;
-#END of SETTINGS</value>
-  </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
