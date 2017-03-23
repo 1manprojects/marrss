@@ -155,6 +155,32 @@ namespace MARRSS.Forms
             }
 
             settings.Save();
+            //check if Directory Exist and create them in not
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_ResultSavePath))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_Log_Path))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_Log_Path);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_Save_Path))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_Save_Path);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_Plot_Path))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_Plot_Path);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_ResultSavePath))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_LogSavePath))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_LogSavePath);
+            }
+
             this.Close();
         }
 

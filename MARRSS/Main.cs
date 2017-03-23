@@ -50,7 +50,7 @@ namespace MARRSS
         private int tle_timeCounter;
 
         //! Main Startup Function
-        /*!
+        /*
             Startup function reading from settings loading Database and if it
             does not exist it will create a new DataBase file
         */
@@ -89,6 +89,33 @@ namespace MARRSS
                 objectiveComboBox.Items.Add(objectiveFunctionnames[i]);
             if (objectiveComboBox.Items.Count > 0)
                 objectiveComboBox.SelectedIndex = 0;
+
+            //check if outputDirectory Exist
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_ResultSavePath))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_Log_Path))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_Log_Path);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_Save_Path))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_Save_Path);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_Plot_Path))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_Plot_Path);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_ResultSavePath))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_ResultSavePath);
+            }
+            if (!System.IO.Directory.Exists(Properties.Settings.Default.global_LogSavePath))
+            {
+                System.IO.Directory.CreateDirectory(Properties.Settings.Default.global_LogSavePath);
+            }
+
         }
 
         //! Calculate Schedule
