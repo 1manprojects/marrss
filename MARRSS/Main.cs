@@ -895,7 +895,7 @@ namespace MARRSS
         */
         private void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/1manprojects/marrss");
+            System.Diagnostics.Process.Start("https://github.com/1manprojects/marrss/wiki");
         }
 
         //! opens Link

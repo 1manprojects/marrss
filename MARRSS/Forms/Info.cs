@@ -25,8 +25,8 @@ namespace MARRSS.Forms
         {
             label4.Text = String.Format("Version {0}.{1}.{2}",
                 1,
-                3,
-                5);
+                4,
+                0);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
