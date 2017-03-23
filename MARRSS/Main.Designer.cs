@@ -1012,6 +1012,7 @@
             this.checkedSatellites.Name = "checkedSatellites";
             this.checkedSatellites.Size = new System.Drawing.Size(250, 409);
             this.checkedSatellites.TabIndex = 22;
+            this.checkedSatellites.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedSatellites_ItemCheck);
             // 
             // contextSatellites
             // 
@@ -1044,6 +1045,7 @@
             this.checkedStations.Name = "checkedStations";
             this.checkedStations.Size = new System.Drawing.Size(250, 409);
             this.checkedStations.TabIndex = 21;
+            this.checkedStations.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedStations_ItemCheck);
             // 
             // contextStations
             // 
@@ -1077,6 +1079,7 @@
             this.stopTimePicker.TabIndex = 17;
             this.toolTip1.SetToolTip(this.stopTimePicker, "Starting time in UTC");
             this.stopTimePicker.Value = new System.DateTime(2015, 8, 18, 12, 0, 0, 0);
+            this.stopTimePicker.ValueChanged += new System.EventHandler(this.stopTimePicker_ValueChanged);
             // 
             // startTimePicker
             // 
@@ -1088,6 +1091,7 @@
             this.startTimePicker.TabIndex = 16;
             this.toolTip1.SetToolTip(this.startTimePicker, "Starting time in UTC");
             this.startTimePicker.Value = new System.DateTime(2015, 8, 18, 12, 0, 0, 0);
+            this.startTimePicker.ValueChanged += new System.EventHandler(this.startTimePicker_ValueChanged);
             // 
             // label10
             // 
@@ -1148,6 +1152,7 @@
             this.stopDatePicker.TabIndex = 3;
             this.toolTip1.SetToolTip(this.stopDatePicker, "Starting date to start simulation");
             this.stopDatePicker.Value = new System.DateTime(2015, 8, 18, 0, 0, 0, 0);
+            this.stopDatePicker.ValueChanged += new System.EventHandler(this.stopDatePicker_ValueChanged);
             // 
             // label6
             // 
@@ -1169,6 +1174,7 @@
             this.startDatePicker.TabIndex = 0;
             this.toolTip1.SetToolTip(this.startDatePicker, "Starting date to start simulation");
             this.startDatePicker.Value = new System.DateTime(2015, 8, 17, 0, 0, 0, 0);
+            this.startDatePicker.ValueChanged += new System.EventHandler(this.startDatePicker_ValueChanged);
             // 
             // tabPage1
             // 

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using MARRSS.DataBase;
 using MARRSS.Definition;
 using MARRSS.Interface2;
 using MARRSS.Scheduler;
@@ -21,18 +17,20 @@ namespace MARRSS.Automated
         private List<string> satelliteList;
         private List<string> stationList;
         private int scenario;
-        private string callback;
+        private string humanReadableSettings;
         private string settings;
         private string objectiveFunction;
         List<string> results;
+        private bool cancel = false;
+        SchedulerInterface scheduler = null;
 
         public AutomatedRun()
         {
-
+            scheduler = null;
         }
 
         public AutomatedRun(string name, EpochTime start, EpochTime stop, List<string> satellites,
-            List<string> stations, int selectedScenario, string objective, string settingsString = null)
+            List<string> stations, int selectedScenario, string objective, string settingsString = null, string human2settings = null)
         {
             schedulerName = name;
             startTime = start;
@@ -42,6 +40,17 @@ namespace MARRSS.Automated
             scenario = selectedScenario;
             settings = settingsString;
             objectiveFunction = objective;
+            humanReadableSettings = human2settings;
+            scheduler = null;
+        }
+
+        public void cancelRun()
+        {
+            cancel = true;
+            if (scheduler != null)
+            {
+                scheduler.cancelCalculation();
+            }
         }
 
         public bool runThisRun()
@@ -67,7 +76,7 @@ namespace MARRSS.Automated
             System.Windows.Forms.Application.DoEvents();
             ContactWindowsVector contactsVector = MainFunctions2.calculateContactWindows(tleData, stationData, startTime, stopTime);
             System.Windows.Forms.Application.DoEvents();
-            SchedulerInterface scheduler = null; ;
+            scheduler = null;
             switch (schedulerName)
             {
                 case "Genetic":
@@ -141,6 +150,7 @@ namespace MARRSS.Automated
             {
                 status = false;
             }
+            cancel = false;
             return status;
         }
 
@@ -221,6 +231,11 @@ namespace MARRSS.Automated
         public List<string> getStation()
         {
             return stationList;
+        }
+
+        public String getHumanReadableSettings()
+        {
+            return humanReadableSettings;
         }
 
     }

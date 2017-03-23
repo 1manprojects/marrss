@@ -36,6 +36,7 @@ namespace MARRSS
         private List<One_Sgp4.Tle> satTleData; //!< List of TLE objects
         private List<Ground.Station> stationData; //!< List of Ground Stations
         private Definition.ContactWindowsVector contactsVector; //!< Contact Windows Vector stores all contacts
+        private bool changedParameters = false; //!< True if user changed station, statellite or Time
 
         private DataBase.DataBase _MainDataBase; //!< Database connection
 
@@ -116,7 +117,7 @@ namespace MARRSS
             //check if contacts vector has not been already created or loaded
             //from save file
             bool resetScenario = true;
-            if (contactsVector == null)
+            if (contactsVector == null || changedParameters == true)
             {
                 contactsVector = new Definition.ContactWindowsVector();
                 contactsVector.setStartTime(startTime);
@@ -225,6 +226,7 @@ namespace MARRSS
                     SystemSounds.Beep.Play();
                     Thread.Sleep(100 * i);
                 }
+                changedParameters = false;
             }
             //if Cancel button is pressed Cancel each scheduler if running
             else
@@ -1266,6 +1268,36 @@ namespace MARRSS
         {
             logRichTextBox.Text += "\n" + data;
             logRichTextBox.ScrollToCaret();
+        }
+
+        private void checkedStations_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            changedParameters = true;
+        }
+
+        private void checkedSatellites_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            changedParameters = true;
+        }
+
+        private void startDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            changedParameters = true;
+        }
+
+        private void startTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            changedParameters = true;
+        }
+
+        private void stopDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            changedParameters = true;
+        }
+
+        private void stopTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            changedParameters = true;
         }
     }
 }
