@@ -176,6 +176,7 @@
     <Compile Include="Definition\ContactWindowsVector.cs" />
     <Compile Include="Definition\GeoCoordinate.cs" />
     <Compile Include="Drawer\ContactsDrawer.cs" />
+    <Compile Include="Global\Data.cs" />
     <Compile Include="Global\Funktions.cs" />
     <Compile Include="Ground\Antenna.cs" />
     <Compile Include="Global\CancelException.cs" />

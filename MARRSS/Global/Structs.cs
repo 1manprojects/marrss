@@ -81,5 +81,16 @@ namespace MARRSS.Global
             SCHEDULEDCONTACTS = 5
         };
 
+        /** enum DataSizese
+        *  @brief enum class that represents the DataSize from Byte to TerraByte
+        */
+        public enum DataSize : int
+        {
+            BYTE = 0,
+            KBYTE = 1,
+            MBYTE = 2,
+            GBYTE = 3,
+            TBYTE = 4
+        };
     }
 }

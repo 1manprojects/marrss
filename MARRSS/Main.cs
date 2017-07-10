@@ -12,16 +12,12 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Media;
 
 using MARRSS.Performance;
 using MARRSS.Scheduler;
-using MARRSS.DataBase;
-using System.Collections.Specialized;
 
 namespace MARRSS
 {
@@ -39,9 +35,7 @@ namespace MARRSS
         private bool changedParameters = false; //!< True if user changed station, statellite or Time
 
         private DataBase.DataBase _MainDataBase; //!< Database connection
-
         private ObjectiveFunction objectivefunct; //!< Objective function to schedule against
-
         private Interface2.SchedulerInterface scheduler = null; //!< Scheduler Interface current used scheduler
 
         Image imgSatellite = null; //!< Images used to display satellite on ground path

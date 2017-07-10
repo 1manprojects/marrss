@@ -9,11 +9,7 @@
 * Licensed under
 * Creative Commons Attribution NonCommercial (CC-BY-NC)
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MARRSS.Global;
 
 namespace MARRSS.Satellite
 {
@@ -27,6 +23,7 @@ namespace MARRSS.Satellite
     {
         private string name; //!< string satellite name
         private One_Sgp4.Tle tleData; //!< TLE two line element data for the satellite
+        private Structs.DataSize dataStorage; //!< Structs.DataSize DataStorage 
 
         //! Satellite constructor.
         /*!
@@ -35,6 +32,7 @@ namespace MARRSS.Satellite
         public Satellite(string _name)
         {
             name = _name;
+            dataStorage = new Structs.DataSize();
         }
 
         //! Satellite constructor.
@@ -44,6 +42,7 @@ namespace MARRSS.Satellite
         */
         public Satellite(string _name, One_Sgp4.Tle _tleData)
         {
+            dataStorage = new Structs.DataSize();
             name = _name;
             tleData = _tleData;
         }
@@ -57,6 +56,7 @@ namespace MARRSS.Satellite
         {
             //toDo
             //Check Tle Data if its newer
+            dataStorage = new Structs.DataSize();
             tleData = _tleData;
             return true;
         }
@@ -78,5 +78,15 @@ namespace MARRSS.Satellite
         {
             return tleData;
         }
+
+        //! Returns the stored data object of the satellite
+        /*!
+            \return Global.Data data storage used on satellite
+        */
+        public Structs.DataSize getStoredData()
+        {
+            return dataStorage;
+        }
+
     }
 }
