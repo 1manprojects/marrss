@@ -11,12 +11,7 @@
 */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MARRSS.Forms
@@ -189,7 +184,7 @@ namespace MARRSS.Forms
 
         private void SatelliteForm_Load(object sender, EventArgs e)
         {
-
+            dataSizeComboBox.SelectedIndex = 2;
         }
 
         private void SelectInputForm()
@@ -198,7 +193,6 @@ namespace MARRSS.Forms
             {
                 tabControl1.SelectedIndex = 0;
             }
-
             if (radioButton2.Checked)
             {
                 tabControl1.SelectedIndex = 1;
@@ -208,9 +202,12 @@ namespace MARRSS.Forms
             {
                 tabControl1.SelectedIndex = 2;
             }
+            tabControl1.Visible = true;
+            storagePanel.Visible = true;
             if (radioButton4.Checked)
             {
                 tabControl1.Visible = false;
+                storagePanel.Visible = false;
             }
         }
 
@@ -252,8 +249,10 @@ namespace MARRSS.Forms
             {
                 addButton.Text = "Update";
             }
+            else
             {
                 addButton.Text = "ADD";
+                SelectInputForm();
             }
         }
 

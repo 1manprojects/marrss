@@ -1320,5 +1320,11 @@ namespace MARRSS
         {
             changedParameters = true;
         }
+
+        private void formTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.NoteForm note = new Forms.NoteForm("Testing", "this is a test to demonstrate the functionality");
+            note.ShowDialog();
+        }
     }
 }

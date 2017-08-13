@@ -33,18 +33,18 @@ namespace MARRSS.DataBase
         public const string TleDB = "TleTable";
 
         //Calls for creating Database and Tables
-        public const string creSatTab = "create table SatelliteTable(name TEXT, noradID TEXT)";
+        public const string creSatTab = "create table SatelliteTable(name TEXT, noradID TEXT, storage REAL, dataSize INT)";
         public const string creStaTab = "create table StationsTable(name TEXT, lat REAL, long REAL, hight REAL, nrOfSat INT)";
         public const string creTleTab = "create table TleTable(satName TEXT, noradID TEXT, clasification INT, startYear INT, startNr INT, piece TEXT, epochY INT, epochD REAL, firstMeanM REAL, secMeanM REAl, drag REAL, ephemeris REAL, setNr INT, check1 INT, satNr INT, inclination REAL, rightAscen REAL, eccent REAL, perigee REAL, meanAnomoly REAL, meanMotion REAL, relevation REAL, check2 INT)";
 
         //Calls for Inserting Data into Tables
         public const string insertTle = "INSERT INTO {0} (satName, noradID, clasification, startYear, startNr, piece, epochY, epochD, firstMeanM, secMeanM, drag, ephemeris, setNr, check1, satNr, inclination, rightAscen, eccent, perigee, meanAnomoly, meanMotion, relevation, check2) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', '{23}' )";
-        public const string insertSat = "INSERT INTO {0} (name, noradID) VALUES ('{1}', '{2}')";
+        public const string insertSat = "INSERT INTO {0} (name, noradID, storage, dataSize) VALUES ('{1}', '{2}', '{3}', '{4}')";
         public const string insertSta = "INSERT INTO {0} (name, lat, long, hight, nrOfSat) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}')";
 
         //Names of each colum of Database Table
         public const string rowsTle = "satName, noradID, clasification, startYear, startNr, piece, epochY, epochD, firstMeanM, secMeanM, drag, ephemeris, setNr, check1, satNr, inclination, rightAscen, eccent, perigee, meanAnomoly, meanMotion, relevation, check2";
-        public const string rowsSat = "name, nordid";
+        public const string rowsSat = "name, nordid, storage, dataSize";
         public const string rowsSta = "name, lat, long, hight, nrOfSat";
 
         //Deleting Items in DataBase

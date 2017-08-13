@@ -136,6 +136,12 @@
     <Compile Include="Forms\Info.Designer.cs">
       <DependentUpon>Info.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NoteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NoteForm.Designer.cs">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,7 @@
     <Compile Include="Definition\GeoCoordinate.cs" />
     <Compile Include="Drawer\ContactsDrawer.cs" />
     <Compile Include="Global\Data.cs" />
+    <Compile Include="Global\DataFunctions.cs" />
     <Compile Include="Global\Funktions.cs" />
     <Compile Include="Ground\Antenna.cs" />
     <Compile Include="Global\CancelException.cs" />
@@ -223,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NoteForm.resx">
+      <DependentUpon>NoteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ObjectiveBuilderForm.resx">
       <DependentUpon>ObjectiveBuilderForm.cs</DependentUpon>
@@ -273,6 +283,7 @@
     <None Include="Resources\Images\ImportBanner.png" />
     <None Include="Resources\Images\InfoBanner.jpg" />
     <None Include="Resources\Images\Button.png" />
+    <None Include="Resources\ajax-loader.gif" />
     <Content Include="Resources\Images\ISS.png" />
     <None Include="Resources\Images\Logo-CellPhone.jpg" />
     <None Include="Resources\Images\Logo.jpg" />
