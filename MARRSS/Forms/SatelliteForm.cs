@@ -47,124 +47,136 @@ namespace MARRSS.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try
+            {
+                long size = (long)onBoardStoargeSizeText.Value;
+                DataBase.DataBase db = new DataBase.DataBase();
+                //if selected to import a txt- file containg TLE data
+                if (radioButton1.Checked)
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    List<One_Sgp4.Tle> satTleData = new List<One_Sgp4.Tle>();
+                    satTleData = One_Sgp4.ParserTLE.ParseFile(tleFilePath);
+                    for (int i = 0; i < satTleData.Count(); i++)
+                    {
+                        db.writeTleData(satTleData[i], size, comboBoxSatelliteStorage.SelectedIndex);
+                    }
+                }
+                //if selected to add TLE - Data Manuely 
+                if (radioButton3.Checked)
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
+                    satTleData = One_Sgp4.ParserTLE.parseTle(textTleLine1.Text, textTleLine2.Text, textNameID.Text);
+                    db.writeTleData(satTleData, size, comboBoxSatelliteStorage.SelectedIndex);
+                }
+                //if selected to load TLE - Data from Internet
+                if (radioButton2.Checked)
+                {
+                    string[] searchIDs = textBox1.Text.Split(',');
+                    Forms.Login loginForm = new Forms.Login(this);
+                    loginForm.ShowDialog();
+                    if (userName != null && password != null)
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        string res = One_Sgp4.SpaceTrack.GetSpaceTrack(searchIDs, userName, password);
+                        if (res.Count() > 0)
+                        {
+                            string[] tleLines = res.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+
+                            if (tleLines.Count() >= 3)
+                            {
+                                for (int i = 0; i < tleLines.Count() - 1; i += 3)
+                                {
+                                    One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
+                                    satTleData = One_Sgp4.ParserTLE.parseTle(tleLines[i + 1], tleLines[i + 2], tleLines[i]);
+                                    db.writeTleData(satTleData, size, comboBoxSatelliteStorage.SelectedIndex);
+                                    //db.writeTleData(satTleData);
+                                }
+                            }
+                            else
+                            {
+                                errorCode = 1;
+                                //error parsing information
+                            }
+                        }
+                    }
+                    else
+                    {
+                        errorCode = 2;
+                        //No UserName or Password were given
+                    }
+                }
+                if (radioButton4.Checked)
+                {
+                    List<string> tleList = db.getAllNoradID();
+                    string[] searchIDs = new string[tleList.Count];
+
+                    for (int i = 0; i < tleList.Count; i++)
+                    {
+                        searchIDs[i] = tleList[i];
+                    }
+
+                    Forms.Login loginForm = new Forms.Login(this);
+                    loginForm.ShowDialog();
+                    if (userName != null && password != null)
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        string res = One_Sgp4.SpaceTrack.GetSpaceTrack(searchIDs, userName, password);
+                        if (res.Count() > 0)
+                        {
+                            string[] tleLines = res.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+
+                            if (tleLines.Count() >= 3)
+                            {
+                                for (int i = 0; i < tleLines.Count() - 1; i += 3)
+                                {
+                                    One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
+                                    satTleData = One_Sgp4.ParserTLE.parseTle(tleLines[i + 1], tleLines[i + 2], tleLines[i]);
+                                    db.writeTleData(satTleData, size, comboBoxSatelliteStorage.SelectedIndex);
+                                }
+                            }
+                            else
+                            {
+                                errorCode = 1;
+                                //error parsing information
+                            }
+                        }
+                    }
+                    else
+                    {
+                        errorCode = 2;
+                        //No UserName or Password were given
+                    }
+                }
+                db.closeDB();
+                db = null;
+                switch (errorCode)
+                {
+                    case 1:
+                        MessageBox.Show("Unable to Update from Server.\n Login information could be wrong or server is not reachable", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case 2:
+                        //MessageBox.Show("No Login information given", "Error",
+                        //    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                        this.Cursor = Cursors.Default;
+                        break;
+                    default:
+                        this.Close();
+                        this.Cursor = Cursors.Default;
+                        break;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Invalid Input for Satellite Onboard Storage",
+                        "ERROR",
+                        MessageBoxButtons.OK);
+            }
+
             
-            DataBase.DataBase db = new DataBase.DataBase();
-            //if selected to import a txt- file containg TLE data
-            if (radioButton1.Checked)
-            {
-                this.Cursor = Cursors.WaitCursor;
-                List<One_Sgp4.Tle> satTleData = new List<One_Sgp4.Tle>();
-                satTleData = One_Sgp4.ParserTLE.ParseFile(tleFilePath);
-                for( int i = 0; i < satTleData.Count(); i++)
-                {
-                    db.writeTleData(satTleData[i]);
-                }
-            }
-            //if selected to add TLE - Data Manuely 
-            if (radioButton3.Checked)
-            {
-                this.Cursor = Cursors.WaitCursor;
-                One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
-                satTleData = One_Sgp4.ParserTLE.parseTle(textTleLine1.Text, textTleLine2.Text, textNameID.Text);
-                db.writeTleData(satTleData);
-            }
-            //if selected to load TLE - Data from Internet
-            if (radioButton2.Checked)
-            {
-                string[] searchIDs = textBox1.Text.Split(',');
-                Forms.Login loginForm = new Forms.Login(this);
-                loginForm.ShowDialog();
-                if (userName != null && password != null)
-                {
-                    this.Cursor = Cursors.WaitCursor;
-                    string res = One_Sgp4.SpaceTrack.GetSpaceTrack(searchIDs, userName, password);
-                    if (res.Count() > 0)
-                    {
-                        string[] tleLines = res.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-
-                        if (tleLines.Count() >= 3)
-                        {
-                            for (int i = 0; i < tleLines.Count() - 1; i += 3)
-                            {
-                                One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
-                                satTleData = One_Sgp4.ParserTLE.parseTle(tleLines[i + 1], tleLines[i + 2], tleLines[i]);
-                                db.writeTleData(satTleData);
-                            }
-                        }
-                        else
-                        {
-                            errorCode = 1;
-                            //error parsing information
-                        }
-                    }
-                }
-                else
-                {
-                    errorCode = 2;
-                    //No UserName or Password were given
-                }
-            }
-            if (radioButton4.Checked)
-            {
-                List<string> tleList = db.getAllNoradID();
-                string[] searchIDs = new string[tleList.Count];
-
-                for (int i = 0; i < tleList.Count; i++)
-                {
-                    searchIDs[i] = tleList[i];
-                }
-
-                Forms.Login loginForm = new Forms.Login(this);
-                loginForm.ShowDialog();
-                if (userName != null && password != null)
-                {
-                    this.Cursor = Cursors.WaitCursor;
-                    string res = One_Sgp4.SpaceTrack.GetSpaceTrack(searchIDs, userName, password);
-                    if (res.Count() > 0)
-                    {
-                        string[] tleLines = res.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-
-                        if (tleLines.Count() >= 3)
-                        {
-                            for (int i = 0; i < tleLines.Count() - 1; i += 3)
-                            {
-                                One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
-                                satTleData = One_Sgp4.ParserTLE.parseTle(tleLines[i + 1], tleLines[i + 2], tleLines[i]);
-                                db.writeTleData(satTleData);
-                            }
-                        }
-                        else
-                        {
-                            errorCode = 1;
-                            //error parsing information
-                        }
-                    }
-                }
-                else
-                {
-                    errorCode = 2;
-                    //No UserName or Password were given
-                }
-            }
-            db.closeDB();
-            db = null;
-            switch (errorCode)
-            {
-                case 1:
-                    MessageBox.Show("Unable to Update from Server.\n Login information could be wrong or server is not reachable", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case 2:
-                    //MessageBox.Show("No Login information given", "Error",
-                    //    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
-                    this.Cursor = Cursors.Default;
-                    break;
-                default:
-                    this.Close();
-                    this.Cursor = Cursors.Default;
-                    break;
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -184,7 +196,8 @@ namespace MARRSS.Forms
 
         private void SatelliteForm_Load(object sender, EventArgs e)
         {
-            dataSizeComboBox.SelectedIndex = 2;
+            onBoardStoargeSizeText.Value = Properties.Settings.Default.global_defaultDataStorageSat;
+            comboBoxSatelliteStorage.SelectedIndex = Properties.Settings.Default.global_defaultDataStorageSatSize;
         }
 
         private void SelectInputForm()
@@ -258,43 +271,46 @@ namespace MARRSS.Forms
 
         public static void UpdateTLeFromWeb()
         {
-            string userName = Properties.Settings.Default.email;
-            string password = Login.getPassword();
-            DataBase.DataBase db = new DataBase.DataBase();
-            List<string> tleList = db.getAllNoradID();
-            string[] searchIDs = new string[tleList.Count];
+                string userName = Properties.Settings.Default.email;
+                string password = Login.getPassword();
+                DataBase.DataBase db = new DataBase.DataBase();
+                List<string> tleList = db.getAllNoradID();
+                string[] searchIDs = new string[tleList.Count];
 
-            for (int i = 0; i < tleList.Count; i++)
-            {
-                searchIDs[i] = tleList[i];
-            }
-
-
-            //Forms.Login loginForm = new Forms.Login(this);
-            //loginForm.ShowDialog();
-            if (userName != null && password != null)
-            {
-                string res = One_Sgp4.SpaceTrack.GetSpaceTrack(searchIDs, userName, password);
-                if (res.Count() > 0)
+                for (int i = 0; i < tleList.Count; i++)
                 {
-                    string[] tleLines = res.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                    searchIDs[i] = tleList[i];
+                }
 
-                    if (tleLines.Count() >= 3)
+
+                //Forms.Login loginForm = new Forms.Login(this);
+                //loginForm.ShowDialog();
+                if (userName != null && password != null)
+                {
+
+                    string res = One_Sgp4.SpaceTrack.GetSpaceTrack(searchIDs, userName, password);
+                    if (res.Count() > 0)
                     {
-                        for (int i = 0; i < tleLines.Count() - 1; i += 3)
+                        string[] tleLines = res.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+
+                        if (tleLines.Count() >= 3)
                         {
-                            One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
-                            satTleData = One_Sgp4.ParserTLE.parseTle(tleLines[i + 1], tleLines[i + 2], tleLines[i]);
-                            db.writeTleData(satTleData);
+                            for (int i = 0; i < tleLines.Count() - 1; i += 3)
+                            {
+                                One_Sgp4.Tle satTleData = new One_Sgp4.Tle();
+                                satTleData = One_Sgp4.ParserTLE.parseTle(tleLines[i + 1], tleLines[i + 2], tleLines[i]);
+                                db.UpdateTleData(satTleData);
+                                //db.writeTleData(satTleData);
+                            }
+                        }
+                        else
+                        {
+                            //error
+                            //error parsing information
                         }
                     }
-                    else
-                    {
-                        //error
-                        //error parsing information
-                    }
+
                 }
-            }
         }
     }
 }

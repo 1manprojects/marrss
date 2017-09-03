@@ -149,7 +149,7 @@ namespace MARRSS.DataBase
         /*! 
            \param tleData TLEData to be writen in DataBase.
         */
-        public void writeTleData(One_Sgp4.Tle tleData)
+        public void writeTleData(One_Sgp4.Tle tleData, long dataSize, int datatype)
         {
             if (!isConnected)
             {
@@ -187,8 +187,8 @@ namespace MARRSS.DataBase
                 command.ExecuteNonQuery();
 
                 addSatCommand.CommandText = String.Format(
-                    Constants.insertSat,
-                    Constants.SatDB, tleData.getName(), tleData.getNoradID());
+                    Constants.insertSatWithData,
+                    Constants.SatDB, tleData.getName(), tleData.getNoradID(), dataSize, datatype);
                 addSatCommand.ExecuteNonQuery();
             }
             else
@@ -215,19 +215,55 @@ namespace MARRSS.DataBase
                 tleData.getRelevationNumber(), tleData.getSecCheckSum());
                 command.ExecuteNonQuery();
 
-                SQLiteCommand delcommand = new SQLiteCommand(m_dbConnection);
-                delcommand.CommandText = String.Format(
-                        Constants.deleteSatellite2,
-                        Constants.SatDB,
-                        tleData.getNoradID());
-                delcommand.ExecuteNonQuery();
+                //SQLiteCommand delcommand = new SQLiteCommand(m_dbConnection);
+                //delcommand.CommandText = String.Format(
+                //        Constants.deleteSatellite2,
+                //        Constants.SatDB,
+                //        tleData.getNoradID());
+                //delcommand.ExecuteNonQuery();
 
-                addSatCommand.CommandText = String.Format(
-                    Constants.insertSat,
-                    Constants.SatDB, tleData.getName(), tleData.getNoradID());
-                addSatCommand.ExecuteNonQuery();
+                //addSatCommand.CommandText = String.Format(
+                //    Constants.insertSatNoData,
+                //    Constants.SatDB, tleData.getName(), tleData.getNoradID());
+                //addSatCommand.ExecuteNonQuery();
             }
         }
+        //! Write TLE-Data to DataBase
+        /*! 
+           \param tleData TLEData to be writen in DataBase.
+        */
+        public void UpdateTleData(One_Sgp4.Tle tleData)
+        {
+            if (!isConnected)
+            {
+                connectDB();
+            }
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+            {
+                //delet old Entry
+                command.CommandText = String.Format(
+                    Constants.deleteTLE,
+                    Constants.TleDB,
+                    tleData.getNoradID());
+                command.ExecuteNonQuery();
+
+                //insert new Entry
+                command.CommandText = String.Format(
+                    Constants.insertTle,
+                    Constants.TleDB, tleData.getName(), tleData.getNoradID(),
+                tleData.getClassification(), tleData.getStartYear(),
+                tleData.getStartNr(), tleData.getPice(), tleData.getEpochYear(),
+                tleData.getEpochDay(), tleData.getFirstMeanMotion(),
+                tleData.getSecondMeanMotion(), tleData.getDrag(),
+                tleData.getEphemeris(), tleData.getSetNumber(), tleData.getFirstCheckSum(),
+                tleData.getSatNumber(), tleData.getInclination(),
+                tleData.getRightAscendingNode(), tleData.getEccentriciy(),
+                tleData.getPerigee(), tleData.getMeanAnomoly(), tleData.getMeanMotion(),
+                tleData.getRelevationNumber(), tleData.getSecCheckSum());
+                command.ExecuteNonQuery();
+            }
+        }
+
 
         //! Write satellite data to Database
         /*! 
@@ -247,8 +283,8 @@ namespace MARRSS.DataBase
             if (count == 0)
             {
                 command.CommandText = String.Format(
-                     Constants.insertSat,
-                     Constants.SatDB, sat.getName(), sat.getTleData().getNoradID());
+                     Constants.insertSatWithData,
+                     Constants.SatDB, sat.getName(), sat.getTleData().getNoradID(), 1, 0);
                 command.ExecuteNonQuery();
             }
         }

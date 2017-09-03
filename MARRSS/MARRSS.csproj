@@ -123,7 +123,6 @@
     <Compile Include="DataBase\Constants.cs" />
     <Compile Include="DataBase\DataBase.cs" />
     <Compile Include="DataBase\SaveLoad.cs" />
-    <Compile Include="DataBase\UpdateDB.cs" />
     <Compile Include="Drawer\MapDrawer.cs" />
     <Compile Include="Forms\AutomatedRunsForm.cs">
       <SubType>Form</SubType>

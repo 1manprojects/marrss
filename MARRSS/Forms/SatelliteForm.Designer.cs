@@ -58,10 +58,10 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.dataSizeValue = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataSizeComboBox = new System.Windows.Forms.ComboBox();
             this.storagePanel = new System.Windows.Forms.Panel();
+            this.onBoardStoargeSizeText = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxSatelliteStorage = new System.Windows.Forms.ComboBox();
             this.tlePanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -71,8 +71,8 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSizeValue)).BeginInit();
             this.storagePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
             this.SuspendLayout();
             // 
             // addButton
@@ -360,24 +360,6 @@
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // dataSizeValue
-            // 
-            this.dataSizeValue.Location = new System.Drawing.Point(6, 36);
-            this.dataSizeValue.Maximum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.dataSizeValue.Name = "dataSizeValue";
-            this.dataSizeValue.Size = new System.Drawing.Size(84, 20);
-            this.dataSizeValue.TabIndex = 16;
-            this.dataSizeValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.dataSizeValue.Value = new decimal(new int[] {
-            512,
-            0,
-            0,
-            0});
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -387,30 +369,57 @@
             this.label1.TabIndex = 17;
             this.label1.Text = "Satellite Storage:";
             // 
-            // dataSizeComboBox
-            // 
-            this.dataSizeComboBox.FormattingEnabled = true;
-            this.dataSizeComboBox.Items.AddRange(new object[] {
-            "Byte",
-            "Kilo Byte",
-            "Mega Byte",
-            "Giga Byte",
-            "Terra Byte"});
-            this.dataSizeComboBox.Location = new System.Drawing.Point(192, 36);
-            this.dataSizeComboBox.Name = "dataSizeComboBox";
-            this.dataSizeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.dataSizeComboBox.TabIndex = 18;
-            // 
             // storagePanel
             // 
             this.storagePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.storagePanel.Controls.Add(this.onBoardStoargeSizeText);
+            this.storagePanel.Controls.Add(this.comboBoxSatelliteStorage);
             this.storagePanel.Controls.Add(this.label1);
-            this.storagePanel.Controls.Add(this.dataSizeComboBox);
-            this.storagePanel.Controls.Add(this.dataSizeValue);
             this.storagePanel.Location = new System.Drawing.Point(193, 311);
             this.storagePanel.Name = "storagePanel";
             this.storagePanel.Size = new System.Drawing.Size(333, 73);
             this.storagePanel.TabIndex = 19;
+            // 
+            // onBoardStoargeSizeText
+            // 
+            this.onBoardStoargeSizeText.Increment = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(64, 37);
+            this.onBoardStoargeSizeText.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Name = "onBoardStoargeSizeText";
+            this.onBoardStoargeSizeText.Size = new System.Drawing.Size(68, 20);
+            this.onBoardStoargeSizeText.TabIndex = 25;
+            this.onBoardStoargeSizeText.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+            // 
+            // comboBoxSatelliteStorage
+            // 
+            this.comboBoxSatelliteStorage.FormattingEnabled = true;
+            this.comboBoxSatelliteStorage.Items.AddRange(new object[] {
+            "B      (Byte)",
+            "kB    (kilo Byte)",
+            "MB  (MegaByte)",
+            "GB   (GigaByte)",
+            "TB   (TerraByte)"});
+            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(169, 36);
+            this.comboBoxSatelliteStorage.Name = "comboBoxSatelliteStorage";
+            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(118, 21);
+            this.comboBoxSatelliteStorage.TabIndex = 24;
             // 
             // SatelliteForm
             // 
@@ -447,9 +456,9 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataSizeValue)).EndInit();
             this.storagePanel.ResumeLayout(false);
             this.storagePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -485,9 +494,9 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.NumericUpDown dataSizeValue;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox dataSizeComboBox;
         private System.Windows.Forms.Panel storagePanel;
+        private System.Windows.Forms.NumericUpDown onBoardStoargeSizeText;
+        private System.Windows.Forms.ComboBox comboBoxSatelliteStorage;
     }
 }

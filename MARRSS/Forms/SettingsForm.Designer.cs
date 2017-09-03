@@ -201,15 +201,15 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.dbPanel);
+            this.panel2.Controls.Add(this.EFTPanel);
+            this.panel2.Controls.Add(this.FairPanel);
             this.panel2.Controls.Add(this.GeneticPanel);
             this.panel2.Controls.Add(this.hillpanel);
             this.panel2.Controls.Add(this.OrbitPanel);
             this.panel2.Controls.Add(this.Tlepanel);
             this.panel2.Controls.Add(this.LoggingPanel);
             this.panel2.Controls.Add(this.GlobalPanel);
-            this.panel2.Controls.Add(this.dbPanel);
-            this.panel2.Controls.Add(this.EFTPanel);
-            this.panel2.Controls.Add(this.FairPanel);
             this.panel2.Location = new System.Drawing.Point(235, 5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(569, 452);

@@ -43,7 +43,8 @@ namespace MARRSS.DataBase
 
         //Calls for Inserting Data into Tables
         public const string insertTle = "INSERT INTO {0} (satName, noradID, clasification, startYear, startNr, piece, epochY, epochD, firstMeanM, secMeanM, drag, ephemeris, setNr, check1, satNr, inclination, rightAscen, eccent, perigee, meanAnomoly, meanMotion, relevation, check2) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', '{23}' )";
-        public const string insertSat = "INSERT INTO {0} (name, noradID, storage, dataSize) VALUES ('{1}', '{2}', '{3}', '{4}')";
+        public const string insertSatNoData = "INSERT INTO {0} (name, noradID) VALUES ('{1}', '{2}')";
+        public const string insertSatWithData = "INSERT INTO {0} (name, noradID, storage, dataSize) VALUES ('{1}', '{2}', '{3}', '{4}')";
         public const string insertSta = "INSERT INTO {0} (name, lat, long, hight, nrOfSat) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}')";
 
         //Names of each colum of Database Table
