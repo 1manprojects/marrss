@@ -23,16 +23,17 @@ namespace MARRSS.Satellite
     {
         private string name; //!< string satellite name
         private One_Sgp4.Tle tleData; //!< TLE two line element data for the satellite
-        private Structs.DataSize dataStorage; //!< Structs.DataSize DataStorage 
+        private Data dataStorage;
 
         //! Satellite constructor.
         /*!
             \param string name of the satellite
+            \param Data onboard stoarge data default NULL
         */
-        public Satellite(string _name)
+        public Satellite(string _name, Data onboardData = null)
         {
             name = _name;
-            dataStorage = new Structs.DataSize();
+            dataStorage = onboardData;
         }
 
         //! Satellite constructor.
@@ -42,7 +43,36 @@ namespace MARRSS.Satellite
         */
         public Satellite(string _name, One_Sgp4.Tle _tleData)
         {
-            dataStorage = new Structs.DataSize();
+            dataStorage = new Data(Properties.Settings.Default.global_defaultDataStorageSat,
+                Properties.Settings.Default.global_defaultDataStorageSatSize);
+            name = _name;
+            tleData = _tleData;
+        }
+
+        //! Satellite constructor.
+        /*!
+            \param string name of the satellite
+            \param Tle Two Line Element data
+            \param long onboard stoarge size
+            \param Structs.DataSize onboard stoarge size B,kB,MB,GB,TB
+        */
+        public Satellite(string _name, One_Sgp4.Tle _tleData, long onBoardData, Structs.DataSize datasize)
+        {
+            dataStorage = new Data(onBoardData, datasize);
+            name = _name;
+            tleData = _tleData;
+        }
+
+        //! Satellite constructor.
+        /*!
+            \param string name of the satellite
+            \param Tle Two Line Element data
+            \param long onboard stoarge size
+            \param int onboard stoarge size B,kB,MB,GB,TB
+        */
+        public Satellite(string _name, One_Sgp4.Tle _tleData, long onBoardData, int datasize)
+        {
+            dataStorage = new Data(onBoardData, (Structs.DataSize)datasize);
             name = _name;
             tleData = _tleData;
         }
@@ -56,7 +86,8 @@ namespace MARRSS.Satellite
         {
             //toDo
             //Check Tle Data if its newer
-            dataStorage = new Structs.DataSize();
+            dataStorage = new Data(Properties.Settings.Default.global_defaultDataStorageSat,
+                Properties.Settings.Default.global_defaultDataStorageSatSize);
             tleData = _tleData;
             return true;
         }
@@ -83,7 +114,7 @@ namespace MARRSS.Satellite
         /*!
             \return Global.Data data storage used on satellite
         */
-        public Structs.DataSize getStoredData()
+        public Data getStoredData()
         {
             return dataStorage;
         }

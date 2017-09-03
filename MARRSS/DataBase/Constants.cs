@@ -26,6 +26,9 @@ namespace MARRSS.DataBase
 */
     class Constants
     {
+        // Database version
+        public const int dbVersion = 1;
+
         // Database Name and Table Names
         public const string DBName = "marrss.db";
         public const string SatDB = "SatelliteTable";
@@ -33,7 +36,8 @@ namespace MARRSS.DataBase
         public const string TleDB = "TleTable";
 
         //Calls for creating Database and Tables
-        public const string creSatTab = "create table SatelliteTable(name TEXT, noradID TEXT, storage REAL, dataSize INT)";
+        //Satellite Name, Norad ID, Storage Size, enum DataSize : int
+        public const string creSatTab = "create table SatelliteTable(name TEXT, noradID TEXT, storage INT, dataSize INT)";
         public const string creStaTab = "create table StationsTable(name TEXT, lat REAL, long REAL, hight REAL, nrOfSat INT)";
         public const string creTleTab = "create table TleTable(satName TEXT, noradID TEXT, clasification INT, startYear INT, startNr INT, piece TEXT, epochY INT, epochD REAL, firstMeanM REAL, secMeanM REAl, drag REAL, ephemeris REAL, setNr INT, check1 INT, satNr INT, inclination REAL, rightAscen REAL, eccent REAL, perigee REAL, meanAnomoly REAL, meanMotion REAL, relevation REAL, check2 INT)";
 
@@ -52,6 +56,14 @@ namespace MARRSS.DataBase
         public const string deleteStation = "DELETE FROM {0} WHERE name='{1}'";
         public const string deleteSatellite = "DELETE FROM {0} WHERE name='{1}'";
         public const string deleteSatellite2 = "DELETE FROM {0} WHERE noradID='{1}'";
+
+        //Updating Database
+        public const string updateDB1 = "ALTER TABLE " + SatDB + " ADD COLUMN storage INT";
+        public const string updateDB2 = "ALTER TABLE " + SatDB + " ADD COLUMN dataSize INT";
+
+        //updating Data
+        public const string updateALLSatellitStorage = "UPDATE "+ SatDB + " SET storage = {0}, dataSize = {1}";
+        public const string updateSingleSatellitStorage = "UPDATE " + SatDB + " SET storage = {0}, dataSize = {1} WHERE name='{2}'";
 
         //Saving schedules and Request etc.
         public const string ContactsVectorTable = "ContactsTable";

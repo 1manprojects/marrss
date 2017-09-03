@@ -11,19 +11,11 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SQLite;
-using System.Globalization;
+
 using System.IO;
 using System.Windows.Forms;
 using System.Threading;
-
-using System.Diagnostics;
-
-using MARRSS.Scheduler;
-using MARRSS.Definition;
 
 namespace MARRSS.DataBase
 {
@@ -55,10 +47,30 @@ namespace MARRSS.DataBase
             if (!File.Exists(string.Format(_dbName)))
             {
                 errorCode = 000;
+                Properties.Settings.Default.db_version = Constants.dbVersion;
                 createNewDatabases();
             }
             else
             {
+                //get Database Version
+                if (Properties.Settings.Default.db_version < Constants.dbVersion)
+                {
+                    DialogResult result = MessageBox.Show("The database needs to be Updated. \nThis will add 500 MB storage to all satellites in the database.",
+                        "DataBase Update",
+                        MessageBoxButtons.YesNo);
+                    //Update Database
+                    if (result == DialogResult.Yes)
+                    {
+                        updateDB();
+                    }
+                    else
+                    {
+                        MessageBox.Show("The database has not been updated!\nThis programm might not function correctly please restart the application and begin the update",
+                            "WARNING!!",
+                        MessageBoxButtons.OK);
+                        //Application.Exit();
+                    }
+                }
                 try
                 {
                     connectDB();
@@ -80,6 +92,7 @@ namespace MARRSS.DataBase
         */
         public bool createNewDatabases()
         {
+            
             SQLiteConnection.CreateFile(_dbName);
             m_dbConnection = new SQLiteConnection("Data Source=" + _dbName + ";Version=3;");
             m_dbConnection.Open();
@@ -426,6 +439,7 @@ namespace MARRSS.DataBase
         //! Get station data for a groundstation from DataBase
         /*! 
            \param String name of the Station
+           \return station or NULL
         */
         public Ground.Station getStationFromDB(string StaName)
         {
@@ -433,6 +447,7 @@ namespace MARRSS.DataBase
             {
                 connectDB();
             }
+
             SQLiteCommand command = new SQLiteCommand(m_dbConnection);
             Ground.Station station;
             command.CommandText = String.Format("SELECT * FROM {0} WHERE name='{1}';",
@@ -454,12 +469,48 @@ namespace MARRSS.DataBase
 
         //! Get satellite data for certain Satellite from DataBase
         /*! 
-           depricated do not use
-           \return null
+           \return satellite else NULL
         */
-        public Satellite.Satellite getSatelliteFromDB()
+        public Satellite.Satellite getSatelliteFromDB(string satName)
         {
+            if (!isConnected)
+            {
+                connectDB();
+            }
+            One_Sgp4.Tle tle = getTleDataFromDB(satName);
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+            Satellite.Satellite satellite;
+            command.CommandText = String.Format("SELECT * FROM {0} WHERE name='{1}';",
+                Constants.SatDB, satName);
+            using (SQLiteDataReader read = command.ExecuteReader())
+            {
+                while (read.Read())
+                {
+                    satellite = new Satellite.Satellite(
+                            read.GetString(0),
+                            tle,
+                            read.GetInt32(2),
+                            read.GetInt32(3) );
+                    return satellite;
+                }
+            }
             return null;
+        }
+
+        //! Update Satellite Storage
+        /*! 
+           \param string NoradID of Satellite
+        */
+        public void updateSatelliteStorage(string satName, long storageSize, int StorageType)
+        {
+            if (!isConnected)
+            {
+                connectDB();
+            }
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+            command.CommandText = String.Format(
+                Constants.updateSingleSatellitStorage, storageSize, StorageType, satName);
+            command.ExecuteNonQuery();
         }
 
         //! Delete Satellite from Database
@@ -553,5 +604,31 @@ namespace MARRSS.DataBase
         {
             return isConnected;
         }
+
+        public void updateDB()
+        {
+            if (!isConnected)
+            {
+                connectDB();
+            }
+            //dataBase Version 0 update to Version 1
+            SQLiteCommand command1 = new SQLiteCommand(m_dbConnection);
+            command1.CommandText = String.Format(
+                Constants.updateDB1);
+            command1.ExecuteNonQuery();
+            SQLiteCommand command2 = new SQLiteCommand(m_dbConnection);
+            command2.CommandText = String.Format(
+                Constants.updateDB2);
+            command2.ExecuteNonQuery();
+
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+            command.CommandText = String.Format(
+                Constants.updateALLSatellitStorage,
+                512, 2);
+            command.ExecuteNonQuery();
+
+            Properties.Settings.Default.db_version = Constants.dbVersion;
+        }
+
     }
 }

@@ -55,6 +55,8 @@
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.formTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -130,9 +132,11 @@
             this.buttonSaveImage = new System.Windows.Forms.Button();
             this.buttonReDraw = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label50 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.SatLabel5 = new System.Windows.Forms.Label();
             this.SatLabel4 = new System.Windows.Forms.Label();
@@ -145,6 +149,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.satelliteNameLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.satelliteDataGrid = new System.Windows.Forms.DataGridView();
             this.Satellite = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -152,6 +157,7 @@
             this.contextSatDb = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label51 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -165,11 +171,13 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.staDataGridView = new System.Windows.Forms.DataGridView();
             this.Station = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextStationDB = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -178,13 +186,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.testingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.formTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboBoxSatelliteStorage = new System.Windows.Forms.ComboBox();
+            this.satelliteStorageUpdateButton = new System.Windows.Forms.Button();
+            this.onBoardStoargeSizeText = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -203,21 +207,22 @@
             this.contextStations.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.satelliteDataGrid)).BeginInit();
             this.contextSatDb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).BeginInit();
             this.contextStationDB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -392,21 +397,36 @@
             // documentationToolStripMenuItem
             // 
             this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
-            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.documentationToolStripMenuItem.Text = "Wiki";
             this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(104, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // testingToolStripMenuItem
+            // 
+            this.testingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.formTestToolStripMenuItem});
+            this.testingToolStripMenuItem.Name = "testingToolStripMenuItem";
+            this.testingToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.testingToolStripMenuItem.Text = "Testing";
+            // 
+            // formTestToolStripMenuItem
+            // 
+            this.formTestToolStripMenuItem.Name = "formTestToolStripMenuItem";
+            this.formTestToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.formTestToolStripMenuItem.Text = "formTest";
+            this.formTestToolStripMenuItem.Click += new System.EventHandler(this.formTestToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -1221,6 +1241,15 @@
             this.panel5.Size = new System.Drawing.Size(988, 539);
             this.panel5.TabIndex = 1;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(50, 583);
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label50);
@@ -1246,6 +1275,10 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.onBoardStoargeSizeText);
+            this.panel4.Controls.Add(this.satelliteStorageUpdateButton);
+            this.panel4.Controls.Add(this.comboBoxSatelliteStorage);
+            this.panel4.Controls.Add(this.label3);
             this.panel4.Controls.Add(this.panel10);
             this.panel4.Controls.Add(this.SatLabel5);
             this.panel4.Controls.Add(this.SatLabel4);
@@ -1263,6 +1296,15 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(997, 172);
             this.panel4.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(586, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Onboard storage:";
             // 
             // panel10
             // 
@@ -1382,6 +1424,19 @@
             this.satelliteNameLabel.TabIndex = 2;
             this.satelliteNameLabel.Text = "Sat. Name";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.ErrorImage = global::MARRSS.Properties.Resources.uwe3;
+            this.pictureBox1.Image = global::MARRSS.Properties.Resources.uwe3;
+            this.pictureBox1.Location = new System.Drawing.Point(48, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(182, 153);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1442,6 +1497,16 @@
             this.toolStripMenuItem10.Size = new System.Drawing.Size(154, 22);
             this.toolStripMenuItem10.Text = "Delete Selected";
             this.toolStripMenuItem10.Click += new System.EventHandler(this.toolStripMenuItem10_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::MARRSS.Properties.Resources.worldsmaller;
+            this.pictureBox4.Location = new System.Drawing.Point(301, 182);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(691, 402);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 3;
+            this.pictureBox4.TabStop = false;
             // 
             // tabPage4
             // 
@@ -1582,6 +1647,18 @@
             this.label20.TabIndex = 2;
             this.label20.Text = "StationName";
             // 
+            // pictureBox5
+            // 
+            this.pictureBox5.BackColor = System.Drawing.Color.LightGray;
+            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox5.ErrorImage = global::MARRSS.Properties.Resources.uwe3;
+            this.pictureBox5.Location = new System.Drawing.Point(48, 12);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(182, 153);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 0;
+            this.pictureBox5.TabStop = false;
+            // 
             // panel7
             // 
             this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1632,6 +1709,16 @@
             this.deleteSelectedToolStripMenuItem.Text = "Delete Selected";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::MARRSS.Properties.Resources.worldsmaller;
+            this.pictureBox3.Location = new System.Drawing.Point(301, 182);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(691, 402);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
+            // 
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
@@ -1647,74 +1734,56 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // pictureBox2
+            // comboBoxSatelliteStorage
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(50, 583);
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
+            this.comboBoxSatelliteStorage.FormattingEnabled = true;
+            this.comboBoxSatelliteStorage.Items.AddRange(new object[] {
+            "B      (Byte)",
+            "kB    (kilo Byte)",
+            "MB  (MegaByte)",
+            "GB   (GigaByte)",
+            "TB   (TerraByte)"});
+            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(759, 41);
+            this.comboBoxSatelliteStorage.Name = "comboBoxSatelliteStorage";
+            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(118, 21);
+            this.comboBoxSatelliteStorage.TabIndex = 21;
             // 
-            // pictureBox1
+            // satelliteStorageUpdateButton
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.ErrorImage = global::MARRSS.Properties.Resources.uwe3;
-            this.pictureBox1.Image = global::MARRSS.Properties.Resources.uwe3;
-            this.pictureBox1.Location = new System.Drawing.Point(48, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(182, 153);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.satelliteStorageUpdateButton.Location = new System.Drawing.Point(913, 142);
+            this.satelliteStorageUpdateButton.Name = "satelliteStorageUpdateButton";
+            this.satelliteStorageUpdateButton.Size = new System.Drawing.Size(70, 23);
+            this.satelliteStorageUpdateButton.TabIndex = 22;
+            this.satelliteStorageUpdateButton.Text = "Update";
+            this.satelliteStorageUpdateButton.UseVisualStyleBackColor = true;
+            this.satelliteStorageUpdateButton.Click += new System.EventHandler(this.satelliteStorageUpdateButton_Click);
             // 
-            // pictureBox4
+            // onBoardStoargeSizeText
             // 
-            this.pictureBox4.Image = global::MARRSS.Properties.Resources.worldsmaller;
-            this.pictureBox4.Location = new System.Drawing.Point(301, 182);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(691, 402);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 3;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.BackColor = System.Drawing.Color.LightGray;
-            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox5.ErrorImage = global::MARRSS.Properties.Resources.uwe3;
-            this.pictureBox5.Location = new System.Drawing.Point(48, 12);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(182, 153);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 0;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::MARRSS.Properties.Resources.worldsmaller;
-            this.pictureBox3.Location = new System.Drawing.Point(301, 182);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(691, 402);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
-            // testingToolStripMenuItem
-            // 
-            this.testingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.formTestToolStripMenuItem});
-            this.testingToolStripMenuItem.Name = "testingToolStripMenuItem";
-            this.testingToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.testingToolStripMenuItem.Text = "Testing";
-            // 
-            // formTestToolStripMenuItem
-            // 
-            this.formTestToolStripMenuItem.Name = "formTestToolStripMenuItem";
-            this.formTestToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.formTestToolStripMenuItem.Text = "formTest";
-            this.formTestToolStripMenuItem.Click += new System.EventHandler(this.formTestToolStripMenuItem_Click);
+            this.onBoardStoargeSizeText.Increment = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(681, 41);
+            this.onBoardStoargeSizeText.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Name = "onBoardStoargeSizeText";
+            this.onBoardStoargeSizeText.Size = new System.Drawing.Size(68, 20);
+            this.onBoardStoargeSizeText.TabIndex = 23;
+            this.onBoardStoargeSizeText.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
             // 
             // Main
             // 
@@ -1761,25 +1830,26 @@
             this.contextStations.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.satelliteDataGrid)).EndInit();
             this.contextSatDb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).EndInit();
             this.contextStationDB.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1942,5 +2012,9 @@
         private System.Windows.Forms.RadioButton radioHillClimber;
         private System.Windows.Forms.ToolStripMenuItem testingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem formTestToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button satelliteStorageUpdateButton;
+        private System.Windows.Forms.ComboBox comboBoxSatelliteStorage;
+        private System.Windows.Forms.NumericUpDown onBoardStoargeSizeText;
     }
 }

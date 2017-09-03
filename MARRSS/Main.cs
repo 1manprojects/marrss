@@ -18,6 +18,7 @@ using System.Media;
 
 using MARRSS.Performance;
 using MARRSS.Scheduler;
+using MARRSS.Satellite;
 
 namespace MARRSS
 {
@@ -58,6 +59,7 @@ namespace MARRSS
             radioGenetic.PerformClick();
 
             comboScenarioBox.SelectedIndex = 0;
+            comboBoxSatelliteStorage.SelectedIndex = 2;
             //set up current time
             DateTime time = DateTime.UtcNow;
             string format = "dd-MM-yyyy HH:mm";
@@ -569,7 +571,13 @@ namespace MARRSS
             {
                 satelliteNameLabel.Text = satelliteDataGrid.SelectedRows[0].Cells[0].Value.ToString();
 
-                One_Sgp4.Tle tle = _MainDataBase.getTleDataFromDB(satelliteNameLabel.Text);
+                Satellite.Satellite sat = _MainDataBase.getSatelliteFromDB(satelliteNameLabel.Text);
+                One_Sgp4.Tle tle = sat.getTleData();
+                //One_Sgp4.Tle tle = _MainDataBase.getTleDataFromDB(satelliteNameLabel.Text);
+
+                onBoardStoargeSizeText.Value = sat.getStoredData().getMaxDataSize();
+                comboBoxSatelliteStorage.SelectedIndex = sat.getStoredData().getSizeType();
+
                 if (tle.getStartYear() < 85)
                 {
                     if (tle.getStartYear() > 10)
@@ -1325,6 +1333,22 @@ namespace MARRSS
         {
             Forms.NoteForm note = new Forms.NoteForm("Testing", "this is a test to demonstrate the functionality");
             note.ShowDialog();
+        }
+
+        private void satelliteStorageUpdateButton_Click(object sender, EventArgs e)
+        {
+            string satName = satelliteNameLabel.Text;
+            try
+            {
+                long size = (long)onBoardStoargeSizeText.Value;
+                _MainDataBase.updateSatelliteStorage(satName, size, comboBoxSatelliteStorage.SelectedIndex);
+            }
+            catch
+            {
+                MessageBox.Show("Invalid Input for Satellite Onboard Storage",
+                        "ERROR",
+                        MessageBoxButtons.OK);
+            }
         }
     }
 }

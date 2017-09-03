@@ -28,6 +28,18 @@ namespace MARRSS.Global
 
         //! Data Konstructor
         /*!
+            \param long Max available Storage
+            \param Structs.DataSize Byte, KByte, MByte, GByte, TByte
+        */
+        public Data(long maxStorage = 0, Structs.DataSize size = Structs.DataSize.BYTE)
+        {
+            dataCount = 0;
+            type = Convert.ToInt32(size);
+            maxDataStorage = maxStorage;
+        }
+
+        //! Data Konstructor
+        /*!
             \param long used Storage
             \param long Max available Storage
             \param Structs.DataSize Byte, KByte, MByte, GByte, TByte
@@ -70,6 +82,24 @@ namespace MARRSS.Global
                 
             }
             return dataCount;
+        }
+
+        //! Get Maximum Storage
+        /*!
+            \return long max Storage space on satellite
+        */
+        public long getMaxDataSize()
+        {
+            return maxDataStorage;
+        }
+
+        //! Get Storage Type
+        /*!
+            \return int type 0=B,1=kB,2=MB,3=GB,4=TB
+        */
+        public int getSizeType()
+        {
+            return type;
         }
 
         //! Get Maximum Storage in Byte
