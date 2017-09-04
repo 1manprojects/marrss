@@ -166,6 +166,12 @@
     <Compile Include="Forms\SatelliteForm.Designer.cs">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ScenarioCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ScenarioCreator.Designer.cs">
+      <DependentUpon>ScenarioCreator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,8 +188,8 @@
     <Compile Include="Definition\ContactWindowsVector.cs" />
     <Compile Include="Definition\GeoCoordinate.cs" />
     <Compile Include="Drawer\ContactsDrawer.cs" />
-    <Compile Include="Global\Data.cs" />
-    <Compile Include="Global\DataFunctions.cs" />
+    <Compile Include="Satellite\Data.cs" />
+    <Compile Include="Satellite\DataFunctions.cs" />
     <Compile Include="Global\Funktions.cs" />
     <Compile Include="Ground\Antenna.cs" />
     <Compile Include="Global\CancelException.cs" />
@@ -242,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SatelliteForm.resx">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ScenarioCreator.resx">
+      <DependentUpon>ScenarioCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
