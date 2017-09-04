@@ -53,7 +53,7 @@ namespace MARRSS.DataBase
             else
             {
                 //get Database Version
-                if (Properties.Settings.Default.db_version < Constants.dbVersion)
+                if (getDbVersion() < Constants.dbVersion)
                 {
                     DialogResult result = MessageBox.Show("The database needs to be Updated. \nThis will add 500 MB storage to all satellites in the database.",
                         "DataBase Update",
@@ -92,7 +92,6 @@ namespace MARRSS.DataBase
         */
         public bool createNewDatabases()
         {
-            
             SQLiteConnection.CreateFile(_dbName);
             m_dbConnection = new SQLiteConnection("Data Source=" + _dbName + ";Version=3;");
             m_dbConnection.Open();
@@ -103,6 +102,12 @@ namespace MARRSS.DataBase
             command.CommandText = Constants.creStaTab;
             command.ExecuteNonQuery();
             command.CommandText = Constants.creTleTab;
+            command.ExecuteNonQuery();
+            command.CommandText = Constants.creVersionTab;
+            command.ExecuteNonQuery();
+            command.CommandText = String.Format(
+                "INSERT INTO {0} (version, versionNum) Values ('{1}', '{2}')",
+                Constants.verDB, "dbVersion", Constants.dbVersion);
             command.ExecuteNonQuery();
             m_dbConnection.Close();
             isConnected = false;
@@ -632,6 +637,39 @@ namespace MARRSS.DataBase
             return res;
         }
 
+        //! check DatabaseVersion
+        /*! 
+           \return int version number
+        */
+        public int getDbVersion()
+        {
+            if (!isConnected)
+            {
+                connectDB();
+            }
+            int version = 0;
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+                command.CommandText = String.Format(
+                    "SELECT versionNum FROM {0} WHERE version='dbVersion'",
+                    Constants.verDB,
+                    Constants.SatDB);
+                using (SQLiteDataReader read = command.ExecuteReader())
+                {
+                    while (read.Read())
+                    {
+                        version = read.GetInt32(0);
+                    }
+                }
+                return version;
+            }
+            catch
+            {
+                return version;
+            }
+        }
+
         //! check if database is connected
         /*! 
            \return bool true if database connection is oben
@@ -656,8 +694,14 @@ namespace MARRSS.DataBase
             command2.CommandText = String.Format(
                 Constants.updateDB2);
             command2.ExecuteNonQuery();
-
             SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+            command.CommandText = Constants.creVersionTab;
+            command.ExecuteNonQuery();
+            command.CommandText = String.Format(
+                "INSERT INTO {0} (version, versionNum) Values ('{1}', '{2}')",
+                Constants.verDB, "dbVersion", Constants.dbVersion);
+            command.ExecuteNonQuery();
+            command = new SQLiteCommand(m_dbConnection);
             command.CommandText = String.Format(
                 Constants.updateALLSatellitStorage,
                 512, 2);

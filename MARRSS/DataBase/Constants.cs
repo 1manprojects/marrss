@@ -34,12 +34,14 @@ namespace MARRSS.DataBase
         public const string SatDB = "SatelliteTable";
         public const string StationDB = "StationsTable";
         public const string TleDB = "TleTable";
+        public const string verDB = "versionTable";
 
         //Calls for creating Database and Tables
         //Satellite Name, Norad ID, Storage Size, enum DataSize : int
         public const string creSatTab = "create table SatelliteTable(name TEXT, noradID TEXT, storage INT, dataSize INT)";
         public const string creStaTab = "create table StationsTable(name TEXT, lat REAL, long REAL, hight REAL, nrOfSat INT)";
         public const string creTleTab = "create table TleTable(satName TEXT, noradID TEXT, clasification INT, startYear INT, startNr INT, piece TEXT, epochY INT, epochD REAL, firstMeanM REAL, secMeanM REAl, drag REAL, ephemeris REAL, setNr INT, check1 INT, satNr INT, inclination REAL, rightAscen REAL, eccent REAL, perigee REAL, meanAnomoly REAL, meanMotion REAL, relevation REAL, check2 INT)";
+        public const string creVersionTab = "create table versionTable(version TEXT, versionNum INT)";
 
         //Calls for Inserting Data into Tables
         public const string insertTle = "INSERT INTO {0} (satName, noradID, clasification, startYear, startNr, piece, epochY, epochD, firstMeanM, secMeanM, drag, ephemeris, setNr, check1, satNr, inclination, rightAscen, eccent, perigee, meanAnomoly, meanMotion, relevation, check2) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', '{23}' )";

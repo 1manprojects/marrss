@@ -50,6 +50,18 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.settingsLocationText = new System.Windows.Forms.Label();
+            this.dbPanel = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.databaseTextBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.EFTPanel = new System.Windows.Forms.Panel();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.FairPanel = new System.Windows.Forms.Panel();
+            this.fairBruteForceCheckbox = new System.Windows.Forms.CheckBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
             this.GeneticPanel = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -114,18 +126,6 @@
             this.AutoScheduleCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoContactsCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoSaveCheckBox = new System.Windows.Forms.CheckBox();
-            this.dbPanel = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.databaseTextBox = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.EFTPanel = new System.Windows.Forms.Panel();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.FairPanel = new System.Windows.Forms.Panel();
-            this.fairBruteForceCheckbox = new System.Windows.Forms.CheckBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
             this.applySettingButton = new System.Windows.Forms.Button();
             this.cancelSettingsButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
@@ -134,6 +134,9 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.dbPanel.SuspendLayout();
+            this.EFTPanel.SuspendLayout();
+            this.FairPanel.SuspendLayout();
             this.GeneticPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.genMaxTime)).BeginInit();
@@ -149,9 +152,6 @@
             this.tlegroupBox.SuspendLayout();
             this.LoggingPanel.SuspendLayout();
             this.GlobalPanel.SuspendLayout();
-            this.dbPanel.SuspendLayout();
-            this.EFTPanel.SuspendLayout();
-            this.FairPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -238,6 +238,116 @@
             this.settingsLocationText.TabIndex = 0;
             this.settingsLocationText.Text = "Global - Settings";
             this.settingsLocationText.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // dbPanel
+            // 
+            this.dbPanel.Controls.Add(this.label13);
+            this.dbPanel.Controls.Add(this.button3);
+            this.dbPanel.Controls.Add(this.databaseTextBox);
+            this.dbPanel.Controls.Add(this.label14);
+            this.dbPanel.Location = new System.Drawing.Point(6, 72);
+            this.dbPanel.Name = "dbPanel";
+            this.dbPanel.Size = new System.Drawing.Size(560, 377);
+            this.dbPanel.TabIndex = 31;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(32, 77);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(306, 13);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "A restart of the application is required for changes to take effekt\r\n";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(512, 34);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(27, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "..";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // databaseTextBox
+            // 
+            this.databaseTextBox.Location = new System.Drawing.Point(32, 38);
+            this.databaseTextBox.Name = "databaseTextBox";
+            this.databaseTextBox.Size = new System.Drawing.Size(461, 20);
+            this.databaseTextBox.TabIndex = 11;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 17);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(79, 13);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "DataBase Path";
+            // 
+            // EFTPanel
+            // 
+            this.EFTPanel.Controls.Add(this.label48);
+            this.EFTPanel.Controls.Add(this.label52);
+            this.EFTPanel.Location = new System.Drawing.Point(6, 72);
+            this.EFTPanel.Name = "EFTPanel";
+            this.EFTPanel.Size = new System.Drawing.Size(560, 377);
+            this.EFTPanel.TabIndex = 30;
+            // 
+            // label48
+            // 
+            this.label48.Location = new System.Drawing.Point(20, 36);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(244, 71);
+            this.label48.TabIndex = 11;
+            this.label48.Text = "This Greedy scheduler selects the next best solution based on the contact with th" +
+    "e\r\n  - earliest finish time\r\n  - and / or priority";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(8, 17);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(140, 13);
+            this.label52.TabIndex = 10;
+            this.label52.Text = "Earliest Finish Time - Greedy";
+            // 
+            // FairPanel
+            // 
+            this.FairPanel.Controls.Add(this.fairBruteForceCheckbox);
+            this.FairPanel.Controls.Add(this.label57);
+            this.FairPanel.Controls.Add(this.label46);
+            this.FairPanel.Location = new System.Drawing.Point(6, 72);
+            this.FairPanel.Name = "FairPanel";
+            this.FairPanel.Size = new System.Drawing.Size(560, 377);
+            this.FairPanel.TabIndex = 0;
+            // 
+            // fairBruteForceCheckbox
+            // 
+            this.fairBruteForceCheckbox.AutoSize = true;
+            this.fairBruteForceCheckbox.Location = new System.Drawing.Point(11, 194);
+            this.fairBruteForceCheckbox.Name = "fairBruteForceCheckbox";
+            this.fairBruteForceCheckbox.Size = new System.Drawing.Size(279, 17);
+            this.fairBruteForceCheckbox.TabIndex = 11;
+            this.fairBruteForceCheckbox.Text = "use pseudo Brute Force to calculate optimal schedule";
+            this.fairBruteForceCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label57
+            // 
+            this.label57.Location = new System.Drawing.Point(8, 30);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(462, 157);
+            this.label57.TabIndex = 10;
+            this.label57.Text = resources.GetString("label57.Text");
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(8, 7);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(41, 13);
+            this.label46.TabIndex = 9;
+            this.label46.Text = "Greedy";
             // 
             // GeneticPanel
             // 
@@ -995,116 +1105,6 @@
             this.AutoSaveCheckBox.UseVisualStyleBackColor = true;
             this.AutoSaveCheckBox.CheckedChanged += new System.EventHandler(this.AutoSaveCheckBox_CheckedChanged);
             // 
-            // dbPanel
-            // 
-            this.dbPanel.Controls.Add(this.label13);
-            this.dbPanel.Controls.Add(this.button3);
-            this.dbPanel.Controls.Add(this.databaseTextBox);
-            this.dbPanel.Controls.Add(this.label14);
-            this.dbPanel.Location = new System.Drawing.Point(6, 72);
-            this.dbPanel.Name = "dbPanel";
-            this.dbPanel.Size = new System.Drawing.Size(560, 377);
-            this.dbPanel.TabIndex = 31;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(32, 77);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(306, 13);
-            this.label13.TabIndex = 13;
-            this.label13.Text = "A restart of the application is required for changes to take effekt\r\n";
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(512, 34);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(27, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "..";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // databaseTextBox
-            // 
-            this.databaseTextBox.Location = new System.Drawing.Point(32, 38);
-            this.databaseTextBox.Name = "databaseTextBox";
-            this.databaseTextBox.Size = new System.Drawing.Size(461, 20);
-            this.databaseTextBox.TabIndex = 11;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 17);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(79, 13);
-            this.label14.TabIndex = 10;
-            this.label14.Text = "DataBase Path";
-            // 
-            // EFTPanel
-            // 
-            this.EFTPanel.Controls.Add(this.label48);
-            this.EFTPanel.Controls.Add(this.label52);
-            this.EFTPanel.Location = new System.Drawing.Point(6, 72);
-            this.EFTPanel.Name = "EFTPanel";
-            this.EFTPanel.Size = new System.Drawing.Size(560, 377);
-            this.EFTPanel.TabIndex = 30;
-            // 
-            // label48
-            // 
-            this.label48.Location = new System.Drawing.Point(20, 36);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(244, 71);
-            this.label48.TabIndex = 11;
-            this.label48.Text = "This Greedy scheduler selects the next best solution based on the contact with th" +
-    "e\r\n  - earliest finish time\r\n  - and / or priority";
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(8, 17);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(140, 13);
-            this.label52.TabIndex = 10;
-            this.label52.Text = "Earliest Finish Time - Greedy";
-            // 
-            // FairPanel
-            // 
-            this.FairPanel.Controls.Add(this.fairBruteForceCheckbox);
-            this.FairPanel.Controls.Add(this.label57);
-            this.FairPanel.Controls.Add(this.label46);
-            this.FairPanel.Location = new System.Drawing.Point(6, 72);
-            this.FairPanel.Name = "FairPanel";
-            this.FairPanel.Size = new System.Drawing.Size(560, 377);
-            this.FairPanel.TabIndex = 0;
-            // 
-            // fairBruteForceCheckbox
-            // 
-            this.fairBruteForceCheckbox.AutoSize = true;
-            this.fairBruteForceCheckbox.Location = new System.Drawing.Point(11, 194);
-            this.fairBruteForceCheckbox.Name = "fairBruteForceCheckbox";
-            this.fairBruteForceCheckbox.Size = new System.Drawing.Size(279, 17);
-            this.fairBruteForceCheckbox.TabIndex = 11;
-            this.fairBruteForceCheckbox.Text = "use pseudo Brute Force to calculate optimal schedule";
-            this.fairBruteForceCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // label57
-            // 
-            this.label57.Location = new System.Drawing.Point(8, 30);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(462, 157);
-            this.label57.TabIndex = 10;
-            this.label57.Text = resources.GetString("label57.Text");
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(8, 7);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(41, 13);
-            this.label46.TabIndex = 9;
-            this.label46.Text = "Greedy";
-            // 
             // applySettingButton
             // 
             this.applySettingButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1158,6 +1158,12 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.dbPanel.ResumeLayout(false);
+            this.dbPanel.PerformLayout();
+            this.EFTPanel.ResumeLayout(false);
+            this.EFTPanel.PerformLayout();
+            this.FairPanel.ResumeLayout(false);
+            this.FairPanel.PerformLayout();
             this.GeneticPanel.ResumeLayout(false);
             this.GeneticPanel.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1182,12 +1188,6 @@
             this.LoggingPanel.PerformLayout();
             this.GlobalPanel.ResumeLayout(false);
             this.GlobalPanel.PerformLayout();
-            this.dbPanel.ResumeLayout(false);
-            this.dbPanel.PerformLayout();
-            this.EFTPanel.ResumeLayout(false);
-            this.EFTPanel.PerformLayout();
-            this.FairPanel.ResumeLayout(false);
-            this.FairPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
 
