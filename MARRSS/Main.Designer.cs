@@ -136,6 +136,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label50 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.onBoardStoargeSizeText = new System.Windows.Forms.NumericUpDown();
+            this.satelliteStorageUpdateButton = new System.Windows.Forms.Button();
+            this.comboBoxSatelliteStorage = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.SatLabel5 = new System.Windows.Forms.Label();
@@ -186,9 +189,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.comboBoxSatelliteStorage = new System.Windows.Forms.ComboBox();
-            this.satelliteStorageUpdateButton = new System.Windows.Forms.Button();
-            this.onBoardStoargeSizeText = new System.Windows.Forms.NumericUpDown();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -210,6 +211,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.satelliteDataGrid)).BeginInit();
@@ -222,7 +224,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).BeginInit();
             this.contextStationDB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1297,6 +1298,57 @@
             this.panel4.Size = new System.Drawing.Size(997, 172);
             this.panel4.TabIndex = 2;
             // 
+            // onBoardStoargeSizeText
+            // 
+            this.onBoardStoargeSizeText.Increment = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(681, 41);
+            this.onBoardStoargeSizeText.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Name = "onBoardStoargeSizeText";
+            this.onBoardStoargeSizeText.Size = new System.Drawing.Size(68, 20);
+            this.onBoardStoargeSizeText.TabIndex = 23;
+            this.onBoardStoargeSizeText.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+            // 
+            // satelliteStorageUpdateButton
+            // 
+            this.satelliteStorageUpdateButton.Location = new System.Drawing.Point(913, 142);
+            this.satelliteStorageUpdateButton.Name = "satelliteStorageUpdateButton";
+            this.satelliteStorageUpdateButton.Size = new System.Drawing.Size(70, 23);
+            this.satelliteStorageUpdateButton.TabIndex = 22;
+            this.satelliteStorageUpdateButton.Text = "Update";
+            this.satelliteStorageUpdateButton.UseVisualStyleBackColor = true;
+            this.satelliteStorageUpdateButton.Click += new System.EventHandler(this.satelliteStorageUpdateButton_Click);
+            // 
+            // comboBoxSatelliteStorage
+            // 
+            this.comboBoxSatelliteStorage.FormattingEnabled = true;
+            this.comboBoxSatelliteStorage.Items.AddRange(new object[] {
+            "B      (Byte)",
+            "kB    (kilo Byte)",
+            "MB  (MegaByte)",
+            "GB   (GigaByte)",
+            "TB   (TerraByte)"});
+            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(759, 41);
+            this.comboBoxSatelliteStorage.Name = "comboBoxSatelliteStorage";
+            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(118, 21);
+            this.comboBoxSatelliteStorage.TabIndex = 21;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -1734,57 +1786,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // comboBoxSatelliteStorage
-            // 
-            this.comboBoxSatelliteStorage.FormattingEnabled = true;
-            this.comboBoxSatelliteStorage.Items.AddRange(new object[] {
-            "B      (Byte)",
-            "kB    (kilo Byte)",
-            "MB  (MegaByte)",
-            "GB   (GigaByte)",
-            "TB   (TerraByte)"});
-            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(759, 41);
-            this.comboBoxSatelliteStorage.Name = "comboBoxSatelliteStorage";
-            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(118, 21);
-            this.comboBoxSatelliteStorage.TabIndex = 21;
-            // 
-            // satelliteStorageUpdateButton
-            // 
-            this.satelliteStorageUpdateButton.Location = new System.Drawing.Point(913, 142);
-            this.satelliteStorageUpdateButton.Name = "satelliteStorageUpdateButton";
-            this.satelliteStorageUpdateButton.Size = new System.Drawing.Size(70, 23);
-            this.satelliteStorageUpdateButton.TabIndex = 22;
-            this.satelliteStorageUpdateButton.Text = "Update";
-            this.satelliteStorageUpdateButton.UseVisualStyleBackColor = true;
-            this.satelliteStorageUpdateButton.Click += new System.EventHandler(this.satelliteStorageUpdateButton_Click);
-            // 
-            // onBoardStoargeSizeText
-            // 
-            this.onBoardStoargeSizeText.Increment = new decimal(new int[] {
-            128,
-            0,
-            0,
-            0});
-            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(681, 41);
-            this.onBoardStoargeSizeText.Maximum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.onBoardStoargeSizeText.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.onBoardStoargeSizeText.Name = "onBoardStoargeSizeText";
-            this.onBoardStoargeSizeText.Size = new System.Drawing.Size(68, 20);
-            this.onBoardStoargeSizeText.TabIndex = 23;
-            this.onBoardStoargeSizeText.Value = new decimal(new int[] {
-            512,
-            0,
-            0,
-            0});
-            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
@@ -1835,6 +1836,7 @@
             this.tabPage3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.satelliteDataGrid)).EndInit();
@@ -1849,7 +1851,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).EndInit();
             this.contextStationDB.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2016,5 +2017,6 @@
         private System.Windows.Forms.Button satelliteStorageUpdateButton;
         private System.Windows.Forms.ComboBox comboBoxSatelliteStorage;
         private System.Windows.Forms.NumericUpDown onBoardStoargeSizeText;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
     }
 }

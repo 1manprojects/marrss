@@ -166,11 +166,17 @@
     <Compile Include="Forms\SatelliteForm.Designer.cs">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ScenarioCreator.cs">
+    <Compile Include="Forms\ScenarioEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ScenarioCreator.Designer.cs">
-      <DependentUpon>ScenarioCreator.cs</DependentUpon>
+    <Compile Include="Forms\ScenarioEditor.Designer.cs">
+      <DependentUpon>ScenarioEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Scenarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Scenarios.Designer.cs">
+      <DependentUpon>Scenarios.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
@@ -214,6 +220,7 @@
     <Compile Include="RunScheduler.cs" />
     <Compile Include="Satellite\Satellite.cs" />
     <Compile Include="Ground\Station.cs" />
+    <Compile Include="Scenarios\ScenarioClass.cs" />
     <Compile Include="SchedulerData\ContactWindow.cs" />
     <Compile Include="Scheduler\ExampleScheduler.cs" />
     <Compile Include="Scheduler\GreedyScheduler.cs" />
@@ -249,8 +256,11 @@
     <EmbeddedResource Include="Forms\SatelliteForm.resx">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ScenarioCreator.resx">
-      <DependentUpon>ScenarioCreator.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ScenarioEditor.resx">
+      <DependentUpon>ScenarioEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Scenarios.resx">
+      <DependentUpon>Scenarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>

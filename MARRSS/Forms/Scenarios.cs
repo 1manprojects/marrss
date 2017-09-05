@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MARRSS.Forms
 {
-    public partial class ScenarioCreator : Form
+    public partial class Scenarios : Form
     {
-        public ScenarioCreator()
+        public Scenarios()
         {
             InitializeComponent();
         }
