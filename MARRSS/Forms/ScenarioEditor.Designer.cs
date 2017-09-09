@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.scenContacts = new System.Windows.Forms.Button();
-            this.senDone = new System.Windows.Forms.Button();
+            this.scenDone = new System.Windows.Forms.Button();
             this.scenDescription = new System.Windows.Forms.Button();
             this.scenStations = new System.Windows.Forms.Button();
             this.scenSatellites = new System.Windows.Forms.Button();
@@ -44,9 +44,20 @@
             this.scenarioNameTextBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.dataToAddValueBox = new System.Windows.Forms.NumericUpDown();
+            this.dataFunktionComboBox = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.priorityComboBox = new System.Windows.Forms.ComboBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.usedStorageValueNum = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.onBoardStoargeSizeText = new System.Windows.Forms.NumericUpDown();
+            this.comboBoxSatelliteStorage = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.homeStationComboBox = new System.Windows.Forms.ComboBox();
@@ -56,62 +67,51 @@
             this.selectAllSatsButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.nextButton = new System.Windows.Forms.Button();
-            this.backButton = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.onBoardStoargeSizeText = new System.Windows.Forms.NumericUpDown();
-            this.comboBoxSatelliteStorage = new System.Windows.Forms.ComboBox();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.dataFunktionComboBox = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.usedStorageValueNum = new System.Windows.Forms.NumericUpDown();
-            this.dataToAddValueBox = new System.Windows.Forms.NumericUpDown();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.checkedStations = new System.Windows.Forms.CheckedListBox();
             this.selectAllStationsButton = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.minContactValue = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel11 = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.minContactValue = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.label20 = new System.Windows.Forms.Label();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1.SuspendLayout();
             this.scenarioTabControll.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataToAddValueBox)).BeginInit();
             this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.usedStorageValueNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.usedStorageValueNum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataToAddValueBox)).BeginInit();
-            this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minContactValue)).BeginInit();
-            this.panel11.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.SuspendLayout();
@@ -119,7 +119,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.scenContacts);
-            this.panel1.Controls.Add(this.senDone);
+            this.panel1.Controls.Add(this.scenDone);
             this.panel1.Controls.Add(this.scenDescription);
             this.panel1.Controls.Add(this.scenStations);
             this.panel1.Controls.Add(this.scenSatellites);
@@ -139,15 +139,15 @@
             this.scenContacts.Text = "Contacts";
             this.scenContacts.UseVisualStyleBackColor = true;
             // 
-            // senDone
+            // scenDone
             // 
-            this.senDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.senDone.Location = new System.Drawing.Point(3, 243);
-            this.senDone.Name = "senDone";
-            this.senDone.Size = new System.Drawing.Size(121, 42);
-            this.senDone.TabIndex = 1;
-            this.senDone.Text = "Done";
-            this.senDone.UseVisualStyleBackColor = true;
+            this.scenDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.scenDone.Location = new System.Drawing.Point(3, 243);
+            this.scenDone.Name = "scenDone";
+            this.scenDone.Size = new System.Drawing.Size(121, 42);
+            this.scenDone.TabIndex = 1;
+            this.scenDone.Text = "Done";
+            this.scenDone.UseVisualStyleBackColor = true;
             // 
             // scenDescription
             // 
@@ -171,17 +171,18 @@
             // 
             // scenSatellites
             // 
+            this.scenSatellites.BackColor = System.Drawing.Color.WhiteSmoke;
             this.scenSatellites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.scenSatellites.Location = new System.Drawing.Point(3, 51);
             this.scenSatellites.Name = "scenSatellites";
             this.scenSatellites.Size = new System.Drawing.Size(121, 42);
             this.scenSatellites.TabIndex = 1;
             this.scenSatellites.Text = "Satellites";
-            this.scenSatellites.UseVisualStyleBackColor = true;
+            this.scenSatellites.UseVisualStyleBackColor = false;
             // 
             // scenNameButton
             // 
-            this.scenNameButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.scenNameButton.BackColor = System.Drawing.Color.LightSteelBlue;
             this.scenNameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.scenNameButton.Location = new System.Drawing.Point(3, 3);
             this.scenNameButton.Name = "scenNameButton";
@@ -279,6 +280,61 @@
             this.panel3.Size = new System.Drawing.Size(419, 284);
             this.panel3.TabIndex = 8;
             // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.dataToAddValueBox);
+            this.panel7.Controls.Add(this.dataFunktionComboBox);
+            this.panel7.Controls.Add(this.label9);
+            this.panel7.Location = new System.Drawing.Point(212, 183);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(200, 65);
+            this.panel7.TabIndex = 15;
+            // 
+            // dataToAddValueBox
+            // 
+            this.dataToAddValueBox.Location = new System.Drawing.Point(9, 32);
+            this.dataToAddValueBox.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.dataToAddValueBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.dataToAddValueBox.Name = "dataToAddValueBox";
+            this.dataToAddValueBox.Size = new System.Drawing.Size(68, 20);
+            this.dataToAddValueBox.TabIndex = 29;
+            this.dataToAddValueBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dataToAddValueBox.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // dataFunktionComboBox
+            // 
+            this.dataFunktionComboBox.FormattingEnabled = true;
+            this.dataFunktionComboBox.Items.AddRange(new object[] {
+            "second",
+            "...",
+            "...",
+            "..."});
+            this.dataFunktionComboBox.Location = new System.Drawing.Point(82, 31);
+            this.dataFunktionComboBox.Name = "dataFunktionComboBox";
+            this.dataFunktionComboBox.Size = new System.Drawing.Size(115, 21);
+            this.dataFunktionComboBox.TabIndex = 24;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 12);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(83, 13);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "create .. MB per";
+            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.label7);
@@ -312,6 +368,117 @@
             this.priorityComboBox.Name = "priorityComboBox";
             this.priorityComboBox.Size = new System.Drawing.Size(188, 21);
             this.priorityComboBox.TabIndex = 10;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.usedStorageValueNum);
+            this.panel6.Controls.Add(this.label11);
+            this.panel6.Controls.Add(this.label10);
+            this.panel6.Controls.Add(this.onBoardStoargeSizeText);
+            this.panel6.Controls.Add(this.comboBoxSatelliteStorage);
+            this.panel6.Controls.Add(this.label8);
+            this.panel6.Location = new System.Drawing.Point(212, 39);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(200, 138);
+            this.panel6.TabIndex = 14;
+            // 
+            // usedStorageValueNum
+            // 
+            this.usedStorageValueNum.Increment = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.usedStorageValueNum.Location = new System.Drawing.Point(6, 102);
+            this.usedStorageValueNum.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.usedStorageValueNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.usedStorageValueNum.Name = "usedStorageValueNum";
+            this.usedStorageValueNum.Size = new System.Drawing.Size(68, 20);
+            this.usedStorageValueNum.TabIndex = 28;
+            this.usedStorageValueNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.usedStorageValueNum.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 86);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(70, 13);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "Used storage";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 39);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(115, 13);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Max. Storage available";
+            // 
+            // onBoardStoargeSizeText
+            // 
+            this.onBoardStoargeSizeText.Increment = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(4, 55);
+            this.onBoardStoargeSizeText.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.Name = "onBoardStoargeSizeText";
+            this.onBoardStoargeSizeText.Size = new System.Drawing.Size(68, 20);
+            this.onBoardStoargeSizeText.TabIndex = 25;
+            this.onBoardStoargeSizeText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.onBoardStoargeSizeText.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+            this.onBoardStoargeSizeText.ValueChanged += new System.EventHandler(this.onBoardStoargeSizeText_ValueChanged);
+            // 
+            // comboBoxSatelliteStorage
+            // 
+            this.comboBoxSatelliteStorage.FormattingEnabled = true;
+            this.comboBoxSatelliteStorage.Items.AddRange(new object[] {
+            "B      (Byte)",
+            "kB    (kilo Byte)",
+            "MB  (MegaByte)",
+            "GB   (GigaByte)",
+            "TB   (TerraByte)"});
+            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(82, 102);
+            this.comboBoxSatelliteStorage.Name = "comboBoxSatelliteStorage";
+            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(115, 21);
+            this.comboBoxSatelliteStorage.TabIndex = 24;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(117, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Onboard Data Storage:";
             // 
             // panel4
             // 
@@ -398,207 +565,44 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             // 
-            // tabPage4
+            // panel9
             // 
-            this.tabPage4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.tabPage4.Controls.Add(this.panel11);
-            this.tabPage4.Controls.Add(this.panel10);
-            this.tabPage4.Controls.Add(this.label14);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(657, 328);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
+            this.panel9.Controls.Add(this.label13);
+            this.panel9.Controls.Add(this.label19);
+            this.panel9.Location = new System.Drawing.Point(231, 32);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(423, 284);
+            this.panel9.TabIndex = 10;
             // 
-            // nextButton
+            // label13
             // 
-            this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nextButton.Location = new System.Drawing.Point(687, 375);
-            this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(121, 42);
-            this.nextButton.TabIndex = 2;
-            this.nextButton.Text = "Next ->";
-            this.nextButton.UseVisualStyleBackColor = true;
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(145, 138);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(116, 20);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "Coming Soon";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
-            // backButton
+            // label19
             // 
-            this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backButton.Location = new System.Drawing.Point(151, 375);
-            this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(121, 42);
-            this.backButton.TabIndex = 3;
-            this.backButton.Text = "<- Back";
-            this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.label19.Location = new System.Drawing.Point(3, 8);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(403, 28);
+            this.label19.TabIndex = 9;
+            this.label19.Text = "You can edit specific data for each ground station individually by selecting the " +
+    "station in question.\r\n";
             // 
-            // panel6
+            // label12
             // 
-            this.panel6.Controls.Add(this.usedStorageValueNum);
-            this.panel6.Controls.Add(this.label11);
-            this.panel6.Controls.Add(this.label10);
-            this.panel6.Controls.Add(this.onBoardStoargeSizeText);
-            this.panel6.Controls.Add(this.comboBoxSatelliteStorage);
-            this.panel6.Controls.Add(this.label8);
-            this.panel6.Location = new System.Drawing.Point(212, 39);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(200, 138);
-            this.panel6.TabIndex = 14;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 12);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(117, 13);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Onboard Data Storage:";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // onBoardStoargeSizeText
-            // 
-            this.onBoardStoargeSizeText.Increment = new decimal(new int[] {
-            128,
-            0,
-            0,
-            0});
-            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(4, 55);
-            this.onBoardStoargeSizeText.Maximum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.onBoardStoargeSizeText.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.onBoardStoargeSizeText.Name = "onBoardStoargeSizeText";
-            this.onBoardStoargeSizeText.Size = new System.Drawing.Size(68, 20);
-            this.onBoardStoargeSizeText.TabIndex = 25;
-            this.onBoardStoargeSizeText.Value = new decimal(new int[] {
-            512,
-            0,
-            0,
-            0});
-            this.onBoardStoargeSizeText.ValueChanged += new System.EventHandler(this.onBoardStoargeSizeText_ValueChanged);
-            // 
-            // comboBoxSatelliteStorage
-            // 
-            this.comboBoxSatelliteStorage.FormattingEnabled = true;
-            this.comboBoxSatelliteStorage.Items.AddRange(new object[] {
-            "B      (Byte)",
-            "kB    (kilo Byte)",
-            "MB  (MegaByte)",
-            "GB   (GigaByte)",
-            "TB   (TerraByte)"});
-            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(82, 102);
-            this.comboBoxSatelliteStorage.Name = "comboBoxSatelliteStorage";
-            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(115, 21);
-            this.comboBoxSatelliteStorage.TabIndex = 24;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.dataToAddValueBox);
-            this.panel7.Controls.Add(this.dataFunktionComboBox);
-            this.panel7.Controls.Add(this.label9);
-            this.panel7.Location = new System.Drawing.Point(212, 183);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(200, 65);
-            this.panel7.TabIndex = 15;
-            // 
-            // dataFunktionComboBox
-            // 
-            this.dataFunktionComboBox.FormattingEnabled = true;
-            this.dataFunktionComboBox.Items.AddRange(new object[] {
-            "second",
-            "...",
-            "...",
-            "..."});
-            this.dataFunktionComboBox.Location = new System.Drawing.Point(82, 31);
-            this.dataFunktionComboBox.Name = "dataFunktionComboBox";
-            this.dataFunktionComboBox.Size = new System.Drawing.Size(115, 21);
-            this.dataFunktionComboBox.TabIndex = 24;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 12);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(83, 13);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "create .. MB per";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 39);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(115, 13);
-            this.label10.TabIndex = 26;
-            this.label10.Text = "Max. Storage available";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 86);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 13);
-            this.label11.TabIndex = 27;
-            this.label11.Text = "Used storage";
-            // 
-            // usedStorageValueNum
-            // 
-            this.usedStorageValueNum.Increment = new decimal(new int[] {
-            128,
-            0,
-            0,
-            0});
-            this.usedStorageValueNum.Location = new System.Drawing.Point(6, 102);
-            this.usedStorageValueNum.Maximum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.usedStorageValueNum.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.usedStorageValueNum.Name = "usedStorageValueNum";
-            this.usedStorageValueNum.Size = new System.Drawing.Size(68, 20);
-            this.usedStorageValueNum.TabIndex = 28;
-            this.usedStorageValueNum.Value = new decimal(new int[] {
-            512,
-            0,
-            0,
-            0});
-            // 
-            // dataToAddValueBox
-            // 
-            this.dataToAddValueBox.Location = new System.Drawing.Point(9, 32);
-            this.dataToAddValueBox.Maximum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.dataToAddValueBox.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.dataToAddValueBox.Name = "dataToAddValueBox";
-            this.dataToAddValueBox.Size = new System.Drawing.Size(68, 20);
-            this.dataToAddValueBox.TabIndex = 29;
-            this.dataToAddValueBox.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(9, 9);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(276, 20);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Select the ground stations to use";
             // 
             // panel8
             // 
@@ -627,89 +631,17 @@
             this.selectAllStationsButton.Text = "ALL";
             this.selectAllStationsButton.UseVisualStyleBackColor = true;
             // 
-            // label12
+            // tabPage4
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(9, 9);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(276, 20);
-            this.label12.TabIndex = 9;
-            this.label12.Text = "Select the ground stations to use";
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.label13);
-            this.panel9.Controls.Add(this.label19);
-            this.panel9.Location = new System.Drawing.Point(231, 32);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(423, 284);
-            this.panel9.TabIndex = 10;
-            // 
-            // label19
-            // 
-            this.label19.Location = new System.Drawing.Point(3, 8);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(403, 28);
-            this.label19.TabIndex = 9;
-            this.label19.Text = "You can edit specific data for each ground station individually by selecting the " +
-    "station in question.\r\n";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(145, 138);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(116, 20);
-            this.label13.TabIndex = 10;
-            this.label13.Text = "Coming Soon";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(10, 9);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(148, 20);
-            this.label14.TabIndex = 10;
-            this.label14.Text = "Contact Windows";
-            // 
-            // panel10
-            // 
-            this.panel10.Controls.Add(this.label16);
-            this.panel10.Controls.Add(this.minContactValue);
-            this.panel10.Controls.Add(this.label15);
-            this.panel10.Location = new System.Drawing.Point(14, 32);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(200, 58);
-            this.panel10.TabIndex = 11;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(3, 8);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(173, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Minimum Contact Window Duration";
-            // 
-            // minContactValue
-            // 
-            this.minContactValue.Location = new System.Drawing.Point(53, 31);
-            this.minContactValue.Name = "minContactValue";
-            this.minContactValue.Size = new System.Drawing.Size(57, 20);
-            this.minContactValue.TabIndex = 1;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(132, 33);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(44, 13);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Minutes";
+            this.tabPage4.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tabPage4.Controls.Add(this.panel11);
+            this.tabPage4.Controls.Add(this.panel10);
+            this.tabPage4.Controls.Add(this.label14);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(657, 328);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
             // 
             // panel11
             // 
@@ -748,6 +680,57 @@
             this.comboBox1.Size = new System.Drawing.Size(188, 21);
             this.comboBox1.TabIndex = 10;
             // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.label16);
+            this.panel10.Controls.Add(this.minContactValue);
+            this.panel10.Controls.Add(this.label15);
+            this.panel10.Location = new System.Drawing.Point(14, 32);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(200, 58);
+            this.panel10.TabIndex = 11;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(132, 33);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 13);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "Minutes";
+            // 
+            // minContactValue
+            // 
+            this.minContactValue.Location = new System.Drawing.Point(53, 31);
+            this.minContactValue.Name = "minContactValue";
+            this.minContactValue.Size = new System.Drawing.Size(57, 20);
+            this.minContactValue.TabIndex = 1;
+            this.minContactValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.minContactValue.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 8);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(173, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Minimum Contact Window Duration";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(10, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(148, 20);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "Contact Windows";
+            // 
             // tabPage5
             // 
             this.tabPage5.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -760,15 +743,6 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "tabPage5";
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(10, 35);
-            this.richTextBox1.MaxLength = 100;
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(267, 177);
-            this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "Enter a short description here.";
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -778,6 +752,15 @@
             this.label18.Size = new System.Drawing.Size(100, 20);
             this.label18.TabIndex = 11;
             this.label18.Text = "Description";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(10, 35);
+            this.richTextBox1.MaxLength = 100;
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(267, 177);
+            this.richTextBox1.TabIndex = 3;
+            this.richTextBox1.Text = "Enter a short description here.";
             // 
             // tabPage6
             // 
@@ -791,6 +774,15 @@
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "tabPage6";
             // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(10, 49);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
+            this.richTextBox2.Size = new System.Drawing.Size(644, 273);
+            this.richTextBox2.TabIndex = 13;
+            this.richTextBox2.Text = "";
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -801,23 +793,41 @@
             this.label20.TabIndex = 12;
             this.label20.Text = "Summary";
             // 
-            // richTextBox2
+            // nextButton
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(10, 49);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(644, 273);
-            this.richTextBox2.TabIndex = 13;
-            this.richTextBox2.Text = "";
+            this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextButton.Location = new System.Drawing.Point(687, 375);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(121, 42);
+            this.nextButton.TabIndex = 2;
+            this.nextButton.Text = "Next ->";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // backButton
+            // 
+            this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backButton.Location = new System.Drawing.Point(151, 375);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(121, 42);
+            this.backButton.TabIndex = 3;
+            this.backButton.Text = "<- Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // ScenarioEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 431);
+            this.Controls.Add(this.scenarioTabControll);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.nextButton);
-            this.Controls.Add(this.scenarioTabControll);
             this.Controls.Add(this.panel1);
             this.Name = "ScenarioEditor";
             this.Text = "ScenarioEditor";
@@ -828,30 +838,30 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataToAddValueBox)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.usedStorageValueNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.usedStorageValueNum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataToAddValueBox)).EndInit();
-            this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minContactValue)).EndInit();
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
@@ -864,7 +874,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button scenContacts;
-        private System.Windows.Forms.Button senDone;
+        private System.Windows.Forms.Button scenDone;
         private System.Windows.Forms.Button scenDescription;
         private System.Windows.Forms.Button scenStations;
         private System.Windows.Forms.Button scenSatellites;

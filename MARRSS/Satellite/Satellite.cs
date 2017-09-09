@@ -24,6 +24,8 @@ namespace MARRSS.Satellite
         private string name; //!< string satellite name
         private One_Sgp4.Tle tleData; //!< TLE two line element data for the satellite
         private Data dataStorage;
+        private string homeStation;
+        private Structs.priority globalPriority;
 
         //! Satellite constructor.
         /*!
@@ -119,5 +121,34 @@ namespace MARRSS.Satellite
             return dataStorage;
         }
 
+        public void setHomeStation(string nameOfStation)
+        {
+            homeStation = nameOfStation;
+        }
+
+        public string getHomeStation()
+        {
+            return homeStation;
+        }
+
+        public void SetMaxDataStorage(long maxStorageDataSize)
+        {
+            dataStorage.setMaxData(maxStorageDataSize);
+        }
+
+        public void setCurrentlyUsedStorage(long usedDataSize)
+        {
+            dataStorage.setUsedData(usedDataSize);
+        }
+
+        public void setDataSize(Structs.DataSize size)
+        {
+            dataStorage.setDataSizeType(size);
+        }
+
+        public void setGlobalPriority(Structs.priority prio)
+        {
+            globalPriority = prio;
+        }
     }
 }

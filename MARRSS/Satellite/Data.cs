@@ -154,5 +154,20 @@ namespace MARRSS.Global
             }
             return false;
         }
+
+        public void setMaxData(long maxOnboardStorage)
+        {
+            maxDataStorage = maxOnboardStorage;
+        }
+
+        public void setUsedData(long usedData)
+        {
+            dataCount = usedData;
+        }
+
+        public void setDataSizeType(Structs.DataSize dataSizeType)
+        {
+            type = Convert.ToInt32(dataSizeType);
+        }
     }
 }
