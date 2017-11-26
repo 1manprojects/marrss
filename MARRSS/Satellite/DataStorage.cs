@@ -108,6 +108,7 @@ namespace MARRSS.Global
             //internalStorage.Add(packet);
             if (currentData + packet.getStoredData() > maxDataStorageSize)
                 return false;
+            currentData += packet.getStoredData();
             internalStorage.Add(packet);
             return true;
         }
@@ -119,7 +120,10 @@ namespace MARRSS.Global
         */
         public bool removeDataFromStorage(DataPacket packet)
         {
-            currentData -= packet.getStoredData();
+            if (currentData - packet.getStoredData() <= 0)
+                currentData = 0;
+            else
+                currentData -= packet.getStoredData();
             maxFreedData = packet.getStoredData();
             if (currentData < 0)
             {
@@ -129,8 +133,19 @@ namespace MARRSS.Global
             return false;
         }
 
-        public void setMaxData(long maxOnboardStorage)
+        public long getMaxGeneratedData()
         {
+            return maxStoredData;
+        }
+
+        public long getMaxDownladedData()
+        {
+            return maxFreedData;
+        }
+
+        public void setMaxData(long maxOnboardStorage, Structs.DataSize datasize)
+        {
+            dataSizeOfStorage = datasize;
             maxDataStorageSize = maxOnboardStorage;
         }
     }

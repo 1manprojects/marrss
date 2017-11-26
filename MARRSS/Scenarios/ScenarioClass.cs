@@ -47,7 +47,7 @@ namespace MARRSS.Scenarios
             long maxDataStorage, long usedDataStorage, Structs.DataSize dataSize, string homeStation)
         {
             sat.setHomeStation(homeStation);
-            sat.SetMaxDataStorage(maxDataStorage);
+            sat.SetMaxDataStorage(maxDataStorage, dataSize);
 
             sat.setGlobalPriority(priority);
 

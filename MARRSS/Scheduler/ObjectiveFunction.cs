@@ -38,6 +38,9 @@ namespace MARRSS.Scheduler
         //needs to be implemented
         private double val_EarliestData;
 
+        private List<Satellite.Satellite> of_satellites;
+        private List<Ground.Station> of_stations;
+
         public ObjectiveFunction(params Structs.ObjectiveEnum[] objectivesToSchedule)
         {
             objectives = objectivesToSchedule;
@@ -83,8 +86,10 @@ namespace MARRSS.Scheduler
         */
         // Call to calculate Objective Values for Fitness
         public void calculateValues(ContactWindowsVector currentSolution, ContactWindowsVector completeContacts, int numberOfAllContacts,
-            ContactWindow contactToAdd)
+            ContactWindow contactToAdd, List<Satellite.Satellite> satellites, List<Ground.Station> stations)
         {
+            of_satellites = satellites;
+            of_stations = stations;
             currentSolution.add(contactToAdd);
             calculate(currentSolution, calcualteMaxPrioValue(completeContacts), numberOfAllContacts, null, completeContacts);
             currentSolution.deleteAt(currentSolution.Count() - 1);
@@ -115,7 +120,8 @@ namespace MARRSS.Scheduler
            \param int max number of Contacts of the Scheduling problem
            \param int[] population representation of the Genetic scheduler default NULL
         */
-        private void calculate(ContactWindowsVector contactWindows, int priorityValue, int nrOfAllContacts = 0, int[] population = null, ContactWindowsVector allcontactWindows = null)
+        private void calculate(ContactWindowsVector contactWindows, int priorityValue,
+                               int nrOfAllContacts = 0, int[] population = null, ContactWindowsVector allcontactWindows = null)
         {
             //list of stations and Satellites
             List<string> stationList = contactWindows.getStationNames();
@@ -151,7 +157,7 @@ namespace MARRSS.Scheduler
                         stapo = stationList.IndexOf(contactWindows.getAt(i).getStationName());
                         satpo = satelliteList.IndexOf(contactWindows.getAt(i).getSatName());
                         nrOfScheduledContacts++;
-                        scheduledDuration += contactWindows.getAt(i).getDuration();
+                        scheduledDuration += contactWindows.getAt(i).getDuration();                        
                     }
                 }
                 else
@@ -172,6 +178,11 @@ namespace MARRSS.Scheduler
                         satpo = satelliteList.IndexOf(contactWindows.getAt(i).getSatName());
                         scheduledDuration += contactWindows.getAt(i).getDuration();
                         nrOfScheduledContacts++;
+
+                        //download at 5MBps => 300MBpmin
+                        long test = Convert.ToInt32(contactWindows.getAt(i).getDuration()) * 5;
+                        getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
+                            new Satellite.DataPacket(test, 4, Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
 
                     }
                 }
@@ -210,6 +221,15 @@ namespace MARRSS.Scheduler
 
             if (nrOfAllContacts == 0)
                 nrOfAllContacts = contactWindows.Count();
+
+            long createdData = 0;
+            long downloadedData = 0;
+            foreach(Satellite.Satellite sat in of_satellites)
+            {
+                createdData += sat.getDataStorage().getMaxGeneratedData();
+                downloadedData += sat.getDataStorage().getMaxDownladedData();
+            }
+            val_MaxData = downloadedData / createdData;
 
             val_Scheduled = nrOfScheduledContacts / (double)nrOfAllContacts;
 
@@ -282,6 +302,16 @@ namespace MARRSS.Scheduler
 
             fitness = fitness / Convert.ToDouble(objectives.Count());
             return fitness;
+        }
+
+        private Satellite.Satellite getScheduledSatellite(string name)
+        {
+            for (int i = 0; i < of_satellites.Count(); i++)
+            {
+                if (of_satellites[i].getName() == name)
+                    return of_satellites[i];
+            }
+            return null;
         }
 
         //! ToString method

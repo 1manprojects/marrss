@@ -143,9 +143,9 @@ namespace MARRSS.Satellite
             return homeStation;
         }
 
-        public void SetMaxDataStorage(long maxStorageDataSize)
+        public void SetMaxDataStorage(long maxStorageDataSize, Structs.DataSize datasize)
         {
-            dataStorage.setMaxData(maxStorageDataSize);
+            dataStorage.setMaxData(maxStorageDataSize, datasize);
         }
 
         public void setGlobalPriority(Structs.priority prio)
