@@ -76,7 +76,7 @@
             this.richTextBox1.MaxLength = 100;
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(267, 177);
+            this.richTextBox1.Size = new System.Drawing.Size(177, 201);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
@@ -94,7 +94,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(507, 43);
+            this.label2.Location = new System.Drawing.Point(417, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 16);
             this.label2.TabIndex = 6;
@@ -104,7 +104,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(666, 43);
+            this.label3.Location = new System.Drawing.Point(576, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 16);
             this.label3.TabIndex = 7;
@@ -112,26 +112,28 @@
             // 
             // createButton
             // 
-            this.createButton.Location = new System.Drawing.Point(747, 244);
+            this.createButton.Location = new System.Drawing.Point(579, 243);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(75, 23);
             this.createButton.TabIndex = 8;
             this.createButton.Text = "Create New";
             this.createButton.UseVisualStyleBackColor = true;
+            this.createButton.Click += new System.EventHandler(this.createButton_Click);
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(666, 243);
+            this.editButton.Location = new System.Drawing.Point(498, 242);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(75, 23);
             this.editButton.TabIndex = 9;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // satelliteListBox
             // 
             this.satelliteListBox.FormattingEnabled = true;
-            this.satelliteListBox.Location = new System.Drawing.Point(510, 65);
+            this.satelliteListBox.Location = new System.Drawing.Point(420, 65);
             this.satelliteListBox.Name = "satelliteListBox";
             this.satelliteListBox.Size = new System.Drawing.Size(153, 173);
             this.satelliteListBox.TabIndex = 10;
@@ -139,16 +141,16 @@
             // stationListBox
             // 
             this.stationListBox.FormattingEnabled = true;
-            this.stationListBox.Location = new System.Drawing.Point(669, 65);
+            this.stationListBox.Location = new System.Drawing.Point(579, 65);
             this.stationListBox.Name = "stationListBox";
             this.stationListBox.Size = new System.Drawing.Size(153, 173);
             this.stationListBox.TabIndex = 11;
             // 
-            // ScenarioCreator
+            // Scenarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 278);
+            this.ClientSize = new System.Drawing.Size(741, 271);
             this.Controls.Add(this.stationListBox);
             this.Controls.Add(this.satelliteListBox);
             this.Controls.Add(this.editButton);
@@ -160,7 +162,7 @@
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ScenarioCreator";
+            this.Name = "Scenarios";
             this.Text = "ScenarioCreator";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

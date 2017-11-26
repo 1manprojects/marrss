@@ -32,6 +32,7 @@ namespace MARRSS
     {
         private List<One_Sgp4.Tle> satTleData; //!< List of TLE objects
         private List<Ground.Station> stationData; //!< List of Ground Stations
+        private List<Satellite.Satellite> satellitesData;
         private Definition.ContactWindowsVector contactsVector; //!< Contact Windows Vector stores all contacts
         private bool changedParameters = false; //!< True if user changed station, statellite or Time
 
@@ -136,6 +137,7 @@ namespace MARRSS
 
             // create empty Lists and data containers for Data
             satTleData = new List<One_Sgp4.Tle>();
+            satellitesData = new List<Satellite.Satellite>();
             stationData = new List<Ground.Station>();
             //check if contacts vector has not been already created or loaded
             //from save file
@@ -146,7 +148,8 @@ namespace MARRSS
                 contactsVector.setStartTime(startTime);
                 contactsVector.setStopTime(stopTime);
                 //get selected Satellites to calculate Orbits
-                satTleData = getSatelliteData(logFile);
+                satTleData = getSatelliteTLEData(logFile);
+                satellitesData = getSatellitesData(logFile);
                 stationData = getStationData(logFile);
                 //starting with the orbit calculations
                 updateLog(logFile, "Staring Orbit Calculations");
@@ -174,6 +177,8 @@ namespace MARRSS
             //    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
 
             SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
+            problem.setGroundStations(stationData);
+            problem.setSatellites(satellitesData);
             /* Generate the selected Scenarios
             * These are defined in the SchedulingProblem Class
             * Other Scenarios can be selected here if they are added
@@ -339,7 +344,7 @@ namespace MARRSS
         /*! 
          /param string Logfile
         */
-        private List<One_Sgp4.Tle> getSatelliteData(string logfile)
+        private List<One_Sgp4.Tle> getSatelliteTLEData(string logfile)
         {
             satTleData = new List<One_Sgp4.Tle>();
             //get selected Satellites to calculate Orbits
@@ -349,10 +354,26 @@ namespace MARRSS
                 {
                     One_Sgp4.Tle sattle = _MainDataBase.getTleDataFromDB(checkedSatellites.Items[i].ToString());
                     satTleData.Add(sattle);
-                    updateLog(logfile, "Adding Satellite: " + sattle.getName());
+                    updateLog(logfile, "Adding Satellite TLE: " + sattle.getName());
                 }
             }
             return satTleData;
+        }
+
+        private List<Satellite.Satellite> getSatellitesData(string logfile)
+        {
+            satellitesData = new List<Satellite.Satellite>();
+            //get selected Satellites to calculate Orbits
+            for (int i = 0; i < checkedSatellites.Items.Count; i++)
+            {
+                if (checkedSatellites.GetItemChecked(i))
+                {
+                    Satellite.Satellite sat = _MainDataBase.getSatelliteFromDB(checkedSatellites.Items[i].ToString());
+                    satellitesData.Add(sat);
+                    updateLog(logfile, "Adding Satellite: " + sat.getName());
+                }
+            }
+            return satellitesData;
         }
 
         //! get the stations selected for Schedule
@@ -449,6 +470,7 @@ namespace MARRSS
             {
                 problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
             }
+            problem.Generate100MbPerMinuteScenario();
         }
 
         //! finisch and clean up after Schedule Calculation
@@ -575,8 +597,8 @@ namespace MARRSS
                 One_Sgp4.Tle tle = sat.getTleData();
                 //One_Sgp4.Tle tle = _MainDataBase.getTleDataFromDB(satelliteNameLabel.Text);
 
-                onBoardStoargeSizeText.Value = sat.getStoredData().getMaxDataSize();
-                comboBoxSatelliteStorage.SelectedIndex = sat.getStoredData().getSizeType();
+                onBoardStoargeSizeText.Value = sat.getDataStorage().getMaxDataSize();
+                comboBoxSatelliteStorage.SelectedIndex = sat.getDataStorage().getSizeType();
 
                 if (tle.getStartYear() < 85)
                 {
@@ -1349,6 +1371,12 @@ namespace MARRSS
                         "ERROR",
                         MessageBoxButtons.OK);
             }
+        }
+
+        private void scenariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.Scenarios scenarioForm = new Forms.Scenarios();
+            scenarioForm.ShowDialog();
         }
     }
 }

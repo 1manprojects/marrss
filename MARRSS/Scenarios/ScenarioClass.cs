@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.IO;
 
 using MARRSS.Global;
 using MARRSS.Satellite;
@@ -46,8 +48,7 @@ namespace MARRSS.Scenarios
         {
             sat.setHomeStation(homeStation);
             sat.SetMaxDataStorage(maxDataStorage);
-            sat.setCurrentlyUsedStorage(usedDataStorage);
-            sat.setDataSize(dataSize);
+
             sat.setGlobalPriority(priority);
 
             satellitesToInclude.Add(sat);
@@ -74,6 +75,85 @@ namespace MARRSS.Scenarios
         }
 
         public void saveScenario()
+        {
+            //if (!File.Exists("scenarios.set"))
+            //{
+
+            //    using (XmlWriter writer = XmlWriter.Create("scenarios.set"))
+            //    {
+            //        writer.WriteStartDocument();
+            //        writer.WriteStartElement("Scenarios");
+            //        writer.WriteEndElement();
+            //        writer.WriteEndDocument();
+            //        writer.Dispose();
+            //    }
+
+            //}
+            //else
+            //{
+            XmlWriter.Create("scenarios.set");
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load("scenarios.set");
+                XmlNode root = xmlDoc.DocumentElement;
+                //TODO: Check if name exists already and overwrite
+                XmlNodeList children = root.ChildNodes;
+                bool nodeExists = false;
+                XmlNode oldNode = null;
+                foreach (XmlNode node in children)
+                {
+                    if (node.Name == scenarioName)
+                    {
+                        nodeExists = true;
+                        oldNode = node;
+                        break;
+                    }
+                }
+
+                //root.ReplaceChild
+
+                XmlElement elem = xmlDoc.CreateElement(scenarioName);
+                XmlElement sats = xmlDoc.CreateElement("Satellites");
+                for (int i = 0; i < satellitesToInclude.Count; i++)
+                {
+                    sats.InnerText = satellitesToInclude[i].getName();
+                    XmlElement sat = xmlDoc.CreateElement("Homestation");
+                    sat.InnerText = satellitesToInclude[i].getHomeStation();
+                }
+                //sats.InnerText = w[0].ToString();
+                elem.AppendChild(sats);
+                //Xmll
+
+
+                if (nodeExists && oldNode != null)
+                {
+                    root.ReplaceChild(elem, oldNode);
+                }
+                root.AppendChild(elem);
+                xmlDoc.Save("scenarios.set");
+            //}
+        }
+
+        public string getScenarioName()
+        {
+            return scenarioName;
+        }
+
+        public string getDescription()
+        {
+            return descriptionText;
+        }
+
+        public List<Satellite.Satellite> getSatelites()
+        {
+            return satellitesToInclude;
+        }
+
+        public List<string> getStations()
+        {
+            return stationsToInclude;
+        }
+
+        public void LoadScenario()
         {
 
         }

@@ -190,6 +190,7 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.scenariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -341,7 +342,8 @@
             this.toolStripMenuItem8,
             this.tLEDataToolStripMenuItem,
             this.toolStripMenuItem9,
-            this.objectiveBuilderToolStripMenuItem});
+            this.objectiveBuilderToolStripMenuItem,
+            this.scenariosToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -1786,6 +1788,13 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // scenariosToolStripMenuItem
+            // 
+            this.scenariosToolStripMenuItem.Name = "scenariosToolStripMenuItem";
+            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.scenariosToolStripMenuItem.Text = "Scenarios";
+            this.scenariosToolStripMenuItem.Click += new System.EventHandler(this.scenariosToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
@@ -2018,5 +2027,6 @@
         private System.Windows.Forms.ComboBox comboBoxSatelliteStorage;
         private System.Windows.Forms.NumericUpDown onBoardStoargeSizeText;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
+        private System.Windows.Forms.ToolStripMenuItem scenariosToolStripMenuItem;
     }
 }

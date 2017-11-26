@@ -31,10 +31,14 @@ namespace MARRSS.Interface2
     interface ScheduleProblemInterface
     {
         void setContactWindows(ContactWindowsVector contacts);
+        void setSatellites(List<Satellite.Satellite> satellites);
+        void setGroundStations(List<Ground.Station> stations);
         void setRequests(List<RequestInterface> requestsList);
         void setObjectiveFunction(ObjectiveFunction objectiveFunction);
         ObjectiveFunction getObjectiveFunction();
         void setRequestToContact();
         ContactWindowsVector getContactWindows();
+        List<Satellite.Satellite> getSatellites();
+        List<Ground.Station> getGroundStations();
     }
 }

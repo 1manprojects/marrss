@@ -23,7 +23,7 @@ namespace MARRSS.Satellite
     {
         private string name; //!< string satellite name
         private One_Sgp4.Tle tleData; //!< TLE two line element data for the satellite
-        private Data dataStorage;
+        private DataStorage dataStorage;
         private string homeStation;
         private Structs.priority globalPriority;
 
@@ -32,10 +32,15 @@ namespace MARRSS.Satellite
             \param string name of the satellite
             \param Data onboard stoarge data default NULL
         */
-        public Satellite(string _name, Data onboardData = null)
+        public Satellite(string _name)
         {
             name = _name;
-            dataStorage = onboardData;
+            dataStorage = new DataStorage();
+        }
+
+        public void ResetDataStorage()
+        {
+            dataStorage = new DataStorage();
         }
 
         //! Satellite constructor.
@@ -45,8 +50,7 @@ namespace MARRSS.Satellite
         */
         public Satellite(string _name, One_Sgp4.Tle _tleData)
         {
-            dataStorage = new Data(Properties.Settings.Default.global_defaultDataStorageSat,
-                Properties.Settings.Default.global_defaultDataStorageSatSize);
+            dataStorage = new DataStorage(Properties.Settings.Default.global_defaultDataStorageSat);
             name = _name;
             tleData = _tleData;
         }
@@ -60,7 +64,7 @@ namespace MARRSS.Satellite
         */
         public Satellite(string _name, One_Sgp4.Tle _tleData, long onBoardData, Structs.DataSize datasize)
         {
-            dataStorage = new Data(onBoardData, datasize);
+            dataStorage = new DataStorage(onBoardData, datasize);
             name = _name;
             tleData = _tleData;
         }
@@ -74,7 +78,7 @@ namespace MARRSS.Satellite
         */
         public Satellite(string _name, One_Sgp4.Tle _tleData, long onBoardData, int datasize)
         {
-            dataStorage = new Data(onBoardData, (Structs.DataSize)datasize);
+            dataStorage = new DataStorage(onBoardData, (Structs.DataSize)datasize);
             name = _name;
             tleData = _tleData;
         }
@@ -88,8 +92,6 @@ namespace MARRSS.Satellite
         {
             //toDo
             //Check Tle Data if its newer
-            dataStorage = new Data(Properties.Settings.Default.global_defaultDataStorageSat,
-                Properties.Settings.Default.global_defaultDataStorageSatSize);
             tleData = _tleData;
             return true;
         }
@@ -116,9 +118,19 @@ namespace MARRSS.Satellite
         /*!
             \return Global.Data data storage used on satellite
         */
-        public Data getStoredData()
+        public DataStorage getDataStorage()
         {
             return dataStorage;
+        }
+
+        public bool AddDataPacket(DataPacket packet)
+        {
+            return dataStorage.addToDataStorage(packet);
+        }
+
+        public bool RemoveDataPacket(DataPacket packet)
+        {
+            return dataStorage.removeDataFromStorage(packet);
         }
 
         public void setHomeStation(string nameOfStation)
@@ -134,16 +146,6 @@ namespace MARRSS.Satellite
         public void SetMaxDataStorage(long maxStorageDataSize)
         {
             dataStorage.setMaxData(maxStorageDataSize);
-        }
-
-        public void setCurrentlyUsedStorage(long usedDataSize)
-        {
-            dataStorage.setUsedData(usedDataSize);
-        }
-
-        public void setDataSize(Structs.DataSize size)
-        {
-            dataStorage.setDataSizeType(size);
         }
 
         public void setGlobalPriority(Structs.priority prio)

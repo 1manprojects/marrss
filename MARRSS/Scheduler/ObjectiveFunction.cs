@@ -34,6 +34,9 @@ namespace MARRSS.Scheduler
         private double val_FairSatellites;
         private double val_Scheduled;
         private double val_Duration;
+        private double val_MaxData;
+        //needs to be implemented
+        private double val_EarliestData;
 
         public ObjectiveFunction(params Structs.ObjectiveEnum[] objectivesToSchedule)
         {
@@ -43,6 +46,7 @@ namespace MARRSS.Scheduler
             val_FairStations = 0;
             val_Scheduled = 0;
             val_Duration = 0;
+            val_MaxData = 0;
         }
 
         public ObjectiveFunction()
@@ -56,6 +60,7 @@ namespace MARRSS.Scheduler
             val_FairStations = 0;
             val_Scheduled = 0;
             val_Duration = 0;
+            val_MaxData = 0;
         }
 
         public void setObjectives(params Structs.ObjectiveEnum[] objectivesToSchedule)
@@ -66,6 +71,7 @@ namespace MARRSS.Scheduler
             val_FairStations = 0;
             val_Scheduled = 0;
             val_Duration = 0;
+            val_MaxData = 0;
         }
 
         //! calculate the fitness value of the given contactvectors if a contact is added
@@ -166,6 +172,7 @@ namespace MARRSS.Scheduler
                         satpo = satelliteList.IndexOf(contactWindows.getAt(i).getSatName());
                         scheduledDuration += contactWindows.getAt(i).getDuration();
                         nrOfScheduledContacts++;
+
                     }
                 }
                 if (allcontactWindows == null)

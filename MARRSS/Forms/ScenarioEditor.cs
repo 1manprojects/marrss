@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using MARRSS.Scenarios;
+
 namespace MARRSS.Forms
 {
     public partial class ScenarioEditor : Form
     {
         private int step = 0;
+        private ScenarioClass newScenario;
 
         public ScenarioEditor()
         {
@@ -21,10 +24,17 @@ namespace MARRSS.Forms
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            scenarioTabControll.SelectedIndex = (scenarioTabControll.SelectedIndex + 1 < scenarioTabControll.TabCount) ?
-                             scenarioTabControll.SelectedIndex + 1 : scenarioTabControll.SelectedIndex;
-            step = scenarioTabControll.SelectedIndex;
-            updateButtons();
+            if (nextButton.Text == "Save")
+            {
+                newScenario.saveScenario();
+            }
+            else
+            {
+                scenarioTabControll.SelectedIndex = (scenarioTabControll.SelectedIndex + 1 < scenarioTabControll.TabCount) ?
+                                 scenarioTabControll.SelectedIndex + 1 : scenarioTabControll.SelectedIndex;
+                step = scenarioTabControll.SelectedIndex;
+                updateButtons();
+            }
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -50,8 +60,14 @@ namespace MARRSS.Forms
 
         }
 
+        private void setSatelliteData()
+        {
+
+        }
+
         private void updateButtons()
         {
+            nextButton.Text = "Next ->";
             scenNameButton.BackColor = Color.WhiteSmoke;
             scenSatellites.BackColor = Color.WhiteSmoke;
             scenStations.BackColor = Color.WhiteSmoke;
@@ -66,6 +82,7 @@ namespace MARRSS.Forms
                     break;
                 case 1:
                     scenSatellites.BackColor = Color.LightSteelBlue;
+                    newScenario = new ScenarioClass(scenarioNameTextBox.Text);
                     break;
                 case 2:
                     scenStations.BackColor = Color.LightSteelBlue;
@@ -78,6 +95,7 @@ namespace MARRSS.Forms
                     break;
                 case 5:
                     scenDone.BackColor = Color.LightSteelBlue;
+                    nextButton.Text = "Save";
                     break;
             }
         }

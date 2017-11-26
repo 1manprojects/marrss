@@ -194,7 +194,8 @@
     <Compile Include="Definition\ContactWindowsVector.cs" />
     <Compile Include="Definition\GeoCoordinate.cs" />
     <Compile Include="Drawer\ContactsDrawer.cs" />
-    <Compile Include="Satellite\Data.cs" />
+    <Compile Include="Satellite\DataPacket.cs" />
+    <Compile Include="Satellite\DataStorage.cs" />
     <Compile Include="Satellite\DataFunctions.cs" />
     <Compile Include="Global\Funktions.cs" />
     <Compile Include="Ground\Antenna.cs" />

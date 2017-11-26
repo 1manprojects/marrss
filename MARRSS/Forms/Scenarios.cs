@@ -16,5 +16,26 @@ namespace MARRSS.Forms
         {
             InitializeComponent();
         }
+
+        private void createButton_Click(object sender, EventArgs e)
+        {
+            Forms.ScenarioEditor scenarioEditor = new Forms.ScenarioEditor();
+            scenarioEditor.ShowDialog();
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveScenarios()
+        {
+
+        }
+
+        private void LoadScenarios()
+        {
+
+        }
     }
 }

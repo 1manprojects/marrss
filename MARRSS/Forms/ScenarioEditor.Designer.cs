@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.scenContacts = new System.Windows.Forms.Button();
             this.scenDone = new System.Windows.Forms.Button();
             this.scenDescription = new System.Windows.Forms.Button();
@@ -92,6 +93,7 @@
             this.nextButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.scenarioTabControll.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -118,6 +120,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CancelButton);
             this.panel1.Controls.Add(this.scenContacts);
             this.panel1.Controls.Add(this.scenDone);
             this.panel1.Controls.Add(this.scenDescription);
@@ -128,6 +131,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(129, 405);
             this.panel1.TabIndex = 0;
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelButton.Location = new System.Drawing.Point(3, 363);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(121, 42);
+            this.CancelButton.TabIndex = 4;
+            this.CancelButton.Text = "CANCEL";
+            this.CancelButton.UseVisualStyleBackColor = true;
             // 
             // scenContacts
             // 
@@ -270,6 +283,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.panel7);
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel6);
@@ -285,7 +299,7 @@
             this.panel7.Controls.Add(this.dataToAddValueBox);
             this.panel7.Controls.Add(this.dataFunktionComboBox);
             this.panel7.Controls.Add(this.label9);
-            this.panel7.Location = new System.Drawing.Point(212, 183);
+            this.panel7.Location = new System.Drawing.Point(216, 183);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(200, 65);
             this.panel7.TabIndex = 15;
@@ -321,9 +335,9 @@
             "...",
             "...",
             "..."});
-            this.dataFunktionComboBox.Location = new System.Drawing.Point(82, 31);
+            this.dataFunktionComboBox.Location = new System.Drawing.Point(89, 31);
             this.dataFunktionComboBox.Name = "dataFunktionComboBox";
-            this.dataFunktionComboBox.Size = new System.Drawing.Size(115, 21);
+            this.dataFunktionComboBox.Size = new System.Drawing.Size(89, 21);
             this.dataFunktionComboBox.TabIndex = 24;
             // 
             // label9
@@ -339,7 +353,7 @@
             // 
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.priorityComboBox);
-            this.panel5.Location = new System.Drawing.Point(6, 113);
+            this.panel5.Location = new System.Drawing.Point(10, 117);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(200, 64);
             this.panel5.TabIndex = 13;
@@ -355,15 +369,21 @@
             // 
             // priorityComboBox
             // 
+            this.priorityComboBox.AutoCompleteCustomSource.AddRange(new string[] {
+            "Random",
+            "Critical",
+            "High",
+            "Medium",
+            "Low",
+            "None"});
             this.priorityComboBox.FormattingEnabled = true;
             this.priorityComboBox.Items.AddRange(new object[] {
-            "Random",
-            "Criticaly over Homestation",
-            "0 -(critical)",
-            "1 -(high)",
-            "2 -(normal)",
-            "3 -(low)",
-            "4 -(none)"});
+            "RANDOM",
+            "CRITICAL",
+            "HIGH",
+            "NORMAL",
+            "LOW",
+            "NONE"});
             this.priorityComboBox.Location = new System.Drawing.Point(9, 31);
             this.priorityComboBox.Name = "priorityComboBox";
             this.priorityComboBox.Size = new System.Drawing.Size(188, 21);
@@ -377,7 +397,7 @@
             this.panel6.Controls.Add(this.onBoardStoargeSizeText);
             this.panel6.Controls.Add(this.comboBoxSatelliteStorage);
             this.panel6.Controls.Add(this.label8);
-            this.panel6.Location = new System.Drawing.Point(212, 39);
+            this.panel6.Location = new System.Drawing.Point(216, 39);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(200, 138);
             this.panel6.TabIndex = 14;
@@ -389,7 +409,7 @@
             0,
             0,
             0});
-            this.usedStorageValueNum.Location = new System.Drawing.Point(6, 102);
+            this.usedStorageValueNum.Location = new System.Drawing.Point(6, 109);
             this.usedStorageValueNum.Maximum = new decimal(new int[] {
             1024,
             0,
@@ -413,7 +433,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 86);
+            this.label11.Location = new System.Drawing.Point(7, 90);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(70, 13);
             this.label11.TabIndex = 27;
@@ -422,7 +442,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 39);
+            this.label10.Location = new System.Drawing.Point(3, 23);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(115, 13);
             this.label10.TabIndex = 26;
@@ -435,7 +455,7 @@
             0,
             0,
             0});
-            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(4, 55);
+            this.onBoardStoargeSizeText.Location = new System.Drawing.Point(6, 39);
             this.onBoardStoargeSizeText.Maximum = new decimal(new int[] {
             1024,
             0,
@@ -466,15 +486,15 @@
             "MB  (MegaByte)",
             "GB   (GigaByte)",
             "TB   (TerraByte)"});
-            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(82, 102);
+            this.comboBoxSatelliteStorage.Location = new System.Drawing.Point(89, 69);
             this.comboBoxSatelliteStorage.Name = "comboBoxSatelliteStorage";
-            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(115, 21);
+            this.comboBoxSatelliteStorage.Size = new System.Drawing.Size(89, 21);
             this.comboBoxSatelliteStorage.TabIndex = 24;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 12);
+            this.label8.Location = new System.Drawing.Point(-1, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(117, 13);
             this.label8.TabIndex = 11;
@@ -484,7 +504,7 @@
             // 
             this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.homeStationComboBox);
-            this.panel4.Location = new System.Drawing.Point(6, 39);
+            this.panel4.Location = new System.Drawing.Point(9, 46);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(200, 64);
             this.panel4.TabIndex = 12;
@@ -501,6 +521,8 @@
             // homeStationComboBox
             // 
             this.homeStationComboBox.FormattingEnabled = true;
+            this.homeStationComboBox.Items.AddRange(new object[] {
+            "NONE"});
             this.homeStationComboBox.Location = new System.Drawing.Point(9, 31);
             this.homeStationComboBox.Name = "homeStationComboBox";
             this.homeStationComboBox.Size = new System.Drawing.Size(188, 21);
@@ -820,6 +842,15 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(173, 254);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // ScenarioEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -935,5 +966,7 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button button1;
     }
 }

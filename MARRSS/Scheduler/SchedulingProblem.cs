@@ -19,6 +19,7 @@ using MARRSS.Interface2;
 using MARRSS.Interface1;
 using MARRSS.Definition;
 using MARRSS.Global;
+using One_Sgp4;
 
 namespace MARRSS.Scheduler
 {
@@ -34,6 +35,8 @@ namespace MARRSS.Scheduler
         private ContactWindowsVector schedulerContacts; //!< ContactWindowsVector all contact windows
         private List<RequestInterface> schedulerRequests; //!< List<RequestInterface> list of all Requests
         private ObjectiveFunction objectives; //!< Objectives to solve Problem with
+        private List<Satellite.Satellite> satellites; //!< List<Satellite.Satellite> list of all Included Satellites
+        private List<Ground.Station> stations; //!< List<Station> list of all Included Ground Stations
 
         //! SchedulingProblem constructor.
         /*!
@@ -99,6 +102,25 @@ namespace MARRSS.Scheduler
             return schedulerContacts;
         }
 
+        public void setSatellites(List<Satellite.Satellite> sats)
+        {
+            satellites = sats;
+        }
+
+        public void setGroundStations(List<Ground.Station> stats)
+        {
+            stations = stats;
+        }
+
+        public List<Satellite.Satellite> getSatellites()
+        {
+            return satellites;
+        }
+        public List<Ground.Station> getGroundStations()
+        {
+            return stations;
+        }
+
         //! Remove unwanted contact windows 
         /*!
             \param int Min. Duration window
@@ -119,6 +141,27 @@ namespace MARRSS.Scheduler
         //------------------------Create Scenarios-----------------------------
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
+
+        public void Generate100MbPerMinuteScenario()
+        {
+            //LOAD Plan FIle
+            //Fill satellite wiht data from Start to Finisch
+            foreach (Satellite.Satellite sat in satellites)
+            {
+                EpochTime startT = new EpochTime(schedulerContacts.getStartTime());
+                EpochTime stopT = new EpochTime(schedulerContacts.getStopTime());
+                while(startT.toDateTime() < stopT.toDateTime())
+                {
+                    startT.addTick(60);
+                    sat.AddDataPacket(new Satellite.DataPacket(100, 4, 60, Structs.DataSize.MBYTE));
+                }
+            }
+        }
+
+
+        //      Load Scenario Here and setUp
+        //---------------------------------------------------------------------
+
         public void GenerateSzenarioA()
         {
             for (int i = 0; i < schedulerContacts.Count(); i++)
