@@ -71,18 +71,18 @@ namespace MARRSS.DataBase
                         writer.WriteElementString("RequID", cw.getRequestID().ToString());
                         writer.WriteElementString("Priority", cw.getPriority().ToString());
 
-                        writer.WriteStartElement("TrackingData");
-                            List<TrackingData> tdList = cw.getTrackingData();
-                            foreach (TrackingData td in tdList)
-                            {
-                                writer.WriteStartElement("Data");
-                                writer.WriteElementString("Azimuth", td.getAzimuth().ToString());
-                                writer.WriteElementString("Elevation", td.getElevation().ToString());
-                                writer.WriteElementString("Range", td.getRange().ToString());
-                                writer.WriteElementString("RangeRate", td.getRangeRate().ToString());
-                                writer.WriteElementString("TimeStamp", td.getTimeStamp());
-                                writer.WriteEndElement();
-                            }
+                        //writer.WriteStartElement("TrackingData");
+                        //    List<TrackingData> tdList = cw.getTrackingData();
+                        //    foreach (TrackingData td in tdList)
+                        //    {
+                        //        writer.WriteStartElement("Data");
+                        //        writer.WriteElementString("Azimuth", td.getAzimuth().ToString());
+                        //        writer.WriteElementString("Elevation", td.getElevation().ToString());
+                        //        writer.WriteElementString("Range", td.getRange().ToString());
+                        //        writer.WriteElementString("RangeRate", td.getRangeRate().ToString());
+                        //        writer.WriteElementString("TimeStamp", td.getTimeStamp());
+                        //        writer.WriteEndElement();
+                        //    }
                         writer.WriteEndElement();
 		            writer.WriteEndElement();
                     f.updateProgressBar(count++);
@@ -141,17 +141,17 @@ namespace MARRSS.DataBase
                 cw.setRequestID(Guid.Parse(node.SelectSingleNode("RequID").InnerText));
                 cw.setPriority(Global.Funktions.ParseEnum<Global.Structs.priority>(node.SelectSingleNode("Priority").InnerText));
 
-                XmlNodeList children = node.SelectNodes("TrackingData/Data");
-                foreach (XmlNode childNode in children)
-                {
-                    double azi = double.Parse(childNode.SelectSingleNode("Azimuth").InnerText);
-                    double ele = double.Parse(childNode.SelectSingleNode("Elevation").InnerText);
-                    double ran = double.Parse(childNode.SelectSingleNode("Range").InnerText);
-                    double ranR = double.Parse(childNode.SelectSingleNode("RangeRate").InnerText);
-                    string time = childNode.SelectSingleNode("TimeStamp").InnerText;
-                    TrackingData td = new TrackingData(azi, ele, ran, time);
-                    cw.addTrackingData(td);
-                }
+                //XmlNodeList children = node.SelectNodes("TrackingData/Data");
+                //foreach (XmlNode childNode in children)
+                //{
+                //    double azi = double.Parse(childNode.SelectSingleNode("Azimuth").InnerText);
+                //    double ele = double.Parse(childNode.SelectSingleNode("Elevation").InnerText);
+                //    double ran = double.Parse(childNode.SelectSingleNode("Range").InnerText);
+                //    double ranR = double.Parse(childNode.SelectSingleNode("RangeRate").InnerText);
+                //    string time = childNode.SelectSingleNode("TimeStamp").InnerText;
+                //    TrackingData td = new TrackingData(azi, ele, ran, time);
+                //    cw.addTrackingData(td);
+                //}
                 f.updateProgressBar(count++);
                 System.Windows.Forms.Application.DoEvents();
                 saved.add(cw);

@@ -123,9 +123,9 @@ namespace MARRSS.Ground
                         window = new ContactWindow(_satName, _station.getName());
                         window.setStartTime(starttime);
                     }
-                    TrackingData testTrack = new TrackingData(azimuth,
-                        elevation, range, starttime.ToString());
-                    window.addTrackingData(testTrack);
+                    //TrackingData testTrack = new TrackingData(azimuth,
+                    //    elevation, range, starttime.ToString());
+                    //window.addTrackingData(testTrack);
                     visible = true;
                 }
                 else

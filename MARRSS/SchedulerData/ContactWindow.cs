@@ -39,7 +39,7 @@ namespace MARRSS.Scheduler
         private One_Sgp4.EpochTime stopTime; /*!< TimeDate Stoptime of contact */
         private double duration; /*!< double duration of contact */
 
-        List<TrackingData> trackingData = new List<TrackingData>(); /*!< trackingData */
+        //List<TrackingData> trackingData = new List<TrackingData>(); /*!< trackingData */
 
         bool sheduled; /*!< boolean if contact has been scheduled */
         bool exluded; /*!< boolean if contact is to be excluded */
@@ -174,10 +174,10 @@ namespace MARRSS.Scheduler
         \param TrackingData
         adds Tracking Data to the contactWindow
         */
-        public void addTrackingData(TrackingData data)
-        {
-            trackingData.Add(data);
-        }
+        //public void addTrackingData(TrackingData data)
+        //{
+        //    trackingData.Add(data);
+        //}
 
         //! setStartTime
         /*!
@@ -319,10 +319,10 @@ namespace MARRSS.Scheduler
         /*!
         \return List<TrackingData> tracking data
         */
-        public List<TrackingData> getTrackingData()
-        {
-            return trackingData;
-        }
+        //public List<TrackingData> getTrackingData()
+        //{
+        //    return trackingData;
+        //}
 
         //! Check if this item Conflicts with another
         /*!
