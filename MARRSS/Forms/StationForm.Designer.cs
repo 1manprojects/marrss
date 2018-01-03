@@ -261,7 +261,8 @@
             this.label6.Size = new System.Drawing.Size(270, 71);
             this.label6.TabIndex = 2;
             this.label6.Text = "File has to be *.txt format\r\n\r\nEvery new line is a new Groundstation.\r\nData is se" +
-    "perated by \" \" space as schown below\r\nExampleStation 49.0000 9.00000 1520";
+    "perated by \";\" space as schown below\r\nExampleStation 49.0000 9.00000 1520";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // textFilePath
             // 

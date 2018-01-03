@@ -64,7 +64,7 @@ namespace MARRSS.Forms
                         double _latitude;
                         double _longitude;
                         double _height;
-                        string[] res = line.Split(' ');
+                        string[] res = line.Split(';');
                         if (res.Count() >= 3)
                         {
                             _name = res[0];
@@ -83,7 +83,7 @@ namespace MARRSS.Forms
                         }
                     }
                 }
-
+                this.Close();
             }
         }
 
@@ -128,6 +128,11 @@ namespace MARRSS.Forms
                 stationFilePath = openFileDialog1.FileName;
                 textFilePath.Text = stationFilePath;
             }
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

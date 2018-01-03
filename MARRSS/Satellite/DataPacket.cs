@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using One_Sgp4;
 
 namespace MARRSS.Satellite
 {
@@ -19,6 +20,8 @@ namespace MARRSS.Satellite
         private const long Gb = Mb * 1024;
         private const long Tb = Gb * 1024;
         private int type = 0;
+
+        private One_Sgp4.EpochTime TimeStamp;
 
         public DataPacket()
         {
