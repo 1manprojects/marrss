@@ -40,7 +40,7 @@ namespace MARRSS.DataBase
            \param string path and name of file to save
            \param ContactWindowsVector contacts to save
         */
-        public static void saveToFile(string filePathName, ContactWindowsVector contacts, Main f)
+        public static void saveToFile(string filePathName, ContactWindowsVector contacts, Main f, bool saveAll = true)
         {
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             XmlWriterSettings settings = new XmlWriterSettings();
@@ -58,8 +58,10 @@ namespace MARRSS.DataBase
                 int count = 0;
                 foreach (ContactWindow cw in cwList)
 	            {
-                    writer.WriteStartElement("ContactWindow");
-		                writer.WriteElementString("SatName", cw.getSatName());
+                    if (saveAll || cw.getSheduledInfo())
+                    {
+                        writer.WriteStartElement("ContactWindow");
+                        writer.WriteElementString("SatName", cw.getSatName());
                         writer.WriteElementString("StaName", cw.getStationName());
                         writer.WriteElementString("StartTime", cw.getStartTime().getEpoch().ToString());
                         writer.WriteElementString("StartYear", cw.getStartTime().getYear().ToString());
@@ -70,21 +72,8 @@ namespace MARRSS.DataBase
                         writer.WriteElementString("ID", cw.getID().ToString());
                         writer.WriteElementString("RequID", cw.getRequestID().ToString());
                         writer.WriteElementString("Priority", cw.getPriority().ToString());
-
-                        //writer.WriteStartElement("TrackingData");
-                        //    List<TrackingData> tdList = cw.getTrackingData();
-                        //    foreach (TrackingData td in tdList)
-                        //    {
-                        //        writer.WriteStartElement("Data");
-                        //        writer.WriteElementString("Azimuth", td.getAzimuth().ToString());
-                        //        writer.WriteElementString("Elevation", td.getElevation().ToString());
-                        //        writer.WriteElementString("Range", td.getRange().ToString());
-                        //        writer.WriteElementString("RangeRate", td.getRangeRate().ToString());
-                        //        writer.WriteElementString("TimeStamp", td.getTimeStamp());
-                        //        writer.WriteEndElement();
-                        //    }
                         writer.WriteEndElement();
-		            writer.WriteEndElement();
+                    }
                     f.updateProgressBar(count++);
                 }
                 writer.WriteEndElement();

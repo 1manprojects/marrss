@@ -509,6 +509,12 @@ namespace MARRSS
                     contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic-" + number + ".bmp");
                 updateLog(logfile, "Saved Calculated Schedule to Image (bmp) " + savePath + "\\" + logfile);
             }
+            if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveContacts)
+            {
+                string savePath = Properties.Settings.Default.global_Save_Path;
+                DataBase.SaveLoad.saveToFile(savePath + "\\" + logfile + "_Result.xml", contactsVector, this, false);
+                updateLog(logfile, "Saved Contacts to XML-File " + savePath + "\\" + logfile + ".xml");
+            }
 
             if (Properties.Settings.Default.log_AutoSave_Results)
             {
