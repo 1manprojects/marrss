@@ -99,8 +99,10 @@ namespace MARRSS.Scheduler
         /*!
            \param ContactWindowsVector
         */
-        public void calculateValues(ContactWindowsVector contactWindows)
+        public void calculateValues(ContactWindowsVector contactWindows, List<Satellite.Satellite> satellites, List<Ground.Station> stations)
         {
+            of_satellites = satellites;
+            of_stations = stations;
             calculate(contactWindows, calcualteMaxPrioValue(contactWindows));
         }
 
@@ -157,7 +159,13 @@ namespace MARRSS.Scheduler
                         stapo = stationList.IndexOf(contactWindows.getAt(i).getStationName());
                         satpo = satelliteList.IndexOf(contactWindows.getAt(i).getSatName());
                         nrOfScheduledContacts++;
-                        scheduledDuration += contactWindows.getAt(i).getDuration();                        
+                        scheduledDuration += contactWindows.getAt(i).getDuration();
+
+                        //download at 0.5MBps => 30MBpmin
+                        long test = Convert.ToInt32(contactWindows.getAt(i).getDuration()) * 5;
+                        getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
+                            new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
+
                     }
                 }
                 else
@@ -170,6 +178,12 @@ namespace MARRSS.Scheduler
                             satpo = satelliteList.IndexOf(contactWindows.getAt(i).getSatName());
                             scheduledDuration += contactWindows.getAt(i).getDuration();
                             nrOfScheduledContacts++;
+
+                            //download at 0.5MBps => 30MBpmin
+                            long test = Convert.ToInt32(contactWindows.getAt(i).getDuration()) * 5;
+                            getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
+                                new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
+
                         }
                     }
                     else
@@ -179,10 +193,10 @@ namespace MARRSS.Scheduler
                         scheduledDuration += contactWindows.getAt(i).getDuration();
                         nrOfScheduledContacts++;
 
-                        //download at 5MBps => 300MBpmin
+                        //download at 0.5MBps => 30MBpmin
                         long test = Convert.ToInt32(contactWindows.getAt(i).getDuration()) * 5;
                         getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
-                            new Satellite.DataPacket(test, 4, Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
+                            new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
 
                     }
                 }
@@ -229,7 +243,7 @@ namespace MARRSS.Scheduler
                 createdData += sat.getDataStorage().getMaxGeneratedData();
                 downloadedData += sat.getDataStorage().getMaxDownladedData();
             }
-            val_MaxData = downloadedData / createdData;
+            val_MaxData = (double)downloadedData / (double)createdData;
 
             val_Scheduled = nrOfScheduledContacts / (double)nrOfAllContacts;
 
@@ -293,6 +307,9 @@ namespace MARRSS.Scheduler
                     case 5:
                         fitness += val_Scheduled;
                         break;
+                    case 6:
+                        fitness += val_MaxData;
+                        break;
                     default:
                         //Do Nothing
                         //
@@ -327,6 +344,15 @@ namespace MARRSS.Scheduler
                 res = res + " - " + obj.ToString();
             }
             return res;
+        }
+
+        //! get DataDownload Value value
+        /*!
+           \return double scheduled downloaded data divided by all generatad data
+        */
+        public double getDataDownValue()
+        {
+            return val_MaxData;
         }
 
         //! get Duration Value value

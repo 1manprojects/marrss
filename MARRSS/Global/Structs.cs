@@ -78,7 +78,8 @@ namespace MARRSS.Global
             FAIRNESSATELITE = 2,
             FAIRNESSTATION = 3,
             DURATION = 4,
-            SCHEDULEDCONTACTS = 5
+            SCHEDULEDCONTACTS = 5,
+            DOWNLOADEDDATA = 6
         };
 
         /** enum DataSizese

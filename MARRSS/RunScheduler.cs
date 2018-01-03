@@ -50,13 +50,13 @@ namespace MARRSS
                     greedy.BruteForceSchedule(problem, iteration);
                     mainform.updateCalculationTime(tm.getValueAndDeactivate());
                     ObjectiveFunction obj = problem.getObjectiveFunction();
-                    obj.calculateValues(greedy.getFinischedSchedule());
+                    obj.calculateValues(greedy.getFinischedSchedule(), problem.getSatellites(),problem.getGroundStations());
                     mainform.updateCalculationTime(tm.getValueAndDeactivate());
                     mainform.setNumberOfGeneration(iteration);
                     if (bestFitness <= obj.getObjectiveResults())
                     {
                         bestFitness = obj.getObjectiveResults();
-                        displayResults(mainform, scheduler, iteration);
+                        displayResults(mainform, scheduler, problem, iteration);
                     }
                 }
             }
@@ -172,14 +172,14 @@ namespace MARRSS
             /param SchedulerInterface scheduler to get results
             /param int count = -1 the current run number
         */
-        public static void displayResults(Main main, SchedulerInterface scheduler, int count = -1)
+        public static void displayResults(Main main, SchedulerInterface scheduler, SchedulingProblem prob, int count = -1)
         {
             if (scheduler != null)
             {
                 ObjectiveFunction objfunc = scheduler.getObjectiveFunction();
                 if (objfunc == null)
                     objfunc = new ObjectiveFunction();
-                objfunc.calculateValues(scheduler.getFinischedSchedule());
+                objfunc.calculateValues(scheduler.getFinischedSchedule(), prob.getSatellites(), prob.getGroundStations());
 
                 int _H = scheduler.getFinischedSchedule().getNrOfScheduled();
                 double _H1 = objfunc.getScheduledContactsValue();
@@ -187,6 +187,7 @@ namespace MARRSS
                 double _H3 = objfunc.getStationFairnessValue();
                 double _H4 = objfunc.getSatelliteFairnessValue();
                 double _H5 = GeneralMeasurments.getDurationOfScheduledContacts(scheduler.getFinischedSchedule());
+                double _H6 = objfunc.getDataDownValue();
 
                 main.setFitnessValue(objfunc.getObjectiveResults());
                 if (count > -1)
@@ -197,6 +198,7 @@ namespace MARRSS
                 main.setCollisons(_H2);
                 main.setFairnessStation(_H3);
                 main.setFairnessSatellite(_H4);
+                main.setDataDownLabel(_H6);
                 main.setDuration(_H5);
                 main.setPriority(GeneralMeasurments.getNrOfPrioritysScheduled(scheduler.getFinischedSchedule()));
                 main.setNumberOfUweContact(GeneralMeasurments.getNrOfUweContacts(scheduler.getFinischedSchedule()));

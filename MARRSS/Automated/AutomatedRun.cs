@@ -120,16 +120,16 @@ namespace MARRSS.Automated
                 ObjectiveFunction objfunc = scheduler.getObjectiveFunction();
                 if (objfunc == null)
                     objfunc = new ObjectiveFunction();
-                objfunc.calculateValues(scheduler.getFinischedSchedule());
+                objfunc.calculateValues(scheduler.getFinischedSchedule(), problem.getSatellites(), problem.getGroundStations() );
 
-                double fitness = objfunc.getObjectiveResults();
+                //double fitness = objfunc.getObjectiveResults();
 
-                int _H = scheduler.getFinischedSchedule().getNrOfScheduled();
-                double _H1 = objfunc.getScheduledContactsValue();
-                int _H2 = GeneralMeasurments.getNrOfConflicts(scheduler.getFinischedSchedule());
-                double _H3 = objfunc.getStationFairnessValue();
-                double _H4 = objfunc.getSatelliteFairnessValue();
-                double _H5 = GeneralMeasurments.getDurationOfScheduledContacts(scheduler.getFinischedSchedule());
+                //int _H = scheduler.getFinischedSchedule().getNrOfScheduled();
+                //double _H1 = objfunc.getScheduledContactsValue();
+                //int _H2 = GeneralMeasurments.getNrOfConflicts(scheduler.getFinischedSchedule());
+                //double _H3 = objfunc.getStationFairnessValue();
+                //double _H4 = objfunc.getSatelliteFairnessValue();
+                //double _H5 = GeneralMeasurments.getDurationOfScheduledContacts(scheduler.getFinischedSchedule());
 
                 results.Add("Run: " + schedulerName);
                 results.Add("Fitness Value:" + objfunc.getObjectiveResults().ToString());
@@ -137,6 +137,7 @@ namespace MARRSS.Automated
                 results.Add("Collisions: " + GeneralMeasurments.getNrOfConflicts(scheduler.getFinischedSchedule()).ToString());
                 results.Add("Fairnes Stations: " + objfunc.getStationFairnessValue().ToString());
                 results.Add("Fairnes Satellites: " + objfunc.getSatelliteFairnessValue().ToString());
+                results.Add("Data Downloaded from Satellites: " + objfunc.getDataDownValue().ToString());
                 results.Add("Duration: " + GeneralMeasurments.getDurationOfScheduledContacts(scheduler.getFinischedSchedule()).ToString() + " sec.");
                 results.Add("Calculation Time: " + time);
                 results.Add("Scheduled By Priority: " + GeneralMeasurments.getNrOfPrioritysScheduled(scheduler.getFinischedSchedule()));

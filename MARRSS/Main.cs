@@ -234,7 +234,7 @@ namespace MARRSS
             //get Time Measurment
             updateCalculationTime(tm.getValueAndDeactivate());
             //display resulst on main Page
-            RunScheduler.displayResults(this, scheduler);
+            RunScheduler.displayResults(this, scheduler, problem);
             //finisch clean up and write to logs if necesarry
             finischSchedule(scheduler.ToString(),logFile);
         }
@@ -353,8 +353,15 @@ namespace MARRSS
                 if (checkedSatellites.GetItemChecked(i))
                 {
                     One_Sgp4.Tle sattle = _MainDataBase.getTleDataFromDB(checkedSatellites.Items[i].ToString());
-                    satTleData.Add(sattle);
-                    updateLog(logfile, "Adding Satellite TLE: " + sattle.getName());
+                    if (sattle != null)
+                    {
+                        satTleData.Add(sattle);
+                        updateLog(logfile, "Adding Satellite TLE: " + sattle.getName());
+                    }
+                    else
+                    {
+                        updateLog(logfile, "Error getting Satellite TLE data: " + checkedSatellites.Items[i].ToString());
+                    }
                 }
             }
             return satTleData;
@@ -470,7 +477,7 @@ namespace MARRSS
             {
                 problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
             }
-            problem.Generate100MbPerMinuteScenario();
+            problem.Generate15MbPerMinuteScenario();
         }
 
         //! finisch and clean up after Schedule Calculation
@@ -1302,6 +1309,15 @@ namespace MARRSS
             toolStripStatusLabel3.Text = text;
         }
 
+        //! set MaxDataDownload label on Main Form
+        /*!
+            /double value to display
+        */
+        public void setDataDownLabel(double text)
+        {
+            datShedLabel.Text = text.ToString();
+        }
+
         //! set calculation label on Main Form
         /*!
             /string time to display
@@ -1377,6 +1393,11 @@ namespace MARRSS
         {
             Forms.Scenarios scenarioForm = new Forms.Scenarios();
             scenarioForm.ShowDialog();
+        }
+
+        private void panel8_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

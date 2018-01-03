@@ -47,7 +47,8 @@
             "Satellite Fairness",
             "Station Fairness",
             "Scheduled Duration",
-            "Scheduled Contacts"});
+            "Scheduled Contacts",
+            "Downloaded Data"});
             this.availableObjectivesListBox.Location = new System.Drawing.Point(12, 39);
             this.availableObjectivesListBox.Name = "availableObjectivesListBox";
             this.availableObjectivesListBox.Size = new System.Drawing.Size(186, 186);
@@ -81,7 +82,8 @@
             "0X - Satellite Fairness",
             "0X - Station Fairness",
             "0X - Scheduled Duration",
-            "0X - Scheduled Contacts"});
+            "0X - Scheduled Contacts",
+            "0X - Downloaded Data"});
             this.selectedObjectiveListBox.Location = new System.Drawing.Point(357, 39);
             this.selectedObjectiveListBox.Name = "selectedObjectiveListBox";
             this.selectedObjectiveListBox.Size = new System.Drawing.Size(186, 186);

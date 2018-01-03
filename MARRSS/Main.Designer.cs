@@ -51,6 +51,7 @@
             this.updateTLEsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.objectiveBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scenariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -190,7 +191,8 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.scenariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label4 = new System.Windows.Forms.Label();
+            this.datShedLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -386,6 +388,13 @@
             this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.objectiveBuilderToolStripMenuItem.Text = "Objective Builder";
             this.objectiveBuilderToolStripMenuItem.Click += new System.EventHandler(this.objectiveBuilderToolStripMenuItem_Click);
+            // 
+            // scenariosToolStripMenuItem
+            // 
+            this.scenariosToolStripMenuItem.Name = "scenariosToolStripMenuItem";
+            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.scenariosToolStripMenuItem.Text = "Scenarios";
+            this.scenariosToolStripMenuItem.Click += new System.EventHandler(this.scenariosToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -727,6 +736,8 @@
             // 
             // panel8
             // 
+            this.panel8.Controls.Add(this.label4);
+            this.panel8.Controls.Add(this.datShedLabel);
             this.panel8.Controls.Add(this.durationLabel);
             this.panel8.Controls.Add(this.label2);
             this.panel8.Controls.Add(this.label1);
@@ -746,15 +757,16 @@
             this.panel8.Controls.Add(this.label38);
             this.panel8.Controls.Add(this.stationFairLabel);
             this.panel8.Controls.Add(this.fairSatLabel);
-            this.panel8.Location = new System.Drawing.Point(556, 206);
+            this.panel8.Location = new System.Drawing.Point(556, 182);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(430, 240);
+            this.panel8.Size = new System.Drawing.Size(430, 264);
             this.panel8.TabIndex = 47;
+            this.panel8.Paint += new System.Windows.Forms.PaintEventHandler(this.panel8_Paint);
             // 
             // durationLabel
             // 
             this.durationLabel.AutoSize = true;
-            this.durationLabel.Location = new System.Drawing.Point(208, 164);
+            this.durationLabel.Location = new System.Drawing.Point(208, 184);
             this.durationLabel.Name = "durationLabel";
             this.durationLabel.Size = new System.Drawing.Size(13, 13);
             this.durationLabel.TabIndex = 49;
@@ -765,7 +777,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 164);
+            this.label2.Location = new System.Drawing.Point(18, 184);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 48;
@@ -783,7 +795,7 @@
             // fitnessLabel
             // 
             this.fitnessLabel.AutoSize = true;
-            this.fitnessLabel.Location = new System.Drawing.Point(20, 34);
+            this.fitnessLabel.Location = new System.Drawing.Point(20, 28);
             this.fitnessLabel.Name = "fitnessLabel";
             this.fitnessLabel.Size = new System.Drawing.Size(73, 13);
             this.fitnessLabel.TabIndex = 42;
@@ -792,7 +804,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(18, 68);
+            this.label31.Location = new System.Drawing.Point(18, 62);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(135, 13);
             this.label31.TabIndex = 23;
@@ -801,7 +813,7 @@
             // uweLabel
             // 
             this.uweLabel.AutoSize = true;
-            this.uweLabel.Location = new System.Drawing.Point(298, 68);
+            this.uweLabel.Location = new System.Drawing.Point(298, 62);
             this.uweLabel.Name = "uweLabel";
             this.uweLabel.Size = new System.Drawing.Size(13, 13);
             this.uweLabel.TabIndex = 46;
@@ -810,7 +822,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(18, 87);
+            this.label32.Location = new System.Drawing.Point(18, 81);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(93, 13);
             this.label32.TabIndex = 24;
@@ -819,7 +831,7 @@
             // priorityLabel
             // 
             this.priorityLabel.AutoSize = true;
-            this.priorityLabel.Location = new System.Drawing.Point(18, 216);
+            this.priorityLabel.Location = new System.Drawing.Point(18, 237);
             this.priorityLabel.Name = "priorityLabel";
             this.priorityLabel.Size = new System.Drawing.Size(38, 13);
             this.priorityLabel.TabIndex = 45;
@@ -830,7 +842,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(18, 183);
+            this.label33.Location = new System.Drawing.Point(18, 203);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(88, 13);
             this.label33.TabIndex = 25;
@@ -839,7 +851,7 @@
             // contactNumberLabel
             // 
             this.contactNumberLabel.AutoSize = true;
-            this.contactNumberLabel.Location = new System.Drawing.Point(208, 69);
+            this.contactNumberLabel.Location = new System.Drawing.Point(208, 63);
             this.contactNumberLabel.Name = "contactNumberLabel";
             this.contactNumberLabel.Size = new System.Drawing.Size(13, 13);
             this.contactNumberLabel.TabIndex = 27;
@@ -849,7 +861,7 @@
             // generationLabel
             // 
             this.generationLabel.AutoSize = true;
-            this.generationLabel.Location = new System.Drawing.Point(208, 87);
+            this.generationLabel.Location = new System.Drawing.Point(208, 81);
             this.generationLabel.Name = "generationLabel";
             this.generationLabel.Size = new System.Drawing.Size(13, 13);
             this.generationLabel.TabIndex = 28;
@@ -859,7 +871,7 @@
             // fitnessValueLabel
             // 
             this.fitnessValueLabel.AutoSize = true;
-            this.fitnessValueLabel.Location = new System.Drawing.Point(210, 34);
+            this.fitnessValueLabel.Location = new System.Drawing.Point(210, 28);
             this.fitnessValueLabel.Name = "fitnessValueLabel";
             this.fitnessValueLabel.Size = new System.Drawing.Size(13, 13);
             this.fitnessValueLabel.TabIndex = 43;
@@ -868,7 +880,7 @@
             // calcTimeLabel
             // 
             this.calcTimeLabel.AutoSize = true;
-            this.calcTimeLabel.Location = new System.Drawing.Point(208, 183);
+            this.calcTimeLabel.Location = new System.Drawing.Point(208, 203);
             this.calcTimeLabel.Name = "calcTimeLabel";
             this.calcTimeLabel.Size = new System.Drawing.Size(13, 13);
             this.calcTimeLabel.TabIndex = 29;
@@ -879,7 +891,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(18, 107);
+            this.label21.Location = new System.Drawing.Point(18, 101);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(79, 13);
             this.label21.TabIndex = 31;
@@ -888,7 +900,7 @@
             // collisionLabel
             // 
             this.collisionLabel.AutoSize = true;
-            this.collisionLabel.Location = new System.Drawing.Point(208, 107);
+            this.collisionLabel.Location = new System.Drawing.Point(208, 101);
             this.collisionLabel.Name = "collisionLabel";
             this.collisionLabel.Size = new System.Drawing.Size(13, 13);
             this.collisionLabel.TabIndex = 32;
@@ -898,7 +910,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(18, 126);
+            this.label34.Location = new System.Drawing.Point(18, 120);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(90, 13);
             this.label34.TabIndex = 34;
@@ -907,7 +919,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(18, 146);
+            this.label38.Location = new System.Drawing.Point(18, 140);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(94, 13);
             this.label38.TabIndex = 35;
@@ -916,7 +928,7 @@
             // stationFairLabel
             // 
             this.stationFairLabel.AutoSize = true;
-            this.stationFairLabel.Location = new System.Drawing.Point(208, 126);
+            this.stationFairLabel.Location = new System.Drawing.Point(208, 120);
             this.stationFairLabel.Name = "stationFairLabel";
             this.stationFairLabel.Size = new System.Drawing.Size(13, 13);
             this.stationFairLabel.TabIndex = 36;
@@ -927,7 +939,7 @@
             // fairSatLabel
             // 
             this.fairSatLabel.AutoSize = true;
-            this.fairSatLabel.Location = new System.Drawing.Point(208, 146);
+            this.fairSatLabel.Location = new System.Drawing.Point(208, 140);
             this.fairSatLabel.Name = "fairSatLabel";
             this.fairSatLabel.Size = new System.Drawing.Size(13, 13);
             this.fairSatLabel.TabIndex = 37;
@@ -1126,7 +1138,7 @@
             this.startScheduleButton.BackColor = System.Drawing.Color.LightSkyBlue;
             this.startScheduleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.startScheduleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startScheduleButton.Location = new System.Drawing.Point(728, 152);
+            this.startScheduleButton.Location = new System.Drawing.Point(738, 135);
             this.startScheduleButton.Name = "startScheduleButton";
             this.startScheduleButton.Size = new System.Drawing.Size(129, 23);
             this.startScheduleButton.TabIndex = 8;
@@ -1788,12 +1800,25 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // scenariosToolStripMenuItem
+            // label4
             // 
-            this.scenariosToolStripMenuItem.Name = "scenariosToolStripMenuItem";
-            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.scenariosToolStripMenuItem.Text = "Scenarios";
-            this.scenariosToolStripMenuItem.Click += new System.EventHandler(this.scenariosToolStripMenuItem_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 160);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 13);
+            this.label4.TabIndex = 50;
+            this.label4.Text = "Data Downlink";
+            // 
+            // datShedLabel
+            // 
+            this.datShedLabel.AutoSize = true;
+            this.datShedLabel.Location = new System.Drawing.Point(209, 160);
+            this.datShedLabel.Name = "datShedLabel";
+            this.datShedLabel.Size = new System.Drawing.Size(13, 13);
+            this.datShedLabel.TabIndex = 51;
+            this.datShedLabel.Text = "--";
+            this.toolTip1.SetToolTip(this.datShedLabel, "Fairness value of satellites in shedule. A value of 1.0 means that all satellites" +
+        " are contacted eqaly");
             // 
             // Main
             // 
@@ -2028,5 +2053,7 @@
         private System.Windows.Forms.NumericUpDown onBoardStoargeSizeText;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.Windows.Forms.ToolStripMenuItem scenariosToolStripMenuItem;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label datShedLabel;
     }
 }

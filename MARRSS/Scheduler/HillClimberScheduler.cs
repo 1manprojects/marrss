@@ -103,7 +103,7 @@ namespace MARRSS.Scheduler
                                 //collision detected
                                 result.getAt(i).unShedule();
                                 result.getAt(j).setSheduled();
-                                double newFitness = getFitness(result);
+                                double newFitness = getFitness(result, problem);
                                 if (newFitness < currentFitness)
                                 {
                                     result.getAt(j).unShedule();
@@ -123,7 +123,7 @@ namespace MARRSS.Scheduler
                 if (mainform != null)
                     mainform.updateProgressBar(iterations);
 
-                currentFitness = getFitness(result);
+                currentFitness = getFitness(result, problem);
                 fillContacts(result);
             }
 
@@ -215,9 +215,9 @@ namespace MARRSS.Scheduler
             /param Contact Windows Vector
             /return double fitnessValue
         */
-        private double getFitness(ContactWindowsVector contacts)
+        private double getFitness(ContactWindowsVector contacts, ScheduleProblemInterface prob)
         {
-            objective.calculateValues(contacts);
+            objective.calculateValues(contacts, prob.getSatellites(), prob.getGroundStations());
             return objective.getObjectiveResults();
         }
 

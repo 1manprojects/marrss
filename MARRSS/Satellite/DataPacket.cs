@@ -21,7 +21,7 @@ namespace MARRSS.Satellite
         private const long Tb = Gb * 1024;
         private int type = 0;
 
-        private One_Sgp4.EpochTime TimeStamp;
+        private EpochTime timeStamp;
 
         public DataPacket()
         {
@@ -31,12 +31,13 @@ namespace MARRSS.Satellite
             packetTimeFrame = 60;
         }
 
-        public DataPacket(long dataPacketSize, int dataPriority, int timeFrameOfPacket = 60, Structs.DataSize dataSizeOfPacket = Structs.DataSize.BYTE)
+        public DataPacket(long dataPacketSize, int dataPriority, EpochTime time, int timeFrameOfPacket = 60, Structs.DataSize dataSizeOfPacket = Structs.DataSize.BYTE)
         {
             packetTimeFrame = timeFrameOfPacket;
             packetDataSize = dataPacketSize;
             priority = dataPriority;
             type = Convert.ToInt32(dataSizeOfPacket);
+            timeStamp = time;
         }
 
         public long getStoredData()
@@ -47,6 +48,11 @@ namespace MARRSS.Satellite
         public double getDataPerSecond()
         {
             return packetDataSize / (double)packetTimeFrame;
+        }
+
+        public EpochTime getTimeStamp()
+        {
+            return timeStamp;
         }
 
         public long getStoredDataInByte()

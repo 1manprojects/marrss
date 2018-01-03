@@ -35,7 +35,7 @@ namespace MARRSS.Forms
         public ObjectiveBuilderForm()
         {
             InitializeComponent();
-            wheight = new int[5] { 0, 0, 0, 0, 0, };
+            wheight = new int[6] { 0, 0, 0, 0, 0, 0};
             lastSelected = 0;
             ObjectivesPresetSelection.SelectedItem = 0;
         }
@@ -71,6 +71,9 @@ namespace MARRSS.Forms
                             break;
                         case 4:
                             listObject = listObject + " Scheduled Contacts";
+                            break;
+                        case 5:
+                            listObject = listObject + " Downloaded Data";
                             break;
                     }
                     selectedObjectiveListBox.Items.Add(listObject);
@@ -115,7 +118,7 @@ namespace MARRSS.Forms
 
         private void loadSavedObjective(string name)
         {
-            wheight = new int[5] { 0, 0, 0, 0, 0, };
+            wheight = new int[6] { 0, 0, 0, 0, 0, 0};
             //StringCollection objective = (StringCollection)Properties.Objective.Default[name];
             int[] wh = getObjectiveValuesByName(name);
             for (int w = 0; w < wh.Count(); w++)
@@ -174,6 +177,8 @@ namespace MARRSS.Forms
                     writer.WriteElementString("Station", w[2].ToString());
                     writer.WriteElementString("Duration", w[3].ToString());
                     writer.WriteElementString("Scheduled", w[4].ToString());
+                    writer.WriteElementString("Downloaded", w[5].ToString());
+
                     writer.WriteEndElement();
                     writer.WriteEndElement();
                     writer.WriteEndDocument();
@@ -223,6 +228,10 @@ namespace MARRSS.Forms
                 sch.InnerText = w[4].ToString();
                 elem.AppendChild(sch);
 
+                XmlElement dat = xmlDoc.CreateElement("Downloaded");
+                sch.InnerText = w[4].ToString();
+                elem.AppendChild(sch);
+
                 if (nodeExists && oldNode != null)
                 {
                     root.ReplaceChild(elem, oldNode);
@@ -249,7 +258,7 @@ namespace MARRSS.Forms
 
         private static int[] getObjectiveValuesByName(string name)
         {
-            int[] res = new int[5] { 0, 0, 0, 0, 0, };
+            int[] res = new int[6] { 0, 0, 0, 0, 0, 0};
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load("objectives.set");
             XmlNode root = xmlDoc.DocumentElement;
@@ -278,6 +287,9 @@ namespace MARRSS.Forms
                                 break;
                             case "Scheduled":
                                 res[4] = Convert.ToInt32(child.InnerText);
+                                break;
+                            case "Downloaded":
+                                res[5] = Convert.ToInt32(child.InnerText);
                                 break;
                         }
                     }

@@ -142,19 +142,20 @@ namespace MARRSS.Scheduler
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
 
-        public void Generate100MbPerMinuteScenario()
+        public void Generate15MbPerMinuteScenario()
         {
             //LOAD Plan FIle
             //Fill satellite wiht data from Start to Finisch
             foreach (Satellite.Satellite sat in satellites)
             {
+                sat.ResetDataStorage();
                 sat.getDataStorage().setMaxData(512, Structs.DataSize.MBYTE);
                 EpochTime startT = new EpochTime(schedulerContacts.getStartTime());
                 EpochTime stopT = new EpochTime(schedulerContacts.getStopTime());
                 while(startT.toDateTime() < stopT.toDateTime())
                 {
                     startT.addTick(60);
-                    sat.AddDataPacket(new Satellite.DataPacket(100, 4, 60, Structs.DataSize.MBYTE));
+                    sat.AddDataPacket(new Satellite.DataPacket(15, 4, startT, 60, Structs.DataSize.MBYTE));
                 }
             }
         }
