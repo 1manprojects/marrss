@@ -40,7 +40,7 @@ namespace MARRSS.Satellite
 
         public void ResetDataStorage()
         {
-            dataStorage = new DataStorage();
+            dataStorage.reset();
         }
 
         //! Satellite constructor.

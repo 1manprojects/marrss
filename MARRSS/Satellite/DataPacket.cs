@@ -70,5 +70,10 @@ namespace MARRSS.Satellite
             }
             return packetDataSize;
         }
+
+        public void setStoredData(long newData)
+        {
+            packetDataSize = newData;
+        }
     }
 }

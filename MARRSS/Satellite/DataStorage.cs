@@ -31,7 +31,8 @@ namespace MARRSS.Global
 
         private long currentData;
 
-        private List<DataPacket> internalStorage;
+        private List<DataPacket> internalAddedStorage;
+        private List<DataPacket> internalRemovedStorage;
 
 
         //! Data Konstructor
@@ -45,7 +46,8 @@ namespace MARRSS.Global
             maxFreedData = 0;
             dataSizeOfStorage = size;
             maxDataStorageSize = maxStorage;
-            internalStorage = new List<DataPacket>();
+            internalAddedStorage = new List<DataPacket>();
+            internalRemovedStorage = new List<DataPacket>();
         }
 
         //! Get Human Readable storage in use 
@@ -109,7 +111,7 @@ namespace MARRSS.Global
             if (currentData + packet.getStoredData() > maxDataStorageSize)
                 return false;
             currentData += packet.getStoredData();
-            internalStorage.Add(packet);
+            internalAddedStorage.Add(packet);
             return true;
         }
 
@@ -121,7 +123,10 @@ namespace MARRSS.Global
         public bool removeDataFromStorage(DataPacket packet)
         {
             if (currentData - packet.getStoredData() <= 0)
+            {
                 currentData = 0;
+                packet.setStoredData(packet.getStoredData() - currentData);
+            }
             else
                 currentData -= packet.getStoredData();
             maxFreedData = packet.getStoredData();
@@ -130,6 +135,7 @@ namespace MARRSS.Global
                 currentData = 0;
                 return true;
             }
+            internalRemovedStorage.Add(packet);
             return false;
         }
 
@@ -147,6 +153,14 @@ namespace MARRSS.Global
         {
             dataSizeOfStorage = datasize;
             maxDataStorageSize = maxOnboardStorage;
+        }
+
+        public void reset()
+        {
+            //maxStoredData = 0;
+            maxFreedData = 0;
+            //internalAddedStorage = new List<DataPacket>();
+            internalRemovedStorage = new List<DataPacket>();
         }
     }
 }

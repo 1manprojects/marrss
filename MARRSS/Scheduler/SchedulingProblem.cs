@@ -148,7 +148,6 @@ namespace MARRSS.Scheduler
             //Fill satellite wiht data from Start to Finisch
             foreach (Satellite.Satellite sat in satellites)
             {
-                sat.ResetDataStorage();
                 sat.getDataStorage().setMaxData(512, Structs.DataSize.MBYTE);
                 EpochTime startT = new EpochTime(schedulerContacts.getStartTime());
                 EpochTime stopT = new EpochTime(schedulerContacts.getStopTime());

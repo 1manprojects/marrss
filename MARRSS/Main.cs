@@ -155,8 +155,6 @@ namespace MARRSS
                 updateLog(logFile, "Staring Orbit Calculations");
                 //Calculate Orbits and Contact Windows
                 CalculateContacts(startTime, stopTime, logFile);
-
-
             }
             else
             {
@@ -177,8 +175,11 @@ namespace MARRSS
             //    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
 
             SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
+            satellitesData = getSatellitesData(logFile);
+            stationData = getStationData(logFile);
             problem.setGroundStations(stationData);
             problem.setSatellites(satellitesData);
+
             /* Generate the selected Scenarios
             * These are defined in the SchedulingProblem Class
             * Other Scenarios can be selected here if they are added
@@ -187,6 +188,8 @@ namespace MARRSS
             {
                 getScenario(problem);
             }
+            problem.Generate15MbPerMinuteScenario();
+
             //enable time measurment Class
             TimeMeasurement tm = new Performance.TimeMeasurement();
             startScheduleButton.Enabled = true;
@@ -476,8 +479,7 @@ namespace MARRSS
             if (comboScenarioBox.SelectedIndex == 3)
             {
                 problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
-            }
-            problem.Generate15MbPerMinuteScenario();
+            }            
         }
 
         //! finisch and clean up after Schedule Calculation

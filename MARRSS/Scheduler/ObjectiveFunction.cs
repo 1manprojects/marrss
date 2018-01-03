@@ -163,8 +163,9 @@ namespace MARRSS.Scheduler
 
                         //download at 0.5MBps => 30MBpmin
                         long test = Convert.ToInt32(contactWindows.getAt(i).getDuration()) * 5;
-                        getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
-                            new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
+                        if (getScheduledSatellite(contactWindows.getAt(i).getSatName()) != null)
+                            getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
+                                new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
 
                     }
                 }
@@ -181,8 +182,9 @@ namespace MARRSS.Scheduler
 
                             //download at 0.5MBps => 30MBpmin
                             long test = Convert.ToInt32(contactWindows.getAt(i).getDuration()) * 5;
-                            getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
-                                new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
+                            if (getScheduledSatellite(contactWindows.getAt(i).getSatName()) != null)
+                                getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
+                                    new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
 
                         }
                     }
@@ -195,8 +197,9 @@ namespace MARRSS.Scheduler
 
                         //download at 0.5MBps => 30MBpmin
                         long test = Convert.ToInt32(contactWindows.getAt(i).getDuration()) * 5;
-                        getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
-                            new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
+                        if (getScheduledSatellite(contactWindows.getAt(i).getSatName()) != null)
+                            getScheduledSatellite(contactWindows.getAt(i).getSatName()).RemoveDataPacket(
+                                new Satellite.DataPacket(test, 4, contactWindows.getAt(i).getStartTime(), Convert.ToInt32(contactWindows.getAt(i).getDuration()), Structs.DataSize.MBYTE));
 
                     }
                 }
