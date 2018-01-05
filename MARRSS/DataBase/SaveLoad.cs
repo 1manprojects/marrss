@@ -12,23 +12,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SQLite;
-using System.Globalization;
-using System.IO;
-using System.Windows.Forms;
 using System.Threading;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
-using System.Xml.Linq;
-
-using System.Diagnostics;
 
 using MARRSS.Scheduler;
 using MARRSS.Definition;
-using MARRSS.Global;
 
 namespace MARRSS.DataBase
 {
@@ -130,17 +118,6 @@ namespace MARRSS.DataBase
                 cw.setRequestID(Guid.Parse(node.SelectSingleNode("RequID").InnerText));
                 cw.setPriority(Global.Funktions.ParseEnum<Global.Structs.priority>(node.SelectSingleNode("Priority").InnerText));
 
-                //XmlNodeList children = node.SelectNodes("TrackingData/Data");
-                //foreach (XmlNode childNode in children)
-                //{
-                //    double azi = double.Parse(childNode.SelectSingleNode("Azimuth").InnerText);
-                //    double ele = double.Parse(childNode.SelectSingleNode("Elevation").InnerText);
-                //    double ran = double.Parse(childNode.SelectSingleNode("Range").InnerText);
-                //    double ranR = double.Parse(childNode.SelectSingleNode("RangeRate").InnerText);
-                //    string time = childNode.SelectSingleNode("TimeStamp").InnerText;
-                //    TrackingData td = new TrackingData(azi, ele, ran, time);
-                //    cw.addTrackingData(td);
-                //}
                 f.updateProgressBar(count++);
                 System.Windows.Forms.Application.DoEvents();
                 saved.add(cw);

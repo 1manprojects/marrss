@@ -188,7 +188,7 @@ namespace MARRSS
             {
                 getScenario(problem);
             }
-            problem.Generate15MbPerMinuteScenario();
+            Scenarios.ScenarioLoader.Generate1MbPerMinuteScenario(problem);
 
             //enable time measurment Class
             TimeMeasurement tm = new Performance.TimeMeasurement();
@@ -466,20 +466,20 @@ namespace MARRSS
                 */
             if (comboScenarioBox.SelectedIndex == 0)
             {
-                problem.GenerateSzenarioA();
+                Scenarios.ScenarioLoader.GenerateSzenarioA(problem);
             }
             if (comboScenarioBox.SelectedIndex == 1)
             {
-                problem.GenerateSzenarioB(Properties.Settings.Default.global_Random_Seed);
+                Scenarios.ScenarioLoader.GenerateSzenarioB(problem, Properties.Settings.Default.global_Random_Seed);
             }
             if (comboScenarioBox.SelectedIndex == 2)
             {
-                problem.GenerateSzenarioC(Properties.Settings.Default.global_Random_Seed);
+                Scenarios.ScenarioLoader.GenerateSzenarioC(problem, Properties.Settings.Default.global_Random_Seed);
             }
             if (comboScenarioBox.SelectedIndex == 3)
             {
-                problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
-            }            
+                Scenarios.ScenarioLoader.GenerateSzenarioD(problem, Properties.Settings.Default.global_Random_Seed);
+            }
         }
 
         //! finisch and clean up after Schedule Calculation
@@ -578,7 +578,6 @@ namespace MARRSS
                 label56.Text = st.getLongitude().ToString();
                 label55.Text = st.getLatitude().ToString();
                 label54.Text = st.getHeight().ToString() +" m";
-                label53.Text = st.getNrOfAntennas().ToString();
                 Pen penSelected = new Pen(Color.Red, 4);
                 Image image = new Bitmap(imgStation);
                 Point p = st.getGeoCoordinate().toPoint(image.Width, image.Height);

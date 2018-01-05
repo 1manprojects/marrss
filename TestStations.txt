@@ -1,9 +1,9 @@
-Aalborg;55.4912660;8.44595400;7
-Istanbul;41.0520861;29.0106553;93
+Aalborg (Aalborg University);55.4912660;8.44595400;7
+Istanbul (Istanbul Technical University);41.0520861;29.0106553;93
 Kiruna;65.6179964;22.1401794;7
-Lithuania;54.6825757;25.2876469;107
-Samara;53.2225826;50.1729726;99
-Roma;41.9029260;12.5144850;46
-Tokyo;35.7126775;139.761989;24
-Sapporo;43.0779575;141.340013;17
-Würzburg;49.7810936;9.97239465;276
+Lithuania (Vilnius University)";54.6825757;25.2876469;107
+Samara (Vilnius University);53.2225826;50.1729726;99
+Roma (La Sapienza University of Rome);41.9029260;12.5144850;46
+Tokyo University;35.7126775;139.761989;24
+Sapporo (Hokkaido Institute of Technology);43.0779575;141.340013;17
+Würzburg (Computer Science Institute);49.7810936;9.97239465;276

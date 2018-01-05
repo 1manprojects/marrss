@@ -55,20 +55,41 @@ namespace MARRSS.DataBase
                 //get Database Version
                 if (getDbVersion() < Constants.dbVersion)
                 {
-                    DialogResult result = MessageBox.Show("The database needs to be Updated. \nThis will add 500 MB storage to all satellites in the database.",
-                        "DataBase Update",
-                        MessageBoxButtons.YesNo);
-                    //Update Database
-                    if (result == DialogResult.Yes)
+                    if (getDbVersion() == 0)
                     {
-                        updateDB();
+                        DialogResult result = MessageBox.Show("The database needs to be Updated. \nThis will add 500 MB storage to all satellites in the database.",
+                            "DataBase Update",
+                            MessageBoxButtons.YesNo);
+                        //Update Database
+                        if (result == DialogResult.Yes)
+                        {
+                            updateDBToVersion1();
+                        }
+                        else
+                        {
+                            MessageBox.Show("The database has not been updated!\nThis programm might not function correctly please restart the application and begin the update",
+                                "WARNING!!",
+                            MessageBoxButtons.OK);
+                            //Application.Exit();
+                        }
                     }
-                    else
+                    if (getDbVersion() == 1)
                     {
-                        MessageBox.Show("The database has not been updated!\nThis programm might not function correctly please restart the application and begin the update",
-                            "WARNING!!",
-                        MessageBoxButtons.OK);
-                        //Application.Exit();
+                        DialogResult result = MessageBox.Show("The database needs to be Updated. \nThis will add 1024Kbps Up and Downlink speeds to all stations in the database.",
+                            "DataBase Update",
+                            MessageBoxButtons.YesNo);
+                        //Update Database
+                        if (result == DialogResult.Yes)
+                        {
+                            updateDBToVersion2();
+                        }
+                        else
+                        {
+                            MessageBox.Show("The database has not been updated!\nThis programm might not function correctly please restart the application and begin the update",
+                                "WARNING!!",
+                            MessageBoxButtons.OK);
+                            //Application.Exit();
+                        }
                     }
                 }
                 try
@@ -314,7 +335,7 @@ namespace MARRSS.DataBase
                 command.CommandText = String.Format(
                      Constants.insertSta,
                      Constants.StationDB, station.getName(), station.getLatitude(),
-                     station.getLongitude(), station.getHeight(), station.getNrOfAntennas());
+                     station.getLongitude(), station.getHeight());
                 command.ExecuteNonQuery();
             }
         }
@@ -679,7 +700,7 @@ namespace MARRSS.DataBase
             return isConnected;
         }
 
-        public void updateDB()
+        public void updateDBToVersion1()
         {
             if (!isConnected)
             {
@@ -688,11 +709,11 @@ namespace MARRSS.DataBase
             //dataBase Version 0 update to Version 1
             SQLiteCommand command1 = new SQLiteCommand(m_dbConnection);
             command1.CommandText = String.Format(
-                Constants.updateDB1);
+                Constants.updateDB1_1);
             command1.ExecuteNonQuery();
             SQLiteCommand command2 = new SQLiteCommand(m_dbConnection);
             command2.CommandText = String.Format(
-                Constants.updateDB2);
+                Constants.updateDB1_2);
             command2.ExecuteNonQuery();
             SQLiteCommand command = new SQLiteCommand(m_dbConnection);
             command.CommandText = Constants.creVersionTab;
@@ -705,6 +726,49 @@ namespace MARRSS.DataBase
             command.CommandText = String.Format(
                 Constants.updateALLSatellitStorage,
                 512, 2);
+            command.ExecuteNonQuery();
+
+            Properties.Settings.Default.db_version = Constants.dbVersion;
+        }
+
+        public void updateDBToVersion2()
+        {
+            if (!isConnected)
+            {
+                connectDB();
+            }
+            //dataBase Version 0 update to Version 1
+            SQLiteCommand command1 = new SQLiteCommand(m_dbConnection);
+            command1.CommandText = String.Format(
+                Constants.updateDB2_1);
+            command1.ExecuteNonQuery();
+            SQLiteCommand command2 = new SQLiteCommand(m_dbConnection);
+            command2.CommandText = String.Format(
+                Constants.updateDB2_2);
+            command2.ExecuteNonQuery();
+
+            SQLiteCommand command3 = new SQLiteCommand(m_dbConnection);
+            command3.CommandText = String.Format(
+                Constants.updateDB2_3);
+            command3.ExecuteNonQuery();
+            SQLiteCommand command4 = new SQLiteCommand(m_dbConnection);
+            command4.CommandText = String.Format(
+                Constants.updateDB2_4);
+            command4.ExecuteNonQuery();
+
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+            //set up and Downlink to 1024Kbps for Stations
+            command = new SQLiteCommand(m_dbConnection);
+            command.CommandText = String.Format(
+                Constants.updateAllStationsUpDownLink,
+                1024, 1024);
+            command.ExecuteNonQuery();
+
+            //set up and Downlink to 1024Kbps for Satellites
+            command = new SQLiteCommand(m_dbConnection);
+            command.CommandText = String.Format(
+                Constants.updateAllSatsUpDownLink,
+                1024, 1024);
             command.ExecuteNonQuery();
 
             Properties.Settings.Default.db_version = Constants.dbVersion;

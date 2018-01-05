@@ -27,7 +27,7 @@ namespace MARRSS.DataBase
     class Constants
     {
         // Database version
-        public const int dbVersion = 1;
+        public const int dbVersion = 2;
 
         // Database Name and Table Names
         public const string DBName = "marrss.db";
@@ -38,8 +38,8 @@ namespace MARRSS.DataBase
 
         //Calls for creating Database and Tables
         //Satellite Name, Norad ID, Storage Size, enum DataSize : int
-        public const string creSatTab = "create table SatelliteTable(name TEXT, noradID TEXT, storage INT, dataSize INT)";
-        public const string creStaTab = "create table StationsTable(name TEXT, lat REAL, long REAL, hight REAL, nrOfSat INT)";
+        public const string creSatTab = "create table SatelliteTable(name TEXT, noradID TEXT, storage INT, dataSize INT, maxDownLink REAL, maxUpLink REAL )";
+        public const string creStaTab = "create table StationsTable(name TEXT, lat REAL, long REAL, hight REAL, nrOfSat INT, maxDownLink REAL, maxUpLink REAL)";
         public const string creTleTab = "create table TleTable(satName TEXT, noradID TEXT, clasification INT, startYear INT, startNr INT, piece TEXT, epochY INT, epochD REAL, firstMeanM REAL, secMeanM REAl, drag REAL, ephemeris REAL, setNr INT, check1 INT, satNr INT, inclination REAL, rightAscen REAL, eccent REAL, perigee REAL, meanAnomoly REAL, meanMotion REAL, relevation REAL, check2 INT)";
         public const string creVersionTab = "create table versionTable(version TEXT, versionNum INT)";
 
@@ -61,12 +61,21 @@ namespace MARRSS.DataBase
         public const string deleteSatellite2 = "DELETE FROM {0} WHERE noradID='{1}'";
 
         //Updating Database
-        public const string updateDB1 = "ALTER TABLE " + SatDB + " ADD COLUMN storage INT";
-        public const string updateDB2 = "ALTER TABLE " + SatDB + " ADD COLUMN dataSize INT";
+        public const string updateDB1_1 = "ALTER TABLE " + SatDB + " ADD COLUMN storage INT";
+        public const string updateDB1_2 = "ALTER TABLE " + SatDB + " ADD COLUMN dataSize INT";
+
+        public const string updateDB2_1 = "ALTER TABLE " + StationDB + " ADD COLUMN maxDownLink REAL";
+        public const string updateDB2_2 = "ALTER TABLE " + StationDB + " ADD COLUMN maxUpLink REAL";
+        public const string updateDB2_3 = "ALTER TABLE " + SatDB + " ADD COLUMN maxDownLink REAL";
+        public const string updateDB2_4 = "ALTER TABLE " + SatDB + " ADD COLUMN maxUpLink REAL";
 
         //updating Data
         public const string updateALLSatellitStorage = "UPDATE "+ SatDB + " SET storage = {0}, dataSize = {1}";
         public const string updateSingleSatellitStorage = "UPDATE " + SatDB + " SET storage = {0}, dataSize = {1} WHERE name='{2}'";
+        public const string updateAllStationsUpDownLink = "UPDATE " + StationDB + " SET maxDownLink = {0}, maxUpLink = {1}";
+        public const string updateStationsUpDownLink = "UPDATE " + StationDB + " SET maxDownLink = {0}, maxUpLink = {1} WHERE name='{2}'";
+        public const string updateAllSatsUpDownLink = "UPDATE " + SatDB + " SET maxDownLink = {0}, maxUpLink = {1}";
+        public const string updateSatUpDownLink = "UPDATE " + SatDB + " SET maxDownLink = {0}, maxUpLink = {1} WHERE name='{2}'";
 
         //Saving schedules and Request etc.
         public const string ContactsVectorTable = "ContactsTable";

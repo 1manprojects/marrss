@@ -12,8 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using MARRSS.Definition;
 using MARRSS.Global;
@@ -31,9 +29,10 @@ namespace MARRSS.Ground
     class Station
     {
         private string name; //!< string name of the Station
-        private Definition.GeoCoordinate geoCoordinate; //!< GeoCoordinate position of the stations
-        private List<Antenna> antennaList; //!< List<Antenna> list of available antennas
+        private GeoCoordinate geoCoordinate; //!< GeoCoordinate position of the stations
         private double minElevation = 0.000000; //!< double min elevation of groundstation
+        private double maxUpLink = 0.0; //!< double max Uplink of groundstation in Kbps
+        private double maxDownLink = 0.0; //!< double max Downlink of groundstation in Kbps
 
         //! Stations constructor.
         /*!
@@ -41,45 +40,12 @@ namespace MARRSS.Ground
             \param GeoCoordinate position of the Station
             constructs a basic Groundstation with a single basic antenna at the given coordinates
         */
-        public Station(string _name, Definition.GeoCoordinate _geoCord)
+        public Station(string _name, GeoCoordinate _geoCord)
         {
-            antennaList = new List<Antenna>();
             geoCoordinate = _geoCord;
             name = _name;
         }
 
-        //! Stations constructor.
-        /*!
-            \param string name of station
-            \param GeoCoordinate position of the Station
-            \param List<Antennas> list of available antennas 
-            constructs a Groundstation at the given coordinates
-        */
-        public Station(string _name, Definition.GeoCoordinate _geoCord,
-            List<Antenna> antennas)
-        {
-            antennaList = new List<Antenna>();
-            geoCoordinate = _geoCord;
-            name = _name;
-            antennaList = antennas;
-
-        }
-
-        //! Stations constructor.
-        /*!
-            \param string name of station
-            \param GeoCoordinate position of the Station
-            \param Antenna antenna available at the stations
-            constructs a Groundstationat with a advanced antenna the given coordinates
-        */
-        public Station(string _name, Definition.GeoCoordinate _geoCord,
-            Antenna _antenna)
-        {
-            antennaList = new List<Antenna>();
-            geoCoordinate = _geoCord;
-            name = _name;
-            antennaList.Add(_antenna);
-        }
 
         //! Stations constructor.
         /*!
@@ -100,7 +66,7 @@ namespace MARRSS.Ground
         /*!
             \param GeoCoordinate
         */
-        public void setGeoCoordinate(Definition.GeoCoordinate _geoCoord)
+        public void setGeoCoordinate(GeoCoordinate _geoCoord)
         {
             geoCoordinate = _geoCoord;
         }
@@ -109,7 +75,7 @@ namespace MARRSS.Ground
         /*!
             \return GeoCoordinate
         */
-        public Definition.GeoCoordinate getGeoCoordinate()
+        public GeoCoordinate getGeoCoordinate()
         {
             return geoCoordinate;
         }
@@ -121,33 +87,6 @@ namespace MARRSS.Ground
         public string getName()
         {
             return name;
-        }
-
-        //! Add a Antenna to the stations
-        /*!
-            \param Antenna
-        */
-        public void addAntenna(Antenna AntennaToAdd)
-        {
-            antennaList.Add(AntennaToAdd);
-        }
-
-        //! returns the nr of Antennas available
-        /*!
-            \return int
-        */
-        public int getNrOfAntennas()
-        {
-            int count = 1;
-            try
-            {
-                count = antennaList.Count();
-            }
-            catch
-            {
-                count = 1;
-            }
-            return count;
         }
 
         //! returns local sidreal time at any given time

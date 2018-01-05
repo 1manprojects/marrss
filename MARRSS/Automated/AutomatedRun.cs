@@ -170,23 +170,24 @@ namespace MARRSS.Automated
                 * Generate the selected Scenarios
                 * These are defined in the SchedulingProblem Class
                 * Other Scenarios can be selected here if they are added
-                */
+            */
             if (selectedScenario == 0)
             {
-                problem.GenerateSzenarioA();
+                Scenarios.ScenarioLoader.GenerateSzenarioA(problem);
             }
             if (selectedScenario == 1)
             {
-                problem.GenerateSzenarioB(Properties.Settings.Default.global_Random_Seed);
+                Scenarios.ScenarioLoader.GenerateSzenarioB(problem, Properties.Settings.Default.global_Random_Seed);
             }
             if (selectedScenario == 2)
             {
-                problem.GenerateSzenarioC(Properties.Settings.Default.global_Random_Seed);
+                Scenarios.ScenarioLoader.GenerateSzenarioC(problem, Properties.Settings.Default.global_Random_Seed);
             }
             if (selectedScenario == 3)
             {
-                problem.GenerateSzenarioD(Properties.Settings.Default.global_Random_Seed);
+                Scenarios.ScenarioLoader.GenerateSzenarioD(problem, Properties.Settings.Default.global_Random_Seed);
             }
+
         }
 
         public override string ToString()

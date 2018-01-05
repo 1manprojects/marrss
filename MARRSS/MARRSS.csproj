@@ -101,6 +101,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="One_Sgp4">
       <HintPath>..\..\one_Sgp4\One_Sgp4\bin\Release\One_Sgp4.dll</HintPath>
       <Private>True</Private>
@@ -211,7 +214,6 @@
     <Compile Include="Satellite\DataStorage.cs" />
     <Compile Include="Satellite\DataFunctions.cs" />
     <Compile Include="Global\Funktions.cs" />
-    <Compile Include="Ground\Antenna.cs" />
     <Compile Include="Global\CancelException.cs" />
     <Compile Include="Ground\InView.cs" />
     <Compile Include="Interface1\ContactInterface.cs" />
@@ -235,6 +237,7 @@
     <Compile Include="Satellite\Satellite.cs" />
     <Compile Include="Ground\Station.cs" />
     <Compile Include="Scenarios\ScenarioClass.cs" />
+    <Compile Include="Scenarios\ScenarioLoader.cs" />
     <Compile Include="SchedulerData\ContactWindow.cs" />
     <Compile Include="Scheduler\ExampleScheduler.cs" />
     <Compile Include="Scheduler\GreedyScheduler.cs" />
