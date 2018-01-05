@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace MARRSS.DataBase
 {
 /**
@@ -46,13 +45,13 @@ namespace MARRSS.DataBase
         //Calls for Inserting Data into Tables
         public const string insertTle = "INSERT INTO {0} (satName, noradID, clasification, startYear, startNr, piece, epochY, epochD, firstMeanM, secMeanM, drag, ephemeris, setNr, check1, satNr, inclination, rightAscen, eccent, perigee, meanAnomoly, meanMotion, relevation, check2) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', '{23}' )";
         public const string insertSatNoData = "INSERT INTO {0} (name, noradID) VALUES ('{1}', '{2}')";
-        public const string insertSatWithData = "INSERT INTO {0} (name, noradID, storage, dataSize) VALUES ('{1}', '{2}', '{3}', '{4}')";
-        public const string insertSta = "INSERT INTO {0} (name, lat, long, hight, nrOfSat) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}')";
+        public const string insertSatWithData = "INSERT INTO {0} (name, noradID, storage, dataSize, maxDownLink, maxUpLink) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}')";
+        public const string insertSta = "INSERT INTO {0} (name, lat, long, hight, nrOfSat, maxDownLink, maxUpLink) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{5}', '{6}')";
 
         //Names of each colum of Database Table
         public const string rowsTle = "satName, noradID, clasification, startYear, startNr, piece, epochY, epochD, firstMeanM, secMeanM, drag, ephemeris, setNr, check1, satNr, inclination, rightAscen, eccent, perigee, meanAnomoly, meanMotion, relevation, check2";
-        public const string rowsSat = "name, nordid, storage, dataSize";
-        public const string rowsSta = "name, lat, long, hight, nrOfSat";
+        public const string rowsSat = "name, nordid, storage, dataSize, maxDownLink, maxUpLink";
+        public const string rowsSta = "name, lat, long, hight, nrOfSat, maxDownLink, maxUpLink";
 
         //Deleting Items in DataBase
         public const string deleteTLE = "DELETE FROM {0} WHERE noradID='{1}'";

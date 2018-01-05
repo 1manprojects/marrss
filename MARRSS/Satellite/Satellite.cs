@@ -26,6 +26,8 @@ namespace MARRSS.Satellite
         private DataStorage dataStorage;
         private string homeStation;
         private Structs.priority globalPriority;
+        private double maxDownLink; //in Kbps
+        private double maxUpLink; //in Kbps
 
         //! Satellite constructor.
         /*!
@@ -53,6 +55,8 @@ namespace MARRSS.Satellite
             dataStorage = new DataStorage(Properties.Settings.Default.global_defaultDataStorageSat);
             name = _name;
             tleData = _tleData;
+            maxUpLink = 0;
+            maxDownLink = 0;
         }
 
         //! Satellite constructor.
@@ -67,6 +71,8 @@ namespace MARRSS.Satellite
             dataStorage = new DataStorage(onBoardData, datasize);
             name = _name;
             tleData = _tleData;
+            maxUpLink = 0;
+            maxDownLink = 0;
         }
 
         //! Satellite constructor.
@@ -81,6 +87,17 @@ namespace MARRSS.Satellite
             dataStorage = new DataStorage(onBoardData, (Structs.DataSize)datasize);
             name = _name;
             tleData = _tleData;
+            maxUpLink = 0;
+            maxDownLink = 0;
+        }
+
+        public Satellite(string _name, One_Sgp4.Tle _tleData, long onBoardData, int datasize, double maxUp, double maxDown)
+        {
+            dataStorage = new DataStorage(onBoardData, (Structs.DataSize)datasize);
+            name = _name;
+            tleData = _tleData;
+            maxUpLink = maxUp;
+            maxDownLink = maxDown;
         }
 
         //! Sets the TLE-Data for this object
@@ -151,6 +168,18 @@ namespace MARRSS.Satellite
         public void setGlobalPriority(Structs.priority prio)
         {
             globalPriority = prio;
+        }
+
+        public double getMaxDownLink()
+        {
+            //in Kbps
+            return maxDownLink;
+        }
+
+        public double getMaxUpLink()
+        {
+            //in Kbps
+            return maxUpLink;
         }
     }
 }

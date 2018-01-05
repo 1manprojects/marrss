@@ -31,8 +31,8 @@ namespace MARRSS.Ground
         private string name; //!< string name of the Station
         private GeoCoordinate geoCoordinate; //!< GeoCoordinate position of the stations
         private double minElevation = 0.000000; //!< double min elevation of groundstation
-        private double maxUpLink = 0.0; //!< double max Uplink of groundstation in Kbps
-        private double maxDownLink = 0.0; //!< double max Downlink of groundstation in Kbps
+        private double maxUpLink; //!< double max Uplink of groundstation in Kbps
+        private double maxDownLink; //!< double max Downlink of groundstation in Kbps
 
         //! Stations constructor.
         /*!
@@ -44,9 +44,10 @@ namespace MARRSS.Ground
         {
             geoCoordinate = _geoCord;
             name = _name;
+            maxUpLink = 0;
+            maxDownLink = 0;
         }
-
-
+                        
         //! Stations constructor.
         /*!
             \param string name of station
@@ -60,6 +61,25 @@ namespace MARRSS.Ground
         {
             geoCoordinate = new Definition.GeoCoordinate(latetude, longetude, height);
             name = _name;
+            maxUpLink = 0;
+            maxDownLink = 0;
+        }
+
+        //! Stations constructor.
+        /*!
+            \param string name of station
+            \param double latetude of the station
+            \param double longitude of the station
+            \param double height of the stations
+            constructs a Groundstationat with one antenna the given coordinates
+        */
+        public Station(string _name, double latetude, double longetude,
+                        double height = 0.0, double maxUp = 0.0, double maxDown= 0.0)
+        {
+            geoCoordinate = new Definition.GeoCoordinate(latetude, longetude, height);
+            name = _name;
+            maxUpLink = maxUp;
+            maxDownLink = maxDown;
         }
 
         //! Set the Coordinates of the Stations
@@ -143,6 +163,16 @@ namespace MARRSS.Ground
         public double getHeight()
         {
             return geoCoordinate.getHeight();
+        }
+
+        public double getMaxUpLink()
+        {
+            return maxUpLink;
+        }
+
+        public double getMaxDownLink()
+        {
+            return maxDownLink;
         }
 
     }

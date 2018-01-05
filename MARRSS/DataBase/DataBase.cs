@@ -522,7 +522,10 @@ namespace MARRSS.DataBase
                         read.GetString(0),
                         read.GetDouble(1),
                         read.GetDouble(2),
-                        read.GetDouble(3));
+                        read.GetDouble(3),
+                        read.GetDouble(4),
+                        read.GetDouble(5)
+                        );
                     return station;
                 }
             }
@@ -552,7 +555,10 @@ namespace MARRSS.DataBase
                             read.GetString(0),
                             tle,
                             read.GetInt32(2),
-                            read.GetInt32(3) );
+                            read.GetInt32(3),
+                            read.GetDouble(4),
+                            read.GetDouble(5)
+                            );
                     return satellite;
                 }
             }
