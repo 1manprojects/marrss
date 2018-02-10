@@ -169,9 +169,9 @@ namespace MARRSS.Forms
                         break;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid Input for Satellite Onboard Storage",
+                MessageBox.Show("Error Adding Satellite to Database: "+ ex,
                         "ERROR",
                         MessageBoxButtons.OK);
             }

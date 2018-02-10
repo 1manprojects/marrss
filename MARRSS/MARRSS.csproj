@@ -236,6 +236,7 @@
     <Compile Include="RunScheduler.cs" />
     <Compile Include="Satellite\Satellite.cs" />
     <Compile Include="Ground\Station.cs" />
+    <Compile Include="Scenarios\JPlan.cs" />
     <Compile Include="Scenarios\ScenarioClass.cs" />
     <Compile Include="Scenarios\ScenarioLoader.cs" />
     <Compile Include="SchedulerData\ContactWindow.cs" />

@@ -11,14 +11,13 @@
 */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
 
 using MARRSS.Global;
 using MARRSS.Satellite;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace MARRSS.Scenarios
 {
@@ -156,6 +155,15 @@ namespace MARRSS.Scenarios
         public void LoadScenario()
         {
 
+        }
+
+        public static JPlan LoadDataScenarioFromCustomJson(string filePath)
+        {
+            //@"D:\Programmieren\git\marrss\TIM___Nominal.json"
+            JObject CustomJObject = JObject.Parse(File.ReadAllText(filePath));
+            var res = CustomJObject.SelectToken("solution.plans.list");
+            var ret = res.ToObject<List<JPlan>>();
+            return ret.FirstOrDefault();            
         }
 
     }

@@ -158,5 +158,12 @@ namespace MARRSS.Scenarios
                 }
             }
         }
+
+        public static void GenerateCustomDataScenario(ScheduleProblemInterface input, JPlan customPlan)
+        {
+            //Set StartDate and EndDate
+            //GenerateData for Each Satellite
+            
+        }
     }
 }

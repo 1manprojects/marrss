@@ -52,6 +52,7 @@
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.objectiveBuilderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scenariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadDataScenarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
@@ -84,6 +85,8 @@
             this.label41 = new System.Windows.Forms.Label();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.datShedLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -191,8 +194,6 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.datShedLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -345,7 +346,8 @@
             this.tLEDataToolStripMenuItem,
             this.toolStripMenuItem9,
             this.objectiveBuilderToolStripMenuItem,
-            this.scenariosToolStripMenuItem});
+            this.scenariosToolStripMenuItem,
+            this.loadDataScenarioToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -353,21 +355,21 @@
             // settingsToolStripMenuItem1
             // 
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(175, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(161, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(172, 6);
             // 
             // tLEDataToolStripMenuItem
             // 
             this.tLEDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateTLEsToolStripMenuItem});
             this.tLEDataToolStripMenuItem.Name = "tLEDataToolStripMenuItem";
-            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.tLEDataToolStripMenuItem.Text = "TLE-Data";
             // 
             // updateTLEsToolStripMenuItem
@@ -380,21 +382,28 @@
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(161, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(172, 6);
             // 
             // objectiveBuilderToolStripMenuItem
             // 
             this.objectiveBuilderToolStripMenuItem.Name = "objectiveBuilderToolStripMenuItem";
-            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.objectiveBuilderToolStripMenuItem.Text = "Objective Builder";
             this.objectiveBuilderToolStripMenuItem.Click += new System.EventHandler(this.objectiveBuilderToolStripMenuItem_Click);
             // 
             // scenariosToolStripMenuItem
             // 
             this.scenariosToolStripMenuItem.Name = "scenariosToolStripMenuItem";
-            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.scenariosToolStripMenuItem.Text = "Scenarios";
             this.scenariosToolStripMenuItem.Click += new System.EventHandler(this.scenariosToolStripMenuItem_Click);
+            // 
+            // loadDataScenarioToolStripMenuItem
+            // 
+            this.loadDataScenarioToolStripMenuItem.Name = "loadDataScenarioToolStripMenuItem";
+            this.loadDataScenarioToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.loadDataScenarioToolStripMenuItem.Text = "Load Data Scenario";
+            this.loadDataScenarioToolStripMenuItem.Click += new System.EventHandler(this.loadDataScenarioToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -761,7 +770,26 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(430, 264);
             this.panel8.TabIndex = 47;
-            this.panel8.Paint += new System.Windows.Forms.PaintEventHandler(this.panel8_Paint);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 160);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 13);
+            this.label4.TabIndex = 50;
+            this.label4.Text = "Data Downlink";
+            // 
+            // datShedLabel
+            // 
+            this.datShedLabel.AutoSize = true;
+            this.datShedLabel.Location = new System.Drawing.Point(209, 160);
+            this.datShedLabel.Name = "datShedLabel";
+            this.datShedLabel.Size = new System.Drawing.Size(13, 13);
+            this.datShedLabel.TabIndex = 51;
+            this.datShedLabel.Text = "--";
+            this.toolTip1.SetToolTip(this.datShedLabel, "Fairness value of satellites in shedule. A value of 1.0 means that all satellites" +
+        " are contacted eqaly");
             // 
             // durationLabel
             // 
@@ -1019,7 +1047,8 @@
             "A: Daily Operations - No Priority\'s",
             "B: Daily Operations - Random Priority",
             "C: LEOP UWE-3 Critical",
-            "D: Critical over home station"});
+            "D: Critical over home station",
+            "E: Custom Data Scenaro From File"});
             this.comboScenarioBox.Location = new System.Drawing.Point(24, 32);
             this.comboScenarioBox.Name = "comboScenarioBox";
             this.comboScenarioBox.Size = new System.Drawing.Size(254, 21);
@@ -1800,26 +1829,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 160);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 13);
-            this.label4.TabIndex = 50;
-            this.label4.Text = "Data Downlink";
-            // 
-            // datShedLabel
-            // 
-            this.datShedLabel.AutoSize = true;
-            this.datShedLabel.Location = new System.Drawing.Point(209, 160);
-            this.datShedLabel.Name = "datShedLabel";
-            this.datShedLabel.Size = new System.Drawing.Size(13, 13);
-            this.datShedLabel.TabIndex = 51;
-            this.datShedLabel.Text = "--";
-            this.toolTip1.SetToolTip(this.datShedLabel, "Fairness value of satellites in shedule. A value of 1.0 means that all satellites" +
-        " are contacted eqaly");
-            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
@@ -2055,5 +2064,6 @@
         private System.Windows.Forms.ToolStripMenuItem scenariosToolStripMenuItem;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label datShedLabel;
+        private System.Windows.Forms.ToolStripMenuItem loadDataScenarioToolStripMenuItem;
     }
 }

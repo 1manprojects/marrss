@@ -1402,7 +1402,7 @@ namespace MARRSS
             scenarioForm.ShowDialog();
         }
 
-        private void panel8_Paint(object sender, PaintEventArgs e)
+        private void loadDataScenarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

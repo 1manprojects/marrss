@@ -214,7 +214,7 @@ namespace MARRSS.DataBase
 
                 addSatCommand.CommandText = String.Format(
                     Constants.insertSatWithData,
-                    Constants.SatDB, tleData.getName(), tleData.getNoradID(), dataSize, datatype);
+                    Constants.SatDB, tleData.getName(), tleData.getNoradID(), dataSize, datatype, "1024", "1024");
                 addSatCommand.ExecuteNonQuery();
             }
             else
@@ -240,20 +240,9 @@ namespace MARRSS.DataBase
                 tleData.getPerigee(), tleData.getMeanAnomoly(), tleData.getMeanMotion(),
                 tleData.getRelevationNumber(), tleData.getSecCheckSum());
                 command.ExecuteNonQuery();
-
-                //SQLiteCommand delcommand = new SQLiteCommand(m_dbConnection);
-                //delcommand.CommandText = String.Format(
-                //        Constants.deleteSatellite2,
-                //        Constants.SatDB,
-                //        tleData.getNoradID());
-                //delcommand.ExecuteNonQuery();
-
-                //addSatCommand.CommandText = String.Format(
-                //    Constants.insertSatNoData,
-                //    Constants.SatDB, tleData.getName(), tleData.getNoradID());
-                //addSatCommand.ExecuteNonQuery();
             }
         }
+
         //! Write TLE-Data to DataBase
         /*! 
            \param tleData TLEData to be writen in DataBase.
@@ -310,7 +299,7 @@ namespace MARRSS.DataBase
             {
                 command.CommandText = String.Format(
                      Constants.insertSatWithData,
-                     Constants.SatDB, sat.getName(), sat.getTleData().getNoradID(), 1, 0);
+                     Constants.SatDB, sat.getName(), sat.getTleData().getNoradID(), 1, 0, 0.0, 0.0);
                 command.ExecuteNonQuery();
             }
         }
@@ -335,7 +324,7 @@ namespace MARRSS.DataBase
                 command.CommandText = String.Format(
                      Constants.insertSta,
                      Constants.StationDB, station.getName(), station.getLatitude(),
-                     station.getLongitude(), station.getHeight());
+                     station.getLongitude(), station.getHeight(), station.getMaxUpLink(), station.getMaxDownLink());
                 command.ExecuteNonQuery();
             }
         }
@@ -775,6 +764,11 @@ namespace MARRSS.DataBase
             command.CommandText = String.Format(
                 Constants.updateAllSatsUpDownLink,
                 1024, 1024);
+            command.ExecuteNonQuery();
+
+            command.CommandText = String.Format(
+                "INSERT INTO {0} (version, versionNum) Values ('{1}', '{2}')",
+                Constants.verDB, "dbVersion", Constants.dbVersion);
             command.ExecuteNonQuery();
 
             Properties.Settings.Default.db_version = Constants.dbVersion;
