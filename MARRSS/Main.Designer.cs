@@ -1129,7 +1129,7 @@
             this.stopTimePicker.Size = new System.Drawing.Size(71, 20);
             this.stopTimePicker.TabIndex = 17;
             this.toolTip1.SetToolTip(this.stopTimePicker, "Starting time in UTC");
-            this.stopTimePicker.Value = new System.DateTime(2015, 8, 18, 12, 0, 0, 0);
+            this.stopTimePicker.Value = new System.DateTime(2015, 8, 18, 0, 0, 0, 0);
             this.stopTimePicker.ValueChanged += new System.EventHandler(this.stopTimePicker_ValueChanged);
             // 
             // startTimePicker
@@ -1141,7 +1141,7 @@
             this.startTimePicker.Size = new System.Drawing.Size(71, 20);
             this.startTimePicker.TabIndex = 16;
             this.toolTip1.SetToolTip(this.startTimePicker, "Starting time in UTC");
-            this.startTimePicker.Value = new System.DateTime(2015, 8, 18, 12, 0, 0, 0);
+            this.startTimePicker.Value = new System.DateTime(2015, 8, 18, 0, 0, 0, 0);
             this.startTimePicker.ValueChanged += new System.EventHandler(this.startTimePicker_ValueChanged);
             // 
             // label10
@@ -1202,7 +1202,7 @@
             this.stopDatePicker.Size = new System.Drawing.Size(101, 20);
             this.stopDatePicker.TabIndex = 3;
             this.toolTip1.SetToolTip(this.stopDatePicker, "Starting date to start simulation");
-            this.stopDatePicker.Value = new System.DateTime(2015, 8, 18, 0, 0, 0, 0);
+            this.stopDatePicker.Value = new System.DateTime(2018, 1, 22, 0, 0, 0, 0);
             this.stopDatePicker.ValueChanged += new System.EventHandler(this.stopDatePicker_ValueChanged);
             // 
             // label6
@@ -1224,7 +1224,7 @@
             this.startDatePicker.Size = new System.Drawing.Size(101, 20);
             this.startDatePicker.TabIndex = 0;
             this.toolTip1.SetToolTip(this.startDatePicker, "Starting date to start simulation");
-            this.startDatePicker.Value = new System.DateTime(2015, 8, 17, 0, 0, 0, 0);
+            this.startDatePicker.Value = new System.DateTime(2018, 1, 12, 0, 0, 0, 0);
             this.startDatePicker.ValueChanged += new System.EventHandler(this.startDatePicker_ValueChanged);
             // 
             // tabPage1

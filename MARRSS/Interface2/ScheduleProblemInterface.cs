@@ -39,6 +39,8 @@ namespace MARRSS.Interface2
         void setRequestToContact();
         ContactWindowsVector getContactWindows();
         List<Satellite.Satellite> getSatellites();
+        Satellite.Satellite getSatelliteByName(string name);
         List<Ground.Station> getGroundStations();
+        Ground.Station getGroundStationByName(string name);
     }
 }

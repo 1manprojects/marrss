@@ -169,7 +169,7 @@ namespace MARRSS
             //Set Scheduling Problem
             //set Objective Function
             setObjectiveFunction();
-            string test = objectivefunct.ToString();
+            //string test = objectivefunct.ToString();
             //objectivefunct = new ObjectiveFunction(Global.Structs.ObjectiveEnum.DURATION,
             //    Global.Structs.ObjectiveEnum.FAIRNESSATELITE, Global.Structs.ObjectiveEnum.FAIRNESSTATION,
             //    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
@@ -188,7 +188,7 @@ namespace MARRSS
             {
                 getScenario(problem);
             }
-            Scenarios.ScenarioLoader.Generate1MbPerMinuteScenario(problem);
+            //Scenarios.ScenarioLoader.Generate1MbPerMinuteScenario(problem);
 
             //enable time measurment Class
             TimeMeasurement tm = new Performance.TimeMeasurement();
@@ -239,7 +239,7 @@ namespace MARRSS
             //display resulst on main Page
             RunScheduler.displayResults(this, scheduler, problem);
             //finisch clean up and write to logs if necesarry
-            finischSchedule(scheduler.ToString(),logFile);
+            finischSchedule(scheduler.ToString(), problem, logFile);
         }
         
         private void startScheduleButton_Click(object sender, EventArgs e)
@@ -480,6 +480,11 @@ namespace MARRSS
             {
                 Scenarios.ScenarioLoader.GenerateSzenarioD(problem, Properties.Settings.Default.global_Random_Seed);
             }
+            if (comboScenarioBox.SelectedIndex == 4)
+            {
+                var dataScen = Scenarios.ScenarioClass.LoadDataScenarioFromCustomJson(@"D:\Programmieren\git\marrss\TIM___Nominal.json");
+                Scenarios.ScenarioLoader.GenerateCustomDataScenario(problem, dataScen);
+            }
         }
 
         //! finisch and clean up after Schedule Calculation
@@ -488,7 +493,7 @@ namespace MARRSS
          * Calculate fairness values
          * Display information on Form
         */
-        private void finischSchedule(string schedulerName, string logfile, int number = 0, bool bruteForce = false)
+        private void finischSchedule(string schedulerName, SchedulingProblem problem, string logfile, int number = 0, bool bruteForce = false)
         {
             //Draw scheduled data to Main form
             pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
@@ -528,6 +533,7 @@ namespace MARRSS
                 results.Add("Duration: " + durationLabel.Text + " sec.");
                 results.Add("Calculation Time: " + calcTimeLabel.Text);
                 results.Add("Scheduled per priority: " + uweLabel.Text );
+                results.AddRange(Performance.GeneralMeasurments.calculateDataStoragePerformance(problem.getSatellites()));
                 Log.writeResults(logfile, schedulerName, results);
                 updateLog(logfile, "Results have been saved to File");
             }
@@ -989,11 +995,11 @@ namespace MARRSS
         private void Main_Load(object sender, EventArgs e)
         {
             DateTime now = DateTime.Now;
-            startDatePicker.Value = now.Date;
-            startTimePicker.Value = now.ToUniversalTime();
+            //startDatePicker.Value = now.Date;
+            //startTimePicker.Value = now.ToUniversalTime();
             now = now.AddDays(1.0);
-            stopDatePicker.Value = now.Date;
-            stopTimePicker.Value = now.ToUniversalTime();
+            //stopDatePicker.Value = now.Date;
+            //stopTimePicker.Value = now.ToUniversalTime();
         }
 
 

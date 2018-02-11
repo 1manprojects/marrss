@@ -116,9 +116,34 @@ namespace MARRSS.Scheduler
         {
             return satellites;
         }
+
+        public Satellite.Satellite getSatelliteByName(string name)
+        {
+            foreach(var sat in satellites)
+            {
+                if (sat.getName().ToLower() == name.ToLower())
+                {
+                    return sat;
+                }
+            }
+            return null;
+        }
+
         public List<Ground.Station> getGroundStations()
         {
             return stations;
+        }
+
+        public Ground.Station getGroundStationByName(string name)
+        {
+            foreach (var sta in stations)
+            {
+                if (sta.getName().ToLower() == name.ToLower())
+                {
+                    return sta;
+                }
+            }
+            return null;
         }
 
         //! Remove unwanted contact windows 

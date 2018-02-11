@@ -92,6 +92,17 @@ namespace MARRSS.Performance
             return "UWE-3: " + count;
         }
 
+        public static List<string> calculateDataStoragePerformance(List<Satellite.Satellite> sats)
+        {
+            List<string> results = new List<string>();
+            foreach (var sat in sats)
+            {
+                string satResult = string.Format("{0}: Created / Downloaded Data {1}/{2}", sat.getName(), sat.getDataStorage().getMaxGeneratedData(),sat.getDataStorage().getMaxDownladedData());
+                results.Add(satResult);
+            }
+            return results;
+        }
+
         //! returns the number of contacts for each priority
         /*!
             \param ContactWindowVector schedule to calculate fairness

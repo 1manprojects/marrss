@@ -78,7 +78,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="log_AutoSave_Results" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="log_AutoSave_RunLog" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -142,6 +142,9 @@
     </Setting>
     <Setting Name="global_defaultDataStorageSatSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="global_DrawImage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
