@@ -162,5 +162,15 @@ namespace MARRSS.Scheduler
                 }
             }
         }
+
+        public EpochTime getStartTime()
+        {
+            return schedulerContacts.getStartTime();
+        }
+
+        public EpochTime getEndTime()
+        {
+            return schedulerContacts.getStopTime();
+        }
     }
 }

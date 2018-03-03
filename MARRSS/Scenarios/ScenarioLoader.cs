@@ -185,6 +185,9 @@ namespace MARRSS.Scenarios
                             var lowerBoundInMin = lowerBoundDuration.TotalMinutes;
                             var startTime = new One_Sgp4.EpochTime(value.time.lb);
 
+                            if (startTime.toDateTime() >= input.getEndTime().toDateTime())
+                                break;
+
                             int dataPacketSize = 0;
                             if (storages.Count() >= 3)
                             {

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 namespace MARRSS.Global
 {
-    class DataStorage
+    public class DataStorage
     {
         private long maxDataStorageSize;
 
@@ -137,6 +137,16 @@ namespace MARRSS.Global
             }
             internalRemovedStorage.Add(packet);
             return false;
+        }
+
+        public List<DataPacket> GetCreatedDataPackets()
+        {
+            return internalAddedStorage;
+        }
+
+        public List<DataPacket> GetDownloadedDataPackets()
+        {
+            return internalRemovedStorage;
         }
 
         public long getMaxGeneratedData()

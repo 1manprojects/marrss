@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using MARRSS.Definition;
 using MARRSS.Scheduler;
 using MARRSS.Interface1;
+using One_Sgp4;
 
 namespace MARRSS.Interface2
 {
@@ -42,5 +43,7 @@ namespace MARRSS.Interface2
         Satellite.Satellite getSatelliteByName(string name);
         List<Ground.Station> getGroundStations();
         Ground.Station getGroundStationByName(string name);
+        EpochTime getStartTime();
+        EpochTime getEndTime();
     }
 }

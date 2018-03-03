@@ -19,7 +19,7 @@ namespace MARRSS.Satellite
     * This class defines the satellite object containing of a name the NORAD-ID
     * and its two line element.
     */
-    class Satellite
+    public class Satellite
     {
         private string name; //!< string satellite name
         private One_Sgp4.Tle tleData; //!< TLE two line element data for the satellite

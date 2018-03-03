@@ -136,7 +136,6 @@
             this.buttonSaveImage = new System.Windows.Forms.Button();
             this.buttonReDraw = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label50 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -211,8 +210,6 @@
             this.contextSatellites.SuspendLayout();
             this.contextStations.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
@@ -1047,8 +1044,7 @@
             "A: Daily Operations - No Priority\'s",
             "B: Daily Operations - Random Priority",
             "C: LEOP UWE-3 Critical",
-            "D: Critical over home station",
-            "E: Custom Data Scenaro From File"});
+            "D: Critical over home station"});
             this.comboScenarioBox.Location = new System.Drawing.Point(24, 32);
             this.comboScenarioBox.Name = "comboScenarioBox";
             this.comboScenarioBox.Size = new System.Drawing.Size(254, 21);
@@ -1244,6 +1240,7 @@
             // 
             // button7
             // 
+            this.button7.Enabled = false;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Location = new System.Drawing.Point(87, 548);
             this.button7.Name = "button7";
@@ -1255,6 +1252,7 @@
             // 
             // buttonSaveImage
             // 
+            this.buttonSaveImage.Enabled = false;
             this.buttonSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSaveImage.Location = new System.Drawing.Point(177, 548);
             this.buttonSaveImage.Name = "buttonSaveImage";
@@ -1266,6 +1264,7 @@
             // 
             // buttonReDraw
             // 
+            this.buttonReDraw.Enabled = false;
             this.buttonReDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonReDraw.Location = new System.Drawing.Point(6, 548);
             this.buttonReDraw.Name = "buttonReDraw";
@@ -1278,21 +1277,11 @@
             // panel5
             // 
             this.panel5.AutoScroll = true;
-            this.panel5.Controls.Add(this.pictureBox2);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(988, 539);
             this.panel5.TabIndex = 1;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(50, 583);
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
             // 
             // tabPage3
             // 
@@ -1873,8 +1862,6 @@
             this.contextSatellites.ResumeLayout(false);
             this.contextStations.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -1936,7 +1923,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label satelliteNameLabel;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label stopTimeLabel;
         private System.Windows.Forms.Label startTimeLabel;
         private System.Windows.Forms.DateTimePicker stopDatePicker;

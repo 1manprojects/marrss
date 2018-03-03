@@ -60,7 +60,8 @@ namespace MARRSS.DataBase
                         writer.WriteElementString("ID", cw.getID().ToString());
                         writer.WriteElementString("RequID", cw.getRequestID().ToString());
                         writer.WriteElementString("Priority", cw.getPriority().ToString());
-                        writer.WriteEndElement();
+                        
+                    writer.WriteEndElement();
                     }
                     f.updateProgressBar(count++);
                 }

@@ -108,6 +108,12 @@
       <HintPath>..\..\one_Sgp4\One_Sgp4\bin\Release\One_Sgp4.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.WindowsForms.1.0.0\lib\net45\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -181,6 +187,12 @@
     </Compile>
     <Compile Include="Forms\SatelliteForm.Designer.cs">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SatelliteStorageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SatelliteStorageForm.Designer.cs">
+      <DependentUpon>SatelliteStorageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ScenarioEditor.cs">
       <SubType>Form</SubType>
@@ -273,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SatelliteForm.resx">
       <DependentUpon>SatelliteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SatelliteStorageForm.resx">
+      <DependentUpon>SatelliteStorageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ScenarioEditor.resx">
       <DependentUpon>ScenarioEditor.cs</DependentUpon>

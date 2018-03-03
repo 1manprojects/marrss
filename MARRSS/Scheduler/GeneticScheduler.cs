@@ -158,12 +158,21 @@ namespace MARRSS.Scheduler
             return result;
         }
 
+        private static void ClearSatelliteDonwnlinkData(ScheduleProblemInterface problem)
+        {
+            foreach(var sat in problem.getSatellites())
+            {
+                sat.getDataStorage().reset();
+            }
+        }
+
         //! Starts the process of finding the best solution through genetor
         /*!
             \param ScheduleProblemInterface definition of the problem to solve
         */
         public void CalculateSchedule(ScheduleProblemInterface problem)
         {
+            
             objective = problem.getObjectiveFunction();
             set = problem.getContactWindows();
             //Sort by time
@@ -211,6 +220,8 @@ namespace MARRSS.Scheduler
             while (!foundSolution)
             {
                 generation++;
+                //clear SatelliteData
+                ClearSatelliteDonwnlinkData(problem);
                 //Console.WriteLine("Generation: " + generation.ToString() );
                 //elliminate all collsions either by using random chance or
                 //by priority.
@@ -218,7 +229,7 @@ namespace MARRSS.Scheduler
                 for (int i = 0; i < popSize; i++)
                 {
                     surviveConflicts(population[i], rnd, conflictValue);
-                    fitness[i] = checkFitness(population[i]);
+                    fitness[i] = checkFitness(population[i], problem);
                 }
 
                 if (Properties.Settings.Default.global_MaxPerf == false)
@@ -354,9 +365,9 @@ namespace MARRSS.Scheduler
             The Fitness is defined by the objective Function
             from 1.0 to 0 with 1.0 being optimal
         */
-        private double checkFitness(int[] pop)
+        private double checkFitness(int[] pop, ScheduleProblemInterface problem)
         {
-            objective.calculateValues(set, pop);
+            objective.calculateValues(set, pop, problem.getSatellites(), problem.getGroundStations() );
             return objective.getObjectiveResults();
         }
 

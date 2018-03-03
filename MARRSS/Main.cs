@@ -19,6 +19,7 @@ using System.Media;
 using MARRSS.Performance;
 using MARRSS.Scheduler;
 using MARRSS.Satellite;
+using MARRSS.Scenarios;
 
 namespace MARRSS
 {
@@ -43,7 +44,12 @@ namespace MARRSS
         Image imgSatellite = null; //!< Images used to display satellite on ground path
         Image imgStation = null; //!< Image used to display stations on Earth
 
+        private bool LoadedCustomData = false;
+        private JPlan CustomDataScenario;
+
         private int tle_timeCounter;
+        //for Testing
+        private SchedulingProblem currentProblem = null;
 
         //! Main Startup Function
         /*
@@ -141,6 +147,8 @@ namespace MARRSS
             stationData = new List<Ground.Station>();
             //check if contacts vector has not been already created or loaded
             //from save file
+
+            
             bool resetScenario = true;
             if (contactsVector == null || changedParameters == true)
             {
@@ -175,7 +183,7 @@ namespace MARRSS
             //    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
 
             SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
-            satellitesData = getSatellitesData(logFile);
+                        satellitesData = getSatellitesData(logFile);
             stationData = getStationData(logFile);
             problem.setGroundStations(stationData);
             problem.setSatellites(satellitesData);
@@ -186,7 +194,25 @@ namespace MARRSS
             */
             if (resetScenario != false)
             {
-                getScenario(problem);
+                if (LoadedCustomData)
+                {
+                    ScenarioLoader.GenerateCustomDataScenario(problem, CustomDataScenario);
+                }
+                else
+                {
+                    getScenario(problem);
+                }
+            }
+            else
+            {
+                if (LoadedCustomData)
+                {
+                    ScenarioLoader.GenerateCustomDataScenario(problem, CustomDataScenario);
+                    foreach (var sat in problem.getSatellites())
+                    {
+                        sat.getDataStorage().reset();
+                    }
+                }
             }
             //Scenarios.ScenarioLoader.Generate1MbPerMinuteScenario(problem);
 
@@ -240,6 +266,7 @@ namespace MARRSS
             RunScheduler.displayResults(this, scheduler, problem);
             //finisch clean up and write to logs if necesarry
             finischSchedule(scheduler.ToString(), problem, logFile);
+            currentProblem = problem;
         }
         
         private void startScheduleButton_Click(object sender, EventArgs e)
@@ -440,16 +467,16 @@ namespace MARRSS
             */
             if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
             {
-                string savePath = Properties.Settings.Default.global_Save_Path;
-                Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
-                contImages.Save(savePath + "\\" + logfile + "-UnScheduled.bmp");
-                updateLog(logfile, "Saved Contact window image to File " + savePath + "\\" + logfile + " - UnScheduled.bmp");
+                //string savePath = Properties.Settings.Default.global_Save_Path;
+                //Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
+                //contImages.Save(savePath + "\\" + logfile + "-UnScheduled.bmp");
+                //updateLog(logfile, "Saved Contact window image to File " + savePath + "\\" + logfile + " - UnScheduled.bmp");
             }
             if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveContacts)
             {
-                string savePath = Properties.Settings.Default.global_Save_Path;
-                DataBase.SaveLoad.saveToFile(savePath + "\\" + logfile + ".xml", contactsVector, this);
-                updateLog(logfile, "Saved Contacts to XML-File " + savePath + "\\" + logfile + ".xml");
+                //string savePath = Properties.Settings.Default.global_Save_Path;
+                //DataBase.SaveLoad.saveToFile(savePath + "\\" + logfile + ".xml", contactsVector, this, false);
+                //updateLog(logfile, "Saved Contacts to XML-File " + savePath + "\\" + logfile + ".xml");
             }
         }
 
@@ -480,11 +507,6 @@ namespace MARRSS
             {
                 Scenarios.ScenarioLoader.GenerateSzenarioD(problem, Properties.Settings.Default.global_Random_Seed);
             }
-            if (comboScenarioBox.SelectedIndex == 4)
-            {
-                var dataScen = Scenarios.ScenarioClass.LoadDataScenarioFromCustomJson(@"D:\Programmieren\git\marrss\TIM___Nominal.json");
-                Scenarios.ScenarioLoader.GenerateCustomDataScenario(problem, dataScen);
-            }
         }
 
         //! finisch and clean up after Schedule Calculation
@@ -496,23 +518,23 @@ namespace MARRSS
         private void finischSchedule(string schedulerName, SchedulingProblem problem, string logfile, int number = 0, bool bruteForce = false)
         {
             //Draw scheduled data to Main form
-            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-            pictureBox2.Width = pictureBox2.Image.Width;
-            pictureBox2.Height = pictureBox2.Image.Height;
+            //pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
+            //pictureBox2.Width = pictureBox2.Image.Width;
+            //pictureBox2.Height = pictureBox2.Image.Height;
 
             //check if auto save of images is enabled
             //if yes then save files
             if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
             {
-                string savePath = Properties.Settings.Default.global_Save_Path;
-                Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-                if (radioEFTGreedy.Checked)
-                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-EFT-Greedy-"+ number +".bmp");
-                if (radioGreedy.Checked)
-                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Fair-Greedy-" + number + ".bmp");
-                if (radioGenetic.Checked)
-                    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic-" + number + ".bmp");
-                updateLog(logfile, "Saved Calculated Schedule to Image (bmp) " + savePath + "\\" + logfile);
+                //string savePath = Properties.Settings.Default.global_Save_Path;
+                //Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
+                //if (radioEFTGreedy.Checked)
+                //    contImages.Save(savePath + "\\" + logfile + "-Scheduled-EFT-Greedy-"+ number +".bmp");
+                //if (radioGreedy.Checked)
+                //    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Fair-Greedy-" + number + ".bmp");
+                //if (radioGenetic.Checked)
+                //    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic-" + number + ".bmp");
+                //updateLog(logfile, "Saved Calculated Schedule to Image (bmp) " + savePath + "\\" + logfile);
             }
             if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveContacts)
             {
@@ -533,6 +555,7 @@ namespace MARRSS
                 results.Add("Duration: " + durationLabel.Text + " sec.");
                 results.Add("Calculation Time: " + calcTimeLabel.Text);
                 results.Add("Scheduled per priority: " + uweLabel.Text );
+                results.Add("DataDownlink Perf: " + datShedLabel.Text);
                 results.AddRange(Performance.GeneralMeasurments.calculateDataStoragePerformance(problem.getSatellites()));
                 Log.writeResults(logfile, schedulerName, results);
                 updateLog(logfile, "Results have been saved to File");
@@ -843,9 +866,6 @@ namespace MARRSS
         */
         private void buttonReDraw_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-            pictureBox2.Width = pictureBox2.Image.Width;
-            pictureBox2.Height = pictureBox2.Image.Height;
         }
 
         //! Load calculated schedule
@@ -995,11 +1015,11 @@ namespace MARRSS
         private void Main_Load(object sender, EventArgs e)
         {
             DateTime now = DateTime.Now;
-            //startDatePicker.Value = now.Date;
-            //startTimePicker.Value = now.ToUniversalTime();
+            startDatePicker.Value = now.Date;
+            startTimePicker.Value = now.ToUniversalTime();
             now = now.AddDays(1.0);
-            //stopDatePicker.Value = now.Date;
-            //stopTimePicker.Value = now.ToUniversalTime();
+            stopDatePicker.Value = now.Date;
+            stopTimePicker.Value = now.ToUniversalTime();
         }
 
 
@@ -1063,7 +1083,6 @@ namespace MARRSS
             if (userSelect == DialogResult.OK)
             {
                 string filePath = saveFileDialog1.FileName;
-                pictureBox2.Image.Save(filePath);
             }
         }
 
@@ -1123,9 +1142,6 @@ namespace MARRSS
         */
         private void button7_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, true);
-            pictureBox2.Width = pictureBox2.Image.Width;
-            pictureBox2.Height = pictureBox2.Image.Height;
         }
 
         //! Add a Ground Stations to the Databse
@@ -1382,8 +1398,11 @@ namespace MARRSS
 
         private void formTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Forms.NoteForm note = new Forms.NoteForm("Testing", "this is a test to demonstrate the functionality");
-            note.ShowDialog();
+            
+            //Forms.SatelliteStorageForm storage = new Forms.SatelliteStorageForm(currentProblem.getSatellites()[0]);
+            //storage.Show();
+            //Forms.NoteForm note = new Forms.NoteForm("Testing", "this is a test to demonstrate the functionality");
+            //note.ShowDialog();
         }
 
         private void satelliteStorageUpdateButton_Click(object sender, EventArgs e)
@@ -1410,7 +1429,32 @@ namespace MARRSS
 
         private void loadDataScenarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            DialogResult userSelect = openFileDialog1.ShowDialog();
+            if (userSelect == DialogResult.OK)
+            {
+                try
+                {
+                    CustomDataScenario = Scenarios.ScenarioClass.LoadDataScenarioFromCustomJson(openFileDialog1.FileName);
+                    LoadedCustomData = true;
+                    startDatePicker.Value = CustomDataScenario.temporalModule.origin;
+                    stopDatePicker.Value = CustomDataScenario.temporalModule.horizon;
+                    startTimePicker.Value = CustomDataScenario.temporalModule.origin;
+                    stopTimePicker.Value = CustomDataScenario.temporalModule.horizon;
+                    var sats = CustomDataScenario.getListOfSatellitesInPlan();
+                    for (int i = 0; i < checkedSatellites.Items.Count; i++)
+                    {
+                        var test = checkedSatellites.Items[i].ToString().ToLower();
+                        if (sats.Contains(test))
+                            checkedSatellites.SetItemChecked(i, true);
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error could not Load JsonFile", ex);
+                }
+            }
         }
     }
 }

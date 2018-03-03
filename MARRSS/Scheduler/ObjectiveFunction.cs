@@ -35,8 +35,6 @@ namespace MARRSS.Scheduler
         private double val_Scheduled;
         private double val_Duration;
         private double val_MaxData;
-        //needs to be implemented
-        private double val_EarliestData;
 
         private List<Satellite.Satellite> of_satellites;
         private List<Ground.Station> of_stations;
@@ -77,6 +75,151 @@ namespace MARRSS.Scheduler
             val_MaxData = 0;
         }
 
+        private ContactWindowsVector problemContacts;
+        private int[] numberOfContactsPerSatellite;
+        private int[] numberOfContactsPerStation;
+        private int[] priorityCounter;
+        private int numberOfContacts;
+        private double overallContactDuration;
+        private List<Satellite.Satellite> satelliteList;
+        private List<Ground.Station> stationList;
+        private int[] populationSet;
+        private double MAX_Duration;
+
+        public void CalculateValuesGenetic(ContactWindowsVector contactWindows, int[] population,
+            List<Satellite.Satellite> satellites, List<Ground.Station> stations)
+        {
+            problemContacts = contactWindows;
+            priorityCounter = new int[5] { 0, 0, 0, 0, 0, };
+            numberOfContacts = 0;
+            MAX_Duration = 0.0;
+            overallContactDuration = 0.0;
+            numberOfContactsPerSatellite = new int[contactWindows.getNumberOfSatellites()];
+            numberOfContactsPerStation = new int[contactWindows.getNumberOfStation()];
+            stationList = stations;
+            satelliteList = satellites;
+            populationSet = population;
+        }
+
+        private void CalculateFitnessValues()
+        {
+            for (int i = 0; i < problemContacts.Count(); i++)
+            {
+                bool toScheduled = false;
+                if (populationSet != null)
+                {
+                    if (populationSet[i] == 1)
+                    {
+                        toScheduled = true;
+                    }
+                }
+                else
+                {
+                    toScheduled = true;
+                }
+
+                if (toScheduled)
+                {
+                    CountContactDuration(i);
+                    CountNumberOfContacts();
+                    CountNumberOfContactsPerSatelltie(i);
+                    CountNumberOfContactsPerStation(i);
+                    CountPriorityContact(i);
+                    CalculateDownlink(i);
+                }
+                
+
+            }
+        }
+
+        private void ResteDownlinkCapacity()
+        {
+            foreach(var sat in satelliteList)
+            {
+                sat.ResetDataStorage();
+            }
+        }
+
+        private void CountNumberOfContactsPerStation(int index)
+        {
+            var p = problemContacts.getStationNames().IndexOf(problemContacts.getAt(index).getStationName());
+            if (p > -1)
+            {
+                numberOfContactsPerStation[p]++;
+            }
+        }
+
+        private void CountNumberOfContactsPerSatelltie(int index)
+        {
+            var p = problemContacts.getSatelliteNames().IndexOf(problemContacts.getAt(index).getSatName());
+            if (p > -1)
+            {
+                numberOfContactsPerSatellite[p]++;
+            }
+        }
+
+        private void CountContactDuration(int index)
+        {
+            overallContactDuration += problemContacts.getAt(index).getDuration();
+        }
+
+        private void CountNumberOfContacts()
+        {
+            numberOfContacts++;
+        }
+
+        private void CalculateDownlink(int index)
+        {
+            long packetSize = Convert.ToInt32(problemContacts.getAt(index).getDuration()) * 5;
+            if (getScheduledSatellite(problemContacts.getAt(index).getSatName()) != null)
+            {
+                var sat = GetSatelliteByName(problemContacts.getAt(index).getSatName());
+                sat.RemoveDataPacket(new Satellite.DataPacket(packetSize, 4,
+                    problemContacts.getAt(index).getStartTime(), Convert.ToInt32(problemContacts.getAt(index).getDuration()), Structs.DataSize.MBYTE));
+            }
+        }
+
+        private double GetDownlinkCapacityForStation(string name)
+        {
+            for (int i = 0; i < stationList.Count(); i++)
+            {
+                if (stationList[i].getName() == name)
+                    return stationList[i].getMaxDownLink();
+            }
+            return 0.0;
+        }
+
+        private void CountPriorityContact(int index)
+        {
+            var p = (int)problemContacts.getAt(index).getPriority();
+            priorityCounter[p]++;
+        }
+
+        private Satellite.Satellite GetSatelliteByName(string name)
+        {
+            for (int i = 0; i < satelliteList.Count(); i++)
+            {
+                if (satelliteList[i].getName() == name)
+                    return satelliteList[i];
+            }
+            return null;
+        }
+
+        private Ground.Station GetStationByName(string name)
+        {
+            for (int i = 0; i < stationList.Count(); i++)
+            {
+                if (stationList[i].getName() == name)
+                    return stationList[i];
+            }
+            return null;
+        }
+
+        /*
+         *########################################################################################
+         * ######################################################################################
+         * 
+         */
         //! calculate the fitness value of the given contactvectors if a contact is added
         /*!
            \param ContactWindowsVector contact windows to check
@@ -92,6 +235,8 @@ namespace MARRSS.Scheduler
             of_stations = stations;
             currentSolution.add(contactToAdd);
             calculate(currentSolution, calcualteMaxPrioValue(completeContacts), numberOfAllContacts, null, completeContacts);
+            var satname = currentSolution.getAt(currentSolution.Count() - 1).getSatName();
+            
             currentSolution.deleteAt(currentSolution.Count() - 1);
         }
 
@@ -111,8 +256,10 @@ namespace MARRSS.Scheduler
            \param ContactWindowsVector contact windows to check
            \param int[] population representation of the Genetic scheduler default NULL
         */
-        public void calculateValues(ContactWindowsVector contactWindows, int[] population)
+        public void calculateValues(ContactWindowsVector contactWindows, int[] population, List<Satellite.Satellite> satellites, List<Ground.Station> stations)
         {
+            of_satellites = satellites;
+            of_stations = stations;
             calculate(contactWindows, calcualteMaxPrioValue(contactWindows, population), contactWindows.Count(), population);
         }
 
@@ -254,6 +401,16 @@ namespace MARRSS.Scheduler
 
             val_Priority = (double)prio / (double)priorityMax;
 
+        }
+
+        private Satellite.Satellite GetSaelliteByName(string name)
+        {
+            foreach(var sat in of_satellites)
+            {
+                if (sat.getName().Equals(name))
+                    return sat;
+            }
+            return null;
         }
 
         private int calcualteMaxPrioValue(ContactWindowsVector contacts, int[] population = null)

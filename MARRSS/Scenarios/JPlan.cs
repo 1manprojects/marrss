@@ -30,6 +30,22 @@ namespace MARRSS.Scenarios
         public JPlanTemp temporalModule { get; set; }
         public List<JPlanTimeLine> timelines { get; set; }
 
+        private List<string> satelliteList = null;
+
+        public List<string> getListOfSatellitesInPlan()
+        {
+            if (satelliteList == null)
+            {
+                satelliteList = new List<string>();
+                foreach (var timeline in timelines)
+                {
+                    if (!satelliteList.Contains(timeline.name.label))
+                        satelliteList.Add(timeline.name.label);
+                }
+            }
+            return satelliteList;
+        }
+
     }
 
     public class JPlanTemp

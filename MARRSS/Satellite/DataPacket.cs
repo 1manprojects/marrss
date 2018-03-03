@@ -8,7 +8,7 @@ using One_Sgp4;
 
 namespace MARRSS.Satellite
 {
-    class DataPacket
+    public class DataPacket
     {
         private int priority;
         //private Structs.DataSize packetSizeOfData; //TB,GB,MB,KB,B
@@ -53,6 +53,11 @@ namespace MARRSS.Satellite
         public EpochTime getTimeStamp()
         {
             return timeStamp;
+        }
+
+        public int getDurationInSec()
+        {
+            return packetTimeFrame;
         }
 
         public long getStoredDataInByte()

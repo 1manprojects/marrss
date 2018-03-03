@@ -47,6 +47,9 @@ namespace MARRSS.Scheduler
         private Guid id; /*!< Guid - ID of ContactWindow */
         private Guid requestID; /*!< Guid - ID of Request */
 
+        private string SatStorageAtBegin;
+        private string SatStorageAtEnd;
+
         private Global.Structs.priority priority = (Structs.priority)4; /*!< Global.Structs.priority - Priority of Request */
 
         //! ContactWindow constructor
@@ -68,6 +71,9 @@ namespace MARRSS.Scheduler
             sheduled = false;
             exluded = false;
             calcDuration();
+
+            SatStorageAtBegin = "";
+            SatStorageAtEnd = "";
 
             id = System.Guid.NewGuid();
             List<TrackingData> trackingData = new List<TrackingData>();
@@ -313,6 +319,26 @@ namespace MARRSS.Scheduler
         public int getHash()
         {
             return satName.GetHashCode();
+        }
+
+        public void setSatStorageAtstart(string value)
+        {
+            SatStorageAtBegin = value;
+        }
+
+        public string getSatStorageAtStart()
+        {
+            return SatStorageAtBegin;
+        }
+
+        public void setSatStorageAtEnd(string value)
+        {
+            SatStorageAtEnd = value;
+        }
+
+        public string getsetSatStorageAtEnd()
+        {
+            return SatStorageAtEnd;
         }
 
         //! Retruns the tracking data for this Object

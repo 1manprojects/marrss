@@ -167,5 +167,10 @@ namespace MARRSS.Performance
             return sp0 + "/" + p0 + " - " + sp1 + "/" + p1 + " - " + sp2 + "/" + p2 + " - " + sp3 + "/" + p3 + " - " + sp4 + "/" + p4;
         }
 
+        public string AnalizeStorageOfSat(Satellite.Satellite sat)
+        {
+            return "";
+        }
+
     }
 }
