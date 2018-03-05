@@ -40,12 +40,4 @@
     <Scheduled>1</Scheduled>
 	<Downloaded>1</Downloaded>
   </MaxDataDownlink>
-  <test>
-    <Priority>4</Priority>
-    <Satellite>1</Satellite>
-    <Station>1</Station>
-    <Duration>1</Duration>
-    <Scheduled>1</Scheduled>
-	<Downloaded>0</Downloaded>
-  </test>
 </Objectives>
