@@ -1,0 +1,22 @@
+Results From Run Genetic Scheduler
+PopulationSize: 8
+Starting Chance: 65
+Mutation Chance: 1
+
+Max Runtime (H): 1
+RunNumber: 0
+Fitness Value:0.681311043299594
+Scheduled Contacts: Fitness Value: / 4028
+Collisions: 0
+Fairnes Stations: 0.901625136126093
+Fairnes Satellites: 0.999467838137076
+Duration: 706155 s. sec.
+Calculation Time: 34.9383 sec.
+Scheduled per priority: UWE-3: 0
+DataDownlink Perf: 0.210678422215474
+TIM_A: Created / Downloaded Data 17549/3260
+TIM_B: Created / Downloaded Data 16549/2955
+TIM_C: Created / Downloaded Data 12506/2680
+TIM_D: Created / Downloaded Data 18690/3875
+TIM_E: Created / Downloaded Data 15638/4215
+TIM_F: Created / Downloaded Data 14569/3135

@@ -1,0 +1,16 @@
+Results From Run Fair-Greedy Scheduler
+RunNumber: 0
+Fitness Value:0.66771669934574
+Scheduled Contacts: Fitness Value: / 397
+Collisions: 0
+Fairnes Stations: 0.829957028852056
+Fairnes Satellites: 0.993752296949651
+Duration: 72812 s. sec.
+Calculation Time: 9.661989 sec.
+Scheduled per priority: UWE-3: 0
+TIM_A: Created / Downloaded Data 6273/2000
+TIM_B: Created / Downloaded Data 2361/2695
+TIM_C: Created / Downloaded Data 4502/2290
+TIM_D: Created / Downloaded Data 2261/3045
+TIM_E: Created / Downloaded Data 5273/4485
+TIM_F: Created / Downloaded Data 4172/2455

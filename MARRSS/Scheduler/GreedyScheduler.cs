@@ -117,6 +117,7 @@ namespace MARRSS.Scheduler
         public void CalculateSchedule(ScheduleProblemInterface problem)
         {
             objective = problem.getObjectiveFunction();
+            objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
             set = problem.getContactWindows();
             int nrOfAllContacts = set.Count();
 
@@ -127,8 +128,6 @@ namespace MARRSS.Scheduler
             {
                 f.setProgressBar(set.Count());
             }
-
-
             //double maxFitness = 0.0;
             int count = 0;
 
@@ -138,13 +137,15 @@ namespace MARRSS.Scheduler
                 double maxFitness = 0.0;
                 for (int i = 0; i < set.Count(); i++)
                 {
-                    objective.calculateValues(set1, set, nrOfAllContacts, set.getAt(i), problem.getSatellites(), problem.getGroundStations());
+                    set1.add(set.getAt(i));
+                    objective.CalculateObjectiveFitness(set1);
                     double fitness = objective.getObjectiveResults();
                     if (fitness > maxFitness)
                     {
                         maxFitness = fitness;
                         pos = i;
                     }
+                    set1.deleteAt(set1.Count() - 1);
                 }
                 if (Properties.Settings.Default.global_MaxPerf == false)
                 {
@@ -212,6 +213,7 @@ namespace MARRSS.Scheduler
         public void BruteForceSchedule(ScheduleProblemInterface problem, int step)
         {
             objective = problem.getObjectiveFunction();
+            objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
             set = problem.getContactWindows();
             int nrOfAllContacts = set.Count();
 
@@ -230,13 +232,15 @@ namespace MARRSS.Scheduler
                 double maxFitness = 0.0;
                 for (int i = 0; i < set.Count(); i++)
                 {
-                    objective.calculateValues(set1, set, nrOfAllContacts, set.getAt(i),problem.getSatellites(), problem.getGroundStations());
+                    set1.add(set.getAt(i));
+                    objective.CalculateObjectiveFitness(set1);
                     double fitness = objective.getObjectiveResults();
                     if (fitness > maxFitness)
                     {
                         maxFitness = fitness;
                         pos = i;
                     }
+                    set1.deleteAt(set1.Count() - 1);
                     if (Properties.Settings.Default.global_MaxPerf == false)
                     {
                         System.Windows.Forms.Application.DoEvents();

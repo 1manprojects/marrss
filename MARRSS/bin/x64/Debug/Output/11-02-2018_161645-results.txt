@@ -1,0 +1,10 @@
+Results From Run Hill Climber Scheduler
+RunNumber: 0
+Fitness Value:0.676638146396332
+Scheduled Contacts: Fitness Value: / 4028
+Collisions: 0
+Fairnes Stations: 0.872628956190871
+Fairnes Satellites: 0.999248033734142
+Duration: 726062 s. sec.
+Calculation Time: 140.6485 sec.
+Scheduled per priority: UWE-3: 0

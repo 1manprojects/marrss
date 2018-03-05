@@ -104,6 +104,7 @@ namespace MARRSS.Automated
             problem.removeUnwantedContacts(Properties.Settings.Default.orbit_Minimum_Contact_Duration_sec);
             problem.setObjectiveFunction(objective);
             problem.getContactWindows().randomize(Properties.Settings.Default.global_Random_Seed);
+            objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
             getScenario(problem, scenario);
             System.Windows.Forms.Application.DoEvents();
             TimeMeasurement tm = new TimeMeasurement();
@@ -118,9 +119,10 @@ namespace MARRSS.Automated
             if (scheduler != null)
             {
                 ObjectiveFunction objfunc = scheduler.getObjectiveFunction();
+                objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
                 if (objfunc == null)
                     objfunc = new ObjectiveFunction();
-                objfunc.calculateValues(scheduler.getFinischedSchedule(), problem.getSatellites(), problem.getGroundStations() );
+                objfunc.CalculateObjectiveFitness(scheduler.getFinischedSchedule());
 
                 //double fitness = objfunc.getObjectiveResults();
 

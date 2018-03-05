@@ -174,6 +174,7 @@ namespace MARRSS.Scheduler
         {
             
             objective = problem.getObjectiveFunction();
+            objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
             set = problem.getContactWindows();
             //Sort by time
             set.sort(Structs.sortByField.TIME);
@@ -229,7 +230,7 @@ namespace MARRSS.Scheduler
                 for (int i = 0; i < popSize; i++)
                 {
                     surviveConflicts(population[i], rnd, conflictValue);
-                    fitness[i] = checkFitness(population[i], problem);
+                    fitness[i] = CalculateFitness(population[i]);
                 }
 
                 if (Properties.Settings.Default.global_MaxPerf == false)
@@ -365,9 +366,10 @@ namespace MARRSS.Scheduler
             The Fitness is defined by the objective Function
             from 1.0 to 0 with 1.0 being optimal
         */
-        private double checkFitness(int[] pop, ScheduleProblemInterface problem)
+        private double CalculateFitness(int[] pop)
         {
-            objective.calculateValues(set, pop, problem.getSatellites(), problem.getGroundStations() );
+            objective.CalculateObjectiveFitness(set, pop);
+            //objective.calculateValues(set, pop, problem.getSatellites(), problem.getGroundStations() );
             return objective.getObjectiveResults();
         }
 

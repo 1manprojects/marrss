@@ -50,7 +50,8 @@ namespace MARRSS
                     greedy.BruteForceSchedule(problem, iteration);
                     mainform.updateCalculationTime(tm.getValueAndDeactivate());
                     ObjectiveFunction obj = problem.getObjectiveFunction();
-                    obj.calculateValues(greedy.getFinischedSchedule(), problem.getSatellites(),problem.getGroundStations());
+                    obj.Initialize(greedy.getFinischedSchedule(), problem.getSatellites(), problem.getGroundStations());
+                    obj.CalculateObjectiveFitness(greedy.getFinischedSchedule());
                     mainform.updateCalculationTime(tm.getValueAndDeactivate());
                     mainform.setNumberOfGeneration(iteration);
                     if (bestFitness <= obj.getObjectiveResults())
@@ -177,9 +178,10 @@ namespace MARRSS
             if (scheduler != null)
             {
                 ObjectiveFunction objfunc = scheduler.getObjectiveFunction();
+                objfunc.Initialize(scheduler.getFinischedSchedule(), prob.getSatellites(), prob.getGroundStations());
                 if (objfunc == null)
                     objfunc = new ObjectiveFunction();
-                objfunc.calculateValues(scheduler.getFinischedSchedule(), prob.getSatellites(), prob.getGroundStations());
+                objfunc.CalculateObjectiveFitness(scheduler.getFinischedSchedule());
 
                 int _H = scheduler.getFinischedSchedule().getNrOfScheduled();
                 double _H1 = objfunc.getScheduledContactsValue();

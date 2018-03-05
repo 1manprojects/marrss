@@ -70,6 +70,7 @@ namespace MARRSS.Scheduler
         public void CalculateSchedule(ScheduleProblemInterface problem)
         {
             objective = problem.getObjectiveFunction();
+            objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
             result = problem.getContactWindows();
 
             if (adaptiveMaxIterations)
@@ -103,7 +104,7 @@ namespace MARRSS.Scheduler
                                 //collision detected
                                 result.getAt(i).unShedule();
                                 result.getAt(j).setSheduled();
-                                double newFitness = getFitness(result, problem);
+                                double newFitness = CalculateFitnessValue(result);
                                 if (newFitness < currentFitness)
                                 {
                                     result.getAt(j).unShedule();
@@ -122,8 +123,7 @@ namespace MARRSS.Scheduler
                     System.Windows.Forms.Application.DoEvents();
                 if (mainform != null)
                     mainform.updateProgressBar(iterations);
-
-                currentFitness = getFitness(result, problem);
+                currentFitness = CalculateFitnessValue(result);
                 fillContacts(result);
             }
 
@@ -215,9 +215,9 @@ namespace MARRSS.Scheduler
             /param Contact Windows Vector
             /return double fitnessValue
         */
-        private double getFitness(ContactWindowsVector contacts, ScheduleProblemInterface prob)
+        private double CalculateFitnessValue(ContactWindowsVector solution)
         {
-            objective.calculateValues(contacts, prob.getSatellites(), prob.getGroundStations());
+            objective.CalculateObjectiveFitness(solution);
             return objective.getObjectiveResults();
         }
 
