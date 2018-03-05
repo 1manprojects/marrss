@@ -10,6 +10,8 @@
 
 # Build results
 
+MARRSS/bin/x64/Debug/Contacts*
+MARRSS/bin/x64/Debug/Output*
 
 # NuGet Packages
 *.nupkg

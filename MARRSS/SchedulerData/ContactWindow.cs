@@ -341,6 +341,11 @@ namespace MARRSS.Scheduler
             return SatStorageAtEnd;
         }
 
+        public ContactWindow Clone()
+        {
+            return (ContactWindow)this.MemberwiseClone();
+        }
+
         //! Retruns the tracking data for this Object
         /*!
         \return List<TrackingData> tracking data

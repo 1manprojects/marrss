@@ -3,7 +3,7 @@
   <asmv1:assemblyIdentity name="MARRSS.exe" version="1.3.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="amd64" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="MARRSS" version="1.2.6637.21302" language="neutral" processorArchitecture="amd64" />
+    <assemblyIdentity name="MARRSS" version="1.2.6638.32540" language="neutral" processorArchitecture="amd64" />
     <commandLine file="MARRSS.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -67,13 +67,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MARRSS.exe" size="1821696">
-      <assemblyIdentity name="MARRSS" version="1.2.6637.21302" language="neutral" processorArchitecture="amd64" />
+      <assemblyIdentity name="MARRSS" version="1.2.6638.32540" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KC79UyShsUI8+RuqdbG398VO+lNBq8RFYDnq04yLICQ=</dsig:DigestValue>
+        <dsig:DigestValue>+YEyuHLoa7ilqKZpTj5P+MMIblRE/87SA11NVZl8AuQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

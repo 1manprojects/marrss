@@ -128,62 +128,57 @@ namespace MARRSS.Scheduler
             {
                 f.setProgressBar(set.Count());
             }
-            //double maxFitness = 0.0;
-            int count = 0;
+
+            set1.add(set.getAt(0));
+            set.deleteAt(0);
 
             while (!isComplete())
             {
                 int pos = -1;
                 double maxFitness = 0.0;
+                ContactWindow toAdd = null; ;
+                bool betterfound = false;
                 for (int i = 0; i < set.Count(); i++)
                 {
-                    set1.add(set.getAt(i));
-                    objective.CalculateObjectiveFitness(set1);
-                    double fitness = objective.getObjectiveResults();
-                    if (fitness > maxFitness)
+                    for (int j = 0; j < set1.Count(); j++)
                     {
-                        maxFitness = fitness;
-                        pos = i;
-                    }
-                    set1.deleteAt(set1.Count() - 1);
-                }
-                if (Properties.Settings.Default.global_MaxPerf == false)
-                {
-                    System.Windows.Forms.Application.DoEvents();
-                }
-
-                bool found = false;
-                if (pos >= 0)
-                {
-                    for (int i = 0; i < set1.Count(); i++)
-                    {
-                        if (set.getAt(pos).checkConflikt(set1.getAt(i)))
+                        bool collision = false;
+                        if (set.getAt(i).checkConflikt(set1.getAt(j)))
                         {
-                            if (set.getAt(pos).getSatName() == set1.getAt(i).getSatName()
-                                || set.getAt(pos).getStationName() == set1.getAt(i).getStationName())
+                            if (set.getAt(i).getSatName() == set1.getAt(j).getSatName()
+                                || set.getAt(i).getStationName() == set1.getAt(j).getStationName())
                             {
-                                set2.add(set.getAt(pos));
-                                set2.getLast().unShedule();
-                                set.deleteAt(pos);
-                                found = true;
+                                collision = true;
+                                set2.add(set.getAt(i));
+                                set.deleteAt(i);
+                                i--;
                                 break;
                             }
                         }
+                        if (!collision)
+                        {
+                            set1.add(set.getAt(i));
+                            objective.CalculateObjectiveFitness(set1);
+                            double fitness = objective.getObjectiveResults();
+                            if (fitness > maxFitness)
+                            {
+                                maxFitness = fitness;
+                                pos = i;
+                                set1.deleteAt(set1.Count() - 1);
+                                betterfound = true;
+                                break;
+                            }
+                            set1.deleteAt(set1.Count() - 1);
+                        }
                     }
-                    if (Properties.Settings.Default.global_MaxPerf == false)
-                    {
-                        System.Windows.Forms.Application.DoEvents();
-                    }
-                    if (!found)
-                    {
-                        set1.add(set.getAt(pos));
-                        set1.getLast().setSheduled();
-                        set.deleteAt(pos);
-                    }
+                    if (betterfound)
+                        break;
                 }
-                else
+                if (pos >= 0)
                 {
-                    count++;
+                    set1.add(set.getAt(pos));
+                    set1.getLast().setSheduled();
+                    set.deleteAt(pos);
                 }
 
                 if (f != null)
