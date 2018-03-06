@@ -29,6 +29,7 @@ namespace MARRSS.Scenarios
         private int contactsPercentage;
         private int minimumContactWindow;
         private string descriptionText;
+        private string fileName;
 
         public ScenarioClass(string nameOfScenario)
         {

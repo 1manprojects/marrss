@@ -101,7 +101,6 @@ namespace MARRSS.Scheduler
                             if (result.getAt(i).getStationName() == result.getAt(j).getStationName() ||
                                 result.getAt(i).getSatName() == result.getAt(j).getSatName())
                             {
-                                //collision detected
                                 result.getAt(i).unShedule();
                                 result.getAt(j).setSheduled();
                                 double newFitness = CalculateFitnessValue(result);

@@ -20,6 +20,7 @@ using MARRSS.Performance;
 using MARRSS.Scheduler;
 using MARRSS.Satellite;
 using MARRSS.Scenarios;
+using System.Linq;
 
 namespace MARRSS
 {
@@ -46,6 +47,7 @@ namespace MARRSS
 
         private bool LoadedCustomData = false;
         private JPlan CustomDataScenario;
+        private string JsonFileName;
 
         private int tle_timeCounter;
         //for Testing
@@ -545,7 +547,22 @@ namespace MARRSS
 
             if (Properties.Settings.Default.log_AutoSave_Results)
             {
+                
                 List<string> results = new List<string>();
+                results.Add("Used Satellites:");
+                results.AddRange(problem.getSatellites().Select(a => a.getName()));
+                results.Add("Used GroundStations:");
+                results.AddRange(problem.getGroundStations().Select(a => a.getName()));
+                if (LoadedCustomData)
+                {
+                    results.Add("Data Scenario: " + JsonFileName);
+                }
+                else
+                {
+                    results.Add("Data Scenario: " + comboScenarioBox.Items[comboScenarioBox.SelectedIndex]);
+                }
+                results.Add("Objective Function: " + problem.getObjectiveFunction().ToString());
+                results.Add("Calculation Time: " + calcTimeLabel.Text);
                 results.Add("RunNumber: " + number);
                 results.Add("Fitness Value:" + objectivefunct.getObjectiveResults().ToString());
                 results.Add("Scheduled Contacts: " + fitnessLabel.Text + " / " + contactsVector.Count().ToString());
@@ -1437,6 +1454,7 @@ namespace MARRSS
                 {
                     CustomDataScenario = Scenarios.ScenarioClass.LoadDataScenarioFromCustomJson(openFileDialog1.FileName);
                     LoadedCustomData = true;
+                    JsonFileName = openFileDialog1.FileName;
                     startDatePicker.Value = CustomDataScenario.temporalModule.origin;
                     stopDatePicker.Value = CustomDataScenario.temporalModule.horizon;
                     startTimePicker.Value = CustomDataScenario.temporalModule.origin;
