@@ -207,78 +207,7 @@ namespace MARRSS.Scheduler
         */
         public void BruteForceSchedule(ScheduleProblemInterface problem, int step)
         {
-            objective = problem.getObjectiveFunction();
-            objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
-            set = problem.getContactWindows();
-            int nrOfAllContacts = set.Count();
-
-            ContactWindowsVector set1 = new ContactWindowsVector();
-            ContactWindowsVector set2 = new ContactWindowsVector();
-
-            //double maxFitness = 0.0;
-            int count = 0;
-
-            set1.add(set.getAt(step));
-            set.deleteAt(step);
-
-            while (!isComplete())
-            {
-                int pos = -1;
-                double maxFitness = 0.0;
-                for (int i = 0; i < set.Count(); i++)
-                {
-                    set1.add(set.getAt(i));
-                    objective.CalculateObjectiveFitness(set1);
-                    double fitness = objective.getObjectiveResults();
-                    if (fitness > maxFitness)
-                    {
-                        maxFitness = fitness;
-                        pos = i;
-                    }
-                    set1.deleteAt(set1.Count() - 1);
-                    if (Properties.Settings.Default.global_MaxPerf == false)
-                    {
-                        System.Windows.Forms.Application.DoEvents();
-                    }
-                }
-
-                bool found = false;
-                if (pos >= 0)
-                {
-                    for (int i = 0; i < set1.Count(); i++)
-                    {
-                        if (set.getAt(pos).checkConflikt(set1.getAt(i)))
-                        {
-                            if (set.getAt(pos).getSatName() == set1.getAt(i).getSatName()
-                                || set.getAt(pos).getStationName() == set1.getAt(i).getStationName())
-                            {
-                                set2.add(set.getAt(pos));
-                                set2.getLast().unShedule();
-                                set.deleteAt(pos);
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (Properties.Settings.Default.global_MaxPerf == false)
-                        {
-                            System.Windows.Forms.Application.DoEvents();
-                        }
-                    }
-                    if (!found)
-                    {
-                        set1.add(set.getAt(pos));
-                        set1.getLast().setSheduled();
-                        set.deleteAt(pos);
-                    }
-                }
-                else
-                {
-                    count++;
-                }
-            }
-            set.add(set1);
-            set.add(set2);
-            schedule = set;
+            throw new NotImplementedException();
         }
 
         public void cancelCalculation()
