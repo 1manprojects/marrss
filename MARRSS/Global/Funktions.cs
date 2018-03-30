@@ -78,5 +78,33 @@ namespace MARRSS.Global
             }
             return ret;
         }
+
+        private const long Kb = 1024;
+        private const long Mb = Kb * 1024;
+        private const long Gb = Mb * 1024;
+        private const long Tb = Gb * 1024;
+
+        public static int getDataSize(double nrOfByte)
+        {
+            var calc = nrOfByte;
+            var count = 0;
+            while(calc > 1024 )
+            {
+                calc = calc / 1024;
+                count++;
+            }
+            return count;
+        }
+
+        public static string GetHumanReadableSize(double nrOfByte)
+        {
+            var calc = nrOfByte;
+            while (calc > 1024)
+            {
+                calc = calc / 1024;
+            }
+            calc = Math.Round(calc, 3);
+            return calc.ToString();
+        }
     }
 }

@@ -21,6 +21,7 @@ using MARRSS.Scheduler;
 using MARRSS.Satellite;
 using MARRSS.Scenarios;
 using System.Linq;
+using MARRSS.Global;
 
 namespace MARRSS
 {
@@ -620,10 +621,16 @@ namespace MARRSS
             {
                 Ground.Station st = _MainDataBase.getStationFromDB(
                     staDataGridView.SelectedRows[0].Cells[0].Value.ToString());
-                label20.Text = st.getName();
+                StationNameLabel.Text = st.getName();
                 label56.Text = st.getLongitude().ToString();
                 label55.Text = st.getLatitude().ToString();
                 label54.Text = st.getHeight().ToString() +" m";
+
+                DownDataSizeCombo.SelectedIndex = Funktions.getDataSize(st.getMaxDownLink());
+                MaxDownTextBox.Text = Funktions.GetHumanReadableSize(st.getMaxDownLink());
+
+                //MaxUpLinkText.Text = st.getMaxUpLink().ToString();
+
                 Pen penSelected = new Pen(Color.Red, 4);
                 Image image = new Bitmap(imgStation);
                 Point p = st.getGeoCoordinate().toPoint(image.Width, image.Height);
@@ -635,7 +642,7 @@ namespace MARRSS
             }
             catch
             {
-                label20.Text = " -- ";
+                StationNameLabel.Text = " -- ";
             }
         }
 
@@ -1120,7 +1127,7 @@ namespace MARRSS
         */
         private void button6_Click_1(object sender, EventArgs e)
         {
-            _MainDataBase.deleteStation(label20.Text);
+            _MainDataBase.deleteStation(StationNameLabel.Text);
             _MainDataBase.displayAllStations(staDataGridView);
             UpdateAllLists();
         }
@@ -1473,6 +1480,28 @@ namespace MARRSS
                     throw new Exception("Error could not Load JsonFile", ex);
                 }
             }
+        }
+
+        private void UpdateStationButton_Click(object sender, EventArgs e)
+        {
+            string staName = StationNameLabel.Text;
+            try
+            {
+                double down = Convert.ToDouble(MaxDownTextBox.Text) * Math.Pow(1024, (DownDataSizeCombo.SelectedIndex ));
+                double up = Convert.ToDouble(MaxUpLinkText.Text) * Math.Pow(1024, (DownDataSizeCombo.SelectedIndex ));
+                _MainDataBase.updateStationUpDownLink(staName, down, up);
+            }
+            catch
+            {
+                MessageBox.Show("Invalid Input for Satellite Onboard Storage",
+                        "ERROR",
+                        MessageBoxButtons.OK);
+            }
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

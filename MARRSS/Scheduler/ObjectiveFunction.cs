@@ -169,6 +169,8 @@ namespace MARRSS.Scheduler
             }
             //Set Values
             val_MaxData = (double)downloadedData / (double)createdData;
+            if (val_MaxData > 1.0)
+                val_MaxData = 1.0;
             val_Scheduled = numberOfContacts / (double)MAX_NumberOfContacts;
             val_Duration = overallContactDuration / MAX_Duration;
             val_Priority = CalculatePriorityValue() / MAX_Priority;
@@ -247,12 +249,13 @@ namespace MARRSS.Scheduler
 
         private void CalculateDownlink(ContactWindowsVector solution, int index)
         {
-            long packetSize = Convert.ToInt32(solution.getAt(index).getDuration()) * 5;
+            var station = GetStationByName(solution.getAt(index).getStationName());
+            long packetSize = Convert.ToInt32(solution.getAt(index).getDuration()) * (long)Math.Ceiling(station.getMaxDownLink());
             if (GetSatelliteByName(solution.getAt(index).getSatName()) != null)
             {
                 var sat = GetSatelliteByName(solution.getAt(index).getSatName());
                 sat.RemoveDataPacket(new Satellite.DataPacket(packetSize, 4,
-                    solution.getAt(index).getStartTime(), Convert.ToInt32(solution.getAt(index).getDuration()), Structs.DataSize.MBYTE));
+                    solution.getAt(index).getStartTime(), Convert.ToInt32(solution.getAt(index).getDuration())));
             }
         }
 

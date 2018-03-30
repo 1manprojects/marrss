@@ -167,6 +167,11 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label51 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.UpdateStationButton = new System.Windows.Forms.Button();
+            this.UpDataSizeCombo = new System.Windows.Forms.ComboBox();
+            this.DownDataSizeCombo = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.label53 = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
@@ -176,7 +181,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.StationNameLabel = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.staDataGridView = new System.Windows.Forms.DataGridView();
@@ -193,6 +198,8 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.MaxUpLinkText = new System.Windows.Forms.TextBox();
+            this.MaxDownTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -1617,6 +1624,13 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.MaxUpLinkText);
+            this.panel6.Controls.Add(this.MaxDownTextBox);
+            this.panel6.Controls.Add(this.UpdateStationButton);
+            this.panel6.Controls.Add(this.UpDataSizeCombo);
+            this.panel6.Controls.Add(this.DownDataSizeCombo);
+            this.panel6.Controls.Add(this.label7);
+            this.panel6.Controls.Add(this.label5);
             this.panel6.Controls.Add(this.panel11);
             this.panel6.Controls.Add(this.label53);
             this.panel6.Controls.Add(this.label54);
@@ -1626,12 +1640,69 @@
             this.panel6.Controls.Add(this.label17);
             this.panel6.Controls.Add(this.label18);
             this.panel6.Controls.Add(this.label19);
-            this.panel6.Controls.Add(this.label20);
+            this.panel6.Controls.Add(this.StationNameLabel);
             this.panel6.Controls.Add(this.pictureBox5);
             this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(989, 172);
             this.panel6.TabIndex = 3;
+            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
+            // 
+            // UpdateStationButton
+            // 
+            this.UpdateStationButton.Location = new System.Drawing.Point(913, 142);
+            this.UpdateStationButton.Name = "UpdateStationButton";
+            this.UpdateStationButton.Size = new System.Drawing.Size(70, 23);
+            this.UpdateStationButton.TabIndex = 23;
+            this.UpdateStationButton.Text = "Update";
+            this.UpdateStationButton.UseVisualStyleBackColor = true;
+            this.UpdateStationButton.Click += new System.EventHandler(this.UpdateStationButton_Click);
+            // 
+            // UpDataSizeCombo
+            // 
+            this.UpDataSizeCombo.FormattingEnabled = true;
+            this.UpDataSizeCombo.Items.AddRange(new object[] {
+            "B      (Byte)",
+            "kB    (kilo Byte)",
+            "MB  (MegaByte)",
+            "GB   (GigaByte)",
+            "TB   (TerraByte)"});
+            this.UpDataSizeCombo.Location = new System.Drawing.Point(802, 71);
+            this.UpDataSizeCombo.Name = "UpDataSizeCombo";
+            this.UpDataSizeCombo.Size = new System.Drawing.Size(95, 21);
+            this.UpDataSizeCombo.TabIndex = 28;
+            // 
+            // DownDataSizeCombo
+            // 
+            this.DownDataSizeCombo.FormattingEnabled = true;
+            this.DownDataSizeCombo.Items.AddRange(new object[] {
+            "B      (Byte)",
+            "kB    (kilo Byte)",
+            "MB  (MegaByte)",
+            "GB   (GigaByte)",
+            "TB   (TerraByte)"});
+            this.DownDataSizeCombo.Location = new System.Drawing.Point(802, 40);
+            this.DownDataSizeCombo.Name = "DownDataSizeCombo";
+            this.DownDataSizeCombo.Size = new System.Drawing.Size(95, 21);
+            this.DownDataSizeCombo.TabIndex = 27;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(601, 74);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(64, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Max UpLink";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(601, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Max DownLink";
             // 
             // panel11
             // 
@@ -1644,7 +1715,7 @@
             // label53
             // 
             this.label53.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label53.Location = new System.Drawing.Point(392, 104);
+            this.label53.Location = new System.Drawing.Point(389, 110);
             this.label53.Name = "label53";
             this.label53.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label53.Size = new System.Drawing.Size(148, 18);
@@ -1655,7 +1726,7 @@
             // label54
             // 
             this.label54.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label54.Location = new System.Drawing.Point(392, 81);
+            this.label54.Location = new System.Drawing.Point(389, 86);
             this.label54.Name = "label54";
             this.label54.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label54.Size = new System.Drawing.Size(148, 18);
@@ -1666,7 +1737,7 @@
             // label55
             // 
             this.label55.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label55.Location = new System.Drawing.Point(389, 59);
+            this.label55.Location = new System.Drawing.Point(386, 65);
             this.label55.Name = "label55";
             this.label55.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label55.Size = new System.Drawing.Size(151, 18);
@@ -1677,7 +1748,7 @@
             // label56
             // 
             this.label56.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label56.Location = new System.Drawing.Point(389, 41);
+            this.label56.Location = new System.Drawing.Point(386, 43);
             this.label56.Name = "label56";
             this.label56.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label56.Size = new System.Drawing.Size(151, 18);
@@ -1688,7 +1759,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(299, 109);
+            this.label16.Location = new System.Drawing.Point(299, 111);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(81, 13);
             this.label16.TabIndex = 7;
@@ -1697,7 +1768,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(299, 86);
+            this.label17.Location = new System.Drawing.Point(299, 89);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(41, 13);
             this.label17.TabIndex = 6;
@@ -1706,7 +1777,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(299, 62);
+            this.label18.Location = new System.Drawing.Point(299, 65);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(52, 13);
             this.label18.TabIndex = 5;
@@ -1721,15 +1792,15 @@
             this.label19.TabIndex = 3;
             this.label19.Text = "Longitute:";
             // 
-            // label20
+            // StationNameLabel
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(298, 12);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(113, 20);
-            this.label20.TabIndex = 2;
-            this.label20.Text = "StationName";
+            this.StationNameLabel.AutoSize = true;
+            this.StationNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StationNameLabel.Location = new System.Drawing.Point(298, 12);
+            this.StationNameLabel.Name = "StationNameLabel";
+            this.StationNameLabel.Size = new System.Drawing.Size(113, 20);
+            this.StationNameLabel.TabIndex = 2;
+            this.StationNameLabel.Text = "StationName";
             // 
             // pictureBox5
             // 
@@ -1817,6 +1888,22 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // MaxUpLinkText
+            // 
+            this.MaxUpLinkText.Location = new System.Drawing.Point(729, 74);
+            this.MaxUpLinkText.Name = "MaxUpLinkText";
+            this.MaxUpLinkText.Size = new System.Drawing.Size(55, 20);
+            this.MaxUpLinkText.TabIndex = 30;
+            this.MaxUpLinkText.Text = "0";
+            // 
+            // MaxDownTextBox
+            // 
+            this.MaxDownTextBox.Location = new System.Drawing.Point(729, 41);
+            this.MaxDownTextBox.Name = "MaxDownTextBox";
+            this.MaxDownTextBox.Size = new System.Drawing.Size(55, 20);
+            this.MaxDownTextBox.TabIndex = 29;
+            this.MaxDownTextBox.Text = "128.2";
             // 
             // Main
             // 
@@ -1945,7 +2032,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label StationNameLabel;
         private System.Windows.Forms.DateTimePicker stopTimePicker;
         private System.Windows.Forms.DateTimePicker startTimePicker;
         private System.Windows.Forms.CheckedListBox checkedSatellites;
@@ -2051,5 +2138,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label datShedLabel;
         private System.Windows.Forms.ToolStripMenuItem loadDataScenarioToolStripMenuItem;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button UpdateStationButton;
+        private System.Windows.Forms.ComboBox UpDataSizeCombo;
+        private System.Windows.Forms.ComboBox DownDataSizeCombo;
+        private System.Windows.Forms.TextBox MaxUpLinkText;
+        private System.Windows.Forms.TextBox MaxDownTextBox;
     }
 }

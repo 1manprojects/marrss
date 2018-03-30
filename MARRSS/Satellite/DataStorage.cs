@@ -26,10 +26,9 @@ namespace MARRSS.Global
         private const long Gb = Mb * 1024;
         private const long Tb = Gb * 1024;
 
-        private long maxStoredData;
-        private long maxFreedData;
-
-        private long currentData;
+        private long maxStoredData; //in Byte
+        private long maxFreedData; //in Byte
+        private long currentData; //in Byte
 
         private List<DataPacket> internalAddedStorage;
         private List<DataPacket> internalRemovedStorage;
@@ -44,10 +43,25 @@ namespace MARRSS.Global
         {
             maxStoredData = 0;
             maxFreedData = 0;
-            dataSizeOfStorage = size;
-            maxDataStorageSize = maxStorage;
+            maxDataStorageSize = getByte(maxStorage, size);
             internalAddedStorage = new List<DataPacket>();
             internalRemovedStorage = new List<DataPacket>();
+        }
+
+        private static long getByte(long _byte, Structs.DataSize size)
+        {
+            int type = Convert.ToInt32(size);
+            if (type > 0)
+            {
+                switch (type)
+                {
+                    case 1: return Kb * _byte;
+                    case 2: return Mb * _byte;
+                    case 3: return Gb * _byte;
+                    case 4: return Tb * _byte;
+                }
+            }
+            return _byte;
         }
 
         //! Get Human Readable storage in use 
@@ -65,18 +79,6 @@ namespace MARRSS.Global
         */
         public long getCurrentStoredDataInByte()
         {
-            int type = Convert.ToInt32(dataSizeOfStorage);
-            if (type > 0)
-            {
-                switch (type)
-                {
-                    case 1: return Kb * currentData;
-                    case 2: return Mb * currentData;
-                    case 3: return Gb * currentData;
-                    case 4: return Tb * currentData;
-                }
-                
-            }
             return currentData;
         }
 

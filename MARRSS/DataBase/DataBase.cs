@@ -555,6 +555,22 @@ namespace MARRSS.DataBase
             return null;
         }
 
+        //! Update Station Storage
+        /*! 
+           \param string name of Satellite
+        */
+        public void updateStationUpDownLink(string stationName, double downlink, double uplink)
+        {
+            if (!isConnected)
+            {
+                connectDB();
+            }
+            SQLiteCommand command = new SQLiteCommand(m_dbConnection);
+            command.CommandText = String.Format(
+                Constants.updateStationsUpDownLink, downlink, uplink, stationName);
+            command.ExecuteNonQuery();
+        }
+
         //! Update Satellite Storage
         /*! 
            \param string NoradID of Satellite
