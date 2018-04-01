@@ -182,8 +182,8 @@ namespace MARRSS.Scheduler
             nrOfContacts = set.Count();
             nrOfStation = set.getNumberOfStation();
             nrOfSatellites = set.getNumberOfSatellites();
-            satelliteList = new List<string>(set.getSatelliteNames());
-            stationList = new List<string>(set.getStationNames());
+            satelliteList = new List<string>(set.SatelliteNames);
+            stationList = new List<string>(set.StationsNames);
 
             fitness = new double[popSize];
             bestSolution = new int[nrOfContacts];
@@ -507,8 +507,8 @@ namespace MARRSS.Scheduler
                         if (pop[k] == 1 && k != i
                             && set.getAt(i).checkConflikt(set.getAt(k)))
                         {
-                            if (set.getAt(i).getSatName() == set.getAt(k).getSatName()
-                               || set.getAt(i).getStationName() == set.getAt(k).getStationName())
+                            if (set.getAt(i).SatelliteName == set.getAt(k).SatelliteName
+                               || set.getAt(i).StationName == set.getAt(k).StationName)
                             {
                                 conflicting.Add(k);
                             }
@@ -522,9 +522,9 @@ namespace MARRSS.Scheduler
                             int posMax = 0;
                             for (int l = 0; l < conflicting.Count; l++)
                             {
-                                if ((int)set.getAt(conflicting[l]).getPriority() <= maxPrio)
+                                if ((int)set.getAt(conflicting[l]).Priority <= maxPrio)
                                 {
-                                    maxPrio = (int)set.getAt(conflicting[l]).getPriority();
+                                    maxPrio = (int)set.getAt(conflicting[l]).Priority;
                                     posMax = conflicting[l];
                                     pop[conflicting[l]] = 0;
                                 }
@@ -564,8 +564,8 @@ namespace MARRSS.Scheduler
                             && result.getAt(k).getSheduledInfo()
                             && i != k)
                         {
-                            if (set.getAt(i).getSatName() == set.getAt(k).getSatName()
-                            || set.getAt(i).getStationName() == set.getAt(k).getStationName())
+                            if (set.getAt(i).SatelliteName == set.getAt(k).SatelliteName
+                            || set.getAt(i).StationName == set.getAt(k).StationName)
                             {
                                 found = true;
                                 break;

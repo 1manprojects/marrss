@@ -221,14 +221,12 @@
     <Compile Include="Global\Constants.cs" />
     <Compile Include="Definition\ContactWindowsVector.cs" />
     <Compile Include="Definition\GeoCoordinate.cs" />
-    <Compile Include="Drawer\ContactsDrawer.cs" />
     <Compile Include="Satellite\DataPacket.cs" />
     <Compile Include="Satellite\DataStorage.cs" />
     <Compile Include="Satellite\DataFunctions.cs" />
     <Compile Include="Global\Funktions.cs" />
     <Compile Include="Global\CancelException.cs" />
     <Compile Include="Ground\InView.cs" />
-    <Compile Include="Interface1\ContactInterface.cs" />
     <Compile Include="Interface1\Reqest2ContactInterface.cs" />
     <Compile Include="Interface1\RequestInterface.cs" />
     <Compile Include="Interface2\SchedulerInterface.cs" />

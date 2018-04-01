@@ -104,7 +104,7 @@ namespace MARRSS.Scheduler
             ContactWindowsVector set1 = new ContactWindowsVector();
             ContactWindowsVector set2 = new ContactWindowsVector();
 
-            List<string> staName = set.getStationNames();
+            List<string> staName = set.StationsNames;
             //while set is not empty do
             while (!isComplete())
             {
@@ -118,15 +118,15 @@ namespace MARRSS.Scheduler
                     //first and has the highest priority.
                     for(int k = 0; k < set.Count(); k++)
                     {
-                        if( set.getAt(k).getStationName() == staName[i])
+                        if( set.getAt(k).StationName == staName[i])
                         {
-                            if (set.getAt(k).getStopTime().getEpoch() < earliest 
+                            if (set.getAt(k).EndTime.getEpoch() < earliest 
                                 &&
-                                (int)set.getAt(k).getPriority() <= priority)
+                                (int)set.getAt(k).Priority <= priority)
                             {
                                 pos = k;
-                                earliest = set.getAt(k).getStopTime().getEpoch();
-                                priority = (int)set.getAt(k).getPriority();
+                                earliest = set.getAt(k).EndTime.getEpoch();
+                                priority = (int)set.getAt(k).Priority;
                             }
                         }
                     }
@@ -157,7 +157,7 @@ namespace MARRSS.Scheduler
                             {
                                 if (set.getAt(pos).checkConflikt(set1.getAt(k)))
                                 {
-                                    if (set.getAt(pos).getSatName() == set1.getAt(k).getSatName() )
+                                    if (set.getAt(pos).SatelliteName == set1.getAt(k).SatelliteName )
                                     {
                                         set2.add(set.getAt(pos));
                                         set.deleteAt(pos);
@@ -208,14 +208,14 @@ namespace MARRSS.Scheduler
                 {
                     for (int k = 0; k < schedule.Count(); k++)
                     {
-                        int maxPriority = (int)schedule.getAt(i).getPriority();
+                        int maxPriority = (int)schedule.getAt(i).Priority;
 
                         if (schedule.getAt(i).getSheduledInfo() && k != i &&
                             schedule.getAt(k).getSheduledInfo() &&
-                            schedule.getAt(k).getStationName() == schedule.getAt(i).getStationName() &&
+                            schedule.getAt(k).StationName == schedule.getAt(i).StationName &&
                             schedule.getAt(i).checkConflikt(schedule.getAt(k)))
                         {
-                            if ((int)schedule.getAt(k).getPriority() < maxPriority)
+                            if ((int)schedule.getAt(k).Priority < maxPriority)
                             {
                                 schedule.getAt(i).unShedule();
                                 break;

@@ -37,8 +37,8 @@ namespace MARRSS.Scheduler
         */
         public void assignRequestToContact(ContactWindow contact, Guid requestID)
         {
-            contact.setRequestID(requestID);
-            contact.setExclusion(false);
+            contact.RequestId = requestID.ToString();
+            contact.Excluded = false;
         }
 
         //! Assigns a list of Request to the ContactWindows

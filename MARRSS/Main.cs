@@ -156,8 +156,8 @@ namespace MARRSS
             if (contactsVector == null || changedParameters == true)
             {
                 contactsVector = new Definition.ContactWindowsVector();
-                contactsVector.setStartTime(startTime);
-                contactsVector.setStopTime(stopTime);
+                contactsVector.StartTime = startTime;
+                contactsVector.EndTime = stopTime;
                 //get selected Satellites to calculate Orbits
                 satTleData = getSatelliteTLEData(logFile);
                 satellitesData = getSatellitesData(logFile);
@@ -170,8 +170,8 @@ namespace MARRSS
             else
             {
                 // resuse old ContactWindows
-                startTime = contactsVector.getStartTime();
-                stopTime = contactsVector.getStopTime();
+                startTime = contactsVector.StartTime;
+                stopTime = contactsVector.EndTime;
                 resetScenario = false;
             }
                 
@@ -186,7 +186,7 @@ namespace MARRSS
             //    Global.Structs.ObjectiveEnum.SCHEDULEDCONTACTS);
 
             SchedulingProblem problem = RunScheduler.setSchedulingProblem(contactsVector, objectivefunct);
-                        satellitesData = getSatellitesData(logFile);
+            satellitesData = getSatellitesData(logFile);
             stationData = getStationData(logFile);
             problem.setGroundStations(stationData);
             problem.setSatellites(satellitesData);
@@ -353,6 +353,7 @@ namespace MARRSS
             int start_ss = startTimePicker.Value.Second;
             One_Sgp4.EpochTime startTime = new One_Sgp4.EpochTime(start_hh,
                 start_mm, (double)start_ss, start_year, start_month, start_day);
+            var test = startTime.toDateTime();
             return startTime;
         }
 
@@ -721,7 +722,7 @@ namespace MARRSS
 
                 toolStripStatusLabel3.Text = "Status: Updating Data";
                 //Update selected satellites and Groundstations list
-                foreach (string name in contactsVector.getSatelliteNames())
+                foreach (string name in contactsVector.SatelliteNames)
                 {
                     int res = checkedSatellites.Items.IndexOf(name);
                     if (res >= 0)
@@ -729,7 +730,7 @@ namespace MARRSS
                         checkedSatellites.SetItemChecked(res, true);
                     }
                 }
-                foreach (string name in contactsVector.getStationNames())
+                foreach (string name in contactsVector.StationsNames)
                 {
                     int res = checkedStations.Items.IndexOf(name);
                     if (res >= 0)
@@ -737,8 +738,8 @@ namespace MARRSS
                         checkedStations.SetItemChecked(res, true);
                     }
                 }
-                startTimePicker.Value = contactsVector.getStartTime().toDateTime();
-                stopTimePicker.Value = contactsVector.getStopTime().toDateTime();
+                startTimePicker.Value = contactsVector.StartTime.toDateTime();
+                stopTimePicker.Value = contactsVector.EndTime.toDateTime();
                 startDatePicker.Value = startTimePicker.Value;
                 stopDatePicker.Value = stopTimePicker.Value;
                 startTimePicker.Enabled = false;

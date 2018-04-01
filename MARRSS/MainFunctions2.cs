@@ -100,8 +100,8 @@ namespace MARRSS
                     contacts.add(inViews[k].getResults());
                 }
             }
-            contacts.setStartTime(start);
-            contacts.setStopTime(stop);
+            contacts.StartTime = start;
+            contacts.EndTime = stop;
             return contacts;
         }
 

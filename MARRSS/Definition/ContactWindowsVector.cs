@@ -12,7 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 
 using MARRSS.Scheduler;
 using MARRSS.Global;
@@ -25,28 +24,14 @@ namespace MARRSS.Definition
 * This class handles the contact windows for all satellite at any given time.
 * Adding new elements deleting them or sorting the list.
 */
-    class ContactWindowsVector : ISerializable
+    public class ContactWindowsVector
     {
-
-        private List<ContactWindow> contactsList; //!< List of all contactwindows
-        private List<string> stationNameList; //!< List of all stations by name
-        private List<string> satelliteNameList; //!< List of all satellites by name
-
-        private One_Sgp4.EpochTime starttime; //!< Starting time and date for Schedule
-        private One_Sgp4.EpochTime stoptime; //!< Stop time and date for Schedule
-
-        private double contactTime; //!< time of all contact windows in seconds
-
-        //Serialization function.
-        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
-        {
-            //You can use any custom name for your name-value pair. But make sure you
-            // read the values with the same name. For ex:- If you write EmpId as "EmployeeId"
-            // then you should read the same with "EmployeeId"
-            info.AddValue("ContactList", contactsList);
-            info.AddValue("StationList", stationNameList);
-            info.AddValue("SatelliteList", satelliteNameList);
-        }
+        public List<ContactWindow> ContactWindows { get; set; } //!< List of all contactwindows
+        public List<string> StationsNames { get; set; }
+        public List<string> SatelliteNames { get; set; }
+        public One_Sgp4.EpochTime StartTime { get; set; }
+        public One_Sgp4.EpochTime EndTime { get; set; }
+        public double ContactsDuration { get; set; }
 
         //! ContactWindowsVector constructor.
         /*!
@@ -54,10 +39,10 @@ namespace MARRSS.Definition
         */
         public ContactWindowsVector()
         {
-            contactsList = new List<ContactWindow>();
-            stationNameList = new List<string>();
-            satelliteNameList = new List<string>();
-            contactTime = 0.0;
+            ContactWindows = new List<ContactWindow>();
+            StationsNames = new List<string>();
+            SatelliteNames = new List<string>();
+            ContactsDuration = 0.0;
         }
 
         //! ContactWindowsVector constructor.
@@ -67,11 +52,31 @@ namespace MARRSS.Definition
         */
         public ContactWindowsVector(ContactWindowsVector contacts)
         {
-            contactsList = new List<ContactWindow>(contacts.getAllContacts());
-            satelliteNameList = new List<string>(contacts.getSatelliteNames());
-            stationNameList = new List<string>(contacts.getStationNames());
-            starttime = new One_Sgp4.EpochTime(contacts.getStartTime());
-            stoptime = new One_Sgp4.EpochTime(contacts.getStopTime());
+            ContactWindows = new List<ContactWindow>(contacts.getAllContacts());
+            SatelliteNames = new List<string>(contacts.SatelliteNames);
+            StationsNames = new List<string>(contacts.StationsNames);
+            StartTime = new One_Sgp4.EpochTime(contacts.StartTime);
+            EndTime = new One_Sgp4.EpochTime(contacts.EndTime);
+            calcualteTimesOfAllContacst();
+        }
+
+        public ContactWindowsVector getScheduledContacts()
+        {
+            ContactWindowsVector res = new ContactWindowsVector(this);
+            res.RemoveUnscheduledContacts();
+            return res;
+        }
+
+        private void RemoveUnscheduledContacts()
+        {
+            for (int i = 0; i < ContactWindows.Count; i++)
+            {
+                if (!ContactWindows[i].IsScheduled)
+                {
+                    ContactWindows.RemoveAt(i);
+                    i--;
+                }
+            }
             calcualteTimesOfAllContacst();
         }
 
@@ -81,17 +86,17 @@ namespace MARRSS.Definition
         */
         private void updateNamesList()
         {
-            stationNameList = new List<string>();
-            satelliteNameList = new List<string>();
+            StationsNames = new List<string>();
+            SatelliteNames = new List<string>();
 
-            for (int i = 0; i < contactsList.Count(); i++)
+            for (int i = 0; i < ContactWindows.Count(); i++)
             {
                 //satNames
                 bool found = false;
                 int pos = 0;
-                for (int k = 0; k < satelliteNameList.Count(); k++)
+                for (int k = 0; k < SatelliteNames.Count(); k++)
                 {
-                    if (satelliteNameList[k] == contactsList[i].getSatName())
+                    if (SatelliteNames[k] == ContactWindows[i].SatelliteName)
                     {
                         found = true;
                         pos = k;
@@ -100,14 +105,14 @@ namespace MARRSS.Definition
                 }
                 if (!found)
                 {
-                    satelliteNameList.Add(contactsList[i].getSatName());
+                    SatelliteNames.Add(ContactWindows[i].SatelliteName);
                 }
                 //Stations Names
                 found = false;
                 pos = 0;
-                for (int k = 0; k < stationNameList.Count(); k++)
+                for (int k = 0; k < StationsNames.Count(); k++)
                 {
-                    if (stationNameList[k] == contactsList[i].getStationName())
+                    if (StationsNames[k] == ContactWindows[i].StationName)
                     {
                         found = true;
                         pos = k;
@@ -116,27 +121,9 @@ namespace MARRSS.Definition
                 }
                 if (!found)
                 {
-                    stationNameList.Add(contactsList[i].getStationName());
+                    StationsNames.Add(ContactWindows[i].StationName);
                 }
             }
-        }
-
-        //! get Satellite Names
-        /*!
-            \return List<string> of all satellites names
-        */
-        public List<string> getSatelliteNames()
-        {
-            return satelliteNameList;
-        }
-
-        //! get Stations Names
-        /*!
-            \return List<string> of all stations names
-        */
-        public List<string> getStationNames()
-        {
-            return stationNameList;
         }
 
         //! get Number of Satellites
@@ -145,7 +132,7 @@ namespace MARRSS.Definition
         */
         public int getNumberOfSatellites()
         {
-            return satelliteNameList.Count(); ;
+            return SatelliteNames.Count(); ;
         }
 
         //! get Number of Stations
@@ -154,7 +141,7 @@ namespace MARRSS.Definition
         */
         public int getNumberOfStation()
         {
-            return stationNameList.Count();
+            return StationsNames.Count();
         }
 
         //! clear 
@@ -163,46 +150,10 @@ namespace MARRSS.Definition
         */
         public void clear()
         {
-            contactsList.Clear();
-            stationNameList.Clear();
-            satelliteNameList.Clear();
-            contactTime = 0.0;
-        }
-
-        //! set the start time 
-        /*!
-            \param TimeDate starting time for schedule
-        */
-        public void setStartTime(One_Sgp4.EpochTime start)
-        {
-            starttime = start;
-        }
-
-        //! set the stop time 
-        /*!
-            \param TimeDate stoping time for schedule
-        */
-        public void setStopTime(One_Sgp4.EpochTime stop)
-        {
-            stoptime = stop;
-        }
-
-        //! get the start time 
-        /*!
-            \return TimeDate starting time for schedule
-        */
-        public One_Sgp4.EpochTime getStartTime()
-        {
-            return starttime;
-        }
-
-        //! get the stop time 
-        /*!
-            \return TimeDate stoping time for schedule
-        */
-        public One_Sgp4.EpochTime getStopTime()
-        {
-            return stoptime;
+            ContactWindows.Clear();
+            StationsNames.Clear();
+            SatelliteNames.Clear();
+            ContactsDuration = 0.0;
         }
 
         //! add ContactWindow
@@ -211,8 +162,8 @@ namespace MARRSS.Definition
         */
         public void add(ContactWindow contact, bool updateInfo = true)
         {
-            contactsList.Add(contact);
-            contactTime += contact.getDuration();
+            ContactWindows.Add(contact);
+            ContactsDuration += contact.ContactDuration();
             if (updateInfo)
                 updateNamesList();
         }
@@ -224,7 +175,7 @@ namespace MARRSS.Definition
         public void add(List<ContactWindow> contacts)
         {
             if (contacts.Count > 0)
-                contactsList.AddRange(contacts);
+                ContactWindows.AddRange(contacts);
             updateNamesList();
             calcualteTimesOfAllContacst();
         }
@@ -238,7 +189,7 @@ namespace MARRSS.Definition
             if (!contacts.isEmpty())
                 for(int i = 0; i < contacts.Count(); i++)
                 {
-                    contactsList.Add(contacts.getAt(i));
+                    ContactWindows.Add(contacts.getAt(i));
                 }
             updateNamesList();
             calcualteTimesOfAllContacst();
@@ -250,7 +201,7 @@ namespace MARRSS.Definition
         */
         public List<ContactWindow> getAllContacts()
         {
-            return contactsList;
+            return ContactWindows;
         }
 
         //! Count
@@ -259,7 +210,7 @@ namespace MARRSS.Definition
         */
         public int Count()
         {
-            return contactsList.Count();
+            return ContactWindows.Count();
         }
 
         //! Get contact at pos
@@ -269,7 +220,7 @@ namespace MARRSS.Definition
         */
         public ContactWindow getAt(int pos)
         {
-            return contactsList[pos];
+            return ContactWindows[pos];
         }
 
         //! Delete contact at pos
@@ -281,8 +232,8 @@ namespace MARRSS.Definition
         {
             if (pos >= 0)
             {
-                contactTime -= contactsList[pos].getDuration();
-                contactsList.RemoveAt(pos);
+                ContactsDuration -= ContactWindows[pos].ContactDuration();
+                ContactWindows.RemoveAt(pos);
                 updateNamesList();
                 
                 return true;
@@ -299,7 +250,7 @@ namespace MARRSS.Definition
         */
         public bool isEmpty()
         {
-            return contactsList.Count() == 0;
+            return ContactWindows.Count() == 0;
         }
 
         //! Get contact in range
@@ -313,7 +264,7 @@ namespace MARRSS.Definition
             ContactWindowsVector result = new ContactWindowsVector();
             for(int i = start; i <= count; i++)
             {
-                result.add(contactsList[i]);
+                result.add(ContactWindows[i]);
             }
             return result;
         }
@@ -326,7 +277,7 @@ namespace MARRSS.Definition
         */
         public void deleteRange(int start, int count)
         {
-            contactsList.RemoveRange(start, count);
+            ContactWindows.RemoveRange(start, count);
             calcualteTimesOfAllContacst();
         }
 
@@ -337,9 +288,9 @@ namespace MARRSS.Definition
         public int getNrOfScheduled()
         {
             int result = 0;
-            for (int i = 0; i < contactsList.Count(); i++)
+            for (int i = 0; i < ContactWindows.Count(); i++)
             {
-                if (contactsList[i].getSheduledInfo())
+                if (ContactWindows[i].getSheduledInfo())
                 {
                     result++;
                 }
@@ -353,9 +304,9 @@ namespace MARRSS.Definition
         */
         public ContactWindow getLast()
         {
-            if (contactsList.Count > 0)
+            if (ContactWindows.Count > 0)
             {
-                return contactsList[contactsList.Count - 1];
+                return ContactWindows[ContactWindows.Count - 1];
             }
             else
             {
@@ -369,9 +320,9 @@ namespace MARRSS.Definition
         */
         public ContactWindow getFirst()
         {
-            if (contactsList.Count > 0)
+            if (ContactWindows.Count > 0)
             {
-                return contactsList[0];
+                return ContactWindows[0];
             }
             else
             {
@@ -386,7 +337,7 @@ namespace MARRSS.Definition
         */
         public void sort(Structs.sortByField toSort)
         {
-            int size = contactsList.Count();
+            int size = ContactWindows.Count();
             int hSort = 1;
             while (hSort < size / 3)
                 hSort = (3 * hSort) + 1;
@@ -399,26 +350,26 @@ namespace MARRSS.Definition
                     {
                         if (toSort == Structs.sortByField.TIME)
                         { 
-                            double epoch1 = contactsList[l].getStartTime().getEpoch();
-                            int year1 = contactsList[l].getStartTime().getYear();
-                            double epoch2 = contactsList[l - hSort].getStartTime().getEpoch();
-                            int year2 = contactsList[l - hSort].getStartTime().getYear();
+                            double epoch1 = ContactWindows[l].StartTime.getEpoch();
+                            int year1 = ContactWindows[l].EndTime.getYear();
+                            double epoch2 = ContactWindows[l - hSort].StartTime.getEpoch();
+                            int year2 = ContactWindows[l - hSort].StartTime.getYear();
                             if (year1 <= year2 && epoch1 < epoch2)
                             {
-                                ContactWindow t = contactsList[l];
-                                contactsList[l] = contactsList[l - hSort];
-                                contactsList[l - hSort] = t;
+                                ContactWindow t = ContactWindows[l];
+                                ContactWindows[l] = ContactWindows[l - hSort];
+                                ContactWindows[l - hSort] = t;
                             }
                         }
                         if (toSort == Structs.sortByField.GROUNDSTATION)
                         {
-                            string st1 = contactsList[l].getStationName();
-                            string st2 = contactsList[l - hSort].getStationName();
+                            string st1 = ContactWindows[l].StationName;
+                            string st2 = ContactWindows[l - hSort].StationName;
                             if (st1.CompareTo(st2) < 1 )
                             {
-                                ContactWindow t = contactsList[l];
-                                contactsList[l] = contactsList[l - hSort];
-                                contactsList[l - hSort] = t;
+                                ContactWindow t = ContactWindows[l];
+                                ContactWindows[l] = ContactWindows[l - hSort];
+                                ContactWindows[l - hSort] = t;
                             }
                         }
                     }
@@ -434,9 +385,9 @@ namespace MARRSS.Definition
         public int getNumberOfScheduledContacts()
         {
             int scheduled = 0;
-            for (int i = 0; i < contactsList.Count; i++)
+            for (int i = 0; i < ContactWindows.Count; i++)
             {
-                if (contactsList[i].getSheduledInfo())
+                if (ContactWindows[i].getSheduledInfo())
                     scheduled++;
             }
             return scheduled;
@@ -444,16 +395,16 @@ namespace MARRSS.Definition
 
         private void calcualteTimesOfAllContacst()
         {
-            contactTime = 0.0;
-            for (int i = 0; i < contactsList.Count; i++)
+            ContactsDuration = 0.0;
+            for (int i = 0; i < ContactWindows.Count; i++)
             {
-                contactTime += contactsList[i].getDuration();
+                ContactsDuration += ContactWindows[i].ContactDuration();
             }
         }
 
         public double getCompleteContactTime()
         {
-            return contactTime;
+            return ContactsDuration;
         }
 
         //! Randomize ContactWindowsVector
@@ -468,13 +419,13 @@ namespace MARRSS.Definition
             else
                 rnd = new Random(seed);
 
-            for (int i = 0; i < contactsList.Count() ; i++)
+            for (int i = 0; i < ContactWindows.Count() ; i++)
             {
-                int item1 = rnd.Next(0,contactsList.Count()-1);
-                int item2 = rnd.Next(0,contactsList.Count()-1);
-                ContactWindow t = contactsList[item1];
-                contactsList[item1] = contactsList[item2];
-                contactsList[item2] = t;
+                int item1 = rnd.Next(0,ContactWindows.Count()-1);
+                int item2 = rnd.Next(0,ContactWindows.Count()-1);
+                ContactWindow t = ContactWindows[item1];
+                ContactWindows[item1] = ContactWindows[item2];
+                ContactWindows[item2] = t;
             }
         }
     }

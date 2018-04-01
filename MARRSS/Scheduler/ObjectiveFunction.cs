@@ -181,7 +181,7 @@ namespace MARRSS.Scheduler
             MAX_Duration = 0.0;
             foreach(var con in cons.getAllContacts())
             {
-                MAX_Duration += con.getDuration();
+                MAX_Duration += con.ContactDuration();
             }
         }
 
@@ -191,7 +191,7 @@ namespace MARRSS.Scheduler
             int res = 0;
             for (int i = 0; i < cons.Count(); i++)
             {
-                int p = (int)cons.getAt(i).getPriority();
+                int p = (int)cons.getAt(i).Priority;
                 priorityCounts[p]++;
             }
             for (int i = 0; i < priorityCounts.Count(); i++)
@@ -221,7 +221,7 @@ namespace MARRSS.Scheduler
 
         private void CountNumberOfContactsPerStation(ContactWindowsVector solution, int index)
         {
-            var p = solution.getStationNames().IndexOf(solution.getAt(index).getStationName());
+            var p = solution.StationsNames.IndexOf(solution.getAt(index).StationName);
             if (p > -1)
             {
                 numberOfContactsPerStation[p]++;
@@ -230,7 +230,7 @@ namespace MARRSS.Scheduler
 
         private void CountNumberOfContactsPerSatelltie(ContactWindowsVector solution, int index)
         {
-            var p = solution.getSatelliteNames().IndexOf(solution.getAt(index).getSatName());
+            var p = solution.SatelliteNames.IndexOf(solution.getAt(index).SatelliteName);
             if (p > -1)
             {
                 numberOfContactsPerSatellite[p]++;
@@ -239,7 +239,7 @@ namespace MARRSS.Scheduler
 
         private void CountContactDuration(ContactWindowsVector solution, int index)
         {
-            overallContactDuration += solution.getAt(index).getDuration();
+            overallContactDuration += solution.getAt(index).ContactDuration();
         }
 
         private void CountNumberOfContacts()
@@ -249,13 +249,13 @@ namespace MARRSS.Scheduler
 
         private void CalculateDownlink(ContactWindowsVector solution, int index)
         {
-            var station = GetStationByName(solution.getAt(index).getStationName());
-            long packetSize = Convert.ToInt32(solution.getAt(index).getDuration()) * (long)Math.Ceiling(station.getMaxDownLink());
-            if (GetSatelliteByName(solution.getAt(index).getSatName()) != null)
+            var station = GetStationByName(solution.getAt(index).StationName);
+            long packetSize = Convert.ToInt32(solution.getAt(index).ContactDuration()) * (long)Math.Ceiling(station.getMaxDownLink());
+            if (GetSatelliteByName(solution.getAt(index).SatelliteName) != null)
             {
-                var sat = GetSatelliteByName(solution.getAt(index).getSatName());
+                var sat = GetSatelliteByName(solution.getAt(index).SatelliteName);
                 sat.RemoveDataPacket(new Satellite.DataPacket(packetSize, 4,
-                    solution.getAt(index).getStartTime(), Convert.ToInt32(solution.getAt(index).getDuration())));
+                    solution.getAt(index).StartTime, Convert.ToInt32(solution.getAt(index).ContactDuration())));
             }
         }
 
@@ -271,7 +271,7 @@ namespace MARRSS.Scheduler
 
         private void CountPriorityContact(ContactWindowsVector solution, int index)
         {
-            var p = (int)solution.getAt(index).getPriority();
+            var p = (int)solution.getAt(index).Priority;
             priorityCounter[p]++;
         }
 

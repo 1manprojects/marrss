@@ -12,11 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using MARRSS.Definition;
-using MARRSS.Ground;
 using MARRSS.Scheduler;
 using MARRSS.Global;
 
@@ -121,23 +116,19 @@ namespace MARRSS.Ground
                     if (visible == false)
                     {
                         window = new ContactWindow(_satName, _station.getName());
-                        window.setStartTime(starttime);
+                        window.StartTime = new One_Sgp4.EpochTime(starttime);
                     }
-                    //TrackingData testTrack = new TrackingData(azimuth,
-                    //    elevation, range, starttime.ToString());
-                    //window.addTrackingData(testTrack);
                     visible = true;
                 }
                 else
                 {
                     if (visible == true)
                     {
-                        window.setStopTime(starttime);
+                        window.EndTime = new One_Sgp4.EpochTime(starttime);
                         results.Add(window);
                     }
                     visible = false;
                 }
-
                 azimuth = azimuth * Constants.toDegrees;
                 starttime.addTick(_tick);
             }

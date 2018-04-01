@@ -1,12 +1,8 @@
 ﻿using MARRSS.Global;
 using MARRSS.Interface2;
-using MARRSS.Scheduler;
 using One_Sgp4;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MARRSS.Scenarios
 {
@@ -19,7 +15,7 @@ namespace MARRSS.Scenarios
         {
             for (int i = 0; i < input.getContactWindows().Count(); i++)
             {
-                input.getContactWindows().getAt(i).setPriority(Global.Structs.priority.NONE);
+                input.getContactWindows().getAt(i).Priority = Structs.priority.NONE;
             }
         }
 
@@ -36,7 +32,7 @@ namespace MARRSS.Scenarios
                 int p = rnd.Next(0, 5);
                 Global.Structs.priority pr;
                 pr = (Structs.priority)p;
-                input.getContactWindows().getAt(i).setPriority(pr);
+                input.getContactWindows().getAt(i).Priority = pr;
             }
         }
 
@@ -50,16 +46,16 @@ namespace MARRSS.Scenarios
 
             for (int i = 0; i < input.getContactWindows().Count(); i++)
             {
-                if (input.getContactWindows().getAt(i).getSatName() == "UWE-3")
+                if (input.getContactWindows().getAt(i).SatelliteName == "UWE-3")
                 {
-                    input.getContactWindows().getAt(i).setPriority(0);
+                    input.getContactWindows().getAt(i).Priority = 0;
                 }
                 else
                 {
                     int p = rnd.Next(0, 5);
                     Global.Structs.priority pr;
                     pr = (Structs.priority)p;
-                    input.getContactWindows().getAt(i).setPriority(pr);
+                    input.getContactWindows().getAt(i).Priority = pr;
                 }
             }
         }
@@ -76,59 +72,59 @@ namespace MARRSS.Scenarios
             {
                 bool found = false;
                 //------------1
-                if (input.getContactWindows().getAt(i).getSatName() == "UWE-3"
-                    && input.getContactWindows().getAt(i).getStationName() ==
+                if (input.getContactWindows().getAt(i).SatelliteName == "UWE-3"
+                    && input.getContactWindows().getAt(i).StationName ==
                     "Würzburg (Computer Science Institute)")
                 {
-                    input.getContactWindows().getAt(i).setPriority(Structs.priority.CRITICAL);
+                    input.getContactWindows().getAt(i).Priority = Structs.priority.CRITICAL;
                     found = true;
                 }
                 //------------2
-                if (input.getContactWindows().getAt(i).getSatName() == "AAUSAT3"
-                    && input.getContactWindows().getAt(i).getStationName() ==
+                if (input.getContactWindows().getAt(i).SatelliteName == "AAUSAT3"
+                    && input.getContactWindows().getAt(i).StationName ==
                     "Aalborg (Aalborg University)")
                 {
-                    input.getContactWindows().getAt(i).setPriority(Structs.priority.CRITICAL);
+                    input.getContactWindows().getAt(i).Priority = Structs.priority.CRITICAL;
                     found = true;
                 }
                 //------------3
-                if (input.getContactWindows().getAt(i).getSatName() == "ITUPSAT 1"
-                   && input.getContactWindows().getAt(i).getStationName() ==
+                if (input.getContactWindows().getAt(i).SatelliteName == "ITUPSAT 1"
+                   && input.getContactWindows().getAt(i).StationName ==
                    "Istanbul (Istanbul Technical University)")
                 {
-                    input.getContactWindows().getAt(i).setPriority(Structs.priority.CRITICAL);
+                    input.getContactWindows().getAt(i).Priority = Structs.priority.CRITICAL;
                     found = true;
                 }
                 //------------4
-                if (input.getContactWindows().getAt(i).getSatName() == "LITUANICASAT 1"
-                   && input.getContactWindows().getAt(i).getStationName() ==
+                if (input.getContactWindows().getAt(i).SatelliteName == "LITUANICASAT 1"
+                   && input.getContactWindows().getAt(i).StationName ==
                    "Lithuania (Vilnius University)")
                 {
-                    input.getContactWindows().getAt(i).setPriority(Structs.priority.CRITICAL);
+                    input.getContactWindows().getAt(i).Priority = Structs.priority.CRITICAL;
                     found = true;
                 }
                 //------------5
-                if (input.getContactWindows().getAt(i).getSatName() == "TIGRISAT"
-                   && input.getContactWindows().getAt(i).getStationName() ==
+                if (input.getContactWindows().getAt(i).SatelliteName == "TIGRISAT"
+                   && input.getContactWindows().getAt(i).StationName ==
                    "Roma (La Sapienza University of Rome)")
                 {
-                    input.getContactWindows().getAt(i).setPriority(Structs.priority.CRITICAL);
+                    input.getContactWindows().getAt(i).Priority = Structs.priority.CRITICAL;
                     found = true;
                 }
                 //------------6
-                if (input.getContactWindows().getAt(i).getSatName() == "CUBESAT XI-IV"
-                   && input.getContactWindows().getAt(i).getStationName() ==
+                if (input.getContactWindows().getAt(i).SatelliteName == "CUBESAT XI-IV"
+                   && input.getContactWindows().getAt(i).StationName ==
                    "Tokyo University")
                 {
-                    input.getContactWindows().getAt(i).setPriority(Structs.priority.CRITICAL);
+                    input.getContactWindows().getAt(i).Priority = Structs.priority.CRITICAL;
                     found = true;
                 }
                 //------------7
-                if (input.getContactWindows().getAt(i).getSatName() == "CUBESAT XI-V"
-                  && input.getContactWindows().getAt(i).getStationName() ==
+                if (input.getContactWindows().getAt(i).SatelliteName == "CUBESAT XI-V"
+                  && input.getContactWindows().getAt(i).StationName ==
                   "Sapporo (Hokkaido Institute of Technology)")
                 {
-                    input.getContactWindows().getAt(i).setPriority(Structs.priority.CRITICAL);
+                    input.getContactWindows().getAt(i).Priority = Structs.priority.CRITICAL;
                     found = true;
                 }
 
@@ -137,7 +133,7 @@ namespace MARRSS.Scenarios
                     int p = rnd.Next(1, 5);
                     Global.Structs.priority pr;
                     pr = (Structs.priority)p;
-                    input.getContactWindows().getAt(i).setPriority(pr);
+                    input.getContactWindows().getAt(i).Priority = pr;
                 }
 
             }
@@ -150,8 +146,8 @@ namespace MARRSS.Scenarios
             foreach (Satellite.Satellite sat in input.getSatellites())
             {
                 sat.getDataStorage().setMaxData(512, Structs.DataSize.MBYTE);
-                EpochTime startT = new EpochTime(input.getContactWindows().getStartTime());
-                EpochTime stopT = new EpochTime(input.getContactWindows().getStopTime());
+                EpochTime startT = new EpochTime(input.getContactWindows().StartTime);
+                EpochTime stopT = new EpochTime(input.getContactWindows().EndTime);
                 while (startT.toDateTime() < stopT.toDateTime())
                 {
                     startT.addTick(60);

@@ -155,7 +155,7 @@ namespace MARRSS.Scheduler
         {
             for (int i = 0; i < schedulerContacts.Count(); i++ )
             {
-                if (schedulerContacts.getAt(i).getDuration() < minDuration)
+                if (schedulerContacts.getAt(i).ContactDuration() < minDuration)
                 {
                     schedulerContacts.deleteAt(i);
                     i--;
@@ -165,12 +165,12 @@ namespace MARRSS.Scheduler
 
         public EpochTime getStartTime()
         {
-            return schedulerContacts.getStartTime();
+            return schedulerContacts.StartTime;
         }
 
         public EpochTime getEndTime()
         {
-            return schedulerContacts.getStopTime();
+            return schedulerContacts.EndTime;
         }
     }
 }

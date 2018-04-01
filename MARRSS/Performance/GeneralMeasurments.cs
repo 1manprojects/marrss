@@ -38,7 +38,7 @@ namespace MARRSS.Performance
         public static int getNrOfConflicts(ContactWindowsVector contacts)
         {
             int nrOfConflicts = 0;
-            HashSet<Guid> hashConflict = new HashSet<Guid>();
+            HashSet<string> hashConflict = new HashSet<string>();
 
             for (int i = 0; i < contacts.Count(); i++)
                 {
@@ -48,13 +48,13 @@ namespace MARRSS.Performance
                             contacts.getAt(k).getSheduledInfo() &&
                             contacts.getAt(i).checkConflikt(contacts.getAt(k)))
                         {
-                            if (contacts.getAt(k).getSatName() == contacts.getAt(i).getSatName()
-                                || contacts.getAt(k).getStationName() == contacts.getAt(i).getStationName())
+                            if (contacts.getAt(k).StationName == contacts.getAt(i).StationName
+                                || contacts.getAt(k).StationName == contacts.getAt(i).StationName)
                             {
-                                if (!hashConflict.Contains(contacts.getAt(k).getID()))
+                                if (!hashConflict.Contains(contacts.getAt(k).Id))
                                 {
                                     nrOfConflicts++;
-                                    hashConflict.Add(contacts.getAt(i).getID());
+                                    hashConflict.Add(contacts.getAt(i).Id);
                                 }
                             }
                         }
@@ -71,7 +71,7 @@ namespace MARRSS.Performance
             {
                 if (contacts.getAt(i).getSheduledInfo())
                 {
-                    duration += contacts.getAt(i).getDuration();
+                    duration += contacts.getAt(i).ContactDuration();
                 }
             }
             return duration;
@@ -84,7 +84,7 @@ namespace MARRSS.Performance
             for (int i = 0; i < contacts.Count(); i++)
             {
                 if (contacts.getAt(i).getSheduledInfo()
-                    && contacts.getAt(i).getSatName() == "UWE-3")
+                    && contacts.getAt(i).StationName == "UWE-3")
                 {
                     count++;
                 }
@@ -122,7 +122,7 @@ namespace MARRSS.Performance
             int sp4 = 0;
             for (int i = 0; i < contacts.Count(); i++)
             {
-                int p = (int)contacts.getAt(i).getPriority();
+                int p = (int)contacts.getAt(i).Priority;
                 switch (p)
                 {
                     case 0:

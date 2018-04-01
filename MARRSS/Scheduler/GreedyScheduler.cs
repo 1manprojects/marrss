@@ -145,8 +145,8 @@ namespace MARRSS.Scheduler
                         bool collision = false;
                         if (set.getAt(i).checkConflikt(set1.getAt(j)))
                         {
-                            if (set.getAt(i).getSatName() == set1.getAt(j).getSatName()
-                                || set.getAt(i).getStationName() == set1.getAt(j).getStationName())
+                            if (set.getAt(i).SatelliteName == set1.getAt(j).SatelliteName
+                                || set.getAt(i).StationName == set1.getAt(j).StationName)
                             {
                                 collision = true;
                                 set2.add(set.getAt(i));

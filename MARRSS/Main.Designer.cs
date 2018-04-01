@@ -132,10 +132,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button7 = new System.Windows.Forms.Button();
-            this.buttonSaveImage = new System.Windows.Forms.Button();
-            this.buttonReDraw = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label50 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -167,6 +163,8 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label51 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.MaxUpLinkText = new System.Windows.Forms.TextBox();
+            this.MaxDownTextBox = new System.Windows.Forms.TextBox();
             this.UpdateStationButton = new System.Windows.Forms.Button();
             this.UpDataSizeCombo = new System.Windows.Forms.ComboBox();
             this.DownDataSizeCombo = new System.Windows.Forms.ComboBox();
@@ -198,8 +196,7 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.MaxUpLinkText = new System.Windows.Forms.TextBox();
-            this.MaxDownTextBox = new System.Windows.Forms.TextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -232,6 +229,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).BeginInit();
             this.contextStationDB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1234,61 +1233,13 @@
             // 
             this.tabPage1.AutoScroll = true;
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.tabPage1.Controls.Add(this.button7);
-            this.tabPage1.Controls.Add(this.buttonSaveImage);
-            this.tabPage1.Controls.Add(this.buttonReDraw);
-            this.tabPage1.Controls.Add(this.panel5);
+            this.tabPage1.Controls.Add(this.splitContainer1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(994, 587);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Contacts";
-            // 
-            // button7
-            // 
-            this.button7.Enabled = false;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(87, 548);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(84, 23);
-            this.button7.TabIndex = 4;
-            this.button7.Text = "ReDraw ALL";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // buttonSaveImage
-            // 
-            this.buttonSaveImage.Enabled = false;
-            this.buttonSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSaveImage.Location = new System.Drawing.Point(177, 548);
-            this.buttonSaveImage.Name = "buttonSaveImage";
-            this.buttonSaveImage.Size = new System.Drawing.Size(75, 23);
-            this.buttonSaveImage.TabIndex = 3;
-            this.buttonSaveImage.Text = "Save Image";
-            this.buttonSaveImage.UseVisualStyleBackColor = true;
-            this.buttonSaveImage.Click += new System.EventHandler(this.buttonSaveImage_Click);
-            // 
-            // buttonReDraw
-            // 
-            this.buttonReDraw.Enabled = false;
-            this.buttonReDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReDraw.Location = new System.Drawing.Point(6, 548);
-            this.buttonReDraw.Name = "buttonReDraw";
-            this.buttonReDraw.Size = new System.Drawing.Size(75, 23);
-            this.buttonReDraw.TabIndex = 2;
-            this.buttonReDraw.Text = "ReDraw";
-            this.buttonReDraw.UseVisualStyleBackColor = true;
-            this.buttonReDraw.Click += new System.EventHandler(this.buttonReDraw_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.AutoScroll = true;
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(988, 539);
-            this.panel5.TabIndex = 1;
+            this.tabPage1.Text = "Results";
             // 
             // tabPage3
             // 
@@ -1648,6 +1599,22 @@
             this.panel6.TabIndex = 3;
             this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
             // 
+            // MaxUpLinkText
+            // 
+            this.MaxUpLinkText.Location = new System.Drawing.Point(729, 74);
+            this.MaxUpLinkText.Name = "MaxUpLinkText";
+            this.MaxUpLinkText.Size = new System.Drawing.Size(55, 20);
+            this.MaxUpLinkText.TabIndex = 30;
+            this.MaxUpLinkText.Text = "0";
+            // 
+            // MaxDownTextBox
+            // 
+            this.MaxDownTextBox.Location = new System.Drawing.Point(729, 41);
+            this.MaxDownTextBox.Name = "MaxDownTextBox";
+            this.MaxDownTextBox.Size = new System.Drawing.Size(55, 20);
+            this.MaxDownTextBox.TabIndex = 29;
+            this.MaxDownTextBox.Text = "128.2";
+            // 
             // UpdateStationButton
             // 
             this.UpdateStationButton.Location = new System.Drawing.Point(913, 142);
@@ -1889,21 +1856,14 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // MaxUpLinkText
+            // splitContainer1
             // 
-            this.MaxUpLinkText.Location = new System.Drawing.Point(729, 74);
-            this.MaxUpLinkText.Name = "MaxUpLinkText";
-            this.MaxUpLinkText.Size = new System.Drawing.Size(55, 20);
-            this.MaxUpLinkText.TabIndex = 30;
-            this.MaxUpLinkText.Text = "0";
-            // 
-            // MaxDownTextBox
-            // 
-            this.MaxDownTextBox.Location = new System.Drawing.Point(729, 41);
-            this.MaxDownTextBox.Name = "MaxDownTextBox";
-            this.MaxDownTextBox.Size = new System.Drawing.Size(55, 20);
-            this.MaxDownTextBox.TabIndex = 29;
-            this.MaxDownTextBox.Text = "128.2";
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Size = new System.Drawing.Size(988, 581);
+            this.splitContainer1.SplitterDistance = 205;
+            this.splitContainer1.TabIndex = 0;
             // 
             // Main
             // 
@@ -1968,6 +1928,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).EndInit();
             this.contextStationDB.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2052,10 +2014,7 @@
         private System.Windows.Forms.ToolStripProgressBar progressBar1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Button buttonSaveImage;
-        private System.Windows.Forms.Button buttonReDraw;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
@@ -2069,7 +2028,6 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.RichTextBox logRichTextBox;
         private System.Windows.Forms.Label fitnessValueLabel;
@@ -2145,5 +2103,6 @@
         private System.Windows.Forms.ComboBox DownDataSizeCombo;
         private System.Windows.Forms.TextBox MaxUpLinkText;
         private System.Windows.Forms.TextBox MaxDownTextBox;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

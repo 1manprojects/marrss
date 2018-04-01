@@ -98,8 +98,8 @@ namespace MARRSS.Scheduler
                     {
                         if (i != j && result.getAt(i).checkConflikt(result.getAt(j)))
                         {
-                            if (result.getAt(i).getStationName() == result.getAt(j).getStationName() ||
-                                result.getAt(i).getSatName() == result.getAt(j).getSatName())
+                            if (result.getAt(i).StationName == result.getAt(j).StationName ||
+                                result.getAt(i).SatelliteName == result.getAt(j).SatelliteName)
                             {
                                 result.getAt(i).unShedule();
                                 result.getAt(j).setSheduled();
@@ -193,8 +193,8 @@ namespace MARRSS.Scheduler
                     {
                         if (contacts.getAt(j).getSheduledInfo() && i != j && contacts.getAt(i).checkConflikt(contacts.getAt(j)))
                         {
-                            if (contacts.getAt(i).getStationName() == contacts.getAt(j).getStationName() ||
-                                contacts.getAt(i).getSatName() == contacts.getAt(j).getSatName())
+                            if (contacts.getAt(i).StationName == contacts.getAt(j).StationName ||
+                                contacts.getAt(i).SatelliteName == contacts.getAt(j).SatelliteName)
                             {
                                 confilcts = true;
                                 break;

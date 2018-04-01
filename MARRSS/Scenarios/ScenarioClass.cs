@@ -160,7 +160,6 @@ namespace MARRSS.Scenarios
 
         public static JPlan LoadDataScenarioFromCustomJson(string filePath)
         {
-            //@"D:\Programmieren\git\marrss\TIM___Nominal.json"
             JObject CustomJObject = JObject.Parse(File.ReadAllText(filePath));
             var res = CustomJObject.SelectToken("solution.plans.list");
             var ret = res.ToObject<List<JPlan>>();
