@@ -140,14 +140,19 @@ namespace MARRSS.Satellite
             return dataStorage;
         }
 
-        public bool AddDataPacket(DataPacket packet)
+        public void AddDataPacket(DataPacket packet)
         {
-            return dataStorage.addToDataStorage(packet);
+            dataStorage.addToDataStorage(packet);
         }
 
-        public bool RemoveDataPacket(DataPacket packet)
+        public void RemoveDataPacket(DataPacket packet)
         {
-            return dataStorage.removeDataFromStorage(packet);
+            dataStorage.RemoveDataFromStorage(packet);
+        }
+
+        public void QickDownloadData(DataPacket packet)
+        {
+            dataStorage.QickDownloadData(packet);
         }
 
         public void setHomeStation(string nameOfStation)

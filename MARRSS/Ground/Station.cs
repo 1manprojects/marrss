@@ -26,7 +26,7 @@ namespace MARRSS.Ground
     * antenna with now furtur information.
     * Can be expanded with the Antenna Class in the future. 
     */
-    class Station
+    public class Station
     {
         private string name; //!< string name of the Station
         private GeoCoordinate geoCoordinate; //!< GeoCoordinate position of the stations

@@ -26,7 +26,7 @@ namespace MARRSS.Satellite
         public DataPacket(long dataInByte, int dataPriority, EpochTime time, int timeFrameOfPacket = 60)
         {
             packetTimeFrame = timeFrameOfPacket;
-            packetDataSize = dataInByte * timeFrameOfPacket;
+            packetDataSize = dataInByte;
             priority = dataPriority;
             timeStamp = time;
         }

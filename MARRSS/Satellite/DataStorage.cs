@@ -13,12 +13,13 @@
 using MARRSS.Satellite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MARRSS.Global
 {
     public class DataStorage
     {
-        private long maxDataStorageSize;
+        private long MaxStorageCapacity;
 
         private Structs.DataSize dataSizeOfStorage;
         private const long Kb = 1024;
@@ -30,9 +31,24 @@ namespace MARRSS.Global
         private long maxFreedData; //in Byte
         private long currentData; //in Byte
 
-        private List<DataPacket> internalAddedStorage;
+        public List<DataPacket> internalAddedStorage;
+
+
+        private int internalPos;
+        public List<DataPacket> MemoryStorage { get; set; }
+        public long MemorySize { get; set; }
+        public long MaxPosibleData { get; set; }
+        public long DownloadedData { get; set; }
+        public long LostMemorySize { get; set; }
+        public double AllDownlinkDuration { get; set; }
+
+
         private List<DataPacket> internalRemovedStorage;
 
+
+        private long alreadyCleardData;
+        private long addedData;
+        private long removedData;
 
         //! Data Konstructor
         /*!
@@ -43,9 +59,17 @@ namespace MARRSS.Global
         {
             maxStoredData = 0;
             maxFreedData = 0;
-            maxDataStorageSize = getByte(maxStorage, size);
+            MaxStorageCapacity = getByte(maxStorage, size);
             internalAddedStorage = new List<DataPacket>();
             internalRemovedStorage = new List<DataPacket>();
+            alreadyCleardData = 0;
+            addedData = 0;
+            internalPos = 0;
+            MemoryStorage = new List<DataPacket>();
+            MemorySize = 0;
+            LostMemorySize = 0;
+            MaxPosibleData = 0;
+            DownloadedData = 0;
         }
 
         private static long getByte(long _byte, Structs.DataSize size)
@@ -64,23 +88,131 @@ namespace MARRSS.Global
             return _byte;
         }
 
-        //! Get Human Readable storage in use 
-        /*!
-            \return string used Storage on satellite
-        */
-        public string getHumanReadableStoredData()
+        public void AddDataPacketToDataList(DataPacket packet)
         {
-            return currentData.ToString() + " " + dataSizeOfStorage.ToString();
+            internalAddedStorage.Add(packet);
+            MaxPosibleData += packet.getStoredData();
         }
 
-        //! Get Used Storage in Byte
-        /*!
-            \return long data storage in use on satellite in Byte
-        */
-        public long getCurrentStoredDataInByte()
+        public void DownloadDataFromStorage(DataPacket packet)
         {
-            return currentData;
+            for (int i = internalPos; i < internalAddedStorage.Count; i++)
+            {                
+                var p = internalAddedStorage[i];
+                if (p.getTimeStamp().getEpoch() <= packet.getTimeStamp().getEpoch())
+                {
+                    if (MemorySize + p.getStoredData() <= MaxStorageCapacity)
+                    {
+                        MemoryStorage.Add(p);
+                        MemorySize += p.getStoredData();
+                    }
+                    else
+                    {
+                        if (MemorySize + packet.getStoredData() <= MaxStorageCapacity)
+                        {
+                            MemoryStorage.Add(packet);
+                            MemorySize += packet.getStoredData();                            
+                        }
+                        else
+                        {
+                            LostMemorySize += MemorySize + packet.getStoredData() - MaxStorageCapacity;
+                        }                        
+                    }
+                }
+                else
+                {
+                    internalPos = i;
+                    break;
+                }
+            }
+
+            if (MemorySize - packet.getStoredData() >= 0)
+            {
+                DownloadedData += packet.getStoredData();
+                MemorySize -= packet.getStoredData();
+            }
+            else
+            {
+                DownloadedData += MemorySize;
+                MemorySize = 0;
+            }
+            AllDownlinkDuration += packet.getDurationInSec();
         }
+
+
+        public void InitializeBevorScheduling()
+        {
+            internalAddedStorage = internalAddedStorage.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
+        }
+
+
+        public void AddDataPacketToStorage(DataPacket packet)
+        {
+            internalAddedStorage.Add(packet);
+            //internalAddedStorage = internalAddedStorage.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
+            addedData += packet.getStoredData();
+
+        }
+
+        public void QickDownloadData(DataPacket packet)
+        {
+            if (addedData >= packet.getStoredData())
+            {
+                removedData += packet.getStoredData();
+                internalAddedStorage.Add(packet);
+            }
+            else
+            {
+                removedData += addedData;
+                internalAddedStorage.Add(
+                    new DataPacket(addedData, 0, packet.getTimeStamp(), packet.getDurationInSec()));
+            }
+
+        }
+
+        public void RemoveDataFromStorage(DataPacket packet)
+        {
+            var curr = CalculateCurrentStorageCapcity(packet.getTimeStamp());
+            if (curr >= packet.getStoredData())
+            {
+                alreadyCleardData += packet.getStoredData();
+                internalRemovedStorage.Add(packet);
+            }
+            else
+            {
+                if (curr > 0)
+                {
+                    alreadyCleardData += curr;
+                    internalRemovedStorage.Add(new DataPacket(curr, 0, packet.getTimeStamp(), packet.getDurationInSec()));
+                }
+            }
+        }
+
+        private long CalculateCurrentStorageCapcity(One_Sgp4.EpochTime timePoint)
+        {
+            long currentStorage = 0;
+            for (int i = 0; i < internalAddedStorage.Count(); i++)
+            {
+                var pack = internalAddedStorage[i];
+                var time = new One_Sgp4.EpochTime(pack.getTimeStamp());
+                var time2 = new One_Sgp4.EpochTime(pack.getTimeStamp());
+                time2.addTick(pack.getDurationInSec());
+                if (time.getEpoch() <= timePoint.getEpoch())
+                {
+                    if (time2.getEpoch() > timePoint.getEpoch())
+                    {
+                        double sec = Funktions.GetDuration(time2, timePoint);
+                        currentStorage += (long)((pack.getStoredData() / pack.getDurationInSec()) * sec);
+                    }
+                    else
+                        currentStorage += pack.getStoredData();
+                }
+                else
+                    break;
+            }
+            return currentStorage - alreadyCleardData;
+        }
+
 
         //! Get Maximum Storage
         /*!
@@ -88,7 +220,7 @@ namespace MARRSS.Global
         */
         public long getMaxDataSize()
         {
-            return maxDataStorageSize;
+            return MaxStorageCapacity;
         }
 
         //! Get Storage Type
@@ -105,40 +237,10 @@ namespace MARRSS.Global
             \param long data to add
             \return bool true if maxStorage overflow
         */
-        public bool addToDataStorage(DataPacket packet)
+        public void addToDataStorage(DataPacket packet)
         {
-            //currentData += packet.getStoredData();
             maxStoredData += packet.getStoredData();
-            //internalStorage.Add(packet);
-            if (currentData + packet.getStoredData() > maxDataStorageSize)
-                return false;
-            currentData += packet.getStoredData();
             internalAddedStorage.Add(packet);
-            return true;
-        }
-
-        //! Download data from Satellite
-        /*!
-            \param long data to Download
-            \return bool true if storage reached zero
-        */
-        public bool removeDataFromStorage(DataPacket packet)
-        {
-            if (currentData - packet.getStoredData() <= 0)
-            {
-                currentData = 0;
-                packet.setStoredData(packet.getStoredData() - currentData);
-            }
-            else
-                currentData -= packet.getStoredData();
-            maxFreedData = packet.getStoredData();
-            if (currentData < 0)
-            {
-                currentData = 0;
-                return true;
-            }
-            internalRemovedStorage.Add(packet);
-            return false;
         }
 
         public List<DataPacket> GetCreatedDataPackets()
@@ -158,21 +260,29 @@ namespace MARRSS.Global
 
         public long getMaxDownladedData()
         {
-            return maxFreedData;
+            return alreadyCleardData;
         }
 
         public void setMaxData(long maxOnboardStorage, Structs.DataSize datasize)
         {
             dataSizeOfStorage = datasize;
-            maxDataStorageSize = maxOnboardStorage;
+            MaxStorageCapacity = getByte(maxOnboardStorage, datasize);
         }
 
         public void reset()
         {
             //maxStoredData = 0;
             maxFreedData = 0;
+            alreadyCleardData = 0;
+            removedData = 0;
             //internalAddedStorage = new List<DataPacket>();
             internalRemovedStorage = new List<DataPacket>();
+            MemoryStorage = new List<DataPacket>();
+            MemorySize = 0;
+            LostMemorySize = 0;
+            DownloadedData = 0;
+            internalPos = 0;
+            AllDownlinkDuration = 0;
         }
     }
 }

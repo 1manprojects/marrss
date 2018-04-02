@@ -172,7 +172,7 @@ namespace MARRSS.Scenarios
                     {
                         //read values of timelines and generate Datapackets
                         //
-                        foreach(var value in timeline.values)
+                        foreach (var value in timeline.values)
                         {
                             var lowerBoundDuration = value.duration.LowerBoundToTimeSpan();
                             var storage = value.value.Substring(1, value.value.Length - 2);
@@ -188,23 +188,24 @@ namespace MARRSS.Scenarios
                             int dataPacketSize = 0;
                             if (storages.Count() >= 3)
                             {
-                                dataPacketSize = (int)(Double.Parse(storages[2]) * 1024 *1024);
+                                dataPacketSize = (int) (Double.Parse(storages[2])*1024*1024);
 
                                 var counter = 0;
-                                for (int i = 0; i < lowerBoundInMin; i+=60)
+                                for (int i = 0; i < lowerBoundInMin*60; i+=60)
                                 {
                                     startTime.addTick(60);
                                     var packet = new Satellite.DataPacket(dataPacketSize, 4, startTime, 60);
-                                    sat.AddDataPacket(packet);
+                                    sat.getDataStorage().AddDataPacketToDataList(packet);
+                                    //sat.AddDataPacket(packet);
                                     globalCounter += packet.getStoredData();
                                     counter += 1;
                                 }
-                                if (counter < lowerBoundInMin)
+                                if (counter < lowerBoundInMin*60)
                                 {
-                                    var rest = lowerBoundInMin % 1;
+                                    var rest = lowerBoundInMin*60 % 1;
                                     startTime.addTick(60 * rest);
-                                    var test = (int)(dataPacketSize * rest);
-                                    sat.AddDataPacket(new Satellite.DataPacket(dataPacketSize, 4, startTime, 60));
+                                    //sat.AddDataPacket(new Satellite.DataPacket(dataPacketSize, 4, startTime, 60));
+                                    sat.getDataStorage().AddDataPacketToDataList(new Satellite.DataPacket(dataPacketSize, 4, startTime, 60));
                                 }
                             }
 
@@ -212,7 +213,6 @@ namespace MARRSS.Scenarios
                     }
                 }
             }
-            var testw = true;
         }
     }
 }

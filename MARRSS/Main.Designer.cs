@@ -1,4 +1,6 @@
-﻿namespace MARRSS
+﻿using OxyPlot.WindowsForms;
+
+namespace MARRSS
 {
     partial class Main
     {
@@ -29,6 +31,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label resultsTimeSumLabel;
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Stations");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Satellites");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Overall Results", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dataiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,6 +140,98 @@
             this.label6 = new System.Windows.Forms.Label();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.satRestultPanel = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.plot1 = new OxyPlot.WindowsForms.PlotView();
+            this.satRestultAvgDownLabel = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.satResultAvDurationLabel = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.satRestulLostLabel = new System.Windows.Forms.Label();
+            this.satRestulDownloadedLabel = new System.Windows.Forms.Label();
+            this.satRestulMaxGenDataLabel = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.satRestulDurationLabel = new System.Windows.Forms.Label();
+            this.satRestultSchedContactsLabel = new System.Windows.Forms.Label();
+            this.satResultContactsLabel = new System.Windows.Forms.Label();
+            this.satResultNameLabel = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.label84 = new System.Windows.Forms.Label();
+            this.label85 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.resultSeletNameLabel = new System.Windows.Forms.Label();
+            this.stationResultPanel = new System.Windows.Forms.Panel();
+            this.stationResultIdleLabel = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.stationResultMaxDowLabel = new System.Windows.Forms.Label();
+            this.stationResultAverageDownLabel = new System.Windows.Forms.Label();
+            this.stationResultDownloadLabel = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label83 = new System.Windows.Forms.Label();
+            this.stationResultDurationLabel = new System.Windows.Forms.Label();
+            this.stationResultScheduledContactsLAbel = new System.Windows.Forms.Label();
+            this.stationResultContactsLabel = new System.Windows.Forms.Label();
+            this.stationResultHeightLabel = new System.Windows.Forms.Label();
+            this.stationResultLongLabel = new System.Windows.Forms.Label();
+            this.stationResultLatLabel = new System.Windows.Forms.Label();
+            this.stationResultNameLabel = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label81 = new System.Windows.Forms.Label();
+            this.label82 = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
+            this.label88 = new System.Windows.Forms.Label();
+            this.label92 = new System.Windows.Forms.Label();
+            this.label93 = new System.Windows.Forms.Label();
+            this.OverallResultPanel = new System.Windows.Forms.Panel();
+            this.resultAverageDownLabel = new System.Windows.Forms.Label();
+            this.resultDataLostLabel = new System.Windows.Forms.Label();
+            this.resultDownloadLabel = new System.Windows.Forms.Label();
+            this.resultGeneratedDataLabel = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.resultsGenerationsLabel = new System.Windows.Forms.Label();
+            this.resultSchedulingTimeLabel = new System.Windows.Forms.Label();
+            this.resultTimeContactsLabel = new System.Windows.Forms.Label();
+            this.resultCollisionLabel = new System.Windows.Forms.Label();
+            this.resultScheduledContactsLabel = new System.Windows.Forms.Label();
+            this.resultValidContactsLabel = new System.Windows.Forms.Label();
+            this.resultNrStationLabel = new System.Windows.Forms.Label();
+            this.resultNrSatellitesLabel = new System.Windows.Forms.Label();
+            this.resultFitnessContactsValue = new System.Windows.Forms.Label();
+            this.resultFitnessDurationLabel = new System.Windows.Forms.Label();
+            this.resultDataFitnessLabel = new System.Windows.Forms.Label();
+            this.resultFitnessSatelliteLabel = new System.Windows.Forms.Label();
+            this.resultFitnesStationLabel = new System.Windows.Forms.Label();
+            this.resultFairnessLabel = new System.Windows.Forms.Label();
+            this.resultFitnessLabel = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label50 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -196,7 +296,8 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.satResultMaxDataLabel = new System.Windows.Forms.Label();
+            resultsTimeSumLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -214,6 +315,15 @@
             this.contextSatellites.SuspendLayout();
             this.contextStations.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.satRestultPanel.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.stationResultPanel.SuspendLayout();
+            this.OverallResultPanel.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.onBoardStoargeSizeText)).BeginInit();
@@ -229,9 +339,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).BeginInit();
             this.contextStationDB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // resultsTimeSumLabel
+            // 
+            resultsTimeSumLabel.AutoSize = true;
+            resultsTimeSumLabel.Location = new System.Drawing.Point(260, 410);
+            resultsTimeSumLabel.Name = "resultsTimeSumLabel";
+            resultsTimeSumLabel.Size = new System.Drawing.Size(13, 13);
+            resultsTimeSumLabel.TabIndex = 31;
+            resultsTimeSumLabel.Text = "--";
             // 
             // menuStrip1
             // 
@@ -673,6 +790,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1002, 616);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -1241,6 +1359,942 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Results";
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel5);
+            this.splitContainer1.Panel2.Controls.Add(this.satRestultPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.stationResultPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.OverallResultPanel);
+            this.splitContainer1.Size = new System.Drawing.Size(988, 581);
+            this.splitContainer1.SplitterDistance = 206;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.HideSelection = false;
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Name = "StationsNode";
+            treeNode1.Text = "Stations";
+            treeNode2.Name = "SatellitesNode";
+            treeNode2.Text = "Satellites";
+            treeNode3.Name = "RootNode";
+            treeNode3.Text = "Overall Results";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            this.treeView1.Size = new System.Drawing.Size(206, 581);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            // 
+            // satRestultPanel
+            // 
+            this.satRestultPanel.Controls.Add(this.satResultMaxDataLabel);
+            this.satRestultPanel.Controls.Add(this.panel12);
+            this.satRestultPanel.Controls.Add(this.satRestultAvgDownLabel);
+            this.satRestultPanel.Controls.Add(this.label72);
+            this.satRestultPanel.Controls.Add(this.satResultAvDurationLabel);
+            this.satRestultPanel.Controls.Add(this.label47);
+            this.satRestultPanel.Controls.Add(this.satRestulLostLabel);
+            this.satRestultPanel.Controls.Add(this.satRestulDownloadedLabel);
+            this.satRestultPanel.Controls.Add(this.satRestulMaxGenDataLabel);
+            this.satRestultPanel.Controls.Add(this.label58);
+            this.satRestultPanel.Controls.Add(this.label59);
+            this.satRestultPanel.Controls.Add(this.label60);
+            this.satRestultPanel.Controls.Add(this.label61);
+            this.satRestultPanel.Controls.Add(this.satRestulDurationLabel);
+            this.satRestultPanel.Controls.Add(this.satRestultSchedContactsLabel);
+            this.satRestultPanel.Controls.Add(this.satResultContactsLabel);
+            this.satRestultPanel.Controls.Add(this.satResultNameLabel);
+            this.satRestultPanel.Controls.Add(this.label74);
+            this.satRestultPanel.Controls.Add(this.label76);
+            this.satRestultPanel.Controls.Add(this.label84);
+            this.satRestultPanel.Controls.Add(this.label85);
+            this.satRestultPanel.Location = new System.Drawing.Point(8, 38);
+            this.satRestultPanel.Name = "satRestultPanel";
+            this.satRestultPanel.Size = new System.Drawing.Size(770, 537);
+            this.satRestultPanel.TabIndex = 3;
+            this.satRestultPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel9_Paint);
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.plot1);
+            this.panel12.Location = new System.Drawing.Point(9, 138);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(755, 393);
+            this.panel12.TabIndex = 57;
+            // 
+            // plot1
+            // 
+            this.plot1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plot1.Location = new System.Drawing.Point(0, 0);
+            this.plot1.Name = "plot1";
+            this.plot1.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.plot1.Size = new System.Drawing.Size(755, 393);
+            this.plot1.TabIndex = 0;
+            this.plot1.Text = "plot1";
+            this.plot1.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.plot1.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.plot1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // satRestultAvgDownLabel
+            // 
+            this.satRestultAvgDownLabel.AutoSize = true;
+            this.satRestultAvgDownLabel.Location = new System.Drawing.Point(548, 110);
+            this.satRestultAvgDownLabel.Name = "satRestultAvgDownLabel";
+            this.satRestultAvgDownLabel.Size = new System.Drawing.Size(13, 13);
+            this.satRestultAvgDownLabel.TabIndex = 56;
+            this.satRestultAvgDownLabel.Text = "--";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(400, 107);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(97, 13);
+            this.label72.TabIndex = 53;
+            this.label72.Text = "Average Downlink:";
+            // 
+            // satResultAvDurationLabel
+            // 
+            this.satResultAvDurationLabel.AutoSize = true;
+            this.satResultAvDurationLabel.Location = new System.Drawing.Point(216, 104);
+            this.satResultAvDurationLabel.Name = "satResultAvDurationLabel";
+            this.satResultAvDurationLabel.Size = new System.Drawing.Size(13, 13);
+            this.satResultAvDurationLabel.TabIndex = 52;
+            this.satResultAvDurationLabel.Text = "--";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(15, 107);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(130, 13);
+            this.label47.TabIndex = 51;
+            this.label47.Text = "Average contact duration:";
+            // 
+            // satRestulLostLabel
+            // 
+            this.satRestulLostLabel.AutoSize = true;
+            this.satRestulLostLabel.Location = new System.Drawing.Point(548, 84);
+            this.satRestulLostLabel.Name = "satRestulLostLabel";
+            this.satRestulLostLabel.Size = new System.Drawing.Size(13, 13);
+            this.satRestulLostLabel.TabIndex = 49;
+            this.satRestulLostLabel.Text = "--";
+            // 
+            // satRestulDownloadedLabel
+            // 
+            this.satRestulDownloadedLabel.AutoSize = true;
+            this.satRestulDownloadedLabel.Location = new System.Drawing.Point(548, 62);
+            this.satRestulDownloadedLabel.Name = "satRestulDownloadedLabel";
+            this.satRestulDownloadedLabel.Size = new System.Drawing.Size(13, 13);
+            this.satRestulDownloadedLabel.TabIndex = 48;
+            this.satRestulDownloadedLabel.Text = "--";
+            // 
+            // satRestulMaxGenDataLabel
+            // 
+            this.satRestulMaxGenDataLabel.AutoSize = true;
+            this.satRestulMaxGenDataLabel.Location = new System.Drawing.Point(548, 39);
+            this.satRestulMaxGenDataLabel.Name = "satRestulMaxGenDataLabel";
+            this.satRestulMaxGenDataLabel.Size = new System.Drawing.Size(13, 13);
+            this.satRestulMaxGenDataLabel.TabIndex = 47;
+            this.satRestulMaxGenDataLabel.Text = "--";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(400, 81);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(56, 13);
+            this.label58.TabIndex = 44;
+            this.label58.Text = "Lost Data:";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(400, 59);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(96, 13);
+            this.label59.TabIndex = 43;
+            this.label59.Text = "Downloaded Data:";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(400, 36);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(106, 13);
+            this.label60.TabIndex = 42;
+            this.label60.Text = "Max Generated Data";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(395, 12);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(98, 13);
+            this.label61.TabIndex = 41;
+            this.label61.Text = "Data max capacity:";
+            // 
+            // satRestulDurationLabel
+            // 
+            this.satRestulDurationLabel.AutoSize = true;
+            this.satRestulDurationLabel.Location = new System.Drawing.Point(216, 82);
+            this.satRestulDurationLabel.Name = "satRestulDurationLabel";
+            this.satRestulDurationLabel.Size = new System.Drawing.Size(13, 13);
+            this.satRestulDurationLabel.TabIndex = 28;
+            this.satRestulDurationLabel.Text = "--";
+            // 
+            // satRestultSchedContactsLabel
+            // 
+            this.satRestultSchedContactsLabel.AutoSize = true;
+            this.satRestultSchedContactsLabel.Location = new System.Drawing.Point(216, 59);
+            this.satRestultSchedContactsLabel.Name = "satRestultSchedContactsLabel";
+            this.satRestultSchedContactsLabel.Size = new System.Drawing.Size(13, 13);
+            this.satRestultSchedContactsLabel.TabIndex = 25;
+            this.satRestultSchedContactsLabel.Text = "--";
+            // 
+            // satResultContactsLabel
+            // 
+            this.satResultContactsLabel.AutoSize = true;
+            this.satResultContactsLabel.Location = new System.Drawing.Point(216, 37);
+            this.satResultContactsLabel.Name = "satResultContactsLabel";
+            this.satResultContactsLabel.Size = new System.Drawing.Size(13, 13);
+            this.satResultContactsLabel.TabIndex = 24;
+            this.satResultContactsLabel.Text = "--";
+            // 
+            // satResultNameLabel
+            // 
+            this.satResultNameLabel.AutoSize = true;
+            this.satResultNameLabel.Location = new System.Drawing.Point(216, 12);
+            this.satResultNameLabel.Name = "satResultNameLabel";
+            this.satResultNameLabel.Size = new System.Drawing.Size(13, 13);
+            this.satResultNameLabel.TabIndex = 17;
+            this.satResultNameLabel.Text = "--";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(15, 85);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(107, 13);
+            this.label74.TabIndex = 6;
+            this.label74.Text = "Duration of Contacts:";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(15, 12);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(44, 13);
+            this.label76.TabIndex = 5;
+            this.label76.Text = "Satellite";
+            this.label76.Click += new System.EventHandler(this.label76_Click);
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(15, 59);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(158, 13);
+            this.label84.TabIndex = 1;
+            this.label84.Text = "Number of Scheduled Contacts:";
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(15, 37);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(104, 13);
+            this.label85.TabIndex = 0;
+            this.label85.Text = "Number of Contacts:";
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.Controls.Add(this.resultSeletNameLabel);
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(770, 29);
+            this.panel5.TabIndex = 1;
+            // 
+            // resultSeletNameLabel
+            // 
+            this.resultSeletNameLabel.AutoSize = true;
+            this.resultSeletNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultSeletNameLabel.Location = new System.Drawing.Point(4, 1);
+            this.resultSeletNameLabel.Name = "resultSeletNameLabel";
+            this.resultSeletNameLabel.Size = new System.Drawing.Size(91, 25);
+            this.resultSeletNameLabel.TabIndex = 0;
+            this.resultSeletNameLabel.Text = "Results";
+            // 
+            // stationResultPanel
+            // 
+            this.stationResultPanel.Controls.Add(this.stationResultIdleLabel);
+            this.stationResultPanel.Controls.Add(this.label70);
+            this.stationResultPanel.Controls.Add(this.stationResultMaxDowLabel);
+            this.stationResultPanel.Controls.Add(this.stationResultAverageDownLabel);
+            this.stationResultPanel.Controls.Add(this.stationResultDownloadLabel);
+            this.stationResultPanel.Controls.Add(this.label75);
+            this.stationResultPanel.Controls.Add(this.label77);
+            this.stationResultPanel.Controls.Add(this.label78);
+            this.stationResultPanel.Controls.Add(this.label83);
+            this.stationResultPanel.Controls.Add(this.stationResultDurationLabel);
+            this.stationResultPanel.Controls.Add(this.stationResultScheduledContactsLAbel);
+            this.stationResultPanel.Controls.Add(this.stationResultContactsLabel);
+            this.stationResultPanel.Controls.Add(this.stationResultHeightLabel);
+            this.stationResultPanel.Controls.Add(this.stationResultLongLabel);
+            this.stationResultPanel.Controls.Add(this.stationResultLatLabel);
+            this.stationResultPanel.Controls.Add(this.stationResultNameLabel);
+            this.stationResultPanel.Controls.Add(this.label79);
+            this.stationResultPanel.Controls.Add(this.label80);
+            this.stationResultPanel.Controls.Add(this.label81);
+            this.stationResultPanel.Controls.Add(this.label82);
+            this.stationResultPanel.Controls.Add(this.label87);
+            this.stationResultPanel.Controls.Add(this.label88);
+            this.stationResultPanel.Controls.Add(this.label92);
+            this.stationResultPanel.Controls.Add(this.label93);
+            this.stationResultPanel.Location = new System.Drawing.Point(8, 37);
+            this.stationResultPanel.Name = "stationResultPanel";
+            this.stationResultPanel.Size = new System.Drawing.Size(767, 541);
+            this.stationResultPanel.TabIndex = 2;
+            // 
+            // stationResultIdleLabel
+            // 
+            this.stationResultIdleLabel.AutoSize = true;
+            this.stationResultIdleLabel.Location = new System.Drawing.Point(558, 56);
+            this.stationResultIdleLabel.Name = "stationResultIdleLabel";
+            this.stationResultIdleLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultIdleLabel.TabIndex = 52;
+            this.stationResultIdleLabel.Text = "--";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(400, 56);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(53, 13);
+            this.label70.TabIndex = 51;
+            this.label70.Text = "Time Idle:";
+            // 
+            // stationResultMaxDowLabel
+            // 
+            this.stationResultMaxDowLabel.AutoSize = true;
+            this.stationResultMaxDowLabel.Location = new System.Drawing.Point(555, 161);
+            this.stationResultMaxDowLabel.Name = "stationResultMaxDowLabel";
+            this.stationResultMaxDowLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultMaxDowLabel.TabIndex = 49;
+            this.stationResultMaxDowLabel.Text = "--";
+            // 
+            // stationResultAverageDownLabel
+            // 
+            this.stationResultAverageDownLabel.AutoSize = true;
+            this.stationResultAverageDownLabel.Location = new System.Drawing.Point(555, 139);
+            this.stationResultAverageDownLabel.Name = "stationResultAverageDownLabel";
+            this.stationResultAverageDownLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultAverageDownLabel.TabIndex = 48;
+            this.stationResultAverageDownLabel.Text = "--";
+            // 
+            // stationResultDownloadLabel
+            // 
+            this.stationResultDownloadLabel.AutoSize = true;
+            this.stationResultDownloadLabel.Location = new System.Drawing.Point(555, 116);
+            this.stationResultDownloadLabel.Name = "stationResultDownloadLabel";
+            this.stationResultDownloadLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultDownloadLabel.TabIndex = 47;
+            this.stationResultDownloadLabel.Text = "--";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(406, 161);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(75, 13);
+            this.label75.TabIndex = 44;
+            this.label75.Text = "Max downlink:";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(406, 139);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(116, 13);
+            this.label77.TabIndex = 43;
+            this.label77.Text = "Average downlink rate:";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(406, 116);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(96, 13);
+            this.label78.TabIndex = 42;
+            this.label78.Text = "Downloaded Data:";
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(397, 94);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(33, 13);
+            this.label83.TabIndex = 41;
+            this.label83.Text = "Data:";
+            // 
+            // stationResultDurationLabel
+            // 
+            this.stationResultDurationLabel.AutoSize = true;
+            this.stationResultDurationLabel.Location = new System.Drawing.Point(558, 34);
+            this.stationResultDurationLabel.Name = "stationResultDurationLabel";
+            this.stationResultDurationLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultDurationLabel.TabIndex = 28;
+            this.stationResultDurationLabel.Text = "--";
+            // 
+            // stationResultScheduledContactsLAbel
+            // 
+            this.stationResultScheduledContactsLAbel.AutoSize = true;
+            this.stationResultScheduledContactsLAbel.Location = new System.Drawing.Point(219, 182);
+            this.stationResultScheduledContactsLAbel.Name = "stationResultScheduledContactsLAbel";
+            this.stationResultScheduledContactsLAbel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultScheduledContactsLAbel.TabIndex = 25;
+            this.stationResultScheduledContactsLAbel.Text = "--";
+            // 
+            // stationResultContactsLabel
+            // 
+            this.stationResultContactsLabel.AutoSize = true;
+            this.stationResultContactsLabel.Location = new System.Drawing.Point(219, 160);
+            this.stationResultContactsLabel.Name = "stationResultContactsLabel";
+            this.stationResultContactsLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultContactsLabel.TabIndex = 24;
+            this.stationResultContactsLabel.Text = "--";
+            // 
+            // stationResultHeightLabel
+            // 
+            this.stationResultHeightLabel.AutoSize = true;
+            this.stationResultHeightLabel.Location = new System.Drawing.Point(216, 100);
+            this.stationResultHeightLabel.Name = "stationResultHeightLabel";
+            this.stationResultHeightLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultHeightLabel.TabIndex = 21;
+            this.stationResultHeightLabel.Text = "--";
+            // 
+            // stationResultLongLabel
+            // 
+            this.stationResultLongLabel.AutoSize = true;
+            this.stationResultLongLabel.Location = new System.Drawing.Point(216, 79);
+            this.stationResultLongLabel.Name = "stationResultLongLabel";
+            this.stationResultLongLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultLongLabel.TabIndex = 20;
+            this.stationResultLongLabel.Text = "--";
+            // 
+            // stationResultLatLabel
+            // 
+            this.stationResultLatLabel.AutoSize = true;
+            this.stationResultLatLabel.Location = new System.Drawing.Point(216, 57);
+            this.stationResultLatLabel.Name = "stationResultLatLabel";
+            this.stationResultLatLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultLatLabel.TabIndex = 19;
+            this.stationResultLatLabel.Text = "--";
+            // 
+            // stationResultNameLabel
+            // 
+            this.stationResultNameLabel.AutoSize = true;
+            this.stationResultNameLabel.Location = new System.Drawing.Point(216, 12);
+            this.stationResultNameLabel.Name = "stationResultNameLabel";
+            this.stationResultNameLabel.Size = new System.Drawing.Size(13, 13);
+            this.stationResultNameLabel.TabIndex = 17;
+            this.stationResultNameLabel.Text = "--";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(40, 100);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(41, 13);
+            this.label79.TabIndex = 14;
+            this.label79.Text = "Height:";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(39, 79);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(57, 13);
+            this.label80.TabIndex = 13;
+            this.label80.Text = "Longitude:";
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(40, 57);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(48, 13);
+            this.label81.TabIndex = 12;
+            this.label81.Text = "Latitude:";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(24, 34);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(51, 13);
+            this.label82.TabIndex = 11;
+            this.label82.Text = "Location:";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(400, 34);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(107, 13);
+            this.label87.TabIndex = 6;
+            this.label87.Text = "Duration of Contacts:";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(15, 12);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(81, 13);
+            this.label88.TabIndex = 5;
+            this.label88.Text = "Ground Station:";
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(18, 182);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(158, 13);
+            this.label92.TabIndex = 1;
+            this.label92.Text = "Number of Scheduled Contacts:";
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(18, 160);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(104, 13);
+            this.label93.TabIndex = 0;
+            this.label93.Text = "Number of Contacts:";
+            // 
+            // OverallResultPanel
+            // 
+            this.OverallResultPanel.Controls.Add(this.resultAverageDownLabel);
+            this.OverallResultPanel.Controls.Add(this.resultDataLostLabel);
+            this.OverallResultPanel.Controls.Add(this.resultDownloadLabel);
+            this.OverallResultPanel.Controls.Add(this.resultGeneratedDataLabel);
+            this.OverallResultPanel.Controls.Add(this.label45);
+            this.OverallResultPanel.Controls.Add(this.label44);
+            this.OverallResultPanel.Controls.Add(this.label43);
+            this.OverallResultPanel.Controls.Add(this.label42);
+            this.OverallResultPanel.Controls.Add(this.resultsGenerationsLabel);
+            this.OverallResultPanel.Controls.Add(resultsTimeSumLabel);
+            this.OverallResultPanel.Controls.Add(this.resultSchedulingTimeLabel);
+            this.OverallResultPanel.Controls.Add(this.resultTimeContactsLabel);
+            this.OverallResultPanel.Controls.Add(this.resultCollisionLabel);
+            this.OverallResultPanel.Controls.Add(this.resultScheduledContactsLabel);
+            this.OverallResultPanel.Controls.Add(this.resultValidContactsLabel);
+            this.OverallResultPanel.Controls.Add(this.resultNrStationLabel);
+            this.OverallResultPanel.Controls.Add(this.resultNrSatellitesLabel);
+            this.OverallResultPanel.Controls.Add(this.resultFitnessContactsValue);
+            this.OverallResultPanel.Controls.Add(this.resultFitnessDurationLabel);
+            this.OverallResultPanel.Controls.Add(this.resultDataFitnessLabel);
+            this.OverallResultPanel.Controls.Add(this.resultFitnessSatelliteLabel);
+            this.OverallResultPanel.Controls.Add(this.resultFitnesStationLabel);
+            this.OverallResultPanel.Controls.Add(this.resultFairnessLabel);
+            this.OverallResultPanel.Controls.Add(this.resultFitnessLabel);
+            this.OverallResultPanel.Controls.Add(this.label40);
+            this.OverallResultPanel.Controls.Add(this.label39);
+            this.OverallResultPanel.Controls.Add(this.label37);
+            this.OverallResultPanel.Controls.Add(this.label36);
+            this.OverallResultPanel.Controls.Add(this.label35);
+            this.OverallResultPanel.Controls.Add(this.label30);
+            this.OverallResultPanel.Controls.Add(this.label29);
+            this.OverallResultPanel.Controls.Add(this.label28);
+            this.OverallResultPanel.Controls.Add(this.label27);
+            this.OverallResultPanel.Controls.Add(this.label26);
+            this.OverallResultPanel.Controls.Add(this.label25);
+            this.OverallResultPanel.Controls.Add(this.label24);
+            this.OverallResultPanel.Controls.Add(this.label23);
+            this.OverallResultPanel.Controls.Add(this.label22);
+            this.OverallResultPanel.Controls.Add(this.label20);
+            this.OverallResultPanel.Controls.Add(this.label11);
+            this.OverallResultPanel.Controls.Add(this.label8);
+            this.OverallResultPanel.Location = new System.Drawing.Point(12, 38);
+            this.OverallResultPanel.Name = "OverallResultPanel";
+            this.OverallResultPanel.Size = new System.Drawing.Size(773, 524);
+            this.OverallResultPanel.TabIndex = 0;
+            // 
+            // resultAverageDownLabel
+            // 
+            this.resultAverageDownLabel.AutoSize = true;
+            this.resultAverageDownLabel.Location = new System.Drawing.Point(640, 100);
+            this.resultAverageDownLabel.Name = "resultAverageDownLabel";
+            this.resultAverageDownLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultAverageDownLabel.TabIndex = 40;
+            this.resultAverageDownLabel.Text = "--";
+            // 
+            // resultDataLostLabel
+            // 
+            this.resultDataLostLabel.AutoSize = true;
+            this.resultDataLostLabel.Location = new System.Drawing.Point(640, 79);
+            this.resultDataLostLabel.Name = "resultDataLostLabel";
+            this.resultDataLostLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultDataLostLabel.TabIndex = 39;
+            this.resultDataLostLabel.Text = "--";
+            // 
+            // resultDownloadLabel
+            // 
+            this.resultDownloadLabel.AutoSize = true;
+            this.resultDownloadLabel.Location = new System.Drawing.Point(640, 57);
+            this.resultDownloadLabel.Name = "resultDownloadLabel";
+            this.resultDownloadLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultDownloadLabel.TabIndex = 38;
+            this.resultDownloadLabel.Text = "--";
+            // 
+            // resultGeneratedDataLabel
+            // 
+            this.resultGeneratedDataLabel.AutoSize = true;
+            this.resultGeneratedDataLabel.Location = new System.Drawing.Point(640, 34);
+            this.resultGeneratedDataLabel.Name = "resultGeneratedDataLabel";
+            this.resultGeneratedDataLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultGeneratedDataLabel.TabIndex = 37;
+            this.resultGeneratedDataLabel.Text = "--";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(452, 79);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(52, 13);
+            this.label45.TabIndex = 36;
+            this.label45.Text = "Data lost:";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(452, 102);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(116, 13);
+            this.label44.TabIndex = 35;
+            this.label44.Text = "Average downlink rate:";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(452, 57);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(96, 13);
+            this.label43.TabIndex = 34;
+            this.label43.Text = "Downloaded Data:";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(452, 34);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(86, 13);
+            this.label42.TabIndex = 33;
+            this.label42.Text = "Generated Data:";
+            // 
+            // resultsGenerationsLabel
+            // 
+            this.resultsGenerationsLabel.AutoSize = true;
+            this.resultsGenerationsLabel.Location = new System.Drawing.Point(260, 451);
+            this.resultsGenerationsLabel.Name = "resultsGenerationsLabel";
+            this.resultsGenerationsLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultsGenerationsLabel.TabIndex = 32;
+            this.resultsGenerationsLabel.Text = "--";
+            // 
+            // resultSchedulingTimeLabel
+            // 
+            this.resultSchedulingTimeLabel.AutoSize = true;
+            this.resultSchedulingTimeLabel.Location = new System.Drawing.Point(260, 384);
+            this.resultSchedulingTimeLabel.Name = "resultSchedulingTimeLabel";
+            this.resultSchedulingTimeLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultSchedulingTimeLabel.TabIndex = 30;
+            this.resultSchedulingTimeLabel.Text = "--";
+            // 
+            // resultTimeContactsLabel
+            // 
+            this.resultTimeContactsLabel.AutoSize = true;
+            this.resultTimeContactsLabel.Location = new System.Drawing.Point(260, 355);
+            this.resultTimeContactsLabel.Name = "resultTimeContactsLabel";
+            this.resultTimeContactsLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultTimeContactsLabel.TabIndex = 29;
+            this.resultTimeContactsLabel.Text = "--";
+            // 
+            // resultCollisionLabel
+            // 
+            this.resultCollisionLabel.AutoSize = true;
+            this.resultCollisionLabel.Location = new System.Drawing.Point(260, 282);
+            this.resultCollisionLabel.Name = "resultCollisionLabel";
+            this.resultCollisionLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultCollisionLabel.TabIndex = 28;
+            this.resultCollisionLabel.Text = "--";
+            // 
+            // resultScheduledContactsLabel
+            // 
+            this.resultScheduledContactsLabel.AutoSize = true;
+            this.resultScheduledContactsLabel.Location = new System.Drawing.Point(260, 259);
+            this.resultScheduledContactsLabel.Name = "resultScheduledContactsLabel";
+            this.resultScheduledContactsLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultScheduledContactsLabel.TabIndex = 27;
+            this.resultScheduledContactsLabel.Text = "--";
+            // 
+            // resultValidContactsLabel
+            // 
+            this.resultValidContactsLabel.AutoSize = true;
+            this.resultValidContactsLabel.Location = new System.Drawing.Point(260, 237);
+            this.resultValidContactsLabel.Name = "resultValidContactsLabel";
+            this.resultValidContactsLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultValidContactsLabel.TabIndex = 26;
+            this.resultValidContactsLabel.Text = "--";
+            // 
+            // resultNrStationLabel
+            // 
+            this.resultNrStationLabel.AutoSize = true;
+            this.resultNrStationLabel.Location = new System.Drawing.Point(260, 214);
+            this.resultNrStationLabel.Name = "resultNrStationLabel";
+            this.resultNrStationLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultNrStationLabel.TabIndex = 25;
+            this.resultNrStationLabel.Text = "--";
+            // 
+            // resultNrSatellitesLabel
+            // 
+            this.resultNrSatellitesLabel.AutoSize = true;
+            this.resultNrSatellitesLabel.Location = new System.Drawing.Point(260, 192);
+            this.resultNrSatellitesLabel.Name = "resultNrSatellitesLabel";
+            this.resultNrSatellitesLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultNrSatellitesLabel.TabIndex = 24;
+            this.resultNrSatellitesLabel.Text = "--";
+            // 
+            // resultFitnessContactsValue
+            // 
+            this.resultFitnessContactsValue.AutoSize = true;
+            this.resultFitnessContactsValue.Location = new System.Drawing.Point(260, 142);
+            this.resultFitnessContactsValue.Name = "resultFitnessContactsValue";
+            this.resultFitnessContactsValue.Size = new System.Drawing.Size(13, 13);
+            this.resultFitnessContactsValue.TabIndex = 23;
+            this.resultFitnessContactsValue.Text = "--";
+            // 
+            // resultFitnessDurationLabel
+            // 
+            this.resultFitnessDurationLabel.AutoSize = true;
+            this.resultFitnessDurationLabel.Location = new System.Drawing.Point(260, 122);
+            this.resultFitnessDurationLabel.Name = "resultFitnessDurationLabel";
+            this.resultFitnessDurationLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultFitnessDurationLabel.TabIndex = 22;
+            this.resultFitnessDurationLabel.Text = "--";
+            // 
+            // resultDataFitnessLabel
+            // 
+            this.resultDataFitnessLabel.AutoSize = true;
+            this.resultDataFitnessLabel.Location = new System.Drawing.Point(260, 100);
+            this.resultDataFitnessLabel.Name = "resultDataFitnessLabel";
+            this.resultDataFitnessLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultDataFitnessLabel.TabIndex = 21;
+            this.resultDataFitnessLabel.Text = "--";
+            // 
+            // resultFitnessSatelliteLabel
+            // 
+            this.resultFitnessSatelliteLabel.AutoSize = true;
+            this.resultFitnessSatelliteLabel.Location = new System.Drawing.Point(260, 79);
+            this.resultFitnessSatelliteLabel.Name = "resultFitnessSatelliteLabel";
+            this.resultFitnessSatelliteLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultFitnessSatelliteLabel.TabIndex = 20;
+            this.resultFitnessSatelliteLabel.Text = "--";
+            // 
+            // resultFitnesStationLabel
+            // 
+            this.resultFitnesStationLabel.AutoSize = true;
+            this.resultFitnesStationLabel.Location = new System.Drawing.Point(260, 57);
+            this.resultFitnesStationLabel.Name = "resultFitnesStationLabel";
+            this.resultFitnesStationLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultFitnesStationLabel.TabIndex = 19;
+            this.resultFitnesStationLabel.Text = "--";
+            // 
+            // resultFairnessLabel
+            // 
+            this.resultFairnessLabel.AutoSize = true;
+            this.resultFairnessLabel.Location = new System.Drawing.Point(260, 34);
+            this.resultFairnessLabel.Name = "resultFairnessLabel";
+            this.resultFairnessLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultFairnessLabel.TabIndex = 18;
+            this.resultFairnessLabel.Text = "--";
+            // 
+            // resultFitnessLabel
+            // 
+            this.resultFitnessLabel.AutoSize = true;
+            this.resultFitnessLabel.Location = new System.Drawing.Point(260, 12);
+            this.resultFitnessLabel.Name = "resultFitnessLabel";
+            this.resultFitnessLabel.Size = new System.Drawing.Size(13, 13);
+            this.resultFitnessLabel.TabIndex = 17;
+            this.resultFitnessLabel.Text = "--";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(24, 147);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(82, 13);
+            this.label40.TabIndex = 16;
+            this.label40.Text = "Contacts Value:";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(24, 124);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(80, 13);
+            this.label39.TabIndex = 15;
+            this.label39.Text = "Duration Value:";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(24, 102);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(63, 13);
+            this.label37.TabIndex = 14;
+            this.label37.Text = "Data Value:";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(39, 79);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(67, 13);
+            this.label36.TabIndex = 13;
+            this.label36.Text = "for Satellites:";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(40, 57);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(96, 13);
+            this.label35.TabIndex = 12;
+            this.label35.Text = "for Groundstations:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(24, 34);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(79, 13);
+            this.label30.TabIndex = 11;
+            this.label30.Text = "Fairness Value:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(15, 410);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(49, 13);
+            this.label29.TabIndex = 10;
+            this.label29.Text = "    - Sum:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(15, 384);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(81, 13);
+            this.label28.TabIndex = 9;
+            this.label28.Text = "    - Scheduling:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(15, 355);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(70, 13);
+            this.label27.TabIndex = 8;
+            this.label27.Text = "    - Contacts:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(15, 332);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(88, 13);
+            this.label26.TabIndex = 7;
+            this.label26.Text = "Calculation Time:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(15, 282);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(153, 13);
+            this.label25.TabIndex = 6;
+            this.label25.Text = "Number of Collisons in solution:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(15, 12);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(141, 13);
+            this.label24.TabIndex = 5;
+            this.label24.Text = "Fitness value of the solution:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 451);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(113, 13);
+            this.label23.TabIndex = 4;
+            this.label23.Text = "Generations (Genetic):";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(15, 259);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(158, 13);
+            this.label22.TabIndex = 3;
+            this.label22.Text = "Number of Scheduled Contacts:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(15, 237);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(129, 13);
+            this.label20.TabIndex = 2;
+            this.label20.Text = "Number of valid Contacts:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(15, 214);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(133, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Number of Groundstations:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 192);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(104, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Number of Satellites:";
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label50);
@@ -1597,7 +2651,6 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(989, 172);
             this.panel6.TabIndex = 3;
-            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
             // 
             // MaxUpLinkText
             // 
@@ -1856,14 +2909,14 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // splitContainer1
+            // satResultMaxDataLabel
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Size = new System.Drawing.Size(988, 581);
-            this.splitContainer1.SplitterDistance = 205;
-            this.splitContainer1.TabIndex = 0;
+            this.satResultMaxDataLabel.AutoSize = true;
+            this.satResultMaxDataLabel.Location = new System.Drawing.Point(548, 12);
+            this.satResultMaxDataLabel.Name = "satResultMaxDataLabel";
+            this.satResultMaxDataLabel.Size = new System.Drawing.Size(13, 13);
+            this.satResultMaxDataLabel.TabIndex = 58;
+            this.satResultMaxDataLabel.Text = "--";
             // 
             // Main
             // 
@@ -1909,6 +2962,19 @@
             this.contextSatellites.ResumeLayout(false);
             this.contextStations.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.satRestultPanel.ResumeLayout(false);
+            this.satRestultPanel.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.stationResultPanel.ResumeLayout(false);
+            this.stationResultPanel.PerformLayout();
+            this.OverallResultPanel.ResumeLayout(false);
+            this.OverallResultPanel.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -1928,8 +2994,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staDataGridView)).EndInit();
             this.contextStationDB.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2104,5 +3168,97 @@
         private System.Windows.Forms.TextBox MaxUpLinkText;
         private System.Windows.Forms.TextBox MaxDownTextBox;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Panel OverallResultPanel;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label resultSeletNameLabel;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label resultAverageDownLabel;
+        private System.Windows.Forms.Label resultDataLostLabel;
+        private System.Windows.Forms.Label resultDownloadLabel;
+        private System.Windows.Forms.Label resultGeneratedDataLabel;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label resultsGenerationsLabel;
+        private System.Windows.Forms.Label resultSchedulingTimeLabel;
+        private System.Windows.Forms.Label resultTimeContactsLabel;
+        private System.Windows.Forms.Label resultCollisionLabel;
+        private System.Windows.Forms.Label resultScheduledContactsLabel;
+        private System.Windows.Forms.Label resultValidContactsLabel;
+        private System.Windows.Forms.Label resultNrStationLabel;
+        private System.Windows.Forms.Label resultNrSatellitesLabel;
+        private System.Windows.Forms.Label resultFitnessContactsValue;
+        private System.Windows.Forms.Label resultFitnessDurationLabel;
+        private System.Windows.Forms.Label resultDataFitnessLabel;
+        private System.Windows.Forms.Label resultFitnessSatelliteLabel;
+        private System.Windows.Forms.Label resultFitnesStationLabel;
+        private System.Windows.Forms.Label resultFairnessLabel;
+        private System.Windows.Forms.Label resultFitnessLabel;
+        private System.Windows.Forms.Panel stationResultPanel;
+        private System.Windows.Forms.Label stationResultDurationLabel;
+        private System.Windows.Forms.Label stationResultScheduledContactsLAbel;
+        private System.Windows.Forms.Label stationResultContactsLabel;
+        private System.Windows.Forms.Label stationResultHeightLabel;
+        private System.Windows.Forms.Label stationResultLongLabel;
+        private System.Windows.Forms.Label stationResultLatLabel;
+        private System.Windows.Forms.Label stationResultNameLabel;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.Label label93;
+        private System.Windows.Forms.Label stationResultIdleLabel;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Label stationResultMaxDowLabel;
+        private System.Windows.Forms.Label stationResultAverageDownLabel;
+        private System.Windows.Forms.Label stationResultDownloadLabel;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.Panel satRestultPanel;
+        private PlotView plot1;
+        private System.Windows.Forms.Label satResultAvDurationLabel;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label satRestulLostLabel;
+        private System.Windows.Forms.Label satRestulDownloadedLabel;
+        private System.Windows.Forms.Label satRestulMaxGenDataLabel;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label satRestulDurationLabel;
+        private System.Windows.Forms.Label satRestultSchedContactsLabel;
+        private System.Windows.Forms.Label satResultContactsLabel;
+        private System.Windows.Forms.Label satResultNameLabel;
+        private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.Label satRestultAvgDownLabel;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label satResultMaxDataLabel;
     }
 }

@@ -96,6 +96,34 @@ namespace MARRSS.Global
             return count;
         }
 
+        public static string getDataSizeToString(double nrOfByte)
+        {
+            var calc = nrOfByte;
+            var count = 0;
+            while (calc > 1024)
+            {
+                calc = calc / 1024;
+                count++;
+            }
+            var ret = "Byte";
+            switch(count)
+            {
+                case 1:
+                    ret = "KByte";
+                    break;
+                case 2:
+                    ret = "MByte";
+                    break;
+                case 3:
+                    ret = "GByte";
+                    break;
+                case 4:
+                    ret = "TByte";
+                    break;
+            }
+            return ret;
+        }
+
         public static string GetHumanReadableSize(double nrOfByte)
         {
             var calc = nrOfByte;
@@ -105,6 +133,30 @@ namespace MARRSS.Global
             }
             calc = Math.Round(calc, 3);
             return calc.ToString();
+        }
+
+        public static string EpochToHumanReadable(double epoch)
+        {
+            var d = Math.Floor(epoch);
+            var r = epoch - d;
+            var h = Math.Floor(r * 24);
+            var m = Math.Floor((r - h) * 60);
+            return string.Format("{0} days {1} hours {2} min",d,h,m);
+        }
+
+        public static double GetDuration(One_Sgp4.EpochTime start, One_Sgp4.EpochTime end)
+        {
+            if (end.getYear() == start.getYear())
+            {
+                var d = start.getEpoch() - end.getEpoch();
+                return d * 86400;
+            }
+            else
+            {
+                var d = start.getEpoch() - 365.0;
+                d += end.getEpoch();
+                return d * 86400;
+            }
         }
     }
 }

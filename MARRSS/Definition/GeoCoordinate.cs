@@ -26,7 +26,7 @@ namespace MARRSS.Definition
    * This class defnies the GeoCoordinates of Latetude, Longitude, hight and the
    * conversions to Earth Centerd Inertial.
    */
-    class GeoCoordinate
+    public class GeoCoordinate
     {
         private double latetude; //!< double Latetude in degree
         private double longitude; //!< double longitude in degree

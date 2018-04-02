@@ -165,7 +165,8 @@ namespace MARRSS.Scheduler
             foreach (Satellite.Satellite sat in satelliteList)
             {
                 createdData += sat.getDataStorage().getMaxGeneratedData();
-                downloadedData += sat.getDataStorage().getMaxDownladedData();
+                if (createdData >= 0)
+                    downloadedData += sat.getDataStorage().getMaxDownladedData();
             }
             //Set Values
             val_MaxData = (double)downloadedData / (double)createdData;
@@ -254,7 +255,8 @@ namespace MARRSS.Scheduler
             if (GetSatelliteByName(solution.getAt(index).SatelliteName) != null)
             {
                 var sat = GetSatelliteByName(solution.getAt(index).SatelliteName);
-                sat.RemoveDataPacket(new Satellite.DataPacket(packetSize, 4,
+                //sat.RemoveDataPacket(new Satellite.DataPacket(packetSize, 4,
+                sat.getDataStorage().DownloadDataFromStorage(new Satellite.DataPacket(packetSize, 4,
                     solution.getAt(index).StartTime, Convert.ToInt32(solution.getAt(index).ContactDuration())));
             }
         }

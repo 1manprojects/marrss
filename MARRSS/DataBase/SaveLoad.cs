@@ -81,7 +81,6 @@ namespace MARRSS.DataBase
         public static ContactWindowsVector loadFile(string filepath, Main f)
         {
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(filepath);
             XmlNodeList dataNodes = xmlDoc.SelectNodes("//Contacts/ContactWindow");
