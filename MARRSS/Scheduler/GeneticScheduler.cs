@@ -368,7 +368,7 @@ namespace MARRSS.Scheduler
         */
         private double CalculateFitness(int[] pop)
         {
-            objective.CalculateObjectiveFitness(set, pop);
+            objective.CalculateObjectiveFitness(set, true, pop);
             //objective.calculateValues(set, pop, problem.getSatellites(), problem.getGroundStations() );
             return objective.getObjectiveResults();
         }

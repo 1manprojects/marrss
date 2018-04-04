@@ -1504,37 +1504,67 @@ namespace MARRSS
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (treeView1.SelectedNode.Parent.Text == "Stations")
+            if (treeView1.SelectedNode.Parent != null)
             {
-                stationResultPanel.BringToFront();
-                StationResult res = new StationResult(scheduler.getFinischedSchedule(), treeView1.SelectedNode.Text, satellitesData, stationData);
-                resultSeletNameLabel.Text = res.StationName;
-                stationResultNameLabel.Text = res.StationName;
-                stationResultHeightLabel.Text = res.Height;
-                stationResultLatLabel.Text = res.Latitude;
-                stationResultLongLabel.Text = res.Latitude;
-                stationResultMaxDowLabel.Text = res.MaxDownlink;
-                stationResultDurationLabel.Text = res.ContactDurations;
-                stationResultIdleLabel.Text = res.IdleTime;
-                stationResultDownloadLabel.Text = res.DownloadedData;
-                stationResultAverageDownLabel.Text = res.AverageDownlink;
-                stationResultContactsLabel.Text = res.NumberOfContacts.ToString();
-                stationResultScheduledContactsLAbel.Text = res.NumberOfScheduledContacts.ToString();
-                res = null;
+                if (treeView1.SelectedNode.Parent.Text == "Stations")
+                {
+                    stationResultPanel.BringToFront();
+                    StationResult res = new StationResult(scheduler.getFinischedSchedule(), treeView1.SelectedNode.Text, satellitesData, stationData);
+                    resultSeletNameLabel.Text = res.StationName;
+                    stationResultNameLabel.Text = res.StationName;
+                    stationResultHeightLabel.Text = res.Height;
+                    stationResultLatLabel.Text = res.Latitude;
+                    stationResultLongLabel.Text = res.Latitude;
+                    stationResultMaxDowLabel.Text = res.MaxDownlink;
+                    stationResultDurationLabel.Text = res.ContactDurations;
+                    stationResultIdleLabel.Text = res.IdleTime;
+                    stationResultDownloadLabel.Text = res.DownloadedData;
+                    stationResultAverageDownLabel.Text = res.AverageDownlink;
+                    stationResultContactsLabel.Text = res.NumberOfContacts.ToString();
+                    stationResultScheduledContactsLAbel.Text = res.NumberOfScheduledContacts.ToString();
+                    res = null;
+                }
+                if (treeView1.SelectedNode.Parent.Text == "Satellites")
+                {
+                    satRestultPanel.BringToFront();
+                    SatelliteResult res = new SatelliteResult(scheduler.getFinischedSchedule(), treeView1.SelectedNode.Text, satellitesData, stationData);
+                    satRestulDownloadedLabel.Text = res.DownloadedData;
+                    satRestulDurationLabel.Text = res.OverallContactsDuration;
+                    satRestulLostLabel.Text = res.LostData;
+                    satRestulMaxGenDataLabel.Text = res.GeneratedData;
+                    satRestultAvgDownLabel.Text = res.AverageDownlinkRate;
+                    satRestultSchedContactsLabel.Text = res.NumberOfScheduledContacts.ToString();
+                    satResultContactsLabel.Text = res.NumberOfContacts.ToString();
+                    satResultAvDurationLabel.Text = res.AverageContactWindowDuration;
+                    satResultMaxDataLabel.Text = res.MaxDataStorage;
+                    satResultMemAtEndLabel.Text = res.StorageCapacityAtEnd;
+                    plot1.Model = res.GeneratePlotData();
+
+                    res = null;
+                }
             }
-            if (treeView1.SelectedNode.Parent.Text == "Satellites")
+            else
             {
-                satRestultPanel.BringToFront();
-                SatelliteResult res = new SatelliteResult(scheduler.getFinischedSchedule(), treeView1.SelectedNode.Text, satellitesData, stationData);
-                satRestulDownloadedLabel.Text = res.DownloadedData;
-                satRestulDurationLabel.Text = res.OverallContactsDuration;
-                satRestulLostLabel.Text = res.LostData;
-                satRestulMaxGenDataLabel.Text = res.GeneratedData;
-                satRestultAvgDownLabel.Text = res.AverageDownlinkRate;
-                satRestultSchedContactsLabel.Text = res.NumberOfScheduledContacts.ToString();
-                satResultContactsLabel.Text = res.NumberOfContacts.ToString();
-                satResultAvDurationLabel.Text = res.AverageContactWindowDuration;
-                satResultMaxDataLabel.Text = res.MaxDataStorage;
+                OverallResultPanel.BringToFront();
+                OverallResult res = new OverallResult(scheduler.getFinischedSchedule(), satellitesData, stationData);
+                resultAveargeContactDurationLabel.Text = res.AverageContactWindowDuration;
+                resultAverageDownLabel.Text = res.AverageDownloadLink;
+                resultCollisionLabel.Text = res.NumberOfCollisions.ToString();
+                resultContactDurationLabel.Text = res.MaxDurationContacts;
+                resultDataFitnessLabel.Text = res.FitnessDataDownload;
+                resultDataLostLabel.Text = res.LostData;
+                resultDownloadLabel.Text = res.DownloadedData;
+                resultFairnessLabel.Text = res.FitnessFairness;
+                resultFitnessContactsValue.Text = res.FitnessContacts;
+                resultFitnessDurationLabel.Text = res.FitnessDuration;
+                resultFitnessLabel.Text = res.FitnessValue;
+                resultFitnessSatelliteLabel.Text = res.FitnessFairSatellites;
+                resultFitnesStationLabel.Text = res.FitnessFairStations;
+                resultGeneratedDataLabel.Text = res.MaxGeneratedData;
+                resultMaxDataLabel.Text = res.MaxPossibleGeneratedData;
+                resultNrSatellitesLabel.Text = res.NumberOfSatellites.ToString();
+                resultNrStationLabel.Text = res.NumberOfStation.ToString();
+
                 res = null;
             }
 
@@ -1562,9 +1592,9 @@ namespace MARRSS
 
         private void panel9_Paint(object sender, PaintEventArgs e)
         {            
-            var myModel = new PlotModel { Title = "Example 1" };
-            myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
-            plot1.Model = myModel;
+            //var myModel = new PlotModel { Title = "Example 1" };
+            //myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
+            //plot1.Model = myModel;
         }
     }
 }

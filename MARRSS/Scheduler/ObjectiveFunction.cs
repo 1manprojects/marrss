@@ -36,9 +36,6 @@ namespace MARRSS.Scheduler
         private double val_Duration;
         private double val_MaxData;
 
-        private List<Satellite.Satellite> of_satellites;
-        private List<Ground.Station> of_stations;
-
         public ObjectiveFunction(params Structs.ObjectiveEnum[] objectivesToSchedule)
         {
             objectives = objectivesToSchedule;
@@ -101,14 +98,15 @@ namespace MARRSS.Scheduler
             satelliteList = satellites;
         }
 
-        public void CalculateObjectiveFitness(ContactWindowsVector currentSolution, int[] currentPopulation = null)
+        public void CalculateObjectiveFitness(ContactWindowsVector currentSolution, bool reset = true, int[] currentPopulation = null)
         {
             priorityCounter = new int[5] { 0, 0, 0, 0, 0, };
             overallContactDuration = 0.0;
             numberOfContacts = 0;
             numberOfContactsPerSatellite = new int[numberofSatellites];
             numberOfContactsPerStation = new int[numberOfGroundStations];
-            ResetDownloadLinkCapacities();
+            if (reset)
+                ResetDownloadLinkCapacities();
             for (int i = 0; i < currentSolution.Count(); i++)
             {
                 bool toScheduled = false;

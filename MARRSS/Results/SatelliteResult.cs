@@ -1,5 +1,7 @@
 ﻿using MARRSS.Definition;
 using MARRSS.Global;
+using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,13 +23,13 @@ namespace MARRSS.Results
         public string OverallContactsDuration { get; set; }
         public string SatelliteName { get; set; }
         public string MaxDataStorage { get; set; }
+        public string StorageCapacityAtEnd { get; set; }
 
         private ContactWindowsVector contacts;
         private List<Satellite.Satellite> sats;
         private List<Ground.Station> stats;
         private Satellite.Satellite currentSat;
-        private List<Point> DataStorageSet;
-
+        private OxyPlot.PlotModel datamodel;
 
         public SatelliteResult(ContactWindowsVector schedulingResult, string Satellitename, List<Satellite.Satellite> satellites, List<Ground.Station> stations)
         {
@@ -58,6 +60,9 @@ namespace MARRSS.Results
             AverageDownlinkRate = string.Format("{0} {1} per sec.", Funktions.GetHumanReadableSize(averageDown), Funktions.getDataSizeToString(averageDown));
             var maxStorage = currentSat.getDataStorage().getMaxDataSize();
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxStorage), Funktions.getDataSizeToString(maxStorage));
+
+            var atEnd = currentSat.getDataStorage().MemorySize;
+            StorageCapacityAtEnd = string.Format("{0} {1}", Funktions.GetHumanReadableSize(atEnd), Funktions.getDataSizeToString(atEnd));
         }
 
         private void CalculateContacts()
@@ -80,9 +85,10 @@ namespace MARRSS.Results
             OverallContactsDuration = string.Format("{0} sec.", duration);
         }
 
-        private void GeneratePlotData()
+        public PlotModel GeneratePlotData()
         {
-            DataStorageSet = new List<Point>();
+            datamodel = new PlotModel { Title = "Storage" };
+            LineSeries dataSeries = new LineSeries(); 
             var downPackets = currentSat.getDataStorage().GetDownloadedDataPackets();
             var genPackets = currentSat.getDataStorage().GetCreatedDataPackets();
             var max = currentSat.getDataStorage().getMaxDataSize();
@@ -92,19 +98,22 @@ namespace MARRSS.Results
             allPackest.AddRange(genPackets);
             List<Satellite.DataPacket> SortedList = allPackest.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
 
-            DataStorageSet.Add(new Point(0, 0));
+            dataSeries.Points.Add(new DataPoint(0, 0));
+            //DataStorageSet.Add(new Point(0, 0));
             for (int i = 0; i < SortedList.Count; i++)
             {
-                DataStorageSet.Add(new Point(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
+                //DataStorageSet.Add(new Point(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
+                dataSeries.Points.Add(new DataPoint(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
                 var time = SortedList[i].getTimeStamp();
                 time.addTick(SortedList[i].getDurationInSec());
                 var x = Convert.ToInt32(time.getEpoch());
                 var y = Convert.ToInt32(SortedList[i].getStoredData());
                 if (y >= currentSat.getDataStorage().getMaxDataSize())
                     y = Convert.ToInt32(currentSat.getDataStorage().getMaxDataSize());
-                DataStorageSet.Add(new Point(x, y));
+                dataSeries.Points.Add(new DataPoint(x, y));
             }
-
+            datamodel.Series.Add(dataSeries);
+            return datamodel;
         }
     }
 }

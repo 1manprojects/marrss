@@ -221,6 +221,7 @@
     <Compile Include="Global\Constants.cs" />
     <Compile Include="Definition\ContactWindowsVector.cs" />
     <Compile Include="Definition\GeoCoordinate.cs" />
+    <Compile Include="Results\OverallResult.cs" />
     <Compile Include="Results\SatelliteResult.cs" />
     <Compile Include="Results\StationResult.cs" />
     <Compile Include="Satellite\DataPacket.cs" />

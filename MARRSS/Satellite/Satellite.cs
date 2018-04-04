@@ -147,12 +147,7 @@ namespace MARRSS.Satellite
 
         public void RemoveDataPacket(DataPacket packet)
         {
-            dataStorage.RemoveDataFromStorage(packet);
-        }
-
-        public void QickDownloadData(DataPacket packet)
-        {
-            dataStorage.QickDownloadData(packet);
+            dataStorage.DownloadDataFromStorage(packet);
         }
 
         public void setHomeStation(string nameOfStation)

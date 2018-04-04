@@ -27,13 +27,7 @@ namespace MARRSS.Global
         private const long Gb = Mb * 1024;
         private const long Tb = Gb * 1024;
 
-        private long maxStoredData; //in Byte
-        private long maxFreedData; //in Byte
-        private long currentData; //in Byte
-
         public List<DataPacket> internalAddedStorage;
-
-
         private int internalPos;
         public List<DataPacket> MemoryStorage { get; set; }
         public long MemorySize { get; set; }
@@ -44,11 +38,7 @@ namespace MARRSS.Global
 
 
         private List<DataPacket> internalRemovedStorage;
-
-
-        private long alreadyCleardData;
         private long addedData;
-        private long removedData;
 
         //! Data Konstructor
         /*!
@@ -57,12 +47,9 @@ namespace MARRSS.Global
         */
         public DataStorage(long maxStorage = 0, Structs.DataSize size = Structs.DataSize.BYTE)
         {
-            maxStoredData = 0;
-            maxFreedData = 0;
             MaxStorageCapacity = getByte(maxStorage, size);
             internalAddedStorage = new List<DataPacket>();
             internalRemovedStorage = new List<DataPacket>();
-            alreadyCleardData = 0;
             addedData = 0;
             internalPos = 0;
             MemoryStorage = new List<DataPacket>();
@@ -130,10 +117,12 @@ namespace MARRSS.Global
             {
                 DownloadedData += packet.getStoredData();
                 MemorySize -= packet.getStoredData();
+                internalRemovedStorage.Add(packet);
             }
             else
             {
                 DownloadedData += MemorySize;
+                internalRemovedStorage.Add(new DataPacket(MemorySize, 4, packet.getTimeStamp(), packet.getDurationInSec()));
                 MemorySize = 0;
             }
             AllDownlinkDuration += packet.getDurationInSec();
@@ -149,70 +138,9 @@ namespace MARRSS.Global
         public void AddDataPacketToStorage(DataPacket packet)
         {
             internalAddedStorage.Add(packet);
-            //internalAddedStorage = internalAddedStorage.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
             addedData += packet.getStoredData();
 
         }
-
-        public void QickDownloadData(DataPacket packet)
-        {
-            if (addedData >= packet.getStoredData())
-            {
-                removedData += packet.getStoredData();
-                internalAddedStorage.Add(packet);
-            }
-            else
-            {
-                removedData += addedData;
-                internalAddedStorage.Add(
-                    new DataPacket(addedData, 0, packet.getTimeStamp(), packet.getDurationInSec()));
-            }
-
-        }
-
-        public void RemoveDataFromStorage(DataPacket packet)
-        {
-            var curr = CalculateCurrentStorageCapcity(packet.getTimeStamp());
-            if (curr >= packet.getStoredData())
-            {
-                alreadyCleardData += packet.getStoredData();
-                internalRemovedStorage.Add(packet);
-            }
-            else
-            {
-                if (curr > 0)
-                {
-                    alreadyCleardData += curr;
-                    internalRemovedStorage.Add(new DataPacket(curr, 0, packet.getTimeStamp(), packet.getDurationInSec()));
-                }
-            }
-        }
-
-        private long CalculateCurrentStorageCapcity(One_Sgp4.EpochTime timePoint)
-        {
-            long currentStorage = 0;
-            for (int i = 0; i < internalAddedStorage.Count(); i++)
-            {
-                var pack = internalAddedStorage[i];
-                var time = new One_Sgp4.EpochTime(pack.getTimeStamp());
-                var time2 = new One_Sgp4.EpochTime(pack.getTimeStamp());
-                time2.addTick(pack.getDurationInSec());
-                if (time.getEpoch() <= timePoint.getEpoch())
-                {
-                    if (time2.getEpoch() > timePoint.getEpoch())
-                    {
-                        double sec = Funktions.GetDuration(time2, timePoint);
-                        currentStorage += (long)((pack.getStoredData() / pack.getDurationInSec()) * sec);
-                    }
-                    else
-                        currentStorage += pack.getStoredData();
-                }
-                else
-                    break;
-            }
-            return currentStorage - alreadyCleardData;
-        }
-
 
         //! Get Maximum Storage
         /*!
@@ -239,7 +167,7 @@ namespace MARRSS.Global
         */
         public void addToDataStorage(DataPacket packet)
         {
-            maxStoredData += packet.getStoredData();
+            MaxPosibleData += packet.getStoredData();
             internalAddedStorage.Add(packet);
         }
 
@@ -255,12 +183,12 @@ namespace MARRSS.Global
 
         public long getMaxGeneratedData()
         {
-            return maxStoredData;
+            return MaxPosibleData;
         }
 
         public long getMaxDownladedData()
         {
-            return alreadyCleardData;
+            return DownloadedData;
         }
 
         public void setMaxData(long maxOnboardStorage, Structs.DataSize datasize)
@@ -271,11 +199,6 @@ namespace MARRSS.Global
 
         public void reset()
         {
-            //maxStoredData = 0;
-            maxFreedData = 0;
-            alreadyCleardData = 0;
-            removedData = 0;
-            //internalAddedStorage = new List<DataPacket>();
             internalRemovedStorage = new List<DataPacket>();
             MemoryStorage = new List<DataPacket>();
             MemorySize = 0;
