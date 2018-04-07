@@ -182,30 +182,28 @@ namespace MARRSS.Scenarios
                             var lowerBoundInMin = lowerBoundDuration.TotalMinutes;
                             var startTime = new One_Sgp4.EpochTime(value.time.lb);
 
-                            if (startTime.toDateTime() >= input.getEndTime().toDateTime())
-                                break;
-
-                            int dataPacketSize = 0;
-                            if (storages.Count() >= 3)
+                            if (startTime.getEpoch() <= input.getEndTime().getEpoch())
                             {
-                                dataPacketSize = (int) (Double.Parse(storages[2])*1024*1024);
+                                int dataPacketSize = 0;
+                                if (storages.Count() >= 3)
+                                {
+                                    dataPacketSize = (int)(Double.Parse(storages[2]) * 1024 * 1024 * 1024);
 
-                                var counter = 0;
-                                for (int i = 0; i < lowerBoundInMin*60; i+=60)
-                                {
-                                    startTime.addTick(60);
-                                    var packet = new Satellite.DataPacket(dataPacketSize, 4, startTime, 60);
-                                    sat.getDataStorage().AddDataPacketToDataList(packet);
-                                    //sat.AddDataPacket(packet);
-                                    globalCounter += packet.getStoredData();
-                                    counter += 1;
-                                }
-                                if (counter < lowerBoundInMin*60)
-                                {
-                                    var rest = lowerBoundInMin*60 % 1;
-                                    startTime.addTick(60 * rest);
-                                    //sat.AddDataPacket(new Satellite.DataPacket(dataPacketSize, 4, startTime, 60));
-                                    sat.getDataStorage().AddDataPacketToDataList(new Satellite.DataPacket(dataPacketSize, 4, startTime, 60));
+                                    var counter = 0;
+                                    for (int i = 0; i < lowerBoundInMin * 60; i += 60)
+                                    {
+                                        startTime.addTick(60);
+                                        var packet = new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), 60);
+                                        sat.getDataStorage().AddDataPacketToDataList(packet);
+                                        globalCounter += packet.getStoredData();
+                                        counter += 1;
+                                    }
+                                    if (counter < lowerBoundInMin * 60)
+                                    {
+                                        var rest = lowerBoundInMin * 60 % 1;
+                                        startTime.addTick(60 * rest);
+                                        sat.getDataStorage().AddDataPacketToDataList(new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), 60));
+                                    }
                                 }
                             }
 

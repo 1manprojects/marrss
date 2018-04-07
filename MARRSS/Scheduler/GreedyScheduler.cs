@@ -134,57 +134,57 @@ namespace MARRSS.Scheduler
 
             while (!isComplete())
             {
-                int pos = -1;
                 double maxFitness = 0.0;
-                ContactWindow toAdd = null; ;
-                bool betterfound = false;
-                for (int i = 0; i < set.Count(); i++)
+                for(int i = 0; i < set.Count(); i++)
                 {
+                    bool noCollision = false;
                     for (int j = 0; j < set1.Count(); j++)
                     {
-                        bool collision = false;
-                        if (set.getAt(i).checkConflikt(set1.getAt(j)))
+                        if (i != j && set.getAt(i).checkConflikt(set1.getAt(j)))
                         {
-                            if (set.getAt(i).SatelliteName == set1.getAt(j).SatelliteName
-                                || set.getAt(i).StationName == set1.getAt(j).StationName)
+                            if (set.getAt(i).StationName == set1.getAt(j).StationName ||
+                                set.getAt(i).SatelliteName == set1.getAt(j).SatelliteName)
                             {
-                                collision = true;
+                                //collision detected
                                 set2.add(set.getAt(i));
                                 set.deleteAt(i);
                                 i--;
                                 break;
                             }
+                            else
+                            {
+                                noCollision = true;
+                            }
                         }
-                        if (!collision)
+                    }
+                    if (noCollision)
+                    {
+                        if (i >= 0 && set.Count() > 0)
                         {
                             set1.add(set.getAt(i));
                             objective.CalculateObjectiveFitness(set1);
-                            double fitness = objective.getObjectiveResults();
-                            if (fitness > maxFitness)
+                            if (objective.getObjectiveResults() > maxFitness)
                             {
-                                maxFitness = fitness;
-                                pos = i;
-                                set1.deleteAt(set1.Count() - 1);
-                                betterfound = true;
+                                set.deleteAt(i);
                                 break;
                             }
                             set1.deleteAt(set1.Count() - 1);
                         }
                     }
-                    if (betterfound)
-                        break;
-                }
-                if (pos >= 0)
-                {
-                    set1.add(set.getAt(pos));
-                    set1.getLast().setSheduled();
-                    set.deleteAt(pos);
                 }
 
                 if (f != null)
                     f.updateProgressBar(set1.Count() + set2.Count());
                 if (Properties.Settings.Default.global_MaxPerf == false)
                     System.Windows.Forms.Application.DoEvents();
+            }
+            foreach(var item in set1.getAllContacts())
+            {
+                item.setSheduled();
+            }
+            foreach (var item in set2.getAllContacts())
+            {
+                item.unShedule();
             }
             set.add(set1);
             set.add(set2);

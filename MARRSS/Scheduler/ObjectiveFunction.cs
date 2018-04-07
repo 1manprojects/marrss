@@ -119,7 +119,8 @@ namespace MARRSS.Scheduler
                 }
                 else
                 {
-                    toScheduled = true;
+                    //if (currentSolution.getAt(i).IsScheduled)
+                        toScheduled = true;
                 }
 
                 if (toScheduled)
@@ -250,12 +251,14 @@ namespace MARRSS.Scheduler
         {
             var station = GetStationByName(solution.getAt(index).StationName);
             long packetSize = Convert.ToInt32(solution.getAt(index).ContactDuration()) * (long)Math.Ceiling(station.getMaxDownLink());
-            if (GetSatelliteByName(solution.getAt(index).SatelliteName) != null)
+            if (packetSize > 0)
             {
-                var sat = GetSatelliteByName(solution.getAt(index).SatelliteName);
-                //sat.RemoveDataPacket(new Satellite.DataPacket(packetSize, 4,
-                sat.getDataStorage().DownloadDataFromStorage(new Satellite.DataPacket(packetSize, 4,
-                    solution.getAt(index).StartTime, Convert.ToInt32(solution.getAt(index).ContactDuration())));
+                if (GetSatelliteByName(solution.getAt(index).SatelliteName) != null)
+                {
+                    var sat = GetSatelliteByName(solution.getAt(index).SatelliteName);
+                    sat.getDataStorage().DownloadDataFromStorage(new Satellite.DataPacket(packetSize, 4,
+                        solution.getAt(index).StartTime, Convert.ToInt32(solution.getAt(index).ContactDuration())));
+                }
             }
         }
 

@@ -95,15 +95,9 @@ namespace MARRSS.Global
                     }
                     else
                     {
-                        if (MemorySize + packet.getStoredData() <= MaxStorageCapacity)
-                        {
-                            MemoryStorage.Add(packet);
-                            MemorySize += packet.getStoredData();                            
-                        }
-                        else
-                        {
-                            LostMemorySize += MemorySize + packet.getStoredData() - MaxStorageCapacity;
-                        }                        
+                        var dif = MemorySize + p.getStoredData() - MaxStorageCapacity;
+                        MemoryStorage.Add(new DataPacket(dif,4,p.getTimeStamp(), p.getDurationInSec()));
+                        MemorySize += MaxStorageCapacity;                                            
                     }
                 }
                 else

@@ -1,5 +1,6 @@
 ﻿using MARRSS.Definition;
 using MARRSS.Global;
+using MARRSS.Satellite;
 using OxyPlot;
 using OxyPlot.Series;
 using System;
@@ -40,12 +41,15 @@ namespace MARRSS.Results
             NumberOfContacts = schedulingResult.Count();
             currentSat = satellites.Where(a => a.getName() == SatelliteName).First();
 
-            CalculateData();
+            CalcuateStorageDetails();
+            //CalculateData();
             CalculateContacts();
         }
 
         private void CalculateData()
         {
+            //currentSat.getDataStorage().InitializeBevorScheduling();
+            //currentSat.getDataStorage().DownloadDataFromStorage(new Satellite.DataPacket(0, 4, contacts.EndTime, 1));
             var maxDataInByte = currentSat.getDataStorage().MaxPosibleData;
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
 
@@ -114,6 +118,89 @@ namespace MARRSS.Results
             }
             datamodel.Series.Add(dataSeries);
             return datamodel;
+        }
+
+        private void CalcuateStorageDetails()
+        {
+            var maxDataInByte = currentSat.getDataStorage().getMaxDataSize();
+            List<DataPacket> removedPackets = new List<DataPacket>(currentSat.getDataStorage().GetDownloadedDataPackets());
+            List<DataPacket> createdPackets = new List<DataPacket>(currentSat.getDataStorage().GetCreatedDataPackets());
+
+            removedPackets = removedPackets.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
+            createdPackets = createdPackets.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
+
+            var memorySize = 0.0;
+            var lostMemorySize = 0.0;
+            var downloadedData = 0.0;
+            var maxMemGen = 0.0;
+            for (int i = 0; i < removedPackets.Count(); i++)
+            {
+                var removed = removedPackets[i];
+                var counted = 0;
+                for (int j = 0; j < createdPackets.Count(); j++)
+                {
+                    var added = createdPackets[j];
+                    maxMemGen += added.getStoredData();
+                    if (added.getTimeStamp().getEpoch() <= removed.getTimeStamp().getEpoch())
+                    {
+                        counted++;
+                        if (memorySize + added.getStoredData() <= maxDataInByte)
+                        {
+                            memorySize += added.getStoredData();
+                        }
+                        else
+                        {
+                            lostMemorySize = memorySize + added.getStoredData() - maxDataInByte;
+                            memorySize = maxDataInByte;
+                        }
+                    }
+                    else
+                    {
+                        createdPackets.RemoveRange(0, counted);
+                        break;
+                    }
+                }
+
+                if (memorySize - removed.getStoredData() >= 0)
+                {
+                    memorySize -= removed.getStoredData();
+                    downloadedData += removed.getStoredData();
+                }
+                else
+                {
+                    var dif = removed.getStoredData() - memorySize;
+                    downloadedData += dif;
+                    memorySize = 0;
+                }
+            }
+
+            for (int j = 0; j < createdPackets.Count(); j++)
+            {
+                var added = createdPackets[j];
+                maxMemGen += added.getStoredData();
+                if (memorySize + added.getStoredData() <= maxDataInByte)
+                {
+                    memorySize += added.getStoredData();
+                }
+                else
+                {
+                    lostMemorySize = memorySize + added.getStoredData() - maxDataInByte;
+                    memorySize = maxDataInByte;
+                }
+
+            }
+
+            maxMemGen = 0.0;
+            foreach (var i in currentSat.getDataStorage().GetCreatedDataPackets())
+            {
+                maxMemGen += i.getStoredData();
+            }
+
+            MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
+            GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));
+            LostData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(lostMemorySize), Funktions.getDataSizeToString(lostMemorySize));
+            DownloadedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(downloadedData), Funktions.getDataSizeToString(downloadedData));
+            StorageCapacityAtEnd = string.Format("{0} {1}", Funktions.GetHumanReadableSize(memorySize), Funktions.getDataSizeToString(memorySize));
         }
     }
 }
