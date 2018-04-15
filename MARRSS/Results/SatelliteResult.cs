@@ -32,41 +32,17 @@ namespace MARRSS.Results
         private Satellite.Satellite currentSat;
         private OxyPlot.PlotModel datamodel;
 
-        public SatelliteResult(ContactWindowsVector schedulingResult, string Satellitename, List<Satellite.Satellite> satellites, List<Ground.Station> stations)
+        public SatelliteResult(ContactWindowsVector schedulingResult, string Satellitename, List<Satellite.Satellite> satellites)
         {
             contacts = schedulingResult;
             SatelliteName = Satellitename;
             sats = satellites;
-            stats = stations;
             NumberOfContacts = schedulingResult.Count();
             currentSat = satellites.Where(a => a.getName() == SatelliteName).First();
 
             CalcuateStorageDetails();
             //CalculateData();
             CalculateContacts();
-        }
-
-        private void CalculateData()
-        {
-            //currentSat.getDataStorage().InitializeBevorScheduling();
-            //currentSat.getDataStorage().DownloadDataFromStorage(new Satellite.DataPacket(0, 4, contacts.EndTime, 1));
-            var maxDataInByte = currentSat.getDataStorage().MaxPosibleData;
-            GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
-
-            var lostDataInByte = currentSat.getDataStorage().LostMemorySize;
-            LostData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(lostDataInByte), Funktions.getDataSizeToString(lostDataInByte));
-
-            var downPackets = currentSat.getDataStorage().GetDownloadedDataPackets();
-            var averageDown = 0.0;
-            var downpack = currentSat.getDataStorage().DownloadedData;
-            DownloadedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(downpack), Funktions.getDataSizeToString(downpack));
-            averageDown = downpack / currentSat.getDataStorage().AllDownlinkDuration;
-            AverageDownlinkRate = string.Format("{0} {1} per sec.", Funktions.GetHumanReadableSize(averageDown), Funktions.getDataSizeToString(averageDown));
-            var maxStorage = currentSat.getDataStorage().getMaxDataSize();
-            MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxStorage), Funktions.getDataSizeToString(maxStorage));
-
-            var atEnd = currentSat.getDataStorage().MemorySize;
-            StorageCapacityAtEnd = string.Format("{0} {1}", Funktions.GetHumanReadableSize(atEnd), Funktions.getDataSizeToString(atEnd));
         }
 
         private void CalculateContacts()
@@ -85,8 +61,8 @@ namespace MARRSS.Results
             }
             var avDura = duration / countCon;
             NumberOfScheduledContacts = countCon;
-            AverageContactWindowDuration = string.Format("{0} sec.", avDura);
-            OverallContactsDuration = string.Format("{0} sec.", duration);
+            AverageContactWindowDuration = string.Format("{0} sec.", Math.Round(avDura,3));
+            OverallContactsDuration = string.Format("{0} sec.", Math.Round(duration,4));
         }
 
         public PlotModel GeneratePlotData()
@@ -150,7 +126,7 @@ namespace MARRSS.Results
                         }
                         else
                         {
-                            lostMemorySize = memorySize + added.getStoredData() - maxDataInByte;
+                            lostMemorySize += (memorySize + added.getStoredData()) - maxDataInByte;
                             memorySize = maxDataInByte;
                         }
                     }
@@ -168,9 +144,13 @@ namespace MARRSS.Results
                 }
                 else
                 {
-                    var dif = removed.getStoredData() - memorySize;
-                    downloadedData += dif;
-                    memorySize = 0;
+                    if (memorySize > 0)
+                    {
+                        var dif = removed.getStoredData() - memorySize;
+                        downloadedData += dif;
+                        memorySize = 0;
+                    }
+
                 }
             }
 
@@ -184,7 +164,7 @@ namespace MARRSS.Results
                 }
                 else
                 {
-                    lostMemorySize = memorySize + added.getStoredData() - maxDataInByte;
+                    lostMemorySize += memorySize + added.getStoredData() - maxDataInByte;
                     memorySize = maxDataInByte;
                 }
 

@@ -1,8 +1,10 @@
 ﻿using MARRSS.Definition;
 using MARRSS.Global;
 using MARRSS.Scheduler;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +38,11 @@ namespace MARRSS.Results
         public string LostData { get; set; }
         public string AverageDownloadLink { get; set; }
 
+        public List<SatelliteResult> SatelliteResults { get; set; }
+        public List<StationResult> StationResults { get; set; }
+        public ContactWindowsVector ScheduledContactWindows { get; set; }
+
+
         private ContactWindowsVector contacts;
         private List<Satellite.Satellite> sats;
         private List<Ground.Station> stats;
@@ -56,7 +63,7 @@ namespace MARRSS.Results
         {
             var objfunc = new ObjectiveFunction();
             objfunc.Initialize(contacts, sats, stats);
-            objfunc.CalculateObjectiveFitness(contacts,false);
+            objfunc.CalculateObjectiveFitness(contacts, false);
             FitnessFairStations = objfunc.getStationFairnessValue().ToString();
             FitnessFairSatellites = objfunc.getSatelliteFairnessValue().ToString();
             FitnessValue = objfunc.getObjectiveResults().ToString();
@@ -93,7 +100,7 @@ namespace MARRSS.Results
             var maxDuration = 0.0;
             var schedDuration = 0.0;
             var avgDuration = 0.0;
-            for(int i = 0; i < contacts.Count(); i++)
+            for (int i = 0; i < contacts.Count(); i++)
             {
                 if (contacts.getAt(i).IsScheduled)
                 {
@@ -138,6 +145,27 @@ namespace MARRSS.Results
             }
             hashConflict.Clear();
             return nrOfConflicts;
+        }
+
+        public void saveJsonResult(string output)
+        {
+            SatelliteResults = new List<SatelliteResult>();
+            StationResults = new List<StationResult>();
+            foreach (var sat in sats)
+            {
+                SatelliteResults.Add(new SatelliteResult(contacts, sat.getName(), sats));
+            }
+            foreach (var stat in stats)
+            {
+                StationResults.Add(new StationResult(contacts, stat.getName(), sats, stats));
+            }
+            ScheduledContactWindows = contacts.getScheduledContacts();
+            using (StreamWriter file = File.CreateText(output))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+
+                serializer.Serialize(file, this);
+            }
         }
     }
 }

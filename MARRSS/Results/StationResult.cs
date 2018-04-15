@@ -83,11 +83,9 @@ namespace MARRSS.Results
             }
             NumberOfContacts = contacts.Count();
             NumberOfScheduledContacts = countCon;
-            ContactDurations = string.Format("{0} sec", duration);
-            var idleTime = schedTime - duration;
-            IdleTime = Funktions.EpochToHumanReadable(idleTime);
-
-
+            ContactDurations = string.Format("{0} sec", Math.Round(duration, 4));
+            double idleTime = (schedTime * 86400) - duration;
+            IdleTime = idleTime.ToString();
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Linq;
 
 using MARRSS.Scheduler;
 using MARRSS.Global;
+using Newtonsoft.Json;
 
 namespace MARRSS.Definition
 {
@@ -29,7 +30,10 @@ namespace MARRSS.Definition
         public List<ContactWindow> ContactWindows { get; set; } //!< List of all contactwindows
         public List<string> StationsNames { get; set; }
         public List<string> SatelliteNames { get; set; }
+
+        [JsonConverter(typeof(ToStringJsonConverter))]
         public One_Sgp4.EpochTime StartTime { get; set; }
+        [JsonConverter(typeof(ToStringJsonConverter))]
         public One_Sgp4.EpochTime EndTime { get; set; }
         public double ContactsDuration { get; set; }
 

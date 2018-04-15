@@ -1527,7 +1527,8 @@ namespace MARRSS
                 if (treeView1.SelectedNode.Parent.Text == "Satellites")
                 {
                     satRestultPanel.BringToFront();
-                    SatelliteResult res = new SatelliteResult(scheduler.getFinischedSchedule(), treeView1.SelectedNode.Text, satellitesData, stationData);
+                    SatelliteResult res = new SatelliteResult(scheduler.getFinischedSchedule(), treeView1.SelectedNode.Text, satellitesData);
+                    satResultNameLabel.Text = treeView1.SelectedNode.Text;
                     satRestulDownloadedLabel.Text = res.DownloadedData;
                     satRestulDurationLabel.Text = res.OverallContactsDuration;
                     satRestulLostLabel.Text = res.LostData;
@@ -1564,7 +1565,6 @@ namespace MARRSS
                 resultMaxDataLabel.Text = res.MaxPossibleGeneratedData;
                 resultNrSatellitesLabel.Text = res.NumberOfSatellites.ToString();
                 resultNrStationLabel.Text = res.NumberOfStation.ToString();
-
                 res = null;
             }
 
@@ -1595,6 +1595,14 @@ namespace MARRSS
             //var myModel = new PlotModel { Title = "Example 1" };
             //myModel.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
             //plot1.Model = myModel;
+        }
+
+        private void saveResultButton_Click(object sender, EventArgs e)
+        {
+            var res = new OverallResult(scheduler.getFinischedSchedule(), satellitesData, stationData);
+            var savePath = Properties.Settings.Default.global_ResultSavePath;
+            var logFile = MainFunctions.getLogFileName();
+            res.saveJsonResult(savePath + "\\" + logFile + "_Result.json");
         }
     }
 }
