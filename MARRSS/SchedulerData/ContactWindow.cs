@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using MARRSS.Global;
+using Newtonsoft.Json;
 
 namespace MARRSS.Scheduler
 {
@@ -27,7 +28,9 @@ namespace MARRSS.Scheduler
     {
         public string SatelliteName { get; set; }
         public string StationName { get; set; }
+        [JsonConverter(typeof(ToStringJsonConverter))]
         public One_Sgp4.EpochTime StartTime { get; set; }
+        [JsonConverter(typeof(ToStringJsonConverter))]
         public One_Sgp4.EpochTime EndTime { get; set; }        
         public bool IsScheduled { get; set; }
         public bool Excluded { get; set; }
