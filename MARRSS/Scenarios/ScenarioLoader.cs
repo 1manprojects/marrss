@@ -167,20 +167,36 @@ namespace MARRSS.Scenarios
                 {
                     //get satellite assigned
                     var sat = input.getSatelliteByName(timeline.name.label);
-                    sat.SetMaxDataStorage(16, Structs.DataSize.GBYTE);
+                    if (timeline.resource != null)
+                    {
+                        sat.SetMaxDataStorage( Convert.ToInt32(timeline.resource.max), Structs.DataSize.MBYTE);
+                    }
+                    //sat.SetMaxDataStorage(16, Structs.DataSize.GBYTE);
                     if (sat != null)
                     {
                         //read values of timelines and generate Datapackets
                         //
                         foreach (var value in timeline.values)
                         {
+                            //get Lower Upper or Lower-ToUpperTimelines
                             var lowerBoundDuration = value.duration.LowerBoundToTimeSpan();
+                            var upperBoundDuration = value.duration.UperBoundToTimeSpan();
+
                             var storage = value.value.Substring(1, value.value.Length - 2);
                             string[] storages = storage.Split(',');
-                            var lowerBoundStorage = Double.Parse(storages[1]);
-
-                            var lowerBoundInMin = lowerBoundDuration.TotalMinutes;
+                            
+                            var timeDurationInMin = lowerBoundDuration.TotalMinutes;
                             var startTime = new One_Sgp4.EpochTime(value.time.lb);
+                            if ((int)customPlan.getTimeSpanToUse() == 1)
+                            {
+                                timeDurationInMin = upperBoundDuration.TotalMinutes;
+                                startTime = new One_Sgp4.EpochTime(value.time.ub);
+                            }
+                            if ((int)customPlan.getTimeSpanToUse() == 2)
+                            {
+                                timeDurationInMin = upperBoundDuration.TotalMinutes;
+                                startTime = new One_Sgp4.EpochTime(value.time.lb);
+                            }
 
                             if (startTime.getEpoch() <= input.getEndTime().getEpoch())
                             {
@@ -190,7 +206,7 @@ namespace MARRSS.Scenarios
                                     dataPacketSize = (int)(Double.Parse(storages[2]) * 1024 * 1024 * 1024);
 
                                     var counter = 0;
-                                    for (int i = 0; i < lowerBoundInMin * 60; i += 60)
+                                    for (int i = 0; i < timeDurationInMin * 60; i += 60)
                                     {
                                         startTime.addTick(60);
                                         var packet = new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), 60);
@@ -198,9 +214,9 @@ namespace MARRSS.Scenarios
                                         globalCounter += packet.getStoredData();
                                         counter += 1;
                                     }
-                                    if (counter < lowerBoundInMin * 60)
+                                    if (counter < timeDurationInMin * 60)
                                     {
-                                        var rest = lowerBoundInMin * 60 % 1;
+                                        var rest = timeDurationInMin * 60 % 1;
                                         startTime.addTick(60 * rest);
                                         sat.getDataStorage().AddDataPacketToDataList(new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), 60));
                                     }

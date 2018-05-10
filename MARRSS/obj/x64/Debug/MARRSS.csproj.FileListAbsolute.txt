@@ -43,3 +43,4 @@ D:\Programmieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.exe.manifest
 D:\Programmieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.application
 D:\Programmieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.exe
 D:\Programmieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.pdb
+D:\Programmieren\git\marrss\MARRSS\obj\x64\Debug\MARRSS.Forms.PlannerInput.resources

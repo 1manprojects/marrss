@@ -1456,32 +1456,25 @@ namespace MARRSS
 
         private void loadDataScenarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            DialogResult userSelect = openFileDialog1.ShowDialog();
-            if (userSelect == DialogResult.OK)
+            Forms.PlannerInput plannerInput = new Forms.PlannerInput(this);
+            plannerInput.ShowDialog();
+        }
+
+        public void LoadCustomScenario(JPlan plan)
+        {
+            CustomDataScenario = plan;
+            LoadedCustomData = true;
+            JsonFileName = openFileDialog1.FileName;
+            startDatePicker.Value = CustomDataScenario.temporalModule.origin;
+            stopDatePicker.Value = CustomDataScenario.temporalModule.horizon;
+            startTimePicker.Value = CustomDataScenario.temporalModule.origin;
+            stopTimePicker.Value = CustomDataScenario.temporalModule.horizon;
+            var sats = CustomDataScenario.getListOfSatellitesInPlan();
+            for (int i = 0; i < checkedSatellites.Items.Count; i++)
             {
-                try
-                {
-                    CustomDataScenario = Scenarios.ScenarioClass.LoadDataScenarioFromCustomJson(openFileDialog1.FileName);
-                    LoadedCustomData = true;
-                    JsonFileName = openFileDialog1.FileName;
-                    startDatePicker.Value = CustomDataScenario.temporalModule.origin;
-                    stopDatePicker.Value = CustomDataScenario.temporalModule.horizon;
-                    startTimePicker.Value = CustomDataScenario.temporalModule.origin;
-                    stopTimePicker.Value = CustomDataScenario.temporalModule.horizon;
-                    var sats = CustomDataScenario.getListOfSatellitesInPlan();
-                    for (int i = 0; i < checkedSatellites.Items.Count; i++)
-                    {
-                        var test = checkedSatellites.Items[i].ToString().ToLower();
-                        if (sats.Contains(test))
-                            checkedSatellites.SetItemChecked(i, true);
-                    }
-                    
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error could not Load JsonFile", ex);
-                }
+                var test = checkedSatellites.Items[i].ToString().ToLower();
+                if (sats.Contains(test))
+                    checkedSatellites.SetItemChecked(i, true);
             }
         }
 

@@ -30,6 +30,8 @@ namespace MARRSS.Scenarios
         public JPlanTemp temporalModule { get; set; }
         public List<JPlanTimeLine> timelines { get; set; }
 
+        private timeSpansToUse timeSpans;
+
         private List<string> satelliteList = null;
 
         public List<string> getListOfSatellitesInPlan()
@@ -46,6 +48,23 @@ namespace MARRSS.Scenarios
             return satelliteList;
         }
 
+        public void setTimeSpansToUse(int i)
+        {
+            timeSpans = (timeSpansToUse)i;
+        }
+
+        public timeSpansToUse getTimeSpanToUse()
+        {
+            return timeSpans;
+        }
+
+    }
+
+    public enum timeSpansToUse
+    {
+        LOWER = 0,
+        UPPER = 1,
+        MAX = 2
     }
 
     public class JPlanTemp
@@ -67,9 +86,17 @@ namespace MARRSS.Scenarios
         public JPlanTimeName name { get; set; }
         public string type { get; set; }
         public string source { get; set; }
+        public JResource resource { get; set; }
         public List<JPlanValues> values { get; set; }
         public string value { get; set; }
 
+    }
+
+    public class JResource
+    {
+        public string type { get; set; }
+        public double min { get; set; }
+        public string max { get; set; }
     }
 
     public class JPlanValues
