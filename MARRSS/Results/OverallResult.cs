@@ -160,12 +160,7 @@ namespace MARRSS.Results
                 StationResults.Add(new StationResult(contacts, stat.getName(), sats, stats));
             }
             ScheduledContactWindows = contacts.getScheduledContacts();
-            using (StreamWriter file = File.CreateText(output))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-
-                serializer.Serialize(file, this);
-            }
+            File.WriteAllText(output, JsonConvert.SerializeObject(this, Formatting.Indented));
         }
     }
 }

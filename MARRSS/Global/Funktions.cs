@@ -172,6 +172,8 @@ namespace MARRSS.Global
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            //var test = (One_Sgp4.EpochTime)value;
+            //writer.WriteValue(test.toDateTime().ToString());
             writer.WriteValue(value.ToString());
         }
 

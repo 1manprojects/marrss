@@ -33,8 +33,10 @@ namespace MARRSS.Definition
 
         [JsonConverter(typeof(ToStringJsonConverter))]
         public One_Sgp4.EpochTime StartTime { get; set; }
+
         [JsonConverter(typeof(ToStringJsonConverter))]
         public One_Sgp4.EpochTime EndTime { get; set; }
+
         public double ContactsDuration { get; set; }
 
         //! ContactWindowsVector constructor.
