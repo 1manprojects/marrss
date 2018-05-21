@@ -15,6 +15,7 @@ using System.Linq;
 using MARRSS.Global;
 
 using MARRSS.Definition;
+using MARRSS.Results;
 
 namespace MARRSS.Scheduler
 {
@@ -141,6 +142,7 @@ namespace MARRSS.Scheduler
             //calculate Fairness for Stations
             double a_station = 0.0;
             double b_station = 0.0;
+            double contactDuration = 0.0;
             for (int i = 0; i < stationList.Count; i++)
             {
                 a_station = a_station + numberOfContactsPerStation[i];
@@ -152,7 +154,7 @@ namespace MARRSS.Scheduler
             double a_satellites = 0.0;
             double b_satellites = 0.0;
             for (int i = 0; i < satelliteList.Count; i++)
-            {
+            {               
                 a_satellites = a_satellites + numberOfContactsPerSatellite[i];
                 b_satellites = b_satellites + Math.Pow(numberOfContactsPerSatellite[i], 2);
             }

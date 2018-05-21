@@ -370,7 +370,6 @@ namespace MARRSS.Forms
             cancel = false;
 
             Log.writeResults("AutomatedRun-"+ DateTime.Now.ToString("yyyyMMddHHmmss"), "Automated Run Results", results);
-
         }
 
         private void label5_Click(object sender, EventArgs e)

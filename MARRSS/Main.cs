@@ -523,25 +523,6 @@ namespace MARRSS
         */
         private void finischSchedule(string schedulerName, SchedulingProblem problem, string logfile, int number = 0, bool bruteForce = false)
         {
-            //Draw scheduled data to Main form
-            //pictureBox2.Image = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-            //pictureBox2.Width = pictureBox2.Image.Width;
-            //pictureBox2.Height = pictureBox2.Image.Height;
-
-            //check if auto save of images is enabled
-            //if yes then save files
-            if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveSchedule)
-            {
-                //string savePath = Properties.Settings.Default.global_Save_Path;
-                //Image contImages = Drawer.ContactsDrawer.drawContacts(contactsVector, false);
-                //if (radioEFTGreedy.Checked)
-                //    contImages.Save(savePath + "\\" + logfile + "-Scheduled-EFT-Greedy-"+ number +".bmp");
-                //if (radioGreedy.Checked)
-                //    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Fair-Greedy-" + number + ".bmp");
-                //if (radioGenetic.Checked)
-                //    contImages.Save(savePath + "\\" + logfile + "-Scheduled-Genetic-" + number + ".bmp");
-                //updateLog(logfile, "Saved Calculated Schedule to Image (bmp) " + savePath + "\\" + logfile);
-            }
             if (Properties.Settings.Default.global_AutoSave && Properties.Settings.Default.global_SaveContacts)
             {
                 string savePath = Properties.Settings.Default.global_Save_Path;
@@ -551,34 +532,17 @@ namespace MARRSS
 
             if (Properties.Settings.Default.log_AutoSave_Results)
             {
-                
-                List<string> results = new List<string>();
-                results.Add("Used Satellites:");
-                results.AddRange(problem.getSatellites().Select(a => a.getName()));
-                results.Add("Used GroundStations:");
-                results.AddRange(problem.getGroundStations().Select(a => a.getName()));
-                if (LoadedCustomData)
-                {
-                    results.Add("Data Scenario: " + JsonFileName);
-                }
-                else
-                {
-                    results.Add("Data Scenario: " + comboScenarioBox.Items[comboScenarioBox.SelectedIndex]);
-                }
-                results.Add("Objective Function: " + problem.getObjectiveFunction().ToString());
-                results.Add("Calculation Time: " + calcTimeLabel.Text);
-                results.Add("RunNumber: " + number);
-                results.Add("Fitness Value:" + objectivefunct.getObjectiveResults().ToString());
-                results.Add("Scheduled Contacts: " + fitnessLabel.Text + " / " + contactsVector.Count().ToString());
-                results.Add("Collisions: " + collisionLabel.Text);
-                results.Add("Fairnes Stations: " + stationFairLabel.Text);
-                results.Add("Fairnes Satellites: " + fairSatLabel.Text);
-                results.Add("Duration: " + durationLabel.Text + " sec.");
-                results.Add("Calculation Time: " + calcTimeLabel.Text);
-                results.Add("Scheduled per priority: " + uweLabel.Text );
-                results.Add("DataDownlink Perf: " + datShedLabel.Text);
-                results.AddRange(Performance.GeneralMeasurments.calculateDataStoragePerformance(problem.getSatellites()));
-                Log.writeResults(logfile, schedulerName, results);
+                var res = new OverallResult(scheduler.getFinischedSchedule(), satellitesData, stationData);
+                res.UsedScenario = "";
+                res.ObjectiveFunction = problem.getObjectiveFunction().ToString();
+                res.CalculationTime = calcTimeLabel.Text;
+                res.Scheduler = schedulerName;
+                var savePath = Properties.Settings.Default.global_ResultSavePath;
+                var logFile = MainFunctions.getLogFileName();
+                Properties.Settings settings = Properties.Settings.Default;
+                string file = settings.global_ResultSavePath + "\\" + schedulerName + logfile+ "-results.json";
+                res.saveJsonResult(file);
+
                 updateLog(logfile, "Results have been saved to File");
             }
             updateLog(logfile, "Done");

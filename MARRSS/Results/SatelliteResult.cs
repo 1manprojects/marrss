@@ -32,6 +32,14 @@ namespace MARRSS.Results
         private Satellite.Satellite currentSat;
         private OxyPlot.PlotModel datamodel;
 
+        private double raw_GeneratedData;
+        private double raw_LostData;
+        private double raw_DownData;
+
+        public double GetGeneratedData() { return raw_GeneratedData; }
+        public double GetLostData() { return raw_LostData; }
+        public double GetDownedData() { return raw_DownData; }
+
         public SatelliteResult(ContactWindowsVector schedulingResult, string Satellitename, List<Satellite.Satellite> satellites)
         {
             contacts = schedulingResult;
@@ -41,7 +49,6 @@ namespace MARRSS.Results
             currentSat = satellites.Where(a => a.getName() == SatelliteName).First();
 
             CalcuateStorageDetails();
-            //CalculateData();
             CalculateContacts();
         }
 
@@ -83,14 +90,14 @@ namespace MARRSS.Results
             for (int i = 0; i < SortedList.Count; i++)
             {
                 //DataStorageSet.Add(new Point(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
-                dataSeries.Points.Add(new DataPoint(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
-                var time = SortedList[i].getTimeStamp();
-                time.addTick(SortedList[i].getDurationInSec());
-                var x = Convert.ToInt32(time.getEpoch());
-                var y = Convert.ToInt32(SortedList[i].getStoredData());
-                if (y >= currentSat.getDataStorage().getMaxDataSize())
-                    y = Convert.ToInt32(currentSat.getDataStorage().getMaxDataSize());
-                dataSeries.Points.Add(new DataPoint(x, y));
+                //dataSeries.Points.Add(new DataPoint(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
+                //var time = SortedList[i].getTimeStamp();
+                //time.addTick(SortedList[i].getDurationInSec());
+                //var x = Convert.ToInt32(time.getEpoch());
+                //var y = Convert.ToInt32(SortedList[i].getStoredData());
+                //if (y >= currentSat.getDataStorage().getMaxDataSize())
+                //    y = Convert.ToInt32(currentSat.getDataStorage().getMaxDataSize());
+                //dataSeries.Points.Add(new DataPoint(x, y));
             }
             datamodel.Series.Add(dataSeries);
             return datamodel;
@@ -175,6 +182,10 @@ namespace MARRSS.Results
             {
                 maxMemGen += i.getStoredData();
             }
+
+            raw_GeneratedData = maxMemGen;
+            raw_LostData = lostMemorySize;
+            raw_DownData = downloadedData;
 
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));
