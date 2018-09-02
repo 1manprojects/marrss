@@ -158,11 +158,13 @@ namespace MARRSS.Scenarios
 
         }
 
-        public static JPlan LoadDataScenarioFromCustomJson(string filePath)
+        public static JPlan LoadDataScenarioFromCustomJson(string filePath, JPlan.dataRateType dataRate, Structs.DataSize satStorageSize)
         {
             JObject CustomJObject = JObject.Parse(File.ReadAllText(filePath));
             var res = CustomJObject.SelectToken("solution.plans.list");
             var ret = res.ToObject<List<JPlan>>();
+            ret.FirstOrDefault().setDataRate(dataRate);
+            ret.FirstOrDefault().setSatelliteStorageType(satStorageSize);
             return ret.FirstOrDefault();            
         }
 

@@ -12,7 +12,7 @@ namespace MARRSS.Satellite
     {
         private int priority;
         private long packetDataSize; //ammount of stored data per timeframe
-        private int packetTimeFrame; //in seconds
+        private double packetTimeFrame; //in seconds
 
         private EpochTime timeStamp;
 
@@ -20,13 +20,13 @@ namespace MARRSS.Satellite
         {
             priority = 4;
             packetDataSize = 0;
-            packetTimeFrame = 60;
+            packetTimeFrame = 60.0;
         }
 
-        public DataPacket(long dataInByte, int dataPriority, EpochTime time, int timeFrameOfPacket = 60)
+        public DataPacket(long dataInByte, int dataPriority, EpochTime time, double timeFrameOfPacket)
         {
             packetTimeFrame = timeFrameOfPacket;
-            packetDataSize = dataInByte;
+            packetDataSize = (long) (dataInByte * timeFrameOfPacket);
             priority = dataPriority;
             timeStamp = time;
         }
@@ -41,7 +41,7 @@ namespace MARRSS.Satellite
             return timeStamp;
         }
 
-        public int getDurationInSec()
+        public double getDurationInSec()
         {
             return packetTimeFrame;
         }

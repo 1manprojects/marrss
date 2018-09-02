@@ -112,10 +112,33 @@ namespace MARRSS.Results
             removedPackets = removedPackets.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
             createdPackets = createdPackets.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
 
-            var memorySize = 0.0;
-            var lostMemorySize = 0.0;
-            var downloadedData = 0.0;
-            var maxMemGen = 0.0;
+            long memorySize = 0;
+            long lostMemorySize = 0;
+            long downloadedData = 0;
+            long maxMemGen = 0;
+
+            /*
+            foreach(var removed in removedPackets)
+            {
+                var counted = 0;
+                foreach(var added in createdPackets)
+                {
+                    var endRemoved = removed.getTimeStamp();
+                    endRemoved.addTick(removed.getDurationInSec());
+                    var endRemovedEpoch = endRemoved.getEpoch();
+
+                    var beginnAdded = added.getTimeStamp().getEpoch();
+                    if (beginnAdded >= endRemovedEpoch)
+                    {
+                        break;
+                    }
+                    else
+                        counted++;
+                }
+
+            }*/
+
+
             for (int i = 0; i < removedPackets.Count(); i++)
             {
                 var removed = removedPackets[i];
@@ -123,9 +146,9 @@ namespace MARRSS.Results
                 for (int j = 0; j < createdPackets.Count(); j++)
                 {
                     var added = createdPackets[j];
-                    maxMemGen += added.getStoredData();
                     if (added.getTimeStamp().getEpoch() <= removed.getTimeStamp().getEpoch())
                     {
+                        maxMemGen += added.getStoredData();
                         counted++;
                         if (memorySize + added.getStoredData() <= maxDataInByte)
                         {
@@ -153,8 +176,7 @@ namespace MARRSS.Results
                 {
                     if (memorySize > 0)
                     {
-                        var dif = removed.getStoredData() - memorySize;
-                        downloadedData += dif;
+                        downloadedData += memorySize;
                         memorySize = 0;
                     }
 
@@ -171,26 +193,31 @@ namespace MARRSS.Results
                 }
                 else
                 {
-                    lostMemorySize += memorySize + added.getStoredData() - maxDataInByte;
+                    lostMemorySize += (memorySize + added.getStoredData()) - maxDataInByte;
                     memorySize = maxDataInByte;
                 }
 
             }
 
-            maxMemGen = 0.0;
+            maxMemGen = 0;
             foreach (var i in currentSat.getDataStorage().GetCreatedDataPackets())
             {
                 maxMemGen += i.getStoredData();
             }
 
             raw_GeneratedData = maxMemGen;
-            raw_LostData = lostMemorySize;
+            
             raw_DownData = downloadedData;
+            raw_LostData = raw_GeneratedData - raw_DownData;
+            if (raw_DownData > raw_GeneratedData)
+            {
+                raw_DownData = raw_GeneratedData;
+            }
 
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));
-            LostData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(lostMemorySize), Funktions.getDataSizeToString(lostMemorySize));
-            DownloadedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(downloadedData), Funktions.getDataSizeToString(downloadedData));
+            LostData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(raw_LostData), Funktions.getDataSizeToString(raw_LostData));
+            DownloadedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(raw_DownData), Funktions.getDataSizeToString(raw_DownData));
             StorageCapacityAtEnd = string.Format("{0} {1}", Funktions.GetHumanReadableSize(memorySize), Funktions.getDataSizeToString(memorySize));
         }
     }

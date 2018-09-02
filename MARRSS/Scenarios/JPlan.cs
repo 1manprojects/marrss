@@ -10,6 +10,7 @@
 * Creative Commons Attribution NonCommercial (CC-BY-NC)
 */
 
+using MARRSS.Global;
 using System;
 using System.Collections.Generic;
 
@@ -34,6 +35,20 @@ namespace MARRSS.Scenarios
 
         private List<string> satelliteList = null;
 
+        private dataRateType dataRate = JPlan.dataRateType.KByte_p_Second;
+        private Structs.DataSize satStorageType = Structs.DataSize.MBYTE;
+
+        public enum dataRateType
+        {
+            Byte_p_Millisecond,
+            Byte_p_Second,
+            KByte_p_Millisecond,
+            KByte_p_Second,
+            MByte_p_Millisecond,
+            MByte_p_Second,
+            GByte_p_Second,
+        }
+
         public List<string> getListOfSatellitesInPlan()
         {
             if (satelliteList == null)
@@ -56,6 +71,26 @@ namespace MARRSS.Scenarios
         public timeSpansToUse getTimeSpanToUse()
         {
             return timeSpans;
+        }
+
+        public void setDataRate(JPlan.dataRateType rate)
+        {
+            this.dataRate = rate;
+        }
+
+        public JPlan.dataRateType getDataRate()
+        {
+            return dataRate;
+        }
+
+        public void setSatelliteStorageType(Structs.DataSize data)
+        {
+            this.satStorageType = data;
+        }
+
+        public Structs.DataSize getSatelliteStorageSizeType()
+        {
+            return this.satStorageType;
         }
 
     }

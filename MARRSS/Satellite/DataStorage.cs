@@ -22,10 +22,10 @@ namespace MARRSS.Global
         private long MaxStorageCapacity;
 
         private Structs.DataSize dataSizeOfStorage;
-        private const long Kb = 1024;
-        private const long Mb = Kb * 1024;
-        private const long Gb = Mb * 1024;
-        private const long Tb = Gb * 1024;
+        private const long Kb = 1000;
+        private const long Mb = Kb * 1000;
+        private const long Gb = Mb * 1000;
+        private const long Tb = Gb * 1000;
 
         public List<DataPacket> internalAddedStorage;
         private int internalPos;

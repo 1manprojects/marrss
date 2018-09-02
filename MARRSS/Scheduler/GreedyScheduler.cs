@@ -129,8 +129,11 @@ namespace MARRSS.Scheduler
                 f.setProgressBar(set.Count());
             }
 
-            set1.add(set.getAt(0));
-            set.deleteAt(0);
+            Random r = new Random(Properties.Settings.Default.global_Random_Seed);
+            int rInt = r.Next(0, set.Count());
+
+            set1.add(set.getAt(rInt));
+            set.deleteAt(rInt);
 
             while (!isComplete())
             {

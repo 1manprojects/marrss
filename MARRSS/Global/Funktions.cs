@@ -82,18 +82,18 @@ namespace MARRSS.Global
             return ret;
         }
 
-        private const long Kb = 1024;
-        private const long Mb = Kb * 1024;
-        private const long Gb = Mb * 1024;
-        private const long Tb = Gb * 1024;
+        private const long Kb = 1000;
+        private const long Mb = Kb * 1000;
+        private const long Gb = Mb * 1000;
+        private const long Tb = Gb * 1000;
 
         public static int getDataSize(double nrOfByte)
         {
             var calc = nrOfByte;
             var count = 0;
-            while(calc > 1024 )
+            while(calc > 1000)
             {
-                calc = calc / 1024;
+                calc = calc / 1000;
                 count++;
             }
             return count;
@@ -103,9 +103,9 @@ namespace MARRSS.Global
         {
             var calc = nrOfByte;
             var count = 0;
-            while (calc > 1024)
+            while (calc > 1000)
             {
-                calc = calc / 1024;
+                calc = calc / 1000;
                 count++;
             }
             var ret = "Byte";
@@ -130,9 +130,9 @@ namespace MARRSS.Global
         public static string GetHumanReadableSize(double nrOfByte)
         {
             var calc = nrOfByte;
-            while (calc > 1024)
+            while (calc > 1000)
             {
-                calc = calc / 1024;
+                calc = calc / 1000;
             }
             calc = Math.Round(calc, 3);
             return calc.ToString();

@@ -169,7 +169,7 @@ namespace MARRSS.Scenarios
                     var sat = input.getSatelliteByName(timeline.name.label);
                     if (timeline.resource != null)
                     {
-                        sat.SetMaxDataStorage( Convert.ToInt32(timeline.resource.max), Structs.DataSize.MBYTE);
+                        sat.SetMaxDataStorage( Convert.ToInt32(timeline.resource.max), customPlan.getSatelliteStorageSizeType());
                     }
                     //sat.SetMaxDataStorage(16, Structs.DataSize.GBYTE);
                     if (sat != null)
@@ -200,25 +200,38 @@ namespace MARRSS.Scenarios
 
                             if (startTime.getEpoch() <= input.getEndTime().getEpoch())
                             {
-                                int dataPacketSize = 0;
+                                long dataPacketSize = 0;
                                 if (storages.Count() >= 3)
                                 {
-                                    dataPacketSize = (int)(Double.Parse(storages[2]) * 1024 * 1024 * 1024);
-
-                                    var counter = 0;
-                                    for (int i = 0; i < timeDurationInMin * 60; i += 60)
+                                    var dataRate = customPlan.getDataRate();
+                                    var multiplyer = calculateDataPacketSize(customPlan.getDataRate());
+                                    dataPacketSize = (long)(Double.Parse(storages[2]) * multiplyer);
+                                    if (dataPacketSize > 0)
                                     {
-                                        startTime.addTick(60);
-                                        var packet = new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), 60);
-                                        sat.getDataStorage().AddDataPacketToDataList(packet);
-                                        globalCounter += packet.getStoredData();
-                                        counter += 1;
-                                    }
-                                    if (counter < timeDurationInMin * 60)
-                                    {
-                                        var rest = timeDurationInMin * 60 % 1;
-                                        startTime.addTick(60 * rest);
-                                        sat.getDataStorage().AddDataPacketToDataList(new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), 60));
+                                        if (timeDurationInMin > 1.0)
+                                        {
+                                            var counter = 0;
+                                            for (int i = 0; i < timeDurationInMin * 60; i += 60)
+                                            {
+                                                startTime.addTick(60);
+                                                var packet = new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), 60);
+                                                sat.getDataStorage().AddDataPacketToDataList(packet);
+                                                globalCounter += packet.getStoredData();
+                                                counter += 1;
+                                            }
+                                            if (counter * 60 < timeDurationInMin * 60)
+                                            {
+                                                var rest = (timeDurationInMin * 60) - (counter * 60);
+                                                startTime.addTick(rest);
+                                                sat.getDataStorage().AddDataPacketToDataList(new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), rest));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var rest = timeDurationInMin * 60;
+                                            startTime.addTick(rest);
+                                            sat.getDataStorage().AddDataPacketToDataList(new Satellite.DataPacket(dataPacketSize, 4, new EpochTime(startTime), rest));
+                                        }
                                     }
                                 }
                             }
@@ -227,6 +240,28 @@ namespace MARRSS.Scenarios
                     }
                 }
             }
+        }
+
+        public static double calculateDataPacketSize(JPlan.dataRateType datarate)
+        {
+            switch(datarate)
+            {
+                case JPlan.dataRateType.Byte_p_Millisecond:
+                    return 1000.0;
+                case JPlan.dataRateType.Byte_p_Second:
+                    return 1.0;
+                case JPlan.dataRateType.KByte_p_Second:
+                    return 1000.0;
+                case JPlan.dataRateType.KByte_p_Millisecond:
+                    return 1000.0 * 1000.0;
+                case JPlan.dataRateType.MByte_p_Millisecond:
+                    return 1000.0 * 1000.0 * 1000.0;
+                case JPlan.dataRateType.MByte_p_Second:
+                    return 1000.0 * 1000.0 * 1000.0 * 1000.0;
+                case JPlan.dataRateType.GByte_p_Second:
+                    return 1000.0 * 1000.0 * 1000.0 * 1000.0 * 1000.0;
+            }
+            return 1;
         }
     }
 }

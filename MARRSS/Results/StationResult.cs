@@ -45,8 +45,8 @@ namespace MARRSS.Results
 
         private void CalculateData()
         {
-            var dataDown = 0.0;
-            var timedown = 0;
+            double dataDown = 0.0;
+            double timedown = 0;
                         
             for (int i = 0; i < contacts.Count(); i++)
             {

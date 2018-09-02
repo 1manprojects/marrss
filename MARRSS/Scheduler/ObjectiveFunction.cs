@@ -252,7 +252,7 @@ namespace MARRSS.Scheduler
         private void CalculateDownlink(ContactWindowsVector solution, int index)
         {
             var station = GetStationByName(solution.getAt(index).StationName);
-            long packetSize = Convert.ToInt32(solution.getAt(index).ContactDuration()) * (long)Math.Ceiling(station.getMaxDownLink());
+            long packetSize = (long)Math.Ceiling(station.getMaxDownLink());
             if (packetSize > 0)
             {
                 if (GetSatelliteByName(solution.getAt(index).SatelliteName) != null)
