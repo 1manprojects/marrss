@@ -113,6 +113,10 @@ namespace MARRSS.Scheduler
             return "Example Scheduler";
         }
 
+        public string getName()
+        {
+            return "Example";
+        }
 
     }
 }

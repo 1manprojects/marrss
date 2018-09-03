@@ -270,7 +270,7 @@ namespace MARRSS
             //display resulst on main Page
             RunScheduler.displayResults(this, scheduler, problem);
             //finisch clean up and write to logs if necesarry
-            finischSchedule(scheduler.ToString(), problem, logFile);
+            finischSchedule(scheduler.getName(), problem, logFile);
             currentProblem = problem;
         }
         
@@ -1208,9 +1208,9 @@ namespace MARRSS
         /*!
             
         */
-        public void incrementProgressBar()
+        public void incrementProgressBar(int val = 0)
         {
-            MainFunctions.incrementProgressBar(progressBar1);
+            MainFunctions.incrementProgressBar(progressBar1, val);
         }
 
         //! Resets the progress bar on main Form
@@ -1403,6 +1403,7 @@ namespace MARRSS
             {
                 long size = (long)onBoardStoargeSizeText.Value;
                 _MainDataBase.updateSatelliteStorage(satName, size, comboBoxSatelliteStorage.SelectedIndex);
+                
             }
             catch
             {
@@ -1439,6 +1440,10 @@ namespace MARRSS
                 var test = checkedSatellites.Items[i].ToString().ToLower();
                 if (sats.Contains(test))
                     checkedSatellites.SetItemChecked(i, true);
+            }
+            for (int i = 0; i < checkedStations.Items.Count; i++)
+            {
+                checkedStations.SetItemChecked(i, true);
             }
         }
 
@@ -1560,6 +1565,11 @@ namespace MARRSS
             var savePath = Properties.Settings.Default.global_ResultSavePath;
             var logFile = MainFunctions.getLogFileName();
             res.saveJsonResult(savePath + "\\" + logFile + "_Result.json");
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

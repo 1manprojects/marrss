@@ -249,5 +249,10 @@ namespace MARRSS.Scheduler
         {
             return "EFT-Greedy Scheduler";
         }
+
+        public string getName()
+        {
+            return "EFT-Greedy Scheduler";
+        }
     }
 }

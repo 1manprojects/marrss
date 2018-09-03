@@ -15,6 +15,13 @@ namespace MARRSS.Satellite
         private double packetTimeFrame; //in seconds
 
         private EpochTime timeStamp;
+        private dataType type;
+
+        public enum dataType
+        {
+            CREATED,
+            DOWNLOADED
+        }
 
         public DataPacket()
         {
@@ -49,6 +56,16 @@ namespace MARRSS.Satellite
         public void setStoredData(long newData)
         {
             packetDataSize = newData;
+        }
+
+        public dataType getType()
+        {
+            return type;
+        }
+
+        public void setType(dataType datatype)
+        {
+            this.type = datatype;
         }
     }
 }

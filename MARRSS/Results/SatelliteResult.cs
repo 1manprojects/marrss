@@ -60,7 +60,7 @@ namespace MARRSS.Results
             for (int i = 0; i < contacts.Count(); i++)
             {
                 var con = contacts.getAt(i);
-                if (con.SatelliteName == SatelliteName)
+                if (con.SatelliteName == SatelliteName && con.IsScheduled)
                 {
                     countCon++;
                     duration += con.ContactDuration();
@@ -112,10 +112,49 @@ namespace MARRSS.Results
             removedPackets = removedPackets.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
             createdPackets = createdPackets.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
 
+            List<DataPacket> packets = new List<DataPacket>();
+            packets.AddRange(removedPackets);
+            packets.AddRange(createdPackets);
+            packets = packets.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
+
             long memorySize = 0;
             long lostMemorySize = 0;
             long downloadedData = 0;
             long maxMemGen = 0;
+
+            for (int i = 0; i < packets.Count; i ++)
+            {
+                var packet = packets[i];
+                if (packet.getType() == DataPacket.dataType.DOWNLOADED)
+                {
+                    if (memorySize > 0)
+                    {
+                        if (memorySize - packet.getStoredData() < 0)
+                        {
+                            downloadedData += memorySize;
+                            memorySize = 0;
+                        }
+                        else
+                        {
+                            downloadedData += packet.getStoredData();
+                            memorySize -= packet.getStoredData();
+                        }
+                    }
+                }
+                else
+                {
+                    maxMemGen += packet.getStoredData();
+                    if (memorySize + packet.getStoredData() > maxDataInByte)
+                    {
+                        lostMemorySize += memorySize + packet.getStoredData() - maxDataInByte;
+                        memorySize = maxDataInByte;
+                    }
+                    else
+                    {
+                        memorySize += packet.getStoredData();
+                    }
+                }
+            }
 
             /*
             foreach(var removed in removedPackets)
@@ -136,8 +175,44 @@ namespace MARRSS.Results
                         counted++;
                 }
 
+                for(int i = 0; i < counted; i++)
+                {
+                    var toAdd = createdPackets[i];
+                    memorySize += toAdd.getStoredData();
+                    if (memorySize > maxDataInByte)
+                    {
+                        lostMemorySize += memorySize - maxDataInByte;
+                        memorySize = maxDataInByte;
+                    }
+                }
+                createdPackets.RemoveRange(0, counted);
+
+                if (memorySize > 0)
+                {
+                    if (removed.getStoredData() >= memorySize)
+                    {
+                        memorySize -= removed.getStoredData();
+                        downloadedData += removed.getStoredData();
+                    }
+                    else
+                    {
+                        downloadedData += memorySize;
+                        memorySize = 0;
+                    }
+                }
+
             }*/
 
+            //foreach(var add in createdPackets)
+            //{
+            //    memorySize += add.getStoredData();
+            //    if (memorySize > maxDataInByte)
+            //    {
+            //        lostMemorySize += memorySize - maxDataInByte;
+            //        memorySize = maxDataInByte;
+            //    }
+            //}
+            /*
 
             for (int i = 0; i < removedPackets.Count(); i++)
             {
@@ -196,23 +271,28 @@ namespace MARRSS.Results
                     lostMemorySize += (memorySize + added.getStoredData()) - maxDataInByte;
                     memorySize = maxDataInByte;
                 }
+            }*/
 
-            }
+            //maxMemGen = 0;
+            //foreach (var i in currentSat.getDataStorage().GetCreatedDataPackets())
+            //{
+            //    maxMemGen += i.getStoredData();
+            //}
 
-            maxMemGen = 0;
-            foreach (var i in currentSat.getDataStorage().GetCreatedDataPackets())
-            {
-                maxMemGen += i.getStoredData();
-            }
-
-            raw_GeneratedData = maxMemGen;
-            
+            raw_GeneratedData = maxMemGen;            
             raw_DownData = downloadedData;
-            raw_LostData = raw_GeneratedData - raw_DownData;
-            if (raw_DownData > raw_GeneratedData)
-            {
-                raw_DownData = raw_GeneratedData;
-            }
+
+            //raw_LostData = raw_GeneratedData - raw_DownData - raw_GeneratedData;
+            //if (raw_LostData < 0)
+            //    raw_LostData = 0;
+            //if (raw_DownData > raw_GeneratedData)
+            //{
+            //    raw_DownData = raw_GeneratedData - memorySize;
+            //}
+            //if (raw_DownData < 0)
+            //{
+            //    raw_DownData = 0;
+            //}
 
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));

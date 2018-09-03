@@ -35,5 +35,6 @@ namespace MARRSS.Interface2
         ContactWindowsVector getFinischedSchedule();
         string ToString();
         void cancelCalculation();
+        string getName();
     }
 }

@@ -227,5 +227,10 @@ namespace MARRSS.Scheduler
         {
             return "Fair-Greedy Scheduler";
         }
+
+        public string getName()
+        {
+            return "Fair-Greedy Scheduler";
+        }
     }
 }

@@ -245,5 +245,10 @@ namespace MARRSS.Scheduler
             adaptiveMaxIterations = val;
         }
 
+        public string getName()
+        {
+            return "HillClimberScheduler";
+        }
+
     }
 }

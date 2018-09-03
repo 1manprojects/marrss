@@ -96,7 +96,8 @@ namespace MARRSS.Global
                     else
                     {
                         var dif = MemorySize + p.getStoredData() - MaxStorageCapacity;
-                        MemoryStorage.Add(new DataPacket(dif,4,p.getTimeStamp(), p.getDurationInSec()));
+                        var pa = new DataPacket(dif, 4, p.getTimeStamp(), p.getDurationInSec());
+                        MemoryStorage.Add(pa);
                         MemorySize += MaxStorageCapacity;                                            
                     }
                 }
@@ -111,12 +112,15 @@ namespace MARRSS.Global
             {
                 DownloadedData += packet.getStoredData();
                 MemorySize -= packet.getStoredData();
+                packet.setType(DataPacket.dataType.DOWNLOADED);
                 internalRemovedStorage.Add(packet);
             }
             else
             {
                 DownloadedData += MemorySize;
-                internalRemovedStorage.Add(new DataPacket(MemorySize, 4, packet.getTimeStamp(), packet.getDurationInSec()));
+                var pa = new DataPacket(MemorySize, 4, packet.getTimeStamp(), packet.getDurationInSec());
+                pa.setType(DataPacket.dataType.DOWNLOADED);
+                internalRemovedStorage.Add(pa);
                 MemorySize = 0;
             }
             AllDownlinkDuration += packet.getDurationInSec();
@@ -162,6 +166,7 @@ namespace MARRSS.Global
         public void addToDataStorage(DataPacket packet)
         {
             MaxPosibleData += packet.getStoredData();
+            packet.setType(DataPacket.dataType.CREATED);
             internalAddedStorage.Add(packet);
         }
 

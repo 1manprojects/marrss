@@ -172,7 +172,7 @@ namespace MARRSS.Scheduler
         */
         public void CalculateSchedule(ScheduleProblemInterface problem)
         {
-            
+            f.setProgressBar((int)(hours * 60));
             objective = problem.getObjectiveFunction();
             objective.Initialize(problem.getContactWindows(), problem.getSatellites(), problem.getGroundStations());
             set = problem.getContactWindows();
@@ -217,9 +217,10 @@ namespace MARRSS.Scheduler
                 }
             }
             //--
+            DateTime start = DateTime.Now;
             bool foundSolution = false;
             while (!foundSolution)
-            {
+            {                
                 generation++;
                 //clear SatelliteData
                 ClearSatelliteDonwnlinkData(problem);
@@ -266,7 +267,7 @@ namespace MARRSS.Scheduler
 
                 if (f != null)
                 {
-                    f.incrementProgressBar();
+                    f.updateProgressBar((int)DateTime.Now.Subtract(start).Minutes);
                 }
             }
             if (solveConflict)
@@ -749,5 +750,11 @@ namespace MARRSS.Scheduler
             }
             return name;
         }
+
+        public string getName()
+        {
+            return "GeneticScheduler";
+        }
+
     }
 }

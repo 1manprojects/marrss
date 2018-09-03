@@ -83,10 +83,18 @@ namespace MARRSS
         /*! 
            \param ToolStripProgressBar progress bar
         */
-        public static void incrementProgressBar(ToolStripProgressBar bar)
+        public static void incrementProgressBar(ToolStripProgressBar bar, int val = -1)
         {
-            bar.Increment(1);
-            bar.ProgressBar.Refresh();
+            if (val == -1)
+            {
+                bar.Increment(1);
+                bar.ProgressBar.Refresh();
+            }
+            else
+            {
+                bar.Increment(val);
+                bar.ProgressBar.Refresh();
+            }
             if (bar.Value >= bar.Maximum)
             {
                 bar.Value = 0;

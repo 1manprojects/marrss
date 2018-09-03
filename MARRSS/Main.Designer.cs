@@ -141,6 +141,7 @@ namespace MARRSS
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.saveResultButton = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.panel5 = new System.Windows.Forms.Panel();
             this.resultSeletNameLabel = new System.Windows.Forms.Label();
@@ -307,7 +308,6 @@ namespace MARRSS
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.saveResultButton = new System.Windows.Forms.Button();
             resultsTimeSumLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -482,25 +482,26 @@ namespace MARRSS
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem1
             // 
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(175, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(172, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(177, 6);
             // 
             // tLEDataToolStripMenuItem
             // 
             this.tLEDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateTLEsToolStripMenuItem});
             this.tLEDataToolStripMenuItem.Name = "tLEDataToolStripMenuItem";
-            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tLEDataToolStripMenuItem.Text = "TLE-Data";
             // 
             // updateTLEsToolStripMenuItem
@@ -513,26 +514,26 @@ namespace MARRSS
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(172, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
             // 
             // objectiveBuilderToolStripMenuItem
             // 
             this.objectiveBuilderToolStripMenuItem.Name = "objectiveBuilderToolStripMenuItem";
-            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.objectiveBuilderToolStripMenuItem.Text = "Objective Builder";
             this.objectiveBuilderToolStripMenuItem.Click += new System.EventHandler(this.objectiveBuilderToolStripMenuItem_Click);
             // 
             // scenariosToolStripMenuItem
             // 
             this.scenariosToolStripMenuItem.Name = "scenariosToolStripMenuItem";
-            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.scenariosToolStripMenuItem.Text = "Scenarios";
             this.scenariosToolStripMenuItem.Click += new System.EventHandler(this.scenariosToolStripMenuItem_Click);
             // 
             // loadDataScenarioToolStripMenuItem
             // 
             this.loadDataScenarioToolStripMenuItem.Name = "loadDataScenarioToolStripMenuItem";
-            this.loadDataScenarioToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.loadDataScenarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadDataScenarioToolStripMenuItem.Text = "Load Data Scenario";
             this.loadDataScenarioToolStripMenuItem.Click += new System.EventHandler(this.loadDataScenarioToolStripMenuItem_Click);
             // 
@@ -602,7 +603,7 @@ namespace MARRSS
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(785, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(754, 17);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -1391,6 +1392,16 @@ namespace MARRSS
             this.splitContainer1.Size = new System.Drawing.Size(988, 581);
             this.splitContainer1.SplitterDistance = 206;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // saveResultButton
+            // 
+            this.saveResultButton.Location = new System.Drawing.Point(64, 552);
+            this.saveResultButton.Name = "saveResultButton";
+            this.saveResultButton.Size = new System.Drawing.Size(75, 23);
+            this.saveResultButton.TabIndex = 1;
+            this.saveResultButton.Text = "Save Results";
+            this.saveResultButton.UseVisualStyleBackColor = true;
+            this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click);
             // 
             // treeView1
             // 
@@ -3029,16 +3040,6 @@ namespace MARRSS
             this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // saveResultButton
-            // 
-            this.saveResultButton.Location = new System.Drawing.Point(64, 552);
-            this.saveResultButton.Name = "saveResultButton";
-            this.saveResultButton.Size = new System.Drawing.Size(75, 23);
-            this.saveResultButton.TabIndex = 1;
-            this.saveResultButton.Text = "Save Results";
-            this.saveResultButton.UseVisualStyleBackColor = true;
-            this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click);
             // 
             // Main
             // 

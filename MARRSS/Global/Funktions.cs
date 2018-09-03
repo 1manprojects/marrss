@@ -111,6 +111,9 @@ namespace MARRSS.Global
             var ret = "Byte";
             switch(count)
             {
+                case 0:
+                    ret = "Byte";
+                    break;
                 case 1:
                     ret = "KByte";
                     break;
@@ -122,6 +125,12 @@ namespace MARRSS.Global
                     break;
                 case 4:
                     ret = "TByte";
+                    break;
+                case 5:
+                    ret = "PByte";
+                    break;
+                default:
+                    ret = "ERROR";
                     break;
             }
             return ret;

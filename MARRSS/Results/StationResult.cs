@@ -75,7 +75,7 @@ namespace MARRSS.Results
             for (int i = 0; i < contacts.Count(); i++)
             {
                 var con = contacts.getAt(i);
-                if (con.StationName == StationName)
+                if (con.StationName == StationName && con.IsScheduled)
                 {
                     countCon++;
                     duration += con.ContactDuration();
