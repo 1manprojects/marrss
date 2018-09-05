@@ -84,22 +84,21 @@ namespace MARRSS.Results
             allPackest.AddRange(downPackets);
             allPackest.AddRange(genPackets);
             List<Satellite.DataPacket> SortedList = allPackest.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
-
+            /*
             dataSeries.Points.Add(new DataPoint(0, 0));
-            //DataStorageSet.Add(new Point(0, 0));
             for (int i = 0; i < SortedList.Count; i++)
             {
-                //DataStorageSet.Add(new Point(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
-                //dataSeries.Points.Add(new DataPoint(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
-                //var time = SortedList[i].getTimeStamp();
-                //time.addTick(SortedList[i].getDurationInSec());
-                //var x = Convert.ToInt32(time.getEpoch());
-                //var y = Convert.ToInt32(SortedList[i].getStoredData());
-                //if (y >= currentSat.getDataStorage().getMaxDataSize())
-                //    y = Convert.ToInt32(currentSat.getDataStorage().getMaxDataSize());
-                //dataSeries.Points.Add(new DataPoint(x, y));
+                dataSeries.Points.Add(new DataPoint(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
+                var time = SortedList[i].getTimeStamp();
+                time.addTick(SortedList[i].getDurationInSec());
+                var x = Convert.ToInt32(time.getEpoch());
+                var y = Convert.ToInt32(SortedList[i].getStoredData()/(1000*1000));
+                if (y >= currentSat.getDataStorage().getMaxDataSize())
+                    y = Convert.ToInt32(currentSat.getDataStorage().getMaxDataSize());
+                dataSeries.Points.Add(new DataPoint(x, y));
             }
             datamodel.Series.Add(dataSeries);
+            */
             return datamodel;
         }
 
