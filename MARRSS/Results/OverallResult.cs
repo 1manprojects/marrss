@@ -167,7 +167,17 @@ namespace MARRSS.Results
             StationResults = new List<StationResult>();
             foreach (var sat in sats)
             {
-                SatelliteResults.Add(new SatelliteResult(contacts, sat.getName(), sats));
+                var res = new SatelliteResult(contacts, sat.getName(), sats);
+                var rawPlotData = res.GetPlotDataOfSatellite();
+                using (StreamWriter file = new StreamWriter(output + sat.getName() + "_storage.txt"))
+                {
+                    foreach (MemPoint p in rawPlotData)
+                    {
+                        file.WriteLine(p.ToString());
+                    }
+                }
+                SatelliteResults.Add(res);
+                
             }
             foreach (var stat in stats)
             {

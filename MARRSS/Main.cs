@@ -1501,7 +1501,7 @@ namespace MARRSS
                     satResultAvDurationLabel.Text = res.AverageContactWindowDuration;
                     satResultMaxDataLabel.Text = res.MaxDataStorage;
                     satResultMemAtEndLabel.Text = res.StorageCapacityAtEnd;
-                    plot1.Model = res.GeneratePlotData();
+                    plot1.Model = res.GetStoragePlotModel();
 
                     res = null;
                 }

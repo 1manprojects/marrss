@@ -32,6 +32,8 @@ namespace MARRSS.Results
         private Satellite.Satellite currentSat;
         private OxyPlot.PlotModel datamodel;
 
+        private List<MemPoint> storageRawPlotData;
+
         private double raw_GeneratedData;
         private double raw_LostData;
         private double raw_DownData;
@@ -42,6 +44,7 @@ namespace MARRSS.Results
 
         public SatelliteResult(ContactWindowsVector schedulingResult, string Satellitename, List<Satellite.Satellite> satellites)
         {
+            datamodel = new PlotModel { Title = SatelliteName + " Storage" };
             contacts = schedulingResult;
             SatelliteName = Satellitename;
             sats = satellites;
@@ -72,38 +75,17 @@ namespace MARRSS.Results
             OverallContactsDuration = string.Format("{0} sec.", Math.Round(duration,4));
         }
 
-        public PlotModel GeneratePlotData()
+        public PlotModel GetStoragePlotModel()
         {
-            datamodel = new PlotModel { Title = "Storage" };
-            LineSeries dataSeries = new LineSeries(); 
-            var downPackets = currentSat.getDataStorage().GetDownloadedDataPackets();
-            var genPackets = currentSat.getDataStorage().GetCreatedDataPackets();
-            var max = currentSat.getDataStorage().getMaxDataSize();
-
-            var allPackest = new List<Satellite.DataPacket>();
-            allPackest.AddRange(downPackets);
-            allPackest.AddRange(genPackets);
-            List<Satellite.DataPacket> SortedList = allPackest.OrderBy(o => o.getTimeStamp().getEpoch()).ToList();
-            /*
-            dataSeries.Points.Add(new DataPoint(0, 0));
-            for (int i = 0; i < SortedList.Count; i++)
-            {
-                dataSeries.Points.Add(new DataPoint(Convert.ToInt32((SortedList[i].getTimeStamp().getEpoch())), 0));
-                var time = SortedList[i].getTimeStamp();
-                time.addTick(SortedList[i].getDurationInSec());
-                var x = Convert.ToInt32(time.getEpoch());
-                var y = Convert.ToInt32(SortedList[i].getStoredData()/(1000*1000));
-                if (y >= currentSat.getDataStorage().getMaxDataSize())
-                    y = Convert.ToInt32(currentSat.getDataStorage().getMaxDataSize());
-                dataSeries.Points.Add(new DataPoint(x, y));
-            }
-            datamodel.Series.Add(dataSeries);
-            */
             return datamodel;
         }
 
         private void CalcuateStorageDetails()
         {
+            datamodel = new PlotModel { Title = "Storage" };
+            LineSeries dataSeries = new LineSeries();
+            storageRawPlotData = new List<MemPoint>();
+
             var maxDataInByte = currentSat.getDataStorage().getMaxDataSize();
             List<DataPacket> removedPackets = new List<DataPacket>(currentSat.getDataStorage().GetDownloadedDataPackets());
             List<DataPacket> createdPackets = new List<DataPacket>(currentSat.getDataStorage().GetCreatedDataPackets());
@@ -121,9 +103,14 @@ namespace MARRSS.Results
             long downloadedData = 0;
             long maxMemGen = 0;
 
+            var timepoint = packets[0].getTimeStamp().getEpoch();
+            dataSeries.Points.Add(new DataPoint(timepoint, 0));
+            storageRawPlotData.Add(new MemPoint(timepoint, 0));
+
             for (int i = 0; i < packets.Count; i ++)
-            {
+            {                
                 var packet = packets[i];
+                timepoint = packet.getTimeStamp().getEpoch();
                 if (packet.getType() == DataPacket.dataType.DOWNLOADED)
                 {
                     if (memorySize > 0)
@@ -153,151 +140,43 @@ namespace MARRSS.Results
                         memorySize += packet.getStoredData();
                     }
                 }
+                dataSeries.Points.Add(new DataPoint(timepoint, convertByteToSize(memorySize)));
+                storageRawPlotData.Add(new MemPoint(timepoint, memorySize));
             }
 
-            /*
-            foreach(var removed in removedPackets)
-            {
-                var counted = 0;
-                foreach(var added in createdPackets)
-                {
-                    var endRemoved = removed.getTimeStamp();
-                    endRemoved.addTick(removed.getDurationInSec());
-                    var endRemovedEpoch = endRemoved.getEpoch();
+            datamodel.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Bottom, Title = "EpochTime" });
+            datamodel.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, Title = "Storage in " + Funktions.getDataSizeToString(maxDataInByte) });
 
-                    var beginnAdded = added.getTimeStamp().getEpoch();
-                    if (beginnAdded >= endRemovedEpoch)
-                    {
-                        break;
-                    }
-                    else
-                        counted++;
-                }
-
-                for(int i = 0; i < counted; i++)
-                {
-                    var toAdd = createdPackets[i];
-                    memorySize += toAdd.getStoredData();
-                    if (memorySize > maxDataInByte)
-                    {
-                        lostMemorySize += memorySize - maxDataInByte;
-                        memorySize = maxDataInByte;
-                    }
-                }
-                createdPackets.RemoveRange(0, counted);
-
-                if (memorySize > 0)
-                {
-                    if (removed.getStoredData() >= memorySize)
-                    {
-                        memorySize -= removed.getStoredData();
-                        downloadedData += removed.getStoredData();
-                    }
-                    else
-                    {
-                        downloadedData += memorySize;
-                        memorySize = 0;
-                    }
-                }
-
-            }*/
-
-            //foreach(var add in createdPackets)
-            //{
-            //    memorySize += add.getStoredData();
-            //    if (memorySize > maxDataInByte)
-            //    {
-            //        lostMemorySize += memorySize - maxDataInByte;
-            //        memorySize = maxDataInByte;
-            //    }
-            //}
-            /*
-
-            for (int i = 0; i < removedPackets.Count(); i++)
-            {
-                var removed = removedPackets[i];
-                var counted = 0;
-                for (int j = 0; j < createdPackets.Count(); j++)
-                {
-                    var added = createdPackets[j];
-                    if (added.getTimeStamp().getEpoch() <= removed.getTimeStamp().getEpoch())
-                    {
-                        maxMemGen += added.getStoredData();
-                        counted++;
-                        if (memorySize + added.getStoredData() <= maxDataInByte)
-                        {
-                            memorySize += added.getStoredData();
-                        }
-                        else
-                        {
-                            lostMemorySize += (memorySize + added.getStoredData()) - maxDataInByte;
-                            memorySize = maxDataInByte;
-                        }
-                    }
-                    else
-                    {
-                        createdPackets.RemoveRange(0, counted);
-                        break;
-                    }
-                }
-
-                if (memorySize - removed.getStoredData() >= 0)
-                {
-                    memorySize -= removed.getStoredData();
-                    downloadedData += removed.getStoredData();
-                }
-                else
-                {
-                    if (memorySize > 0)
-                    {
-                        downloadedData += memorySize;
-                        memorySize = 0;
-                    }
-
-                }
-            }
-
-            for (int j = 0; j < createdPackets.Count(); j++)
-            {
-                var added = createdPackets[j];
-                maxMemGen += added.getStoredData();
-                if (memorySize + added.getStoredData() <= maxDataInByte)
-                {
-                    memorySize += added.getStoredData();
-                }
-                else
-                {
-                    lostMemorySize += (memorySize + added.getStoredData()) - maxDataInByte;
-                    memorySize = maxDataInByte;
-                }
-            }*/
-
-            //maxMemGen = 0;
-            //foreach (var i in currentSat.getDataStorage().GetCreatedDataPackets())
-            //{
-            //    maxMemGen += i.getStoredData();
-            //}
+            //dataSeries.XAxis.Title = "Epoch Time";
+            //dataSeries.YAxis.Title = "Storage in " + Funktions.getDataSizeToString(maxDataInByte);
+            datamodel.Series.Add(dataSeries);
 
             raw_GeneratedData = maxMemGen;            
             raw_DownData = downloadedData;
-
-            //raw_LostData = raw_GeneratedData - raw_DownData - raw_GeneratedData;
-            //if (raw_LostData < 0)
-            //    raw_LostData = 0;
-            //if (raw_DownData > raw_GeneratedData)
-            //{
-            //    raw_DownData = raw_GeneratedData - memorySize;
-            //}
-            //if (raw_DownData < 0)
-            //{
-            //    raw_DownData = 0;
-            //}
 
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));
             LostData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(raw_LostData), Funktions.getDataSizeToString(raw_LostData));
             DownloadedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(raw_DownData), Funktions.getDataSizeToString(raw_DownData));
             StorageCapacityAtEnd = string.Format("{0} {1}", Funktions.GetHumanReadableSize(memorySize), Funktions.getDataSizeToString(memorySize));
+        }
+
+        public List<MemPoint> GetPlotDataOfSatellite()
+        {
+            return storageRawPlotData;
+        }
+
+        private double convertByteToSize(long memory)
+        {
+            var maxDataInByte = currentSat.getDataStorage().getMaxDataSize();
+            var maxSizeType = Funktions.getDataSize(maxDataInByte);
+
+            double res = memory;
+            for (int i = 0; i < maxSizeType; i++)
+            {
+                res = res / 1000.0;
+            }
+            return res;
         }
     }
 }
