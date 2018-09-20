@@ -308,6 +308,8 @@ namespace MARRSS
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.avgTimeDownLinkLabel = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
             resultsTimeSumLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -487,21 +489,21 @@ namespace MARRSS
             // settingsToolStripMenuItem1
             // 
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(175, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(172, 6);
             // 
             // tLEDataToolStripMenuItem
             // 
             this.tLEDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateTLEsToolStripMenuItem});
             this.tLEDataToolStripMenuItem.Name = "tLEDataToolStripMenuItem";
-            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tLEDataToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.tLEDataToolStripMenuItem.Text = "TLE-Data";
             // 
             // updateTLEsToolStripMenuItem
@@ -514,26 +516,26 @@ namespace MARRSS
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(172, 6);
             // 
             // objectiveBuilderToolStripMenuItem
             // 
             this.objectiveBuilderToolStripMenuItem.Name = "objectiveBuilderToolStripMenuItem";
-            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.objectiveBuilderToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.objectiveBuilderToolStripMenuItem.Text = "Objective Builder";
             this.objectiveBuilderToolStripMenuItem.Click += new System.EventHandler(this.objectiveBuilderToolStripMenuItem_Click);
             // 
             // scenariosToolStripMenuItem
             // 
             this.scenariosToolStripMenuItem.Name = "scenariosToolStripMenuItem";
-            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.scenariosToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.scenariosToolStripMenuItem.Text = "Scenarios";
             this.scenariosToolStripMenuItem.Click += new System.EventHandler(this.scenariosToolStripMenuItem_Click);
             // 
             // loadDataScenarioToolStripMenuItem
             // 
             this.loadDataScenarioToolStripMenuItem.Name = "loadDataScenarioToolStripMenuItem";
-            this.loadDataScenarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadDataScenarioToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.loadDataScenarioToolStripMenuItem.Text = "Load Data Scenario";
             this.loadDataScenarioToolStripMenuItem.Click += new System.EventHandler(this.loadDataScenarioToolStripMenuItem_Click);
             // 
@@ -603,7 +605,7 @@ namespace MARRSS
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(754, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(785, 17);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -1443,6 +1445,8 @@ namespace MARRSS
             // 
             // satRestultPanel
             // 
+            this.satRestultPanel.Controls.Add(this.avgTimeDownLinkLabel);
+            this.satRestultPanel.Controls.Add(this.label64);
             this.satRestultPanel.Controls.Add(this.satResultMemAtEndLabel);
             this.satRestultPanel.Controls.Add(this.label52);
             this.satRestultPanel.Controls.Add(this.satResultMaxDataLabel);
@@ -3041,6 +3045,24 @@ namespace MARRSS
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // avgTimeDownLinkLabel
+            // 
+            this.avgTimeDownLinkLabel.AutoSize = true;
+            this.avgTimeDownLinkLabel.Location = new System.Drawing.Point(654, 107);
+            this.avgTimeDownLinkLabel.Name = "avgTimeDownLinkLabel";
+            this.avgTimeDownLinkLabel.Size = new System.Drawing.Size(13, 13);
+            this.avgTimeDownLinkLabel.TabIndex = 62;
+            this.avgTimeDownLinkLabel.Text = "--";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(555, 81);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(142, 13);
+            this.label64.TabIndex = 61;
+            this.label64.Text = "Avg. Time to Download data";
+            // 
             // Main
             // 
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
@@ -3394,5 +3416,7 @@ namespace MARRSS
         private System.Windows.Forms.Label satResultMemAtEndLabel;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Button saveResultButton;
+        private System.Windows.Forms.Label avgTimeDownLinkLabel;
+        private System.Windows.Forms.Label label64;
     }
 }

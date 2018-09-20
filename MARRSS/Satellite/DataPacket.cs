@@ -1,10 +1,4 @@
-﻿using MARRSS.Global;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using One_Sgp4;
+﻿using One_Sgp4;
 
 namespace MARRSS.Satellite
 {
@@ -15,6 +9,7 @@ namespace MARRSS.Satellite
         private double packetTimeFrame; //in seconds
 
         private EpochTime timeStamp;
+        private EpochTime timeDownlink;
         private dataType type;
 
         public enum dataType
@@ -66,6 +61,16 @@ namespace MARRSS.Satellite
         public void setType(dataType datatype)
         {
             this.type = datatype;
+        }
+
+        public void setCompletiontime(EpochTime downTime)
+        {
+            this.timeDownlink = downTime;
+        }
+
+        public EpochTime getCompletiontime()
+        {
+            return this.timeDownlink;
         }
     }
 }

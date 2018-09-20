@@ -165,6 +165,7 @@ namespace MARRSS.Results
         {
             SatelliteResults = new List<SatelliteResult>();
             StationResults = new List<StationResult>();
+
             foreach (var sat in sats)
             {
                 var res = new SatelliteResult(contacts, sat.getName(), sats);

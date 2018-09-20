@@ -25,6 +25,7 @@ namespace MARRSS.Results
         public string SatelliteName { get; set; }
         public string MaxDataStorage { get; set; }
         public string StorageCapacityAtEnd { get; set; }
+        public string AverageTimeToDownlink { get; set; }
 
         private ContactWindowsVector contacts;
         private List<Satellite.Satellite> sats;
@@ -37,10 +38,12 @@ namespace MARRSS.Results
         private double raw_GeneratedData;
         private double raw_LostData;
         private double raw_DownData;
+        private double raw_avgDownlinkTime;
 
         public double GetGeneratedData() { return raw_GeneratedData; }
         public double GetLostData() { return raw_LostData; }
         public double GetDownedData() { return raw_DownData; }
+        public double GetAvgDownlinkTime() { return raw_avgDownlinkTime; }
 
         public SatelliteResult(ContactWindowsVector schedulingResult, string Satellitename, List<Satellite.Satellite> satellites)
         {
@@ -102,13 +105,15 @@ namespace MARRSS.Results
             long lostMemorySize = 0;
             long downloadedData = 0;
             long maxMemGen = 0;
+            double rawCompletionTime = 0.0;
 
             var timepoint = packets[0].getTimeStamp().getEpoch();
             dataSeries.Points.Add(new DataPoint(timepoint, 0));
             storageRawPlotData.Add(new MemPoint(timepoint, 0));
 
+            var tempPos = 0;
             for (int i = 0; i < packets.Count; i ++)
-            {                
+            {              
                 var packet = packets[i];
                 timepoint = packet.getTimeStamp().getEpoch();
                 if (packet.getType() == DataPacket.dataType.DOWNLOADED)
@@ -126,6 +131,23 @@ namespace MARRSS.Results
                             memorySize -= packet.getStoredData();
                         }
                     }
+                    //set completion time for each packets
+                    var toDownload = packet.getStoredData();
+                    var counter = tempPos;
+                    for (int j = tempPos +1; j <= i; j++)
+                    {
+                        if (packets[j].getType() != DataPacket.dataType.DOWNLOADED)
+                        {
+                            if (toDownload - packets[j].getStoredData() >= 0)
+                            {
+                                toDownload = toDownload - packets[j].getStoredData();
+                                packets[j].setCompletiontime(packet.getTimeStamp());
+                                rawCompletionTime += 24.0 * 60 * (packet.getTimeStamp().getEpoch() - packets[j].getTimeStamp().getEpoch());
+                                counter++;
+                            }
+                        }
+                    }
+                    tempPos = counter;
                 }
                 else
                 {
@@ -138,7 +160,7 @@ namespace MARRSS.Results
                     else
                     {
                         memorySize += packet.getStoredData();
-                    }
+                    }                    
                 }
                 dataSeries.Points.Add(new DataPoint(timepoint, convertByteToSize(memorySize)));
                 storageRawPlotData.Add(new MemPoint(timepoint, memorySize));
@@ -151,14 +173,17 @@ namespace MARRSS.Results
             //dataSeries.YAxis.Title = "Storage in " + Funktions.getDataSizeToString(maxDataInByte);
             datamodel.Series.Add(dataSeries);
 
+            raw_LostData = lostMemorySize;
             raw_GeneratedData = maxMemGen;            
             raw_DownData = downloadedData;
+            raw_avgDownlinkTime = rawCompletionTime / createdPackets.Count;
 
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));
             LostData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(raw_LostData), Funktions.getDataSizeToString(raw_LostData));
             DownloadedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(raw_DownData), Funktions.getDataSizeToString(raw_DownData));
             StorageCapacityAtEnd = string.Format("{0} {1}", Funktions.GetHumanReadableSize(memorySize), Funktions.getDataSizeToString(memorySize));
+            AverageTimeToDownlink = string.Format("{0}", convertTimeToReadable(raw_avgDownlinkTime));
         }
 
         public List<MemPoint> GetPlotDataOfSatellite()
@@ -177,6 +202,27 @@ namespace MARRSS.Results
                 res = res / 1000.0;
             }
             return res;
+        }
+
+        private static string convertTimeToReadable(double avgTime)
+        {
+            var res = avgTime*60;
+            if (res / 60 <= 1)
+            {
+                return string.Format("{0:0.000}", res) + " sec.";
+            }
+            if (res / (60 * 60) <= 1)
+            {
+                res = res / 60;
+                return string.Format("{0:0.000}", res) + " min.";
+            }
+            if (res / (60 * 60 * 24) <= 1)
+            {
+                res = res / (60 * 60);
+                return string.Format("{0:0.000}", res) + " hours";
+            }
+            res = res / (60 * 60 * 24);
+            return string.Format("{0:0.000}", res) + " days";
         }
     }
 }
