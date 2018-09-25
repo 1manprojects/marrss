@@ -134,6 +134,7 @@ namespace MARRSS.Results
                     //set completion time for each packets
                     var toDownload = packet.getStoredData();
                     var counter = tempPos;
+                    //var compTime = 0.0;
                     for (int j = tempPos +1; j <= i; j++)
                     {
                         if (packets[j].getType() != DataPacket.dataType.DOWNLOADED)
@@ -142,11 +143,14 @@ namespace MARRSS.Results
                             {
                                 toDownload = toDownload - packets[j].getStoredData();
                                 packets[j].setCompletiontime(packet.getTimeStamp());
-                                rawCompletionTime += 24.0 * 60 * (packet.getTimeStamp().getEpoch() - packets[j].getTimeStamp().getEpoch());
+                                //rawCompletionTime += 24.0 * 60 * (packet.getTimeStamp().getEpoch() - packets[j].getTimeStamp().getEpoch());
+                                //compTime += 24.0 * 60 * (packet.getTimeStamp().getEpoch() - packets[j].getTimeStamp().getEpoch());
                                 counter++;
                             }
                         }
                     }
+                    //rawCompletionTime += compTime / counter;
+                    //rawCompletionTime += 24.0 * 60 * (packet.getTimeStamp().getEpoch() - packets[tempPos].getTimeStamp().getEpoch());
                     tempPos = counter;
                 }
                 else
@@ -176,7 +180,17 @@ namespace MARRSS.Results
             raw_LostData = lostMemorySize;
             raw_GeneratedData = maxMemGen;            
             raw_DownData = downloadedData;
-            raw_avgDownlinkTime = rawCompletionTime / removedPackets.Count;
+
+            rawCompletionTime = 0.0;
+            for (int i = 0; i < createdPackets.Count; i++)
+            {
+                var packet = createdPackets[i];
+                if (packet.getCompletiontime() != null)
+                    rawCompletionTime += packet.getCompletiontime().getEpoch() - packet.getTimeStamp().getEpoch();
+            }
+            rawCompletionTime = rawCompletionTime * 60.0 * 24.0;
+
+            raw_avgDownlinkTime = rawCompletionTime / createdPackets.Count;
 
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));
