@@ -176,7 +176,7 @@ namespace MARRSS.Results
             raw_LostData = lostMemorySize;
             raw_GeneratedData = maxMemGen;            
             raw_DownData = downloadedData;
-            raw_avgDownlinkTime = rawCompletionTime / createdPackets.Count;
+            raw_avgDownlinkTime = rawCompletionTime / removedPackets.Count;
 
             MaxDataStorage = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxDataInByte), Funktions.getDataSizeToString(maxDataInByte));
             GeneratedData = string.Format("{0} {1}", Funktions.GetHumanReadableSize(maxMemGen), Funktions.getDataSizeToString(maxMemGen));

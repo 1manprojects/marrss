@@ -54,7 +54,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="global_Random_Seed" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">58496</Value>
+      <Value Profile="(Default)">58497</Value>
     </Setting>
     <Setting Name="global_AutoSave" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
