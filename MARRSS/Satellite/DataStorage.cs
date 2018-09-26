@@ -118,7 +118,7 @@ namespace MARRSS.Global
             else
             {
                 DownloadedData += MemorySize;
-                var pa = new DataPacket(MemorySize, 4, packet.getTimeStamp(), packet.getDurationInSec());
+                var pa = new DataPacket( (long)(MemorySize / packet.getDurationInSec()), 4, packet.getTimeStamp(), packet.getDurationInSec());
                 pa.setType(DataPacket.dataType.DOWNLOADED);
                 internalRemovedStorage.Add(pa);
                 MemorySize = 0;

@@ -201,11 +201,11 @@ namespace MARRSS.Scenarios
                             if (startTime.getEpoch() <= input.getEndTime().getEpoch())
                             {
                                 long dataPacketSize = 0;
-                                if (storages.Count() >= 3)
+                                if (storages.Count() >= 2)
                                 {
                                     var dataRate = customPlan.getDataRate();
                                     var multiplyer = calculateDataPacketSize(customPlan.getDataRate());
-                                    dataPacketSize = (long)(Double.Parse(storages[2]) * multiplyer);
+                                    dataPacketSize = (long)(Double.Parse(storages.Last()) * multiplyer);
                                     if (dataPacketSize > 0)
                                     {
                                         if (timeDurationInMin > 1.0)
