@@ -540,7 +540,7 @@ namespace MARRSS
                 var savePath = Properties.Settings.Default.global_ResultSavePath;
                 var logFile = MainFunctions.getLogFileName();
                 Properties.Settings settings = Properties.Settings.Default;
-                string file = settings.global_ResultSavePath + "\\" + schedulerName + logfile+ "-results.json";
+                string file = settings.global_ResultSavePath + "\\" + schedulerName + JsonFileName + "-results.json";
                 res.saveJsonResult(file);
 
                 updateLog(logfile, "Results have been saved to File");
@@ -631,7 +631,7 @@ namespace MARRSS
                 One_Sgp4.Tle tle = sat.getTleData();
                 //One_Sgp4.Tle tle = _MainDataBase.getTleDataFromDB(satelliteNameLabel.Text);
 
-                onBoardStoargeSizeText.Value = sat.getDataStorage().getMaxDataSize();
+                onBoardStoargeSizeText.Value = Funktions.getDataSize(sat.getDataStorage().getMaxDataSize());
                 comboBoxSatelliteStorage.SelectedIndex = sat.getDataStorage().getSizeType();
 
                 if (tle.getStartYear() < 85)
@@ -1429,7 +1429,7 @@ namespace MARRSS
         {
             CustomDataScenario = plan;
             LoadedCustomData = true;
-            JsonFileName = openFileDialog1.FileName;
+            JsonFileName = plan.fileName;
             startDatePicker.Value = CustomDataScenario.temporalModule.origin;
             stopDatePicker.Value = CustomDataScenario.temporalModule.horizon;
             startTimePicker.Value = CustomDataScenario.temporalModule.origin;

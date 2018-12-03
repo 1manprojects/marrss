@@ -124,6 +124,7 @@ namespace MARRSS.Scheduler
                     mainform.updateProgressBar(iterations);
                 currentFitness = CalculateFitnessValue(result);
                 fillContacts(result);
+                solveConflictsByPriority(result);
             }
 
         }
@@ -205,6 +206,43 @@ namespace MARRSS.Scheduler
                 if (!confilcts)
                 {
                     contacts.getAt(i).setSheduled();
+                }
+            }
+        }
+
+        //! Solve Conflicts by Priority
+        /*!
+            this function will go throuh all conflicting elements that have
+            ben scheduled by the scheduler and will remove conflicting elements
+            with lower priority (None - Critical -> 4 - 0)
+        */
+        public void solveConflictsByPriority(ContactWindowsVector contacts)
+        {
+            if (contacts != null)
+            {
+                for (int i = 0; i < contacts.Count(); i++)
+                {
+                    for (int k = 0; k < contacts.Count(); k++)
+                    {
+                        int maxPriority = (int)contacts.getAt(i).Priority;
+
+                        if (contacts.getAt(i).getSheduledInfo() && k != i &&
+                            contacts.getAt(k).getSheduledInfo() &&
+                            contacts.getAt(k).StationName == contacts.getAt(i).StationName &&
+                            contacts.getAt(i).checkConflikt(contacts.getAt(k)))
+                        {
+                            if ((int)contacts.getAt(k).Priority < maxPriority)
+                            {
+                                contacts.getAt(i).unShedule();
+                                break;
+                            }
+                            else
+                            {
+                                contacts.getAt(k).unShedule();
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -47,7 +47,12 @@ namespace MARRSS
             Task[] threads = new Task[tleData.Count()];
             for (int i = 0; i < tleData.Count(); i++)
             {
-                tasks[i] = new One_Sgp4.Sgp4(tleData[i], Properties.Settings.Default.orbit_Wgs);
+                Sgp4.wgsConstant wgsConstant = Sgp4.wgsConstant.WGS_72;
+                if (Properties.Settings.Default.orbit_Wgs == 1)
+                {
+                    wgsConstant = Sgp4.wgsConstant.WGS_84;
+                }
+                    tasks[i] = new One_Sgp4.Sgp4(tleData[i], wgsConstant);
                 tasks[i].setStart(start, stop, accuracy / 60.0);
                 threads[i] = new Task(tasks[i].starThread);
             }

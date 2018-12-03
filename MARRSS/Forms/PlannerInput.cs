@@ -15,6 +15,7 @@ namespace MARRSS.Forms
     public partial class PlannerInput : Form
     {
         private Main mainForm;
+        private string filename;
         public PlannerInput(Main form)
         {
             mainForm = form;
@@ -27,7 +28,7 @@ namespace MARRSS.Forms
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {
+        {            
             JPlan.dataRateType dataRate = JPlan.dataRateType.KByte_p_Second;
             switch(dataRateComboBox.SelectedIndex)
             {
@@ -83,6 +84,9 @@ namespace MARRSS.Forms
                     CustomDataScenario.setTimeSpansToUse(1);
                 if (radioButton3.Checked)
                     CustomDataScenario.setTimeSpansToUse(2);
+
+                CustomDataScenario.fileName = filename;
+
                 mainForm.LoadCustomScenario(CustomDataScenario);
                 Close();
             }
@@ -99,6 +103,7 @@ namespace MARRSS.Forms
             if (userSelect == DialogResult.OK)
             {
                 textBox1.Text = openFileDialog1.FileName;
+                filename = openFileDialog1.SafeFileName;
             }
         }
 
